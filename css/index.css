@@ -3180,6 +3180,15 @@ h1.page-title + .tag-cloud-list {
     transform: scale(0.7);
   }
 }
+#chatra:not(.chatra--expanded) {
+  visibility: hidden !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0 !important;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)" !important;
+  filter: alpha(opacity=0) !important;
+  pointer-events: none;
+}
 #post-comment .comment-head {
   margin-bottom: 20px;
 }
@@ -3247,6 +3256,45 @@ h1.page-title + .tag-cloud-list {
 }
 #post-comment .comment-wrap > div:nth-child(2) {
   display: none;
+}
+#veditor {
+  background-image: url("https://cdn.jsdelivr.net/gh/drew233/cdn/20200409110727.webp");
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right;
+  background-color: rgba(255,255,255,0);
+  resize: vertical;
+}
+#veditor:focus {
+  background-position-y: 200px;
+  -webkit-transition: all 0.2s ease-in-out 0s;
+  -moz-transition: all 0.2s ease-in-out 0s;
+  -o-transition: all 0.2s ease-in-out 0s;
+  -ms-transition: all 0.2s ease-in-out 0s;
+  transition: all 0.2s ease-in-out 0s;
+}
+#vcomments .vcards .vcard {
+  padding: 15px 20px 0 20px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  -webkit-box-shadow: 0 0 4px 1px rgba(0,0,0,0.12);
+  box-shadow: 0 0 4px 1px rgba(0,0,0,0.12);
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  transition: all 0.3s;
+}
+#vcomments .vcards .vcard:hover {
+  -webkit-box-shadow: 0 0 8px 3px rgba(0,0,0,0.12);
+  box-shadow: 0 0 8px 3px rgba(0,0,0,0.12);
+}
+#vcomments .vcards .vcard .vh .vcard {
+  border: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 #footer {
   position: relative;
