@@ -1,0 +1,616 @@
+<script type="text/javascript" src="../../source/js/love.js"></script><!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>RC4加密算法 | wolke</title><meta name="keywords" content="密码学"><meta name="author" content="w01ke"><meta name="copyright" content="w01ke"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="&amp;emsp;&amp;emsp;RC4加密算法是一种对称加密算法 一、对称加密算法&amp;emsp;&amp;emsp;对称加密(也叫私钥加密)指加密和解密使用相同密钥的加密算法。有时又叫传统密码算法，就是加密密钥能够从解密密钥中推算出来，同时解密密钥也可以从加密密钥中推算出来。而在大多数的对称算法中，加密密钥和解密密钥是相同的，所以也称这种加密算法为秘密密钥算法或单密钥算法。它要求发送方和接收方在安全通信之前，商定一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RC4加密算法">
+<meta property="og:url" content="https://w01ke.github.io/post/9dd1bdb.html">
+<meta property="og:site_name" content="wolke">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;RC4加密算法是一种对称加密算法 一、对称加密算法&amp;emsp;&amp;emsp;对称加密(也叫私钥加密)指加密和解密使用相同密钥的加密算法。有时又叫传统密码算法，就是加密密钥能够从解密密钥中推算出来，同时解密密钥也可以从加密密钥中推算出来。而在大多数的对称算法中，加密密钥和解密密钥是相同的，所以也称这种加密算法为秘密密钥算法或单密钥算法。它要求发送方和接收方在安全通信之前，商定一">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638015993488-6e14d89f-c789-4c1b-b5b2-5c431304f2d9.png">
+<meta property="article:published_time" content="2021-12-12T12:50:09.000Z">
+<meta property="article:modified_time" content="2021-12-12T13:15:58.772Z">
+<meta property="article:author" content="w01ke">
+<meta property="article:tag" content="密码学">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638015993488-6e14d89f-c789-4c1b-b5b2-5c431304f2d9.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://w01ke.github.io/post/9dd1bdb"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?https://hm.baidu.com/hm.js?9b5e9e86a0a422ec787d72998e8fdbff";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-Q0YHC68NHX"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Q0YHC68NHX');
+</script><link rel="stylesheet" href="/wolke" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: w01ke","link":"链接: ","source":"来源: wolke","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'RC4加密算法',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-12-12 21:15:58'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/static-butterfly/dist/css/index.min.css"><script src="/live2d-widget/autoload.js"></script><script src="/live2d-widget/autoload.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-Q0YHC68NHX', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/touxiang.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">22</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 菜单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-diamond"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/artitalk/"><i class="fa-fw fa fa-comments-o"></i><span> 说说</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638015993488-6e14d89f-c789-4c1b-b5b2-5c431304f2d9.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">wolke</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 菜单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-diamond"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/artitalk/"><i class="fa-fw fa fa-comments-o"></i><span> 说说</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">RC4加密算法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-12-12T12:50:09.000Z" title="发表于 2021-12-12 20:50:09">2021-12-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-12-12T13:15:58.772Z" title="更新于 2021-12-12 21:15:58">2021-12-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/">密码学</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="RC4加密算法"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>&emsp;&emsp;RC4加密算法是一种对称加密算法</p>
+<h1 id="一、对称加密算法"><a href="#一、对称加密算法" class="headerlink" title="一、对称加密算法"></a>一、对称加密算法</h1><p>&emsp;&emsp;对称加密(也叫私钥加密)指加密和解密使用相同<a target="_blank" rel="noopener" href="http://baike.baidu.com/view/934.htm">密钥</a>的加密算法。有时又叫传统密码算法，就是加密密钥能够从解密密钥中推算出来，同时解密密钥也可以从加密密钥中推算出来。而在大多数的对称算法中，加密密钥和解密密钥是相同的，所以也称这种加密算法为秘密密钥算法或单密钥算法。它要求发送方和接收方在安全通信之前，商定一个密钥。对称算法的安全性依赖于密钥，泄漏密钥就意味着任何人都可以对他们发送或接收的消息解密，所以密钥的保密性对通信的安全性至关重要。 </p>
+<h1 id="二、RC4加密算法"><a href="#二、RC4加密算法" class="headerlink" title="二、RC4加密算法"></a>二、RC4加密算法</h1><h2 id="1、预备知识"><a href="#1、预备知识" class="headerlink" title="1、预备知识"></a>1、预备知识</h2><h3 id="（1）异或"><a href="#（1）异或" class="headerlink" title="（1）异或"></a>（1）异或</h3><p>&emsp;&emsp;学习RC4加密算法之前，首先要知道：<strong>对明文使用同一个密钥异或两次最后是得到原文的</strong></p>
+<h3 id="（2）流密码"><a href="#（2）流密码" class="headerlink" title="（2）流密码"></a>（2）流密码</h3><h4 id="①-定义"><a href="#①-定义" class="headerlink" title="① 定义"></a>① 定义</h4><p>&emsp;&emsp;流密码是对称密码算法，从明文输入流逐位或逐字节产生密文输出。</p>
+<p>&emsp;&emsp;流密码类似于“一次一密”，不同的是“一次一密”使用的是真正的随机数流，而流密码使用的是伪随机数流。</p>
+<h4 id="②-实例"><a href="#②-实例" class="headerlink" title="② 实例"></a>② 实例</h4><p>&emsp;&emsp;使用最广泛的流密码是RC4</p>
+<h4 id="③-流密码结构"><a href="#③-流密码结构" class="headerlink" title="③ 流密码结构"></a>③ 流密码结构</h4><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638015605787-f3c732e3-7fb2-42bf-ad9a-46141b10a8b1.png" alt="img"></p>
+<h4 id="④-设计流密码的主要因素"><a href="#④-设计流密码的主要因素" class="headerlink" title="④ 设计流密码的主要因素"></a>④ 设计流密码的主要因素</h4><ol>
+<li><p>加密序列的周期要长，若出现重复的周期过短，容易被破解</p>
+</li>
+<li><p>密钥流应该尽可能地接近真正随机数流的特征</p>
+</li>
+<li><p>密钥长度要长，以避免穷举攻击</p>
+</li>
+</ol>
+<h2 id="2、RC4算法介绍"><a href="#2、RC4算法介绍" class="headerlink" title="2、RC4算法介绍"></a>2、RC4算法介绍</h2><p>&emsp;&emsp;RC4算法是Ron Rivest为RSA公司在1987年设计的一种流密码，作为RSA的商业机密直到1994年才被匿名公布于Internet。</p>
+<p>&emsp;&emsp;该算法是一个可变密钥长度、面向字节操作的流密码。该算法以<strong>随机置换</strong>作为<strong>基础</strong>，其密码周期很可能大于10100，且该算法的运行速度很快。</p>
+<p>&emsp;&emsp;RC4被用于为网络浏览器和服务器间通信而制定的SSL/TLS（安全套接字协议/传输层安全协议）标准中，以及作为IEEE 801.11无线局域网标准一部分的WEP(Wired Equivalent Privacy)协议和新的WiFi受保护访问协议（WPA）中<strong>。****从这些应用来看，RC4构成了当今网络通信的非常重要的部分，因此这个算法非常重要。</strong></p>
+<p>&emsp;&emsp;RC4算法的特点是算法简单，运行速度快，而且密钥长度是可变的，可变范围为1-256字节(8-2048比特)，在如今技术支持的前提下，当密钥长度为128比特时，用暴力法搜索密钥已经不太可行，所以可以预见RC4的密钥范围任然可以在今后相当长的时间里抵御暴力搜索密钥的攻击。实际上，如今也没有找到对于128bit密钥长度的RC4加密算法的有效攻击方法。  </p>
+<h2 id="3、RC4加密原理"><a href="#3、RC4加密原理" class="headerlink" title="3、RC4加密原理"></a>3、RC4加密原理</h2><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638015993488-6e14d89f-c789-4c1b-b5b2-5c431304f2d9.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638018567039-e5fed088-41f6-4467-8f34-52543c690500.png" alt="img"></p>
+<p>&emsp;&emsp;RC4算法的原理很简单，包括<strong>初始化算法（KSA）</strong>和**伪随机子密码生成算法（PRGA)**两大部分。</p>
+<h3 id="（1）初始化算法（KSA）"><a href="#（1）初始化算法（KSA）" class="headerlink" title="（1）初始化算法（KSA）"></a>（1）初始化算法（KSA）</h3><h4 id="①-初始化状态向量S（256字节，用来作为密钥流生成的种子1）"><a href="#①-初始化状态向量S（256字节，用来作为密钥流生成的种子1）" class="headerlink" title="① 初始化状态向量S（256字节，用来作为密钥流生成的种子1）"></a>① 初始化状态向量S（256字节，用来作为密钥流生成的种子1）</h4><p>&emsp;&emsp;按照升序，给每个字节赋值0,1,2,3,4,5,6……,254,255</p>
+<h4 id="②-初始密钥（由用户输入），长度任意"><a href="#②-初始密钥（由用户输入），长度任意" class="headerlink" title="② 初始密钥（由用户输入），长度任意"></a>② 初始密钥（由用户输入），长度任意</h4><p>&emsp;&emsp;建立一个临时向量T。将密钥的值循环复制到T向量如果输入长度小于256个字节，则进行轮转，直到填满</p>
+<ul>
+<li>例如输入密钥的是1,2,3,4,5，那么填入的是1,2,3,4,5,1,2,3,4,5,1,2,3,4,5……</li>
+</ul>
+<p>&emsp;&emsp;<strong>由上述轮转过程得到256个字节的向量T（用来作为密钥流生成的种子2）</strong></p>
+<h4 id="③-开始对状态向量S进行置换操作（用来打乱初始种子1）"><a href="#③-开始对状态向量S进行置换操作（用来打乱初始种子1）" class="headerlink" title="③ 开始对状态向量S进行置换操作（用来打乱初始种子1）"></a>③ 开始对状态向量S进行置换操作（用来打乱初始种子1）</h4><p>&emsp;&emsp;按照下列规则进行，从第零个字节开始，执行256次，保证每个字节都得到处理</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">j=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">256</span>;i++)&#123;</span><br><span class="line">    j = (j + S[i] + T[i]) mod <span class="number">256</span>;</span><br><span class="line">    swap(S[i],S[j]);</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;因为对S的操作仅是交换，S仍然包含所有值为0-255的元素。</p>
+<h3 id="（3）密钥流的生成与加密"><a href="#（3）密钥流的生成与加密" class="headerlink" title="（3）密钥流的生成与加密"></a>（3）密钥流的生成与加密</h3><p>&emsp;&emsp;假设我的明文字节数是datalength=1024个字节（当然可以是任意个字节）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">i=<span class="number">0</span>;</span><br><span class="line">j=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(datalength--)&#123; <span class="comment">// 相当于执行1024次，这样生成的密钥流也是1024个字节</span></span><br><span class="line">    i = (i+<span class="number">1</span>)mod256;</span><br><span class="line">    j = (j+S[i])mod256;</span><br><span class="line">    swap(S[i],S[j]);</span><br><span class="line">    t = (S[i]+S[j])mod256;</span><br><span class="line">    k = S[t]; 这里的k就是当前生成的一个密钥流中的一位</span><br><span class="line">    <span class="comment">// 可以直接在这里进行加密，当然也可以将密钥流保存在数组中，最后进行异或就ok</span></span><br><span class="line">    data[] = data[]^k;  <span class="comment">// 进行加密，^是异或运算符</span></span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;解密按照前面写的，异或两次就是原文，所以只要把密钥流重新拿过来异或一次就能得到原文了</p>
+<h1 id="三、完整算法实现"><a href="#三、完整算法实现" class="headerlink" title="三、完整算法实现"></a>三、完整算法实现</h1><h2 id="1、C"><a href="#1、C" class="headerlink" title="1、C"></a>1、C</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//程序开始</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> longULONG;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/*初始化函数*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rc4_init</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">char</span>*s, <span class="keyword">unsigned</span> <span class="keyword">char</span>*key, <span class="keyword">unsigned</span> <span class="keyword">long</span> Len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">char</span> k[<span class="number">256</span>] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> tmp = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i&lt;<span class="number">256</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        s[i] = i;</span><br><span class="line">        k[i] = key[i%Len];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i&lt;<span class="number">256</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        j = (j + s[i] + k[i]) % <span class="number">256</span>;</span><br><span class="line">        tmp = s[i];</span><br><span class="line">        s[i] = s[j];<span class="comment">//交换s[i]和s[j]</span></span><br><span class="line">        s[j] = tmp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/*加解密*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rc4_crypt</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">char</span>*s, <span class="keyword">unsigned</span> <span class="keyword">char</span>*Data, <span class="keyword">unsigned</span> <span class="keyword">long</span> Len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>, t = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> k = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> tmp;</span><br><span class="line">    <span class="keyword">for</span> (k = <span class="number">0</span>; k&lt;Len; k++)</span><br><span class="line">    &#123;</span><br><span class="line">        i = (i + <span class="number">1</span>) % <span class="number">256</span>;</span><br><span class="line">        j = (j + s[i]) % <span class="number">256</span>;</span><br><span class="line">        tmp = s[i];</span><br><span class="line">        s[i] = s[j];<span class="comment">//交换s[x]和s[y]</span></span><br><span class="line">        s[j] = tmp;</span><br><span class="line">        t = (s[i] + s[j]) % <span class="number">256</span>;</span><br><span class="line">        Data[k] ^= s[t];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> s[<span class="number">256</span>] = &#123; <span class="number">0</span> &#125;, s2[<span class="number">256</span>] = &#123; <span class="number">0</span> &#125;;<span class="comment">//S-box</span></span><br><span class="line">    <span class="keyword">char</span> key[<span class="number">256</span>] = &#123; <span class="string">&quot;justfortest&quot;</span> &#125;;</span><br><span class="line">    <span class="keyword">char</span> pData[<span class="number">512</span>] = <span class="string">&quot;这是一个用来加密的数据Data&quot;</span>;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> len = <span class="built_in">strlen</span>(pData);</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;pData=%s\n&quot;</span>, pData);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;key=%s,length=%d\n\n&quot;</span>, key, <span class="built_in">strlen</span>(key));</span><br><span class="line">    rc4_init(s, (<span class="keyword">unsigned</span> <span class="keyword">char</span>*)key, <span class="built_in">strlen</span>(key));<span class="comment">//已经完成了初始化</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;完成对S[i]的初始化，如下：\n\n&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i&lt;<span class="number">256</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%02X&quot;</span>, s[i]);</span><br><span class="line">        <span class="keyword">if</span> (i &amp;&amp; (i + <span class="number">1</span>) % <span class="number">16</span> == <span class="number">0</span>)<span class="built_in">putchar</span>(<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n\n&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i&lt;<span class="number">256</span>; i++)<span class="comment">//用s2[i]暂时保留经过初始化的s[i]，很重要的！！！</span></span><br><span class="line">    &#123;</span><br><span class="line">        s2[i] = s[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;已经初始化，现在加密:\n\n&quot;</span>);</span><br><span class="line">    rc4_crypt(s, (<span class="keyword">unsigned</span> <span class="keyword">char</span>*)pData, len);<span class="comment">//加密</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;pData=%s\n\n&quot;</span>, pData);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;已经加密，现在解密:\n\n&quot;</span>);</span><br><span class="line">    <span class="comment">//rc4_init(s,(unsignedchar*)key,strlen(key));//初始化密钥</span></span><br><span class="line">    rc4_crypt(s2, (<span class="keyword">unsigned</span> <span class="keyword">char</span>*)pData, len);<span class="comment">//解密</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;pData=%s\n\n&quot;</span>, pData);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//程序完</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2、Python"><a href="#2、Python" class="headerlink" title="2、Python"></a>2、Python</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"># rc4.<span class="function">py</span></span><br><span class="line"><span class="function"><span class="keyword">import</span> base64</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">def <span class="title">rc4_init_sbox</span><span class="params">(key)</span>:</span></span><br><span class="line"><span class="function">    s_box </span>= <span class="built_in">list</span>(range(<span class="number">256</span>))  # 没管秘钥小于<span class="number">256</span>的情况，小于<span class="number">256</span>不断重复填充即可</span><br><span class="line">    length = len(key)</span><br><span class="line">    <span class="meta"># print(<span class="meta-string">&quot;原来的 s 盒：%s&quot;</span> % s_box)</span></span><br><span class="line">    T = []</span><br><span class="line">    <span class="keyword">for</span> i in range(<span class="number">256</span>):</span><br><span class="line">        T.append(key[i % length])</span><br><span class="line">    j = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i in range(<span class="number">256</span>):</span><br><span class="line">        j = (j + s_box[i] + ord(T[i])) % <span class="number">256</span></span><br><span class="line">        s_box[i], s_box[j] = s_box[j], s_box[i]</span><br><span class="line">    print(<span class="string">&quot;混乱后的 s 盒：%s&quot;</span>% s_box)</span><br><span class="line">    <span class="keyword">return</span> s_box</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def rc4_encrypt(s_box, data):</span><br><span class="line">    res = []</span><br><span class="line">    i = j = <span class="number">0</span></span><br><span class="line">    length = len(data)</span><br><span class="line">    <span class="keyword">for</span> k in range(length):</span><br><span class="line">        i = (i + <span class="number">1</span>) % <span class="number">256</span></span><br><span class="line">        j = (j + s_box[i]) % <span class="number">256</span></span><br><span class="line">        s_box[i], s_box[j] = s_box[j], s_box[i]</span><br><span class="line">        t = (s_box[i] + s_box[j]) % <span class="number">256</span></span><br><span class="line">        s = s_box[t]</span><br><span class="line">        res.append(chr(ord(data[k]) ^ s))</span><br><span class="line">    result = <span class="string">&quot;&quot;</span>.join(res)</span><br><span class="line">    print(<span class="string">&quot;RC4加密后的字符串是:%s&quot;</span> % result)</span><br><span class="line">    print(<span class="string">&quot;RC4加密后(Base64编码)的字c符串是:&quot;</span> + str(base64.b64encode(result.encode(<span class="string">&#x27;utf-8&#x27;</span>)), <span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line">    <span class="keyword">return</span> str(base64.b64encode(result.encode(<span class="string">&#x27;utf-8&#x27;</span>)), <span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def rc4_decrypt(s_box, data):</span><br><span class="line">    data = base64.b64decode(data.encode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line">    data = bytes.decode(data)</span><br><span class="line">    res = []</span><br><span class="line">    i = j = <span class="number">0</span></span><br><span class="line">    length = len(data)</span><br><span class="line">    <span class="keyword">for</span> k in range(length):</span><br><span class="line">        i = (i + <span class="number">1</span>) % <span class="number">256</span></span><br><span class="line">        j = (j + s_box[i]) % <span class="number">256</span></span><br><span class="line">        s_box[i], s_box[j] = s_box[j], s_box[i]</span><br><span class="line">        t = (s_box[i] + s_box[j]) % <span class="number">256</span></span><br><span class="line">        s = s_box[t]</span><br><span class="line">        res.append(chr(ord(data[k]) ^ s))</span><br><span class="line">    result = <span class="string">&quot;&quot;</span>.join(res)</span><br><span class="line">    print(<span class="string">&quot;RC4解密后的字符串是:%s&quot;</span> % result)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"><span class="meta"># main.py</span></span><br><span class="line">from rc4 <span class="keyword">import</span> rc4_init_sbox, rc4_encrypt, rc4_decrypt</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="keyword">while</span> True:</span><br><span class="line">        function = input(<span class="string">&quot;E to encrypt or D to decrypt for rc4:&quot;</span>)</span><br><span class="line">        <span class="keyword">if</span> function.upper() == <span class="string">&#x27;E&#x27;</span>:</span><br><span class="line">            data = input(<span class="string">&quot;请输入你要进行RC4加密的数据：&quot;</span>)</span><br><span class="line">            key = input(<span class="string">&quot;请输入RC4加密密钥：&quot;</span>)</span><br><span class="line">            s_box = rc4_init_sbox(key)</span><br><span class="line">            rc4_encrypt(s_box, data)</span><br><span class="line">        elif function.upper() == <span class="string">&#x27;D&#x27;</span>:</span><br><span class="line">            data = input(<span class="string">&quot;请输入你要进行RC4解密的数据：&quot;</span>)</span><br><span class="line">            key = input(<span class="string">&quot;请输入RC4解密密钥：&quot;</span>)</span><br><span class="line">            s_box = rc4_init_sbox(key)</span><br><span class="line">            rc4_decrypt(s_box, data)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(<span class="string">&quot;请输入正确的功能&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>参考链接：</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/gambler/p/9075415.html">https://www.cnblogs.com/gambler/p/9075415.html</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/block2016/p/5601925.html">https://www.cnblogs.com/block2016/p/5601925.html</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/d9ad5fc524ec">https://www.jianshu.com/p/d9ad5fc524ec</a></p>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">w01ke</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://w01ke.github.io/post/9dd1bdb.html">https://w01ke.github.io/post/9dd1bdb.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://w01ke.github.io" target="_blank">wolke</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/">密码学</a></div><div class="post_share"><div class="social-share" data-image="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638015993488-6e14d89f-c789-4c1b-b5b2-5c431304f2d9.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/5ab8ed9d.html"><img class="prev-cover" src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636813473499-546b1119-f7ab-4dbf-b424-ec28c2ec1ec3.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Python实现消息轰炸机</div></div></a></div><div class="next-post pull-right"><a href="/post/58fcce74.html"><img class="next-cover" src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211210214617440.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Vulhub-DC-1-Drupal</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/54ca3f77.html" title="栅栏密码"><img class="cover" src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/20131030213936-277228d9_m.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-06</div><div class="title">栅栏密码</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95"><span class="toc-text">一、对称加密算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81RC4%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95"><span class="toc-text">二、RC4加密算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86"><span class="toc-text">1、预备知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E5%BC%82%E6%88%96"><span class="toc-text">（1）异或</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E6%B5%81%E5%AF%86%E7%A0%81"><span class="toc-text">（2）流密码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A0-%E5%AE%9A%E4%B9%89"><span class="toc-text">① 定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A1-%E5%AE%9E%E4%BE%8B"><span class="toc-text">② 实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A2-%E6%B5%81%E5%AF%86%E7%A0%81%E7%BB%93%E6%9E%84"><span class="toc-text">③ 流密码结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A3-%E8%AE%BE%E8%AE%A1%E6%B5%81%E5%AF%86%E7%A0%81%E7%9A%84%E4%B8%BB%E8%A6%81%E5%9B%A0%E7%B4%A0"><span class="toc-text">④ 设计流密码的主要因素</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81RC4%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D"><span class="toc-text">2、RC4算法介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81RC4%E5%8A%A0%E5%AF%86%E5%8E%9F%E7%90%86"><span class="toc-text">3、RC4加密原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E5%88%9D%E5%A7%8B%E5%8C%96%E7%AE%97%E6%B3%95%EF%BC%88KSA%EF%BC%89"><span class="toc-text">（1）初始化算法（KSA）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A0-%E5%88%9D%E5%A7%8B%E5%8C%96%E7%8A%B6%E6%80%81%E5%90%91%E9%87%8FS%EF%BC%88256%E5%AD%97%E8%8A%82%EF%BC%8C%E7%94%A8%E6%9D%A5%E4%BD%9C%E4%B8%BA%E5%AF%86%E9%92%A5%E6%B5%81%E7%94%9F%E6%88%90%E7%9A%84%E7%A7%8D%E5%AD%901%EF%BC%89"><span class="toc-text">① 初始化状态向量S（256字节，用来作为密钥流生成的种子1）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A1-%E5%88%9D%E5%A7%8B%E5%AF%86%E9%92%A5%EF%BC%88%E7%94%B1%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5%EF%BC%89%EF%BC%8C%E9%95%BF%E5%BA%A6%E4%BB%BB%E6%84%8F"><span class="toc-text">② 初始密钥（由用户输入），长度任意</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A2-%E5%BC%80%E5%A7%8B%E5%AF%B9%E7%8A%B6%E6%80%81%E5%90%91%E9%87%8FS%E8%BF%9B%E8%A1%8C%E7%BD%AE%E6%8D%A2%E6%93%8D%E4%BD%9C%EF%BC%88%E7%94%A8%E6%9D%A5%E6%89%93%E4%B9%B1%E5%88%9D%E5%A7%8B%E7%A7%8D%E5%AD%901%EF%BC%89"><span class="toc-text">③ 开始对状态向量S进行置换操作（用来打乱初始种子1）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E5%AF%86%E9%92%A5%E6%B5%81%E7%9A%84%E7%94%9F%E6%88%90%E4%B8%8E%E5%8A%A0%E5%AF%86"><span class="toc-text">（3）密钥流的生成与加密</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%AE%8C%E6%95%B4%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0"><span class="toc-text">三、完整算法实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81C"><span class="toc-text">1、C</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81Python"><span class="toc-text">2、Python</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 By w01ke</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1280658241'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1280658241%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'MynqQPDIzA7sk9p7dF7E8vPi-gzGzoHsz',
+      appKey: 'nQR603PJj8t2qUQiGTSeqXrB',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: {
+          "Heybox2": "Heybox/expression_cube_bingbujiandan.png",
+          "Heybox6": "Heybox/expression_cube_doge.png",
+          "Heybox7": "Heybox/expression_cube_gandong.png",
+          "Heybox8": "Heybox/expression_cube_guai.png",
+          "Heybox9": "Heybox/expression_cube_gugu.png",
+          "Heybox10": "Heybox/expression_cube_han.png",
+          "Heybox13": "Heybox/expression_cube_huaji.png",
+          "Heybox19": "Heybox/expression_cube_kuqi.png",
+          "Heybox20": "Heybox/expression_cube_nu.png",
+          "Heybox21": "Heybox/expression_cube_penshui.png",
+          "Heybox22": "Heybox/expression_cube_qiliang.png",
+          "Heybox23": "Heybox/expression_cube_shengqi.png",
+          "Heybox28": "Heybox/expression_cube_wa.png",
+          "Heybox29": "Heybox/expression_cube_weiqu.png",
+          "Heybox38": "Heybox/expression_heyboxgirl.png",
+          "Heybox41": "Heybox/expression_heygirl_aidao.png",
+          "Heybox42": "Heybox/expression_heygirl_baipiaoguai.png",
+          "Heybox43": "Heybox/expression_heygirl_chi.png",
+          "Heybox44": "Heybox/expression_heygirl_chigua.png",
+          "Heybox46": "Heybox/expression_heygirl_haha.png",
+          "Heybox46": "Heybox/expression_heygirl_haha.png",
+          "Heybox47": "Heybox/expression_heygirl_haixiu.png",
+          "Heybox48": "Heybox/expression_heygirl_henaicha.png",
+          "Heybox49": "Heybox/expression_heygirl_huaji.png",
+          "Heybox50": "Heybox/expression_heygirl_jing.png",
+          "Heybox51": "Heybox/expression_heygirl_jixialai.png",
+          "Heybox52": "Heybox/expression_heygirl_kaikele.png",
+          "Heybox53": "Heybox/expression_heygirl_ku.png",
+          "Heybox54": "Heybox/expression_heygirl_kujiuruhou.png",
+          "Heybox55": "Heybox/expression_heygirl_nielian.png",
+          "Heybox56": "Heybox/expression_heygirl_qiaokaixin.png",
+          "Heybox58": "Heybox/expression_heygirl_rua.png",
+          "Heybox59": "Heybox/expression_heygirl_toukan.png",
+          "Heybox60": "Heybox/expression_heygirl_tu.png",
+          "Heybox61": "Heybox/expression_heygirl_wuyu.png",
+          "Heybox62": "Heybox/expression_heygirl_xihuan.png",
+          "Heybox63": "Heybox/expression_heygirl_yiwen.png",
+          "Heybox64": "Heybox/expression_heygirl_zhe.png",
+          "Heybox65": "Heybox/expression_heziji_1.png",
+          "Heybox66": "Heybox/expression_heziji_10.png",
+          "Heybox67": "Heybox/expression_heziji_11.png",
+          "Heybox68": "Heybox/expression_heziji_12.png",
+          "Heybox70": "Heybox/expression_heziji_14.png",
+          "Heybox71": "Heybox/expression_heziji_15.png",
+          "Heybox77": "Heybox/expression_heziji_20.png",
+          "Heybox78": "Heybox/expression_heziji_21.png",
+          "Heybox79": "Heybox/expression_heziji_22.png",
+          "Heybox80": "Heybox/expression_heziji_23.png",
+          "Heybox87": "Heybox/expression_heziji_3.png",
+          "Heybox88": "Heybox/expression_heziji_30.png",
+          "Heybox89": "Heybox/expression_heziji_31.png",
+          "HONKAI3-Daily1": "HONKAI3-Daily/1.gif",
+          "HONKAI3-Daily2": "HONKAI3-Daily/10.gif",
+          "HONKAI3-Daily3": "HONKAI3-Daily/11.gif",
+          "HONKAI3-Daily4": "HONKAI3-Daily/12.gif",
+          "HONKAI3-Daily5": "HONKAI3-Daily/13.gif",
+          "HONKAI3-Daily6": "HONKAI3-Daily/14.gif",
+          "HONKAI3-Daily7": "HONKAI3-Daily/15.gif",
+          "HONKAI3-Daily8": "HONKAI3-Daily/16.gif",
+          "HONKAI3-Daily9": "HONKAI3-Daily/2.gif",
+          "HONKAI3-Daily10": "HONKAI3-Daily/3.gif",
+          "HONKAI3-Daily11": "HONKAI3-Daily/4.gif",
+          "HONKAI3-Daily12": "HONKAI3-Daily/5.gif",
+          "HONKAI3-Daily13": "HONKAI3-Daily/6.gif",
+          "HONKAI3-Daily14": "HONKAI3-Daily/7.gif",
+          "HONKAI3-Daily15": "HONKAI3-Daily/8.gif",
+          "HONKAI3-Daily16": "HONKAI3-Daily/9.gif",
+          "HONKAI3-Star1": "HONKAI3-Star/1.gif",
+          "HONKAI3-Star2": "HONKAI3-Star/10.gif",
+          "HONKAI3-Star3": "HONKAI3-Star/11.gif",
+          "HONKAI3-Star4": "HONKAI3-Star/12.gif",
+          "HONKAI3-Star5": "HONKAI3-Star/13.gif",
+          "HONKAI3-Star6": "HONKAI3-Star/14.gif",
+          "HONKAI3-Star7": "HONKAI3-Star/15.gif",
+          "HONKAI3-Star8": "HONKAI3-Star/16.gif",
+          "HONKAI3-Star9": "HONKAI3-Star/2.gif",
+          "HONKAI3-Star10": "HONKAI3-Star/3.gif",
+          "HONKAI3-Star11": "HONKAI3-Star/4.gif",
+          "HONKAI3-Star12": "HONKAI3-Star/5.gif",
+          "HONKAI3-Star13": "HONKAI3-Star/6.gif",
+          "HONKAI3-Star14": "HONKAI3-Star/7.gif",
+          "HONKAI3-Star15": "HONKAI3-Star/8.gif",
+          "HONKAI3-Star16": "HONKAI3-Star/9.gif"
+      },
+      path: window.location.pathname,
+      placeholder: '',
+      pageSize: '',
+      lang: 'zh-CN',
+      recordIP: true,
+      emojiCDN: 'https://valinecdn.bili33.top/',
+      enableQQ: true,
+      tagMeta: ["UP","Buddy","Visitor"],
+      master: '1e45134c2d9e333e8889556513f09903',
+      friends: ['5029a42d22ca4d65e16cf3fdd9654ffe'],
+      requiredFields: ['nick','mail'],
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.17.0/js/md5.min.js"></script><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getIcon = (icon, mail) => {
+    if (icon) return icon
+    let defaultIcon = '?d=monsterid'
+    let iconUrl = `https://gravatar.loli.net/avatar/${md5(mail.toLowerCase()) + defaultIcon}`
+    return iconUrl
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const getComment = () => {
+    const serverURL = 'https://MynqQPDI.api.lncldglobal.com'
+
+    var settings = {
+      "method": "GET",
+      "headers": {
+        "X-LC-Id": 'MynqQPDIzA7sk9p7dF7E8vPi-gzGzoHsz',
+        "X-LC-Key": 'nQR603PJj8t2qUQiGTSeqXrB',
+        "Content-Type": "application/json"
+      },
+    }
+
+    fetch(`${serverURL}/1.1/classes/Comment?limit=6&order=-createdAt`,settings)
+      .then(response => response.json())
+      .then(data => {
+        const valineArray = data.results.map(function (e) {
+          return {
+            'avatar': getIcon(e.QQAvatar, e.mail),
+            'content': changeContent(e.comment),
+            'nick': e.nick,
+            'url': e.url + '#' + e.objectId,
+            'date': e.updatedAt,
+          }
+        })
+        saveToLocal.set('valine-newest-comments', JSON.stringify(valineArray), 10/(60*24))
+        generateHtml(valineArray)
+      }).catch(e => {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      }) 
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('valine-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><div class="aplayer no-destroy" data-id="000PeZCQ1i4XVs" data-server="tencent" data-type="artist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="true" muted></div><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐" data-fontsize="15px" data-random="false" async="async"></script><script>(function(d, w, c) {
+    w.ChatraID = 'EqStaz8vFN6KYhHzY';
+    var s = d.createElement('script');
+    w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+    };
+    s.async = true;
+    s.src = 'https://call.chatra.io/chatra.js';
+    if (d.head) d.head.appendChild(s);
+})(document, window, 'Chatra');
+
+if (true) {
+  var chatBtnFn = () => {
+    var chatBtn = document.getElementById("chat_btn")
+    chatBtn.addEventListener("click", function(){
+      Chatra('openChat')
+    });
+  }
+  chatBtnFn()
+} else {
+  if (false) {
+    function chatBtnHide () {
+      Chatra('hide')
+    }
+    function chatBtnShow () {
+      Chatra('show')
+    }
+  }
+}</script><div class="aplayer" data-id="7107883333" data-server="netease" data-type="playlist" data-fixed="true" data-listFolded="false" data-order="random" data-preload="none"></div><link rel="stylesheet" href="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.css"><script src="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/meting@1.2.0/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-Q0YHC68NHX', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
