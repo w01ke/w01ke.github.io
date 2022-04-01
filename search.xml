@@ -4,6 +4,85 @@
   
     
     <entry>
+      <title>勒索病毒自救指南</title>
+      <link href="/post/471da697.html"/>
+      <url>/post/471da697.html</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>经常会有一些小伙伴问：中了勒索病毒，该怎么办，可以解密吗？</p><p>第一次遇到勒索病毒是在早几年的时候，客户因网站访问异常，进而远程协助进行排查。登录服务器，在站点目录下发现所有的脚本文件及附件后缀名被篡改，每个文件夹下都有一个文件打开后显示勒索提示信息，这便是勒索病毒的特征。</p><p>出于职业习惯，我打包了部分加密文件样本和勒索病毒提示信息用于留档，就在今天，我又重新上传了样本，至今依然无法解密。</p><p>作为一个安全工程师，而非一个专业的病毒分析师，我们可以借助各大安全公司的能力，寻找勒索病毒的解密工具。</p><p>本文整理了一份勒索病毒自救指南，通过勒索病毒索引引擎查找勒索病毒相关信息，再通过各个安全公司提供的免费勒索软件解密工具解密。当然，能否解密全凭运气，so，平时还是勤打补丁多备份。</p><h1 id="二、勒索病毒搜索引擎"><a href="#二、勒索病毒搜索引擎" class="headerlink" title="二、勒索病毒搜索引擎"></a>二、勒索病毒搜索引擎</h1><p>在勒索病毒搜索引擎输入病毒名、勒索邮箱、被加密后文件的后缀名，或直接上传被加密文件、勒索提示信息，即可可快速查找    到病毒详情和解密工具。</p><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1648821297213-c17efdc7-0563-4f84-89ab-8866be72af56.png" alt="img"></p><p>这些网站的解密能力还在持续更新中，是值得收藏的几个勒索病毒工具型网站。</p><hr><p>【360】 勒索病毒搜索引擎，支持检索超过800种常见勒索病毒</p><p>官网：<a href="http://lesuobingdu.360.cn/">http://lesuobingdu.360.cn</a></p><p>【腾讯】 勒索病毒搜索引擎，支持检索超过 300 种常见勒索病毒</p><p>官网：<a href="https://guanjia.qq.com/pr/ls">https://guanjia.qq.com/pr/ls</a></p><p>【启明】VenusEye勒索病毒搜索引擎，超300种勒索病毒家族</p><p>官网：<a href="https://lesuo.venuseye.com.cn/">https://lesuo.venuseye.com.cn</a></p><p>【奇安信】勒索病毒搜索引擎</p><p>官网：<a href="https://lesuobingdu.qianxin.com/">https://lesuobingdu.qianxin.com</a></p><p>【深信服】勒索病毒搜索引擎</p><p>官网：<a href="https://edr.sangfor.com.cn/#/information/ransom_search">https://edr.sangfor.com.cn/#/information/ransom_search</a></p><hr><h1 id="三、勒索软件解密工具集"><a href="#三、勒索软件解密工具集" class="headerlink" title="三、勒索软件解密工具集"></a>三、勒索软件解密工具集</h1><p>很多安全公司都提供了免费的勒索病毒解密工具下载，收集和整理相关下载地址，可以帮助我们了解和获取最新的勒索病毒解密工具。</p><hr><p>【腾讯哈勃】勒索软件专杀工具</p><p>官网：<a href="https://habo.qq.com/tool">https://habo.qq.com/tool</a></p><p>【金山毒霸】勒索病毒免疫工具</p><p>官网：<a href="http://www.duba.net/dbt/wannacry.html">http://www.duba.net/dbt/wannacry.html</a></p><p>【火绒】安全工具下载</p><p>官网：<a href="http://bbs.huorong.cn/forum-55-1.html">http://bbs.huorong.cn/forum-55-1.html</a></p><p>【瑞星】解密工具下载</p><p>官网：<a href="http://it.rising.com.cn/fanglesuo/index.html">http://it.rising.com.cn/fanglesuo/index.html</a></p><p>【nomoreransom】勒索软件解密工具集</p><p>官网：<a href="https://www.nomoreransom.org/zh/index.html">https://www.nomoreransom.org/zh/index.html</a></p><p>【MalwareHunterTeam】勒索软件解密工具集</p><p>官网：<a href="https://id-ransomware.malwarehunterteam.com/">https://id-ransomware.malwarehunterteam.com</a></p><p>【卡巴斯基】免费勒索解密器</p><p>官网：<a href="https://noransom.kaspersky.com/">https://noransom.kaspersky.com</a></p><p>【Avast】免费勒索软件解密工具</p><p>官网：<a href="https://www.avast.com/zh-cn/ransomware-decryption-tools">https://www.avast.com/zh-cn/ransomware-decryption-tools</a></p><p>【Emsisoft】免费勒索软件解密工具</p><p>官网：<a href="https://www.emsisoft.com/ransomware-decryption-tools/free-download">https://www.emsisoft.com/ransomware-decryption-tools/free-download</a></p><p>【GitHub 项目】勒索病毒解密工具收集汇总</p><p>官网：<a href="https://github.com/jiansiting/Decryption-Tools">https://github.com/jiansiting/Decryption-Tools</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 应急响应 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 应急响应 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>如何发现隐藏的WebShell后门</title>
+      <link href="/post/5542d8c4.html"/>
+      <url>/post/5542d8c4.html</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>如何在百万行代码里发现隐藏的后门？</p><p>试想一下，如果你的网站被入侵，攻击者留下隐藏的后门，你真的都可以找出来吗？面对一个大中型的应用系统，数以百万级的代码行，是不可能做到每个文件每段代码进行手工检查的。</p><p>即使是一款拥有 99.9% 的 Webshell 检出率的检测引擎，依然可能存在 Webshell 绕过的情况。另外，像暗链、网页劫持、页面跳转等常见的黑帽 SEO 手法，也很难通过手动检测或工具检测全部识别出来。</p><p>最好的方式就是做文件完整性验证。通过与原始代码对比，可以快速发现文件是否被篡改以及被篡改的位置。当然，第一个前提是，你所在的团队已具备代码版本管理的能力，如果你是个人站长，相信你已经备份了原始代码。</p><p>本文将结合实际应用，介绍几种文件完整性验证方式，可以帮助你找出代码中所有隐藏的后门。</p><h1 id="二、方法"><a href="#二、方法" class="headerlink" title="二、方法"></a>二、方法</h1><h3 id="1、文件-MD5-校验"><a href="#1、文件-MD5-校验" class="headerlink" title="1、文件 MD5 校验"></a>1、文件 MD5 校验</h3><p>下载D盾_Web查杀工具的时候，我们可以留意到下载的压缩包里，除了有一个 exe 可执行文件，还有一个文件 md5 值。这个是软件作者在发布软件时，通过 md5 算法计算出该 exe 文件的”特征值”。</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">下载地址：http://www.d99net.net/down/WebShellKill_V2.0.9.zip</span><br><span class="line">文件 MD5：29285decadbce3918a4f8429ec33df46   WebShellKill.exe</span><br></pre></td></tr></table></figure><p>当用户下载软件时，可以使用相同的校验算法计算下载到 exe 文件的特征值，并与软件开发者发布的特征值比较。如果两个特征值相同，则认为下载到的 exe 文件是正确的。如果两个特征值不同，则认为下载到 exe 文件是被篡改过的。</p><p>那同理可得，我们可以将所有网站文件计算一次 hash 值保存，当出现应急情况时，重新计算一次 hash 值，并与上次保存的 hash 值进行对比，从而输出新创建的、修改过及删除的文件列表。</p><p>文件 hash 值计算：</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">md5sum</span>(<span class="params">file</span>):</span></span><br><span class="line">    m = hashlib.md5()  <span class="comment"># 获取一个md5加密算法对象</span></span><br><span class="line">    <span class="keyword">if</span> os.path.isfile(file):</span><br><span class="line">        f = <span class="built_in">open</span>(file,<span class="string">&#x27;rb&#x27;</span>) <span class="comment"># 因为hashlib是对二进制进行加密的，如果直接对字符串加密的话，会报错的。因此需要通过encode将字符串转码成二进制格式或者直接用二进制打开</span></span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">            m.update(line) <span class="comment"># 制定需要加密的字符串，这里就是把每一行都加密</span></span><br><span class="line">        f.close</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        m.update(file)</span><br><span class="line">    <span class="keyword">return</span> (m.hexdigest()) <span class="comment"># 返回加密后的16进制字符串</span></span><br></pre></td></tr></table></figure><p>对文件进行哈希值重新计算，进行校验对比，测试效果：</p><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1648819752595-0f6e7645-3f7b-4d8e-ae08-be94d06f6f9f.png" alt="img"></p><p>如上图，在上传目录新增了一个 evil.php 文件，还有一个被篡改的文件是 low.php 。使用常见的编辑器 Notepad++ 进行对比，可以发现 low.php 文件里被插入了一句话 WebShell。</p><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1648819785818-ba07b205-7c04-45a2-89d1-a58c23adf0ae.png" alt="img"></p><h3 id="2、diff-命令"><a href="#2、diff-命令" class="headerlink" title="2、diff 命令"></a>2、diff 命令</h3><p>在 Linux 中，我们经常使用 diff 命令来比较两个文本文件的差异。同样，我们可以通过一行命令快速找出两个项目文件的差异。</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">diff -c -a -r cms1 cms2</span><br></pre></td></tr></table></figure><p>如下图所示，前三行列出了两个要对比的文件目录的差异，可以发现 low.php 文件被篡改过，篡改的内容是 <code>@eval($_POST[&#39;g&#39;]);</code></p><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1648820690681-bd3ab122-0e50-43b5-a070-8ae2536ec96d.png" alt="img"></p><p>备注：如果只是想查看两个文件是否不同又不想显示差异之处的话，可以加上 -q 选项。</p><h3 id="3、版本控制工具"><a href="#3、版本控制工具" class="headerlink" title="3、版本控制工具"></a>3、版本控制工具</h3><p>版本控制工具，比如说 git，重新上传代码到 git，add+commit+push，然后打开项目，点击 commits，在历史提交版本里面，查看文件更改内容，很容易就可以发现代码被篡改的地方了。</p><p>另外，也可以通过 git diff 用来比较文件之间的不同。</p><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1648820837114-2ec94926-e56c-4fd0-b690-6e7a1a64d695.png" alt="img"></p><h3 id="4、文件对比工具"><a href="#4、文件对比工具" class="headerlink" title="4、文件对比工具"></a>4、文件对比工具</h3><p>关键词：代码对比工具，你会找到很多好用的工具，这里我们推荐两款效果还不错的工具，Beyond Compare 和 WinMerge。</p><h4 id="（1）Beyond-Compare"><a href="#（1）Beyond-Compare" class="headerlink" title="（1）Beyond Compare"></a>（1）Beyond Compare</h4><p>Beyond Compare 是一套由 Scooter Software 推出的文件比较工具。主要用途是对比两个文件夹或者文件，并将差异以颜色标示，比较范围包括目录，文档内容等。</p><p>下载地址：<a href="http://www.scootersoftware.com/download.php">http://www.scootersoftware.com/download.php</a></p><p>软件使用示例，通过文件夹比较，找出文件夹中的差异内容。</p><ol><li>双击 Beyond Compare ，打开软件主页，选择文件夹比较。</li></ol><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1648820880936-1d912749-61b2-49dc-b691-43da49cb3e13.png" alt="img"></p><ol start="2"><li>在双边栏输入文件夹路径，点击显示差别，列出差异部分的内容，紫色部分为新增文件，红色部分为篡改文件。</li></ol><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1648820893563-1e6c0e87-5215-4718-ac8f-ff284ad57e00.png" alt="img"></p><ol start="3"><li>双击具体文件，进入代码对比，找到代码差异部分。</li></ol><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1648820902027-b9389a96-4d72-41c9-9ae1-1165c17a83e8.png" alt="img"></p><h4 id="（2）WinMerge"><a href="#（2）WinMerge" class="headerlink" title="（2）WinMerge"></a>（2）WinMerge</h4><p>WinMerge 是一款运行于 Windows 系统下的文件比较和合并工具，使用它可以非常方便地比较文件夹和文件，以易于理解的可视文本格式显示差异。</p><p>下载地址：<a href="https://winmerge.org/downloads/">https://winmerge.org/downloads/</a></p><ol><li>文件 – 打开，选择文件或文件夹，然后点击进行比较。</li></ol><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1648820918229-c6c898fb-4e99-49cb-b004-208f0207c3ec.png" alt="img"></p><ol start="2"><li>在同一个界面里，通过颜色和文本提示，显示文件夹内容差异。</li></ol><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1648820930011-a435b275-f6ed-4c98-beba-ba252822242d.png" alt="img"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 应急响应 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Web安全 </tag>
+            
+            <tag> 应急响应 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>常见的WebShell查杀工具</title>
+      <link href="/post/2812b919.html"/>
+      <url>/post/2812b919.html</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>当网站服务器被入侵时，我们需要一款Webshell检测工具，来帮助我们发现webshell，进一步排查系统可能存在的安全漏洞。</p><p>本文推荐了10款 WebShell 检测工具，用于网站入侵排查。当然，目前市场上的很多主机安全产品也都提供这种 WebShell 检测能力，比如阿里云、青藤云、safedog 等，本文暂不讨论。</p><h1 id="二、常见Webshell查杀工具"><a href="#二、常见Webshell查杀工具" class="headerlink" title="二、常见Webshell查杀工具"></a>二、常见Webshell查杀工具</h1><h3 id="1、D盾-Web查杀"><a href="#1、D盾-Web查杀" class="headerlink" title="1、D盾_Web查杀"></a>1、D盾_Web查杀</h3><p>阿D出品，使用自行研发不分扩展名的代码分析引擎，能分析更为隐藏的 WebShell 后门行为。</p><p>兼容性：只提供 Windows 版本。</p><p>工具下载地址：<a href="http://www.d99net.net/">http://www.d99net.net</a></p><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1648818997722-3e3e0b77-076d-447a-9d34-287d922f6488.png" alt="img"></p><h3 id="2、百度-WEBDIR"><a href="#2、百度-WEBDIR" class="headerlink" title="2、百度 WEBDIR+"></a>2、百度 WEBDIR+</h3><p>下一代 WebShell 检测引擎，采用先进的动态监测技术，结合多种引擎零规则查杀。</p><p>兼容性：提供在线查杀木马，免费开放 API 支持批量检测。</p><p>在线查杀地址：<a href="https://scanner.baidu.com/">https://scanner.baidu.com</a></p><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1648819014835-cbd44e10-0177-4459-bffc-dbb93c6ad60c.png" alt="img"></p><h3 id="3、河马"><a href="#3、河马" class="headerlink" title="3、河马"></a>3、河马</h3><p>专注 WebShell 查杀研究，拥有海量 WebShell 样本和自主查杀技术，采用传统特征+云端大数据双引擎的查杀技术。查杀速度快、精度高、误报低。</p><p>兼容性：支持 Windows、Linux，支持在线查杀。</p><p>官方网站：<a href="https://www.shellpub.com/">https://www.shellpub.com</a></p><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1648819021138-010f71e1-30dc-43e3-a172-44b771d4e2fc.png" alt="img"></p><h3 id="4、Web-Shell-Detector"><a href="#4、Web-Shell-Detector" class="headerlink" title="4、Web Shell Detector"></a>4、Web Shell Detector</h3><p>Web Shell Detector 具有 WebShell 签名数据库，可帮助识别高达 99％ 的 WebShell。</p><p>兼容性：提供 PHP、Python 脚本，可跨平台，在线检测。</p><p>官方网站：<a href="http://www.shelldetector.com/">http://www.shelldetector.com</a></p><p>github项目地址：<a href="https://github.com/emposha/PHP-Shell-Detector">https://github.com/emposha/PHP-Shell-Detector</a></p><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1648819042486-2285fb9d-3d5e-4d0e-b6d6-20732c4f0a6e.png" alt="img"></p><h3 id="5、CloudWalker（牧云）"><a href="#5、CloudWalker（牧云）" class="headerlink" title="5、CloudWalker（牧云）"></a>5、CloudWalker（牧云）</h3><p>一个可执行的命令行版本 Webshell 检测工具。目前，项目已停止更新。</p><p>兼容性：提供 Linux版本，Windows 暂不支持。</p><p>在线查杀 demo：<a href="https://webshellchop.chaitin.cn/">https://webshellchop.chaitin.cn</a></p><p>GitHub 项目地址：<a href="https://github.com/chaitin/cloudwalker">https://github.com/chaitin/cloudwalker</a></p><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1648819059685-fb692bd8-b737-4be4-a5b9-09a70cb3376f.png" alt="img"></p><h3 id="6、Sangfor-WebShellKill"><a href="#6、Sangfor-WebShellKill" class="headerlink" title="6、Sangfor WebShellKill"></a>6、Sangfor WebShellKill</h3><p>Sangfor WebShellKill (网站后门检测工具)是一款 Web 后门专杀工具，不仅支持 WebShell 的扫描，同时还支持暗链的扫描。是一款融合了多重检测引擎的查杀工具。能更精准地检测出WEB网站已知和未知的后门文件。</p><p>兼容性：支持 Windows、linux</p><p>工具下载地址：<a href="http://edr.sangfor.com.cn/backdoor_detection.html%EF%BC%88%E5%B7%B2%E5%81%9C%E6%AD%A2%E8%AE%BF%E9%97%AE%EF%BC%89">http://edr.sangfor.com.cn/backdoor_detection.html（已停止访问）</a></p><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1648819061046-cf760a8f-ec9c-43cd-824b-e0d57c01c69a.png" alt="img"></p><h3 id="7、深度学习模型检测-PHP-Webshell"><a href="#7、深度学习模型检测-PHP-Webshell" class="headerlink" title="7、深度学习模型检测 PHP Webshell"></a>7、深度学习模型检测 PHP Webshell</h3><p>一个深度学习 PHP WebShell 查杀引擎 demo，提供在线样本检测。</p><p>在线查杀地址：<a href="http://webshell.cdxy.me/">http://webshell.cdxy.me</a></p><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1648819079306-b5b8c0eb-9a76-46af-a12a-504a2ff4b368.png" alt="img"></p><h3 id="8、PHP-Malware-Finder"><a href="#8、PHP-Malware-Finder" class="headerlink" title="8、PHP Malware Finder"></a>8、PHP Malware Finder</h3><p>PHP-malware-finder 是一款优秀的检测webshell和恶意软件混淆代码的工具</p><p>兼容性：提供Linux 版本，Windows 暂不支持。</p><p>GitHub 项目地址：<a href="https://github.com/jvoisin/php-malware-finder">https://github.com/jvoisin/php-malware-finder</a></p><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1648819079937-c06340a8-a232-4a4f-ada0-0fe36011753e.png" alt="img"></p><h3 id="9、findWebshell"><a href="#9、findWebshell" class="headerlink" title="9、findWebshell"></a>9、findWebshell</h3><p>这个项目是一款基于 Python 开发的 WebShell 检查工具，可以根据特征码匹配检查任意类型的 WebShell 后门。</p><p>GitHub 项目地址：<a href="https://github.com/he1m4n6a/findWebshell">https://github.com/he1m4n6a/findWebshell</a></p><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1648819086432-4916cf5a-e426-4661-9181-83149df53ddd.png" alt="img"></p><h3 id="10、在线-WebShell-查杀工具"><a href="#10、在线-WebShell-查杀工具" class="headerlink" title="10、在线 WebShell 查杀工具"></a>10、在线 WebShell 查杀工具</h3><p>在线查杀地址：<a href="http://tools.bugscaner.com/killwebshell">http://tools.bugscaner.com/killwebshell</a></p><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1648819092499-f4375ac0-fec4-414a-b191-a0d4146654d9.png" alt="img"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 应急响应 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Web安全 </tag>
+            
+            <tag> 应急响应 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Linux入侵排查</title>
       <link href="/post/af6fba30.html"/>
       <url>/post/af6fba30.html</url>
